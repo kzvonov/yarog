@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Dashboard — Мюрквид</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= turbo_include_tags %>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap');
+
+    :root {
+      --bg-dark: #0a0a0a;
+      --bg-card: #111111;
+      --text-primary: #c9c9c9;
+      --text-secondary: #888888;
+      --text-heading: #e0e0e0;
+      --accent-blood: #8b0000;
+      --accent-blood-light: #a52a2a;
+      --accent-green: #2d5a2d;
+      --accent-gold: #8b7500;
+      --border-dark: #2a2a2a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: 0.2em;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 1rem;
+      color: var(--accent-blood-light);
+      letter-spacing: 0.3em;
+      margin-bottom: 30px;
+    }
+
+    .add-hero-form {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      padding: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+    }
+
+    .add-hero-form h2 {
+      font-size: 1.2rem;
+      color: var(--accent-blood-light);
+      margin-bottom: 15px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .add-hero-form input {
+      flex: 1;
+      padding: 10px;
+      background: var(--bg-dark);
+      border: 1px solid var(--border-dark);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .add-hero-form input:focus {
+      outline: none;
+      border-color: var(--accent-blood);
+    }
+
+    .add-hero-form button {
+      padding: 10px 20px;
+      background: var(--accent-blood);
+      border: none;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .add-hero-form button:hover {
+      background: var(--accent-blood-light);
+    }
+
+    .flash {
+      max-width: 600px;
+      margin: 0 auto 20px;
+      padding: 15px;
+      border-left: 4px solid var(--accent-blood);
+    }
+
+    .flash.success {
+      background: var(--accent-green);
+      border-left-color: var(--accent-green);
+    }
+
+    .flash.error {
+      background: var(--accent-blood);
+      border-left-color: var(--accent-blood-light);
+    }
+
+    .heroes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .hero-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      display: flex;
+      flex-direction: column;
+      min-height: 700px;
+      max-height: 900px;
+    }
+
+    .hero-header {
+      padding: 15px;
+      background: linear-gradient(135deg, #1a0a0a 0%, var(--bg-card) 100%);
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .hero-name {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      margin-bottom: 5px;
+    }
+
+    .hero-meta {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .hero-stats {
+      padding: 15px;
+      background: var(--bg-dark);
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .hero-stats-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .hero-stats-section h4 {
+      font-size: 0.9rem;
+      color: var(--accent-blood-light);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .stat-item {
+      padding: 6px 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .stat-item.version {
+      opacity: 0.5;
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-value {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .stat-value.hp {
+      color: var(--accent-blood-light);
+    }
+
+    .abilities-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .ability-item {
+      padding: 8px 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      display: grid;
+      grid-template-columns: 40px 30px 35px 1fr;
+      gap: 6px;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .ability-item.debilitated {
+      border-color: var(--accent-blood);
+      background: rgba(139, 0, 0, 0.1);
+    }
+
+    .ability-name {
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .ability-value {
+      color: var(--text-primary);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .ability-modifier {
+      color: var(--accent-gold);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .ability-item.debilitated .ability-modifier {
+      color: var(--accent-blood-light);
+    }
+
+    .ability-debility {
+      color: var(--accent-blood-light);
+      font-size: 0.75rem;
+      font-style: italic;
+    }
+
+    .hero-logs {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+      background: var(--bg-dark);
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .log-entry {
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border-dark);
+      display: flex;
+      gap: 10px;
+    }
+
+    .log-entry:last-child {
+      border-bottom: none;
+    }
+
+    .log-time {
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .log-message {
+      color: var(--text-primary);
+      flex: 1;
+      white-space: pre-wrap;
+    }
+
+    .log-message pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      padding: 8px;
+      margin: 4px 0;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .heroes-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <%= turbo_stream_from "master_dashboard" %>
+
+  <h1>МЮРКВИД</h1>
+  <div class="subtitle">MASTER DASHBOARD</div>
+
+  <% if flash[:success] %>
+    <div class="flash success"><%= flash[:success] %></div>
+  <% end %>
+
+  <% if flash[:error] %>
+    <div class="flash error"><%= flash[:error] %></div>
+  <% end %>
+
+  <div class="add-hero-form">
+    <h2>Добавить героя</h2>
+    <%= form_with url: master_add_hero_path, method: :post do |f| %>
+      <div class="form-row">
+        <%= f.text_field :code, placeholder: "Код героя (например, ABC123)", required: true %>
+        <%= f.submit "Добавить" %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @heroes.any? %>
+    <div class="heroes-grid">
+      <% @heroes.each do |hero| %>
+        <div class="hero-block">
+          <div class="hero-header">
+            <div class="hero-name"><%= hero.name.presence || "Безымянный" %></div>
+            <div class="hero-meta">
+              <%= hero.specialization.humanize %> • Код: <%= hero.code %>
+            </div>
+          </div>
+
+          <%= render "master/hero_stats", hero: hero %>
+
+          <div class="hero-logs" id="hero_<%= hero.id %>_logs">
+            <% hero.logs.order(created_at: :desc).limit(50).each do |log| %>
+              <%= render "master/log_entry", log: log %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      Нет героев. Добавьте код героя выше или создайте героя в консоли Rails.
+    </div>
+  <% end %>
+</body>
+</html>

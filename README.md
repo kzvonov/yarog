@@ -1,8 +1,11 @@
-# Todo
+# Yar'og (Dungeon World)
 
-- add telegram support ✅
-- design DB models
-- add LLM support
-- allow to create a GameSession and become a host
-- allow other to join a Game Session
-- make it turn based
+A set of tools to play Dungeon World with friends powered by Ruby On Rails.
+
+## TODO
+
+- fix name loading on hero
+- pre install server on the hero page
+- improve UI/UX for hero page
+- optimize hero page for 4k screen
+- allow rolls with modifiers

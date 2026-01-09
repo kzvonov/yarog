@@ -1,0 +1,51 @@
+<div class="hero-stats" id="hero_<%= hero.id %>_stats">
+  <div class="hero-stats-wrapper">
+    <div class="hero-stats-section">
+      <h4>Базис</h4>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">Уровень</span>
+          <span class="stat-value"><%= hero.level %></span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Опыт</span>
+          <span class="stat-value"><%= hero.xp %> / <%= hero.level + 7 %></span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Здоровье</span>
+          <span class="stat-value hp"><%= hero.hero_data["hpCurrent"] %> / <%= hero.hero_data["hpMax"] %></span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Броня</span>
+          <span class="stat-value"><%= hero.hero_data["armor"] %></span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Урон</span>
+          <span class="stat-value"><%= hero.hero_data["damage"] %></span>
+        </div>
+        <div class="stat-item version">
+          <span class="stat-label">v</span>
+          <span class="stat-value"><%= hero.version %></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-stats-section">
+      <h4>Характеристики</h4>
+      <div class="abilities-grid">
+        <% %w[str dex con int wis cha].each do |stat| %>
+          <% value = hero.hero_data.dig("stats", stat) || 10 %>
+          <% has_debility = hero.hero_data.dig("debilities", stat) || false %>
+          <div class="ability-item <%= 'debilitated' if has_debility %>">
+            <span class="ability-name"><%= stat.upcase %></span>
+            <span class="ability-value"><%= value %></span>
+            <span class="ability-modifier"><%= stat_modifier(value, has_debility) %></span>
+            <% if has_debility %>
+              <span class="ability-debility"><%= ApplicationHelper::DEBILITY_NAMES[stat] %></span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

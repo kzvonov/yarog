@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dungeon World</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap');
+
+    :root {
+      --bg-dark: #0a0a0a;
+      --bg-card: #111111;
+      --bg-card-hover: #1a1a1a;
+      --text-primary: #c9c9c9;
+      --text-secondary: #888888;
+      --text-heading: #e0e0e0;
+      --accent-blood: #8b0000;
+      --accent-blood-light: #a52a2a;
+      --accent-green: #1a3a1a;
+      --accent-green-light: #2d4a2d;
+      --accent-gold: #8b7500;
+      --border-dark: #2a2a2a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-size: 18px;
+    }
+
+    /* Header */
+    .header {
+      position: relative;
+      padding: 60px 20px;
+      text-align: center;
+      background: linear-gradient(to bottom, #0d0d1a 0%, var(--bg-dark) 100%);
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: 0.2em;
+      margin-bottom: 10px;
+    }
+
+    .header .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.3em;
+    }
+
+    /* Table of Contents */
+    .toc {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+    }
+
+    .toc h2 {
+      font-size: 1.5rem;
+      color: var(--text-heading);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+    }
+
+    .toc a {
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 8px 15px;
+      border-left: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .toc a:hover {
+      color: var(--accent-blood-light);
+      border-left-color: var(--accent-blood);
+      background: rgba(139, 0, 0, 0.1);
+    }
+
+    /* Main content */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    section {
+      margin-bottom: 60px;
+      scroll-margin-top: 20px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      margin: 30px 0 15px 0;
+    }
+
+    h4 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent-blood-light);
+      margin: 20px 0 10px 0;
+    }
+
+    p {
+      margin-bottom: 15px;
+      text-align: justify;
+    }
+
+    /* Rune divider */
+    .rune-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 50px 0;
+      gap: 20px;
+    }
+
+    .rune-divider .line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent-blood), transparent);
+    }
+
+    .rune-divider svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    /* Dice results */
+    .dice-results {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 25px 0;
+    }
+
+    .dice-result {
+      padding: 20px;
+      background: var(--bg-card);
+      border-left: 4px solid var(--accent-blood);
+    }
+
+    .dice-result.success {
+      border-left-color: var(--accent-green-light);
+    }
+
+    .dice-result.partial {
+      border-left-color: var(--accent-gold);
+    }
+
+    .dice-result.fail {
+      border-left-color: var(--accent-blood);
+    }
+
+    .dice-result .roll {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .dice-result.success .roll {
+      color: var(--accent-green-light);
+    }
+
+    .dice-result.partial .roll {
+      color: var(--accent-gold);
+    }
+
+    .dice-result.fail .roll {
+      color: var(--accent-blood);
+    }
+
+    /* Stats grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      padding: 15px;
+      text-align: center;
+      border: 1px solid var(--border-dark);
+    }
+
+    .stat-card .name {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+
+    .stat-card .abbr {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent-blood-light);
+    }
+
+    /* Move cards */
+    .move-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      margin: 20px 0;
+      overflow: hidden;
+    }
+
+    .move-header {
+      padding: 15px 20px;
+      background: linear-gradient(135deg, var(--bg-card) 0%, #1a0a0a 100%);
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .move-header h4 {
+      margin: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .move-header .trigger {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-weight: normal;
+    }
+
+    .move-body {
+      padding: 20px;
+    }
+
+    .move-body p {
+      margin-bottom: 10px;
+    }
+
+    .move-results {
+      margin-top: 15px;
+    }
+
+    .move-results .result {
+      padding: 8px 0 8px 20px;
+      position: relative;
+      border-left: 2px solid var(--border-dark);
+      margin-left: 10px;
+    }
+
+    .move-results .result.success {
+      border-left-color: var(--accent-green-light);
+    }
+
+    .move-results .result.partial {
+      border-left-color: var(--accent-gold);
+    }
+
+    .move-results .result.fail {
+      border-left-color: var(--accent-blood);
+    }
+
+    .result-label {
+      font-weight: 600;
+      margin-right: 10px;
+    }
+
+    .result.success .result-label {
+      color: var(--accent-green-light);
+    }
+
+    .result.partial .result-label {
+      color: var(--accent-gold);
+    }
+
+    .result.fail .result-label {
+      color: var(--accent-blood);
+    }
+
+    /* Collapsible example */
+    .example-toggle {
+      background: none;
+      border: 1px solid var(--border-dark);
+      color: var(--text-secondary);
+      padding: 10px 20px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      margin-top: 15px;
+      transition: all 0.2s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .example-toggle:hover {
+      background: var(--bg-card-hover);
+      color: var(--text-primary);
+      border-color: var(--accent-blood);
+    }
+
+    .example-toggle::after {
+      content: "▼";
+      font-size: 0.8rem;
+      transition: transform 0.2s ease;
+    }
+
+    .example-toggle.active::after {
+      transform: rotate(180deg);
+    }
+
+    .example-content {
+      display: none;
+      padding: 20px;
+      background: #0d0d0d;
+      border: 1px solid var(--border-dark);
+      border-top: none;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    .example-content.show {
+      display: block;
+    }
+
+    .example-content .speaker {
+      color: var(--accent-blood-light);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .example-content p {
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    /* Quote block */
+    .quote-block {
+      border-left: 3px solid var(--accent-blood);
+      padding: 20px 30px;
+      margin: 30px 0;
+      background: var(--bg-card);
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      font-size: 0.85rem;
+      margin: 2px;
+      color: var(--text-secondary);
+    }
+
+    .tag.damage {
+      border-color: var(--accent-blood);
+      color: var(--accent-blood-light);
+    }
+
+    .tag.range {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    .tag.special {
+      border-color: var(--accent-green-light);
+      color: var(--accent-green-light);
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    th {
+      background: var(--bg-card);
+      color: var(--text-heading);
+      font-weight: 600;
+    }
+
+    tr:hover {
+      background: var(--bg-card);
+    }
+
+    /* Lists */
+    ul,
+    ol {
+      margin: 15px 0 15px 25px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    /* Code/mechanic highlight */
+    .mechanic {
+      background: var(--bg-card);
+      padding: 2px 8px;
+      border: 1px solid var(--border-dark);
+      font-family: monospace;
+      font-size: 0.9rem;
+      color: var(--accent-blood-light);
+    }
+
+    /* Debility */
+    .debility-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .debility-card {
+      background: var(--bg-card);
+      padding: 15px;
+      border-left: 3px solid var(--accent-blood);
+    }
+
+    .debility-card .name {
+      font-weight: 600;
+      color: var(--accent-blood-light);
+      margin-bottom: 5px;
+    }
+
+    .debility-card .effect {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid var(--border-dark);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .header h1 {
+        font-size: 2rem;
+        letter-spacing: 0.1em;
+      }
+
+      .toc-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dice-results {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <h1>DUNGEON WORLD</h1>
+    <div class="subtitle">ПРАВИЛА ДЛЯ ИГРОКОВ И ВЕДУЩЕГО</div>
+  </header>
+
+  <!-- Table of Contents -->
+  <nav class="toc">
+    <h2>Оглавление</h2>
+    <div class="toc-grid">
+      <a href="#basics">Основы</a>
+      <a href="#stats">Характеристики</a>
+      <a href="#basic-moves">Базовые ходы</a>
+      <a href="#special-moves">Особые ходы</a>
+      <a href="#damage">Урон и здоровье</a>
+      <a href="#debilities">Увечья</a>
+      <a href="#equipment">Снаряжение</a>
+      <a href="#experience">Опыт</a>
+      <a href="#gm-moves">Ходы ведущего</a>
+      <a href="https://www.dungeon-world.com/downloads/" target="blank">Материалы</a>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- Section: Basics -->
+    <section id="basics">
+      <h2>Основы</h2>
+      <p>
+        Dungeon World — это разговор. Ведущий описывает ситуацию, игроки говорят, что делают их персонажи.
+        Когда действие попадает под один из ходов — бросаешь кубики.
+      </p>
+
+      <h3>Бросок</h3>
+      <p>
+        Всегда бросаешь <span class="mechanic">2d6 + модификатор</span> характеристики.
+        Результат определяет, что происходит:
+      </p>
+
+      <div class="dice-results">
+        <div class="dice-result success">
+          <div class="roll">10+</div>
+          <div class="desc">Полный успех. Ты делаешь то, что хотел, без проблем.</div>
+        </div>
+        <div class="dice-result partial">
+          <div class="roll">7–9</div>
+          <div class="desc">Частичный успех. Получается, но с ценой, выбором или осложнением.</div>
+        </div>
+        <div class="dice-result fail">
+          <div class="roll">6−</div>
+          <div class="desc">Провал. Ведущий делает ход. Обычно что-то плохое. Но ты получаешь опыт.</div>
+        </div>
+      </div>
+
+      <div class="quote-block">
+        Не бросай кубики просто так. Бросай только когда срабатывает ход —
+        когда твоё действие попадает под его условие.
+      </div>
+    </section>
+
+    <!-- Rune divider -->
+    <div class="rune-divider">
+      <div class="line"></div>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 5 L20 35 M10 12 L20 20 L10 28 M30 12 L20 20 L30 28" stroke="#8b0000" stroke-width="2"
+          stroke-linecap="round" />
+      </svg>
+      <div class="line"></div>
+    </div>
+
+    <!-- Section: Stats -->
+    <section id="stats">
+      <h2>Характеристики (Stats)</h2>
+      <p>
+        У каждого персонажа шесть характеристик. Значение характеристики даёт модификатор для бросков.
+      </p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="name">Strength (Сила)</div>
+          <div class="abbr">STR</div>
+        </div>
+        <div class="stat-card">
+          <div class="name">Dexterity (Ловкость)</div>
+          <div class="abbr">DEX</div>
+        </div>
+        <div class="stat-card">
+          <div class="name">Constitution (Телосложение)</div>
+          <div class="abbr">CON</div>
+        </div>
+        <div class="stat-card">
+          <div class="name">Intelligence (Интеллект)</div>
+          <div class="abbr">INT</div>
+        </div>
+        <div class="stat-card">
+          <div class="name">Wisdom (Мудрость)</div>
+          <div class="abbr">WIS</div>
+        </div>
+        <div class="stat-card">
+          <div class="name">Charisma (Харизма)</div>
+          <div class="abbr">CHA</div>
+        </div>
+      </div>
+
+      <h3>Таблица модификаторов</h3>
+      <table>
+        <tr>
+          <th>Значение</th>
+          <td>1–3</td>
+          <td>4–5</td>
+          <td>6–8</td>
+          <td>9–12</td>
+          <td>13–15</td>
+          <td>16–17</td>
+          <td>18</td>
+        </tr>
+        <tr>
+          <th>Модификатор</th>
+          <td>−3</td>
+          <td>−2</td>
+          <td>−1</td>
+          <td>+0</td>
+          <td>+1</td>
+          <td>+2</td>
+          <td>+3</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- Rune divider -->
+    <div class="rune-divider">
+      <div class="line"></div>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 5 L20 35 M12 10 L28 10 M12 20 L25 20 M12 30 L28 30" stroke="#8b0000" stroke-width="2"
+          stroke-linecap="round" />
+      </svg>
+      <div class="line"></div>
+    </div>
+
+    <!-- Section: Basic Moves -->
+    <section id="basic-moves">
+      <h2>Базовые ходы (Basic Moves)</h2>
+      <p>
+        Эти ходы доступны всем персонажам. Когда твоё действие попадает под триггер хода —
+        делаешь этот ход.
+      </p>
+
+      <!-- Hack and Slash -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Hack and Slash (Руби и кромсай)
+            <span class="trigger">+STR</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда атакуешь врага в ближнем бою</strong>, бросай +STR.</p>
+          <div class="move-results">
+            <div class="result success">
+              <span class="result-label">10+</span> Наносишь урон врагу и избегаешь его атаки. Можешь нанести +1d6
+              урона, но тогда подставляешься под ответ.
+            </div>
+            <div class="result partial">
+              <span class="result-label">7–9</span> Наносишь урон, но враг тоже бьёт тебя.
+            </div>
+          </div>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Ратибор:</span> Бросаюсь на упыря с топором, бью сверху вниз!</p>
+            <p><span class="speaker">Ведущий:</span> Это Hack and Slash. Бросай +STR.</p>
+            <p><span class="speaker">Ратибор:</span> Выпало 8.</p>
+            <p><span class="speaker">Ведущий:</span> Топор входит в плечо твари — кидай урон. Но упырь успевает
+              вцепиться когтями тебе в бок. Получаешь d6 урона.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Volley -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Volley (Залп)
+            <span class="trigger">+DEX</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда атакуешь врага на расстоянии</strong>, бросай +DEX.</p>
+          <div class="move-results">
+            <div class="result success">
+              <span class="result-label">10+</span> Наносишь урон.
+            </div>
+            <div class="result partial">
+              <span class="result-label">7–9</span> Наносишь урон, но выбери одно: тратишь боеприпасы (−1 Ammo),
+              подставляешься под опасность, или наносишь −1d6 урона.
+            </div>
+          </div>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Дарья:</span> Стреляю из лука в лешего, пока он не подошёл ближе.</p>
+            <p><span class="speaker">Ведущий:</span> Volley, бросай +DEX.</p>
+            <p><span class="speaker">Дарья:</span> 7.</p>
+            <p><span class="speaker">Ведущий:</span> Стрела попадает, кидай урон. Но тебе надо выбрать — или ты
+              потратила больше стрел, чем хотела (−1 Ammo), или пришлось выйти из укрытия и теперь леший тебя видит.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Defy Danger -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Defy Danger (Избежать опасности)
+            <span class="trigger">+зависит</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда действуешь вопреки непосредственной угрозе</strong>, скажи, как справляешься, и бросай:</p>
+          <ul>
+            <li>+STR — силой или выносливостью</li>
+            <li>+DEX — быстротой или ловкостью</li>
+            <li>+CON — терпишь или выдерживаешь</li>
+            <li>+INT — быстро думаешь или хитришь</li>
+            <li>+WIS — используешь силу воли или чутьё</li>
+            <li>+CHA — обаянием или социальной ловкостью</li>
+          </ul>
+          <div class="move-results">
+            <div class="result success">
+              <span class="result-label">10+</span> Избегаешь угрозы.
+            </div>
+            <div class="result partial">
+              <span class="result-label">7–9</span> Спотыкаешься, мешкаешь или пугаешься. Ведущий предложит худший
+              исход, сделку или трудный выбор.
+            </div>
+          </div>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Ведущий:</span> Пол землянки проваливается. Ты падаешь в темноту — что делаешь?</p>
+            <p><span class="speaker">Мирко:</span> Пытаюсь схватиться за край!</p>
+            <p><span class="speaker">Ведущий:</span> Это Defy Danger +DEX. Бросай.</p>
+            <p><span class="speaker">Мирко:</span> 7.</p>
+            <p><span class="speaker">Ведущий:</span> Ты хватаешься, но мешок с рунными дощечками соскальзывает с плеча и
+              падает вниз. Висишь на руках — мешок или ты?</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Defend -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Defend (Защити)
+            <span class="trigger">+CON</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда встаёшь на защиту кого-то или чего-то от атаки</strong>, бросай +CON.</p>
+          <div class="move-results">
+            <div class="result success">
+              <span class="result-label">10+</span> Получаешь 3 Hold.
+            </div>
+            <div class="result partial">
+              <span class="result-label">7–9</span> Получаешь 1 Hold.
+            </div>
+          </div>
+          <p>Пока защищаешь, трать Hold один к одному:</p>
+          <ul>
+            <li>Перенаправить атаку с защищаемого на себя</li>
+            <li>Уменьшить урон атаки вдвое</li>
+            <li>Открыть атакующего для союзника (+1 к следующему броску против него)</li>
+            <li>Нанести урон атакующему равный своему уровню</li>
+          </ul>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Ратибор:</span> Встаю между упырём и волхвом. Пока он чертит руну — я его
+              прикрываю.</p>
+            <p><span class="speaker">Ведущий:</span> Defend, бросай +CON.</p>
+            <p><span class="speaker">Ратибор:</span> 10!</p>
+            <p><span class="speaker">Ведущий:</span> У тебя 3 Hold. Упырь бросается на волхва — что делаешь?</p>
+            <p><span class="speaker">Ратибор:</span> Трачу 1 Hold — принимаю удар на себя.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spout Lore -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Spout Lore (Вспомнить)
+            <span class="trigger">+INT</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда обращаешься к накопленным знаниям о чём-то</strong>, бросай +INT.</p>
+          <div class="move-results">
+            <div class="result success">
+              <span class="result-label">10+</span> Ведущий расскажет тебе что-то интересное и полезное.
+            </div>
+            <div class="result partial">
+              <span class="result-label">7–9</span> Ведущий расскажет что-то интересное — решай сам, насколько это
+              полезно.
+            </div>
+          </div>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Зима:</span> Эти руны на столбе — я их узнаю? Что-нибудь помню про такой узор?</p>
+            <p><span class="speaker">Ведущий:</span> Spout Lore, бросай +INT.</p>
+            <p><span class="speaker">Зима:</span> 11.</p>
+            <p><span class="speaker">Ведущий:</span> Да, ты видела похожее в книгах старого волхва. Это защитная руна,
+              но два знака переставлены местами. В таком виде она защищает не «род людской», а «род пернатый».</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Discern Realities -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Discern Realities (Изучить обстановку)
+            <span class="trigger">+WIS</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда внимательно изучаешь ситуацию или человека</strong>, бросай +WIS.</p>
+          <div class="move-results">
+            <div class="result success">
+              <span class="result-label">10+</span> Задай ведущему 3 вопроса из списка.
+            </div>
+            <div class="result partial">
+              <span class="result-label">7–9</span> Задай 1 вопрос.
+            </div>
+          </div>
+          <p>Вопросы:</p>
+          <ul>
+            <li>Что здесь произошло недавно?</li>
+            <li>Что вот-вот случится?</li>
+            <li>На что мне стоит обратить внимание?</li>
+            <li>Что здесь полезного или ценного для меня?</li>
+            <li>Кто тут на самом деле контролирует ситуацию?</li>
+            <li>Что здесь не то, чем кажется?</li>
+          </ul>
+          <p>Когда действуешь на основе ответа — +1 к броску.</p>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Дарья:</span> Осматриваю деревню. Что-то не так — слишком тихо.</p>
+            <p><span class="speaker">Ведущий:</span> Discern Realities, бросай +WIS.</p>
+            <p><span class="speaker">Дарья:</span> 10.</p>
+            <p><span class="speaker">Ведущий:</span> Три вопроса. Спрашивай.</p>
+            <p><span class="speaker">Дарья:</span> Что здесь произошло недавно?</p>
+            <p><span class="speaker">Ведущий:</span> Следов борьбы нет. Еда на столах, огонь в печах догорел. Люди
+              просто исчезли — все разом, без паники.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parley -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Parley (Договориться)
+            <span class="trigger">+CHA</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда пытаешься получить что-то от кого-то, имея рычаг давления</strong>, бросай +CHA.</p>
+          <div class="move-results">
+            <div class="result success">
+              <span class="result-label">10+</span> Он сделает то, что ты просишь, если пообещаешь то, что ему нужно.
+              Дай честное слово — и он начнёт.
+            </div>
+            <div class="result partial">
+              <span class="result-label">7–9</span> Он хочет доказательств твоих намерений прямо сейчас.
+            </div>
+          </div>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Зима:</span> Мирко, ты единственный, кто может это исправить. Я знаю, что тебя
+              ждёт. Но твоя мать там — в виде курицы. Ты хочешь, чтобы она так и осталась?</p>
+            <p><span class="speaker">Ведущий:</span> Это Parley. Твой рычаг — его мать. Бросай +CHA.</p>
+            <p><span class="speaker">Зима:</span> 8.</p>
+            <p><span class="speaker">Ведущий:</span> Мирко смотрит на тебя. «Ты... ты позаботишься о ней? После?
+              Поклянись. Поклянись прямо сейчас, и я пойду.»</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aid or Interfere -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Aid or Interfere (Помочь или помешать)
+            <span class="trigger">+Bond</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда помогаешь или мешаешь кому-то</strong>, бросай +Bond с этим персонажем.</p>
+          <div class="move-results">
+            <div class="result success">
+              <span class="result-label">10+</span> Он получает +1 или −2 к своему броску (твой выбор).
+            </div>
+            <div class="result partial">
+              <span class="result-label">7–9</span> Он получает модификатор, но ты подставляешься под опасность,
+              возмездие или цену.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rune divider -->
+    <div class="rune-divider">
+      <div class="line"></div>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 20 L30 20 M20 8 L20 32 M10 10 L20 20 L30 10 M10 30 L20 20 L30 30" stroke="#8b0000" stroke-width="2"
+          stroke-linecap="round" />
+      </svg>
+      <div class="line"></div>
+    </div>
+
+    <!-- Section: Special Moves -->
+    <section id="special-moves">
+      <h2>Особые ходы (Special Moves)</h2>
+
+      <!-- Last Breath -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Last Breath (Последний вздох)
+            <span class="trigger">+ничего</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда твои HP падают до 0</strong>, бросай +ничего (просто 2d6).</p>
+          <div class="move-results">
+            <div class="result success">
+              <span class="result-label">10+</span> Ты обманул смерть. Ты в отключке и стабилен с 0 HP.
+            </div>
+            <div class="result partial">
+              <span class="result-label">7–9</span> Смерть предлагает тебе сделку. Прими — останешься жить. Откажешься —
+              умрёшь.
+            </div>
+            <div class="result fail">
+              <span class="result-label">6−</span> Твоя судьба решена. Ты умираешь, но, возможно, не сразу.
+            </div>
+          </div>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Ведущий:</span> Упырь рвёт тебе горло. Ты падаешь, кровь хлещет. 0 HP — бросай Last
+              Breath.</p>
+            <p><span class="speaker">Ратибор:</span> 8.</p>
+            <p><span class="speaker">Ведущий:</span> Темнота. Холод. Перед тобой стоит кто-то огромный — ты чувствуешь
+              запах сырой земли и гнили. Яр'мог. Он говорит: «Я могу вернуть тебя. Но когда придёт твой час
+              по-настоящему — ты придёшь ко мне сам. И приведёшь ещё одного.» Принимаешь?</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Encumbrance -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Encumbrance (Нагрузка)
+            <span class="trigger">постоянно</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p>Суммарный вес снаряжения (Load) влияет на персонажа:</p>
+          <ul>
+            <li><strong>Load ≤ Max Load:</strong> Всё в порядке.</li>
+            <li><strong>Load > Max Load:</strong> Ты перегружен. −1 ко всем броскам, пока не избавишься от лишнего.</li>
+            <li><strong>Load > Max Load + 2:</strong> Ты не можешь двигаться нормально.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Make Camp -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Make Camp (Разбить лагерь)
+            <span class="trigger">при отдыхе</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда устраиваешься на ночлег</strong>, съешь рацион. Если в безопасном месте — лечишь все HP.</p>
+          <p>В опасном месте (лес Мюрквида без защиты) — лечишь только половину HP, и ведущий может сделать ход.</p>
+        </div>
+      </div>
+
+      <!-- Take Watch -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Take Watch (Стоять на страже)
+            <span class="trigger">при отдыхе</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда стоишь первым на страже</strong>, бросай +WIS.</p>
+          <div class="move-results">
+            <div class="result success">
+              <span class="result-label">10+</span> Ночь проходит спокойно. Если что-то приближается — ты замечаешь
+              заранее.
+            </div>
+            <div class="result partial">
+              <span class="result-label">7–9</span> Выбери одно: замечаешь слишком поздно, или поднимаешь тревогу
+              вовремя, но сам подставляешься.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Undertake a Perilous Journey -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Undertake a Perilous Journey (Опасное путешествие)
+            <span class="trigger">при путешествии</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда путешествуете через опасные земли</strong>, выберите одного на каждую роль:</p>
+          <ul>
+            <li><strong>Следопыт (Trailblazer):</strong> бросает +WIS — на 10+ путь занимает меньше времени/рационов; на
+              7–9 всё как обычно</li>
+            <li><strong>Разведчик (Scout):</strong> бросает +WIS — на 10+ замечает опасности заранее; на 7–9 замечает,
+              но слишком поздно</li>
+            <li><strong>Завхоз (Quartermaster):</strong> бросает +WIS — на 10+ рационов хватает; на 7–9 кто-то должен
+              отдать 1 рацион</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rune divider -->
+    <div class="rune-divider">
+      <div class="line"></div>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 5 L20 35" stroke="#8b0000" stroke-width="2.5" stroke-linecap="round" />
+        <path d="M12 12 L28 20 M28 12 L12 20" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+        <circle cx="20" cy="30" r="4" stroke="#8b0000" stroke-width="2" fill="none" />
+      </svg>
+      <div class="line"></div>
+    </div>
+
+    <!-- Section: Damage and Health -->
+    <section id="damage">
+      <h2>Урон и здоровье</h2>
+
+      <h3>HP (Hit Points / Здоровье)</h3>
+      <p>
+        HP зависит от класса и CON. Когда получаешь урон — вычитай из HP.
+        При 0 HP делаешь ход Last Breath.
+      </p>
+
+      <h3>Урон</h3>
+      <p>
+        Каждый класс и оружие имеют кубик урона. Когда наносишь урон — бросаешь этот кубик.
+      </p>
+      <table>
+        <tr>
+          <th>Класс</th>
+          <th>Кубик урона</th>
+        </tr>
+        <tr>
+          <td>Fighter (Воин)</td>
+          <td>d10</td>
+        </tr>
+        <tr>
+          <td>Paladin (Паладин)</td>
+          <td>d10</td>
+        </tr>
+        <tr>
+          <td>Ranger (Следопыт)</td>
+          <td>d8</td>
+        </tr>
+        <tr>
+          <td>Thief (Вор)</td>
+          <td>d8</td>
+        </tr>
+        <tr>
+          <td>Bard (Бард)</td>
+          <td>d6</td>
+        </tr>
+        <tr>
+          <td>Cleric (Жрец)</td>
+          <td>d6</td>
+        </tr>
+        <tr>
+          <td>Druid (Друид)</td>
+          <td>d6</td>
+        </tr>
+        <tr>
+          <td>Wizard (Волшебник)</td>
+          <td>d4</td>
+        </tr>
+      </table>
+
+      <h3>Armor (Броня)</h3>
+      <p>
+        Броня уменьшает получаемый урон. Если у тебя Armor 2 и тебе нанесли 5 урона — получаешь 3.
+      </p>
+      <p>
+        Броня суммируется из всего снаряжения, но максимум — 4 (если не указано иначе).
+      </p>
+
+      <h3>Лечение</h3>
+      <ul>
+        <li><strong>Отдых в безопасности:</strong> Восстанавливаешь все HP</li>
+        <li><strong>Отдых в опасности:</strong> Половина HP</li>
+        <li><strong>Зелья, магия, ходы:</strong> Как указано в описании</li>
+      </ul>
+    </section>
+
+    <!-- Rune divider -->
+    <div class="rune-divider">
+      <div class="line"></div>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 5 L20 35 M10 15 L30 25 M30 15 L10 25" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      <div class="line"></div>
+    </div>
+
+    <!-- Section: Debilities -->
+    <section id="debilities">
+      <h2>Debilities (Увечья)</h2>
+      <p>
+        Увечья — постоянные или долгосрочные состояния, которые снижают модификаторы характеристик.
+        Каждое увечье даёт <span class="mechanic">−1</span> к соответствующей характеристике.
+      </p>
+      <p>
+        Увечья можно получить от мощных атак, болезней, проклятий, или как цену за сделки.
+      </p>
+
+      <div class="debility-grid">
+        <div class="debility-card">
+          <div class="name">Weak (Слабость) — STR</div>
+          <div class="effect">Ты не можешь прикладывать силу как раньше. Раны, истощение, болезнь.</div>
+        </div>
+        <div class="debility-card">
+          <div class="name">Shaky (Дрожь) — DEX</div>
+          <div class="effect">Руки трясутся, реакция замедлена. Яд, страх, нервное истощение.</div>
+        </div>
+        <div class="debility-card">
+          <div class="name">Sick (Болезнь) — CON</div>
+          <div class="effect">Что-то не так с телом. Инфекция, проклятие, гниль.</div>
+        </div>
+        <div class="debility-card">
+          <div class="name">Stunned (Оглушение) — INT</div>
+          <div class="effect">Голова не работает. Удар по голове, шок, ментальная атака.</div>
+        </div>
+        <div class="debility-card">
+          <div class="name">Confused (Смятение) — WIS</div>
+          <div class="effect">Чувства обманывают. Иллюзии, морок, потеря связи с реальностью.</div>
+        </div>
+        <div class="debility-card">
+          <div class="name">Scarred (Обезображен) — CHA</div>
+          <div class="effect">Что-то случилось с внешностью или духом. Шрамы, позор, сломленная воля.</div>
+        </div>
+      </div>
+
+      <h3>Лечение увечий</h3>
+      <p>
+        Увечья не проходят от простого отдыха. Чтобы избавиться от увечья, нужно:
+      </p>
+      <ul>
+        <li>Магическое исцеление (не всякое — только специальное)</li>
+        <li>Долгое лечение в безопасном месте (недели)</li>
+        <li>Сделка — Яр'мог лечит, но просит взамен</li>
+        <li>Специфические условия (зависит от причины)</li>
+      </ul>
+
+      <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+      <div class="example-content">
+        <p><span class="speaker">Ведущий:</span> Упырь вцепился тебе в плечо и не отпускает, пока ты его не добиваешь.
+          Рана глубокая, что-то хрустнуло. Отмечай Debility: Weak.</p>
+        <p><span class="speaker">Ратибор:</span> То есть теперь у меня −1 к STR?</p>
+        <p><span class="speaker">Ведущий:</span> Да, пока не вылечишь. Отдых не поможет — нужен кто-то, кто умеет
+          работать с такими ранами. Или Яр'мог, но он попросит цену.</p>
+      </div>
+
+      <h3>Другие негативные состояния</h3>
+      <p>
+        Ведущий может накладывать временные штрафы, которые не являются увечьями:
+      </p>
+      <ul>
+        <li><strong>Forward (Вперёд):</strong> −1 Forward означает штраф к следующему броску</li>
+        <li><strong>Ongoing (Постоянно):</strong> −1 Ongoing означает штраф ко всем броскам, пока условие не снято</li>
+        <li><strong>Ситуационные:</strong> «Ты ослеплён — все броски на зрение с −2»</li>
+      </ul>
+    </section>
+
+    <!-- Rune divider -->
+    <div class="rune-divider">
+      <div class="line"></div>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 20 L32 20 M20 8 L20 32" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+        <circle cx="20" cy="20" r="8" stroke="#8b0000" stroke-width="1.5" fill="none" />
+      </svg>
+      <div class="line"></div>
+    </div>
+
+    <!-- Section: Equipment -->
+    <section id="equipment">
+      <h2>Снаряжение и теги</h2>
+
+      <h3>Теги оружия</h3>
+      <table>
+        <tr>
+          <th>Тег</th>
+          <th>Значение</th>
+        </tr>
+        <tr>
+          <td><span class="tag damage">n Damage</span></td>
+          <td>Заменяет урон класса на указанный кубик</td>
+        </tr>
+        <tr>
+          <td><span class="tag damage">+n Damage</span></td>
+          <td>Добавляет к урону</td>
+        </tr>
+        <tr>
+          <td><span class="tag range">Hand</span></td>
+          <td>Вплотную, рукопашная</td>
+        </tr>
+        <tr>
+          <td><span class="tag range">Close</span></td>
+          <td>На расстоянии руки с оружием</td>
+        </tr>
+        <tr>
+          <td><span class="tag range">Reach</span></td>
+          <td>На расстоянии копья/посоха</td>
+        </tr>
+        <tr>
+          <td><span class="tag range">Near</span></td>
+          <td>Можно докинуть камнем</td>
+        </tr>
+        <tr>
+          <td><span class="tag range">Far</span></td>
+          <td>Дальше, чем можно бросить</td>
+        </tr>
+        <tr>
+          <td><span class="tag special">Piercing n</span></td>
+          <td>Игнорирует n брони</td>
+        </tr>
+        <tr>
+          <td><span class="tag special">Forceful</span></td>
+          <td>Отбрасывает, сбивает</td>
+        </tr>
+        <tr>
+          <td><span class="tag special">Messy</span></td>
+          <td>Грязные, страшные раны</td>
+        </tr>
+        <tr>
+          <td><span class="tag special">Two-handed</span></td>
+          <td>Требует обе руки</td>
+        </tr>
+        <tr>
+          <td><span class="tag special">n Ammo</span></td>
+          <td>Столько выстрелов до перезарядки</td>
+        </tr>
+        <tr>
+          <td><span class="tag special">Reload</span></td>
+          <td>Нужно время, чтобы перезарядить</td>
+        </tr>
+      </table>
+
+      <h3>Теги брони</h3>
+      <table>
+        <tr>
+          <th>Тег</th>
+          <th>Значение</th>
+        </tr>
+        <tr>
+          <td><span class="tag special">n Armor</span></td>
+          <td>Снижает урон на n</td>
+        </tr>
+        <tr>
+          <td><span class="tag special">Clumsy</span></td>
+          <td>−1 к DEX пока носишь</td>
+        </tr>
+        <tr>
+          <td><span class="tag special">n Weight</span></td>
+          <td>Добавляет к нагрузке</td>
+        </tr>
+      </table>
+
+      <h3>Примеры оружия (Мюрквид)</h3>
+      <table>
+        <tr>
+          <th>Оружие</th>
+          <th>Теги</th>
+          <th>Вес</th>
+        </tr>
+        <tr>
+          <td>Топор ратника</td>
+          <td>Close, +1 Damage, Messy</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Охотничий лук</td>
+          <td>Near, Far, 3 Ammo</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Нож</td>
+          <td>Hand, 1 Piercing</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>Рогатина</td>
+          <td>Reach, +1 Damage, Two-handed</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Дубина с рунами</td>
+          <td>Close, Forceful</td>
+          <td>2</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- Rune divider -->
+    <div class="rune-divider">
+      <div class="line"></div>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 5 L20 35 M10 12 L20 20 L10 28 M30 12 L20 20 L30 28" stroke="#8b0000" stroke-width="2"
+          stroke-linecap="round" />
+      </svg>
+      <div class="line"></div>
+    </div>
+
+    <!-- Section: Experience -->
+    <section id="experience">
+      <h2>Experience (Опыт)</h2>
+
+      <h3>Как получать XP</h3>
+      <ul>
+        <li><strong>Провал (6−):</strong> Каждый раз, когда выбрасываешь 6 или меньше, получаешь 1 XP</li>
+        <li><strong>Bonds (Связи):</strong> В конце сессии — если связь разрешилась или изменилась</li>
+        <li><strong>End of Session (Конец сессии):</strong> Ответь на вопросы</li>
+      </ul>
+
+      <h3>Вопросы конца сессии</h3>
+      <p>За каждый ответ «да» получаешь 1 XP:</p>
+      <ul>
+        <li>Мы узнали что-то новое и важное о мире?</li>
+        <li>Мы победили заметного врага?</li>
+        <li>Мы получили сокровище или ценность?</li>
+      </ul>
+      <p>Плюс один вопрос по Alignment (Мировоззрению) твоего персонажа.</p>
+
+      <h3>Level Up (Повышение уровня)</h3>
+      <p>
+        Когда у тебя накопилось <span class="mechanic">XP = Текущий уровень + 7</span>, ты повышаешь уровень:
+      </p>
+      <ul>
+        <li>Сбрось XP до 0</li>
+        <li>Увеличь уровень на 1</li>
+        <li>Выбери новый ход из своего класса (или мультикласс на 2+ уровне)</li>
+        <li>Если новый модификатор характеристики стал выше — можешь увеличить одну характеристику на 1 (максимум 18)
+        </li>
+      </ul>
+
+      <div class="quote-block">
+        Провал — это не наказание. Это двигатель истории и путь к развитию.
+        Каждые 6− приближают тебя к новому уровню.
+      </div>
+    </section>
+
+    <!-- Rune divider -->
+    <div class="rune-divider">
+      <div class="line"></div>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 5 L20 35 M12 10 L28 10 M12 20 L25 20 M12 30 L28 30" stroke="#8b0000" stroke-width="2"
+          stroke-linecap="round" />
+      </svg>
+      <div class="line"></div>
+    </div>
+
+    <!-- Section: GM Moves -->
+    <section id="gm-moves">
+      <h2>Ходы ведущего (GM Moves)</h2>
+      <p>
+        Ведущий делает ход, когда игроки смотрят на него в ожидании,
+        когда выпадает 6−, или когда игроки дают ему «золотую возможность».
+      </p>
+
+      <h3>Мягкие и жёсткие ходы</h3>
+      <p>
+        <strong>Мягкий ход</strong> — угроза, которая даёт игрокам шанс отреагировать:
+        «Ты слышишь треск веток — что-то приближается».
+      </p>
+      <p>
+        <strong>Жёсткий ход</strong> — последствие, которое уже случилось:
+        «Упырь вцепляется тебе в горло — получаешь d8 урона».
+      </p>
+      <p>
+        На 6− обычно делается жёсткий ход. Золотая возможность (игрок подставился или игнорирует угрозу) — тоже жёсткий.
+      </p>
+
+      <h3>Список ходов ведущего</h3>
+      <ul>
+        <li>Используй ход монстра, опасности или локации</li>
+        <li>Покажи признаки приближающейся угрозы</li>
+        <li>Нанеси урон</li>
+        <li>Израсходуй их ресурсы</li>
+        <li>Верни им их же ход</li>
+        <li>Раздели их</li>
+        <li>Поставь в трудное положение</li>
+        <li>Покажи обратную сторону их снаряжения</li>
+        <li>Предложи возможность с ценой или без</li>
+        <li>Переведи ход на них: «Что ты делаешь?»</li>
+      </ul>
+
+      <h3>Принципы ведущего</h3>
+      <ul>
+        <li>Рисуй карту, но оставляй белые пятна</li>
+        <li>Обращайся к персонажам, а не к игрокам</li>
+        <li>Будь фанатом персонажей игроков</li>
+        <li>Делай ход, но никогда не называй его</li>
+        <li>Мир — живой, у NPC есть свои цели</li>
+        <li>Начинай и заканчивай художественным описанием</li>
+        <li>Задавай вопросы и используй ответы</li>
+        <li>Думай опасно</li>
+      </ul>
+
+      <button class="example-toggle" onclick="toggleExample(this)">Пример ходов из Мюрквида</button>
+      <div class="example-content">
+        <p><span class="speaker">Ситуация:</span> Игрок выбросил 6− на Hack and Slash против упыря.</p>
+        <p><span class="speaker">Вариант 1 (урон):</span> «Упырь уворачивается и бьёт тебя когтями в бок — d6 урона.»
+        </p>
+        <p><span class="speaker">Вариант 2 (ресурсы):</span> «Топор застревает в рёбрах твари. Она дёргается — и оружие
+          вылетает из руки, в темноту.»</p>
+        <p><span class="speaker">Вариант 3 (раздели):</span> «Упырь толкает тебя, ты летишь назад — и падаешь в яму.
+          Другие слышат твой крик, но не видят тебя.»</p>
+        <p><span class="speaker">Вариант 4 (трудное положение):</span> «Ты убил этого, но теперь видишь — их было трое.
+          Двое других отрезают путь к двери.»</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <svg width="30" height="40" viewBox="0 0 30 50" fill="none" xmlns="http://www.w3.org/2000/svg"
+      style="margin-bottom: 15px;">
+      <circle cx="15" cy="10" r="7" stroke="#8b0000" stroke-width="2" fill="none" />
+      <circle cx="15" cy="10" r="2.5" fill="#8b0000" />
+      <path d="M15 17 L15 45" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+      <path d="M15 25 L5 40" stroke="#8b0000" stroke-width="1.5" stroke-linecap="round" />
+      <path d="M15 25 L25 40" stroke="#8b0000" stroke-width="1.5" stroke-linecap="round" />
+    </svg>
+    <p>Бросай кубики. Рассказывай историю.</p>
+  </footer>
+
+  <script>
+    function toggleExample(button) {
+      button.classList.toggle('active');
+      const content = button.nextElementSibling;
+      content.classList.toggle('show');
+    }
+  </script>
+
+</body>
+
+</html>
