@@ -1,0 +1,16 @@
+<div class="notes-editor" data-controller="auto-save" data-auto-save-url-value="<%= update_notes_master_game_path(game) %>">
+  <h3>Notes</h3>
+  <div class="notes-status" data-auto-save-target="status"></div>
+
+  <%= text_area_tag :notes,
+      game.notes,
+      placeholder: "Keep track of what's happening in your game...",
+      data: {
+        action: "input->auto-save#scheduleSave",
+        auto_save_target: "textarea"
+      } %>
+
+  <div class="notes-status" style="margin-top: 10px;">
+    Auto-saves 3 seconds after you stop typing
+  </div>
+</div>

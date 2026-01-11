@@ -17,8 +17,18 @@ Rails.application.routes.draw do
   end
 
   # DM Dashboard
-  get "master", to: "master#index"
-  post "master/add_hero", to: "master#add_hero"
+  namespace :master do
+    root to: "heroes#index"
+
+    resources :heroes, only: [:index, :show, :update]
+
+    resources :games do
+      member do
+        post :add_hero
+        patch :update_notes
+      end
+    end
+  end
 
   # Defines the root path route ("/")
   # root "posts#index"

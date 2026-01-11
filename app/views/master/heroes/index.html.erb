@@ -1,0 +1,36 @@
+<h1>All Heroes</h1>
+
+<div style="max-width: 600px; margin: 0 auto 30px;">
+  <%= form_with url: master_heroes_path, method: :get, style: "display: flex; gap: 10px;" do |f| %>
+    <%= f.text_field :search,
+        value: params[:search],
+        placeholder: "Search by code, name, or class...",
+        style: "flex: 1;" %>
+    <%= f.submit "Search", class: "btn" %>
+  <% end %>
+</div>
+
+<% if @heroes.any? %>
+  <div class="items-grid">
+    <% @heroes.each do |hero| %>
+      <%= link_to master_hero_path(hero), class: "item-card" do %>
+        <div style="font-size: 1.8rem; margin-bottom: 10px;">
+          <%= hero.specialization == 'warrior' ? '⚔️' : hero.specialization == 'forest_walker' ? '🏹' : '🔮' %>
+        </div>
+        <div class="item-title"><%= hero.name %></div>
+        <div class="item-meta">
+          <%= hero.specialization.titleize %> • Level <%= hero.level %><br>
+          Code: <%= hero.code %><br>
+          HP: <%= hero.hero_data['hpCurrent'] %>/<%= hero.hero_data['hpMax'] %> • XP: <%= hero.xp %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <div style="text-align: center; padding: 60px 20px; color: var(--text-secondary);">
+    <p style="font-size: 1.2rem;">No heroes found</p>
+    <% if params[:search].present? %>
+      <p style="margin-top: 10px;">Try a different search term</p>
+    <% end %>
+  </div>
+<% end %>

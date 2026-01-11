@@ -1,0 +1,4 @@
+<div class="hero-log-entry">
+  <span class="hero-log-time"><%= log.created_at.strftime('%H:%M') %></span>
+  <span class="hero-log-message"><%= log.formatted_message.html_safe %></span>
+</div>

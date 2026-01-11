@@ -1,0 +1,22 @@
+<%= form_with model: [:master, game] do |f| %>
+  <% if game.errors.any? %>
+    <div style="padding: 15px; background: var(--accent-blood); border: 1px solid var(--accent-blood-light); margin-bottom: 20px;">
+      <h3 style="font-weight: 600; margin-bottom: 10px;">Errors:</h3>
+      <ul style="list-style: disc; margin-left: 20px;">
+        <% game.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div style="margin-bottom: 20px;">
+    <%= f.label :name, "Game Name", style: "display: block; font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;" %>
+    <%= f.text_field :name, placeholder: "Enter game name...", style: "width: 100%;" %>
+  </div>
+
+  <div style="display: flex; gap: 10px;">
+    <%= f.submit game.persisted? ? "Update Game" : "Create Game", class: "btn" %>
+    <%= link_to "Cancel", game.persisted? ? master_game_path(game) : master_games_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>

@@ -1,0 +1,9 @@
+<div style="max-width: 600px;">
+  <%= link_to "← Back to Game", master_game_path(@game), style: "display: inline-block; margin-bottom: 20px; color: var(--accent-blood-light); text-decoration: none;" %>
+
+  <h1>Edit Game</h1>
+
+  <div class="card">
+    <%= render "form", game: @game %>
+  </div>
+</div>

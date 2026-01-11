@@ -2,6 +2,8 @@ class Hero < ApplicationRecord
   self.table_name = "heroes"
 
   has_many :logs, dependent: :destroy
+  has_many :game_heroes, class_name: "GameHero", dependent: :destroy
+  has_many :games, through: :game_heroes
 
   SPECIALIZATIONS = %w[warrior forest_walker rune_master].freeze
 
@@ -15,9 +17,6 @@ class Hero < ApplicationRecord
   before_validation :generate_code, on: :create
   before_validation :set_defaults, on: :create
 
-  # Prevent changing name and specialization after creation
-  validate :immutable_fields, on: :update
-
   # Parse data as JSON
   def hero_data
     @hero_data ||= JSON.parse(data)
@@ -26,6 +25,12 @@ class Hero < ApplicationRecord
   def hero_data=(hash)
     @hero_data = hash
     self.data = hash.to_json
+  end
+
+  # Override reload to clear memoized data
+  def reload(*)
+    @hero_data = nil
+    super
   end
 
   def calculate_diff(new_data)
@@ -140,16 +145,6 @@ class Hero < ApplicationRecord
     self.version ||= 0
     self.level ||= 1
     self.xp ||= 0
-  end
-
-  def immutable_fields
-    if name_changed? && name_was.present?
-      errors.add(:name, "cannot be changed after creation")
-    end
-
-    if specialization_changed? && specialization_was.present?
-      errors.add(:specialization, "cannot be changed after creation")
-    end
   end
 
   def values_different?(old_val, new_val)

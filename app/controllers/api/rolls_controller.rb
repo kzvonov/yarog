@@ -64,13 +64,19 @@ module Api
     private
 
     def broadcast_roll(hero, log)
-      # Broadcast via Turbo Stream to update DM dashboard
-      Turbo::StreamsChannel.broadcast_prepend_to(
-        "master_dashboard",
-        target: "hero_#{hero.id}_logs",
-        partial: "master/log_entry",
-        locals: { log: log }
-      )
+      # Reload hero to ensure fresh data (including new log)
+      hero.reload
+
+      # Broadcast via Turbo Stream to all games this hero belongs to
+      hero.games.each do |game|
+        # Replace entire hero card to update logs and log count
+        Turbo::StreamsChannel.broadcast_replace_to(
+          "game_#{game.id}",
+          target: "hero_card_#{hero.id}",
+          partial: "master/games/hero_card",
+          locals: { hero: hero, game: game }
+        )
+      end
     end
   end
 end

@@ -12,7 +12,13 @@ module Api
         render json: {
           status: "ok",
           version: hero.version,
-          hero: hero.hero_data,
+          hero: {
+            **hero.hero_data,
+            name: hero.name,
+            level: hero.level,
+            specialization: hero.specialization,
+            xp: hero.xp
+          },
           updatedAt: hero.updated_at.iso8601
         }
       else
@@ -54,7 +60,7 @@ module Api
           hero.logs.create!(
             log_type: "hero_change",
             data: diff.to_json
-          )  
+          )
         end
         broadcast_hero_update(hero, log)
       end
@@ -77,20 +83,19 @@ module Api
     private
 
     def broadcast_hero_update(hero, log)
-      # Broadcast via Turbo Stream to update DM dashboard
-      Turbo::StreamsChannel.broadcast_prepend_to(
-        "master_dashboard",
-        target: "hero_#{hero.id}_logs",
-        partial: "master/log_entry",
-        locals: { log: log }
-      )
+      # Reload hero to ensure fresh data
+      hero.reload
 
-      Turbo::StreamsChannel.broadcast_replace_to(
-        "master_dashboard",
-        target: "hero_#{hero.id}_stats",
-        partial: "master/hero_stats",
-        locals: { hero: hero }
-      )
+      # Broadcast to game-specific channels
+      hero.games.each do |game|
+        # Replace entire hero card to update stats and logs
+        Turbo::StreamsChannel.broadcast_replace_to(
+          "game_#{game.id}",
+          target: "hero_card_#{hero.id}",
+          partial: "master/games/hero_card",
+          locals: { hero: hero, game: game }
+        )
+      end
     end
 
     def hero_params
@@ -108,9 +113,9 @@ module Api
         :condition,
         :equipment,
         :notes,
-        stats: [:str, :dex, :con, :int, :wis, :cha],
-        debilities: [:str, :dex, :con, :int, :wis, :cha],
-        moves: [:name, :desc]
+        stats: [ :str, :dex, :con, :int, :wis, :cha ],
+        debilities: [ :str, :dex, :con, :int, :wis, :cha ],
+        moves: [ :name, :desc ]
       )
     end
   end

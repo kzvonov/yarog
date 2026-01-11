@@ -1,0 +1,10 @@
+<div style="margin-bottom: 30px; padding: 20px; background: var(--bg-card); border: 1px solid var(--border-dark);">
+  <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Add Hero by Code</h3>
+
+  <%= form_with url: add_hero_master_game_path(game), method: :post, style: "display: flex; gap: 10px;" do |f| %>
+    <%= text_field_tag :hero_code, "",
+        placeholder: "Enter hero code...",
+        style: "flex: 1;" %>
+    <%= submit_tag "Add Hero", class: "btn" %>
+  <% end %>
+</div>

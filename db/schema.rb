@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_05_120000) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_11_081645) do
+  create_table "game_heroes", force: :cascade do |t|
+    t.integer "game_id", null: false
+    t.integer "hero_id", null: false
+    t.integer "game_index"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id", "hero_id"], name: "index_game_heroes_on_game_id_and_hero_id", unique: true
+    t.index ["game_id"], name: "index_game_heroes_on_game_id"
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "heroes", force: :cascade do |t|
     t.string "code", null: false
     t.string "specialization", null: false
@@ -34,4 +51,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_05_120000) do
     t.index ["hero_id"], name: "index_logs_on_hero_id"
     t.index ["log_type"], name: "index_logs_on_log_type"
   end
+
+  add_foreign_key "game_heroes", "games"
+  add_foreign_key "game_heroes", "heroes"
 end

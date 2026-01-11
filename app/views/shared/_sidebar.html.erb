@@ -1,0 +1,13 @@
+<aside class="sidebar">
+  <h1 class="sidebar-title">YAR'OG</h1>
+
+  <nav>
+    <%= link_to master_heroes_path, class: (current_page?(master_heroes_path) || current_page?(master_root_path) ? 'active' : '') do %>
+      🦸 Heroes
+    <% end %>
+
+    <%= link_to master_games_path, class: (current_page?(master_games_path) ? 'active' : '') do %>
+      🎮 Games
+    <% end %>
+  </nav>
+</aside>

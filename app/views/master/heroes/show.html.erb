@@ -1,0 +1,220 @@
+<%
+  hero_data = @hero.hero_data
+  stats = hero_data['stats'] || {}
+  debilities = hero_data['debilities'] || {}
+  moves = hero_data['moves'] || []
+
+  # Calculate modifiers
+  def modifier(stat_value)
+    return 0 if stat_value.nil?
+    ((stat_value - 10) / 2.0).floor
+  end
+%>
+
+<div style="max-width: 900px;" data-controller="hero-editor" data-hero-editor-url-value="<%= master_hero_path(@hero) %>">
+  <%= link_to "← Back to Heroes", master_heroes_path, style: "display: inline-block; margin-bottom: 20px; color: var(--accent-blood-light); text-decoration: none;" %>
+
+  <!-- Save Controls -->
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+    <div class="hero-editor-status" data-hero-editor-target="status"></div>
+    <button type="button"
+            class="btn"
+            data-action="click->hero-editor#saveNow">Save Now</button>
+  </div>
+
+  <div class="card">
+    <!-- Editable Name -->
+    <div class="hero-editor-field">
+      <input type="text"
+             class="hero-name-input"
+             value="<%= @hero.name %>"
+             data-action="input->hero-editor#scheduleUpdate"
+             data-hero-editor-target="nameInput"
+             data-field="name"
+             placeholder="Hero Name"
+             maxlength="100">
+    </div>
+
+    <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 20px;">
+      <%= @hero.specialization.titleize %> • Level <%= @hero.level %> • Code: <span style="color: var(--accent-gold);"><%= @hero.code %></span>
+    </p>
+
+    <% if @games.any? %>
+      <div style="margin-bottom: 30px;">
+        <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 10px;">Games:</h3>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <% @games.each do |game| %>
+            <%= link_to master_game_path(game), style: "display: block; padding: 10px 15px; background: var(--bg-dark); border: 1px solid var(--border-dark); color: var(--text-primary); text-decoration: none; transition: border-color 0.2s;" do %>
+              🎮 <%= game.name %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Combat Stats (Editable) -->
+    <div class="combat-stats-grid">
+      <div class="combat-stat-box">
+        <div class="combat-stat-label">Level</div>
+        <input type="number"
+               class="combat-stat-input"
+               value="<%= @hero.level %>"
+               data-action="input->hero-editor#scheduleUpdate"
+               data-field="level"
+               min="1" max="10">
+      </div>
+      <div class="combat-stat-box">
+        <div class="combat-stat-label">XP</div>
+        <input type="number"
+               class="combat-stat-input"
+               value="<%= @hero.xp %>"
+               data-action="input->hero-editor#scheduleUpdate"
+               data-field="xp"
+               min="0">
+      </div>
+      <div class="combat-stat-box hp-box">
+        <div class="combat-stat-label">HP Current</div>
+        <input type="number"
+               class="combat-stat-input"
+               value="<%= hero_data['hpCurrent'] %>"
+               data-action="input->hero-editor#scheduleUpdate"
+               data-field="hpCurrent"
+               min="0">
+        <div class="combat-stat-sub">/ <%= hero_data['hpMax'] %></div>
+      </div>
+      <div class="combat-stat-box hp-box">
+        <div class="combat-stat-label">HP Max</div>
+        <input type="number"
+               class="combat-stat-input"
+               value="<%= hero_data['hpMax'] %>"
+               data-action="input->hero-editor#scheduleUpdate"
+               data-field="hpMax"
+               min="1">
+      </div>
+      <div class="combat-stat-box armor-box">
+        <div class="combat-stat-label">Armor</div>
+        <input type="number"
+               class="combat-stat-input"
+               value="<%= hero_data['armor'] %>"
+               data-action="input->hero-editor#scheduleUpdate"
+               data-field="armor"
+               min="0">
+      </div>
+      <div class="combat-stat-box damage-box">
+        <div class="combat-stat-label">Damage</div>
+        <input type="text"
+               class="combat-stat-input"
+               value="<%= hero_data['damage'] %>"
+               data-action="input->hero-editor#scheduleUpdate"
+               data-field="damage"
+               placeholder="d10">
+      </div>
+    </div>
+
+    <!-- Characteristics (Editable) -->
+    <div style="margin-bottom: 30px;">
+      <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Characteristics</h3>
+      <div class="stats-edit-grid">
+        <% %w[str dex con int wis cha].each do |stat| %>
+          <div class="stat-edit-box">
+            <div class="stat-edit-name"><%= stat.upcase %></div>
+            <input type="number"
+                   class="stat-edit-input"
+                   value="<%= stats[stat] || 10 %>"
+                   data-action="input->hero-editor#scheduleUpdate"
+                   data-field="stat_<%= stat %>"
+                   min="1" max="20">
+            <div class="stat-edit-modifier" data-hero-editor-target="modifier_<%= stat %>">
+              <%= modifier(stats[stat]) >= 0 ? "+#{modifier(stats[stat])}" : modifier(stats[stat]) %>
+            </div>
+            <div class="stat-edit-debility">
+              <input type="checkbox"
+                     <%= debilities[stat] ? 'checked' : '' %>
+                     data-action="change->hero-editor#scheduleUpdate"
+                     data-field="deb_<%= stat %>">
+              <span>Debilitated</span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Abilities (Editable) -->
+    <div style="margin-bottom: 30px;">
+      <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Abilities</h3>
+      <div class="moves-edit-list" data-hero-editor-target="movesList">
+        <% moves.each_with_index do |move, index| %>
+          <div class="move-edit-item">
+            <div class="move-edit-header">
+              <input type="text"
+                     class="move-edit-name-input"
+                     value="<%= move['name'] %>"
+                     data-action="input->hero-editor#scheduleUpdate"
+                     data-field="move_<%= index %>_name"
+                     placeholder="Ability Name"
+                     maxlength="100">
+              <button type="button"
+                      class="move-remove-btn"
+                      data-action="click->hero-editor#removeMove"
+                      data-index="<%= index %>">✕</button>
+            </div>
+            <textarea class="move-edit-desc-input"
+                      data-action="input->hero-editor#scheduleUpdate"
+                      data-field="move_<%= index %>_desc"
+                      placeholder="Ability description..."
+                      maxlength="500"><%= move['desc'] %></textarea>
+          </div>
+        <% end %>
+      </div>
+      <button type="button"
+              class="add-move-btn"
+              data-action="click->hero-editor#addMove">+ Add Ability</button>
+    </div>
+
+    <!-- Equipment (Editable) -->
+    <div style="margin-bottom: 30px;">
+      <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Equipment</h3>
+      <textarea class="hero-edit-textarea"
+                data-action="input->hero-editor#scheduleUpdate"
+                data-field="equipment"
+                placeholder="Weapons, armor, items..."
+                maxlength="300"
+                rows="4"><%= (hero_data['equipment'] || '').strip %></textarea>
+      <div class="char-count-display">
+        <span data-hero-editor-target="equipmentCount"><%= (hero_data['equipment'] || '').strip.length %></span>/300
+      </div>
+    </div>
+
+    <!-- Condition (Editable) -->
+    <div style="margin-bottom: 30px;">
+      <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Condition</h3>
+      <textarea class="hero-edit-textarea"
+                data-action="input->hero-editor#scheduleUpdate"
+                data-field="condition"
+                placeholder="Curses, debts, special conditions..."
+                maxlength="500"
+                rows="4"><%= hero_data['condition'] %></textarea>
+      <div class="char-count-display">
+        <span data-hero-editor-target="conditionCount"><%= (hero_data['condition'] || '').length %></span>/500
+      </div>
+    </div>
+
+    <!-- Notes (Editable) -->
+    <div style="margin-bottom: 30px;">
+      <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Notes</h3>
+      <textarea class="hero-edit-textarea"
+                data-action="input->hero-editor#scheduleUpdate"
+                data-field="notes"
+                placeholder="Bonds, goals, important info..."
+                maxlength="1000"
+                rows="6"><%= hero_data['notes'] %></textarea>
+      <div class="char-count-display">
+        <span data-hero-editor-target="notesCount"><%= (hero_data['notes'] || '').length %></span>/1000
+      </div>
+    </div>
+
+    <div style="text-align: right; font-size: 0.85rem; color: var(--text-secondary); margin-top: 30px;">
+      Version: <%= @hero.version %> • Created: <%= @hero.created_at.strftime('%Y-%m-%d %H:%M') %>
+    </div>
+  </div>
+</div>

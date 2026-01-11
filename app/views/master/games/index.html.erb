@@ -1,0 +1,30 @@
+<div style="max-width: 800px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <h1>Games</h1>
+    <%= link_to "＋ New Game", new_master_game_path, class: "btn" %>
+  </div>
+
+  <% if @games.any? %>
+    <div style="display: flex; flex-direction: column; gap: 15px;">
+      <% @games.each do |game| %>
+        <%= link_to master_game_path(game), class: "item-card" do %>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div class="item-title">🎲 <%= game.name %></div>
+              <div class="item-meta">
+                Created: <%= game.created_at.strftime('%Y-%m-%d') %>
+                <%= " • #{game.heroes.count} #{'hero'.pluralize(game.heroes.count)}" if game.heroes.any? %>
+              </div>
+            </div>
+            <div style="font-size: 2rem; color: var(--text-secondary);">→</div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <div style="text-align: center; padding: 60px 20px;">
+      <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 20px;">No games yet</p>
+      <%= link_to "Create your first game", new_master_game_path, class: "btn" %>
+    </div>
+  <% end %>
+</div>

@@ -36,3 +36,5 @@
 
 config/deploy.yml
 .ignore/
+/app/assets/builds/*
+!/app/assets/builds/.keep
