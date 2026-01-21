@@ -2068,10 +2068,10 @@
           document.getElementById('deb_' + stat).checked = String(h.debilities[stat]).toLowerCase() == "true";
 
           const baseMod = this.getModifier(h.stats[stat]);
-          const finalMod = h.debilities[stat] ? baseMod - 1 : baseMod;
+          const finalMod = String(h.debilities[stat]) == "true" ? baseMod - 1 : baseMod;
           const modEl = document.getElementById(stat + 'Mod');
           modEl.textContent = this.formatModifier(finalMod);
-          modEl.className = h.debilities[stat] ? 'modifier debilitated' : 'modifier';
+          modEl.className = String(h.debilities[stat]) == "true" ? 'modifier debilitated' : 'modifier';
         });
 
         // Weapons & Equipment
@@ -2117,10 +2117,10 @@
 
           // Update modifier display
           const baseMod = this.getModifier(value);
-          const finalMod = State.hero.debilities[stat] ? baseMod - 1 : baseMod;
+          const finalMod = String(State.hero.debilities[stat]) == "true" ? baseMod - 1 : baseMod;
           const modEl = document.getElementById(stat + 'Mod');
           modEl.textContent = this.formatModifier(finalMod);
-          modEl.className = State.hero.debilities[stat] ? 'modifier debilitated' : 'modifier';
+          modEl.className = String(State.hero.debilities[stat]) == "true" ? 'modifier debilitated' : 'modifier';
 
           // Update max HP if CON changed
           if (stat === 'con') {
