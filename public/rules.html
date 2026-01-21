@@ -397,6 +397,21 @@
       color: var(--accent-green-light);
     }
 
+    .tag.size {
+      border-color: #6a5acd;
+      color: #9370db;
+    }
+
+    .tag.org {
+      border-color: #cd853f;
+      color: #daa520;
+    }
+
+    .tag.monster {
+      border-color: #708090;
+      color: #a0a0b0;
+    }
+
     /* Table */
     table {
       width: 100%;
@@ -490,6 +505,187 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* Tags Sidebar */
+    .tags-sidebar {
+      position: fixed;
+      right: 0;
+      top: 0;
+      width: 260px;
+      height: 100vh;
+      background: var(--bg-card);
+      border-left: 1px solid var(--border-dark);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .tags-sidebar.collapsed {
+      transform: translateX(220px);
+    }
+
+    .tags-sidebar-toggle {
+      position: absolute;
+      left: -36px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 100px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-right: none;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      letter-spacing: 0.1em;
+    }
+
+    .tags-sidebar-toggle:hover {
+      background: var(--bg-card-hover);
+      color: var(--accent-blood-light);
+    }
+
+    .tags-sidebar-header {
+      padding: 15px;
+      border-bottom: 1px solid var(--border-dark);
+      background: linear-gradient(135deg, var(--bg-card) 0%, #1a0a0a 100%);
+    }
+
+    .tags-sidebar-header h3 {
+      font-size: 1rem;
+      color: var(--text-heading);
+      margin-bottom: 10px;
+      letter-spacing: 0.1em;
+    }
+
+    .tags-search {
+      width: 100%;
+      padding: 8px 10px;
+      background: var(--bg-dark);
+      border: 1px solid var(--border-dark);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.85rem;
+    }
+
+    .tags-search:focus {
+      outline: none;
+      border-color: var(--accent-blood);
+    }
+
+    .tags-search::placeholder {
+      color: var(--text-secondary);
+    }
+
+    .tags-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+    }
+
+    .tags-group {
+      margin-bottom: 20px;
+    }
+
+    .tags-group-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 8px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .tags-group-title.damage { color: var(--accent-blood-light); border-bottom-color: var(--accent-blood); }
+    .tags-group-title.range { color: var(--accent-gold); border-bottom-color: var(--accent-gold); }
+    .tags-group-title.special { color: var(--accent-green-light); border-bottom-color: var(--accent-green-light); }
+
+    .tag-item {
+      display: block;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tag-item:hover {
+      background: rgba(139, 0, 0, 0.15);
+      margin: 0 -15px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .tag-item:last-child {
+      border-bottom: none;
+    }
+
+    .tag-item .tag-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .tag-item.damage .tag-name { color: var(--accent-blood-light); }
+    .tag-item.range .tag-name { color: var(--accent-gold); }
+    .tag-item.special .tag-name { color: var(--accent-green-light); }
+    .tag-item.size .tag-name { color: #9370db; }
+    .tag-item.org .tag-name { color: #daa520; }
+    .tag-item.monster .tag-name { color: #a0a0b0; }
+
+    .tags-group-title.size { color: #9370db; border-bottom-color: #6a5acd; }
+    .tags-group-title.org { color: #daa520; border-bottom-color: #cd853f; }
+    .tags-group-title.monster { color: #a0a0b0; border-bottom-color: #708090; }
+
+    .tag-item .tag-desc {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      line-height: 1.3;
+    }
+
+    .tag-item.hidden {
+      display: none;
+    }
+
+    /* Adjust main content for sidebar */
+    body {
+      padding-right: 260px;
+    }
+
+    body.sidebar-collapsed {
+      padding-right: 40px;
+    }
+
+    @media (max-width: 1100px) {
+      .tags-sidebar {
+        transform: translateX(220px);
+      }
+      .tags-sidebar.collapsed {
+        transform: translateX(220px);
+      }
+      .tags-sidebar:not(.collapsed) {
+        transform: translateX(0);
+      }
+      body {
+        padding-right: 40px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .tags-sidebar {
+        width: 240px;
+      }
+      .tags-sidebar.collapsed {
+        transform: translateX(200px);
+      }
+    }
   </style>
 </head>
 
@@ -511,9 +707,9 @@
       <a href="#damage">Урон и здоровье</a>
       <a href="#debilities">Увечья</a>
       <a href="#equipment">Снаряжение</a>
+      <a href="#monster-tags">Теги монстров</a>
       <a href="#experience">Опыт</a>
       <a href="#gm-moves">Ходы ведущего</a>
-      <a href="https://www.dungeon-world.com/downloads/" target="blank">Материалы</a>
     </div>
   </nav>
 
@@ -898,6 +1094,13 @@
               возмездие или цену.
             </div>
           </div>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Зима:</span> Ратибор пытается выломать дверь? Я помогаю — упираюсь плечом рядом!</p>
+            <p><span class="speaker">Ведущий:</span> Aid, бросай +Bond с Ратибором.</p>
+            <p><span class="speaker">Зима:</span> У меня с ним 2 Bond... выпало 8.</p>
+            <p><span class="speaker">Ведущий:</span> Ратибор получает +1 к своему броску. Но когда дверь слетает с петель — ты теряешь равновесие и влетаешь в комнату первой. Прямо под ноги тому, кто там прятался.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1023,6 +1226,233 @@
             <li><strong>Завхоз (Quartermaster):</strong> бросает +WIS — на 10+ рационов хватает; на 7–9 кто-то должен
               отдать 1 рацион</li>
           </ul>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Ведущий:</span> Путь от Берёзовой Заставы до Чёрного Омута — два дня через чащу. Кто ведёт, кто разведывает, кто следит за припасами?</p>
+            <p><span class="speaker">Дарья:</span> Я разведчик, бросаю +WIS... 7.</p>
+            <p><span class="speaker">Ведущий:</span> К полудню второго дня ты замечаешь следы волколака — но он уже учуял вас. Вы слышите вой совсем рядом.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carouse -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Carouse (Кутёж)
+            <span class="trigger">в поселении</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда возвращаешься в цивилизацию и устраиваешь пир или гулянку</strong>, тратишь 1 монету за каждого участника и бросаешь +1 за каждую дополнительную потраченную монету (максимум +3).</p>
+          <div class="move-results">
+            <div class="result success">
+              <span class="result-label">10+</span> Выбери 3 из списка ниже.
+            </div>
+            <div class="result partial">
+              <span class="result-label">7–9</span> Выбери 1, но вещи выходят из-под контроля (ведущий скажет как).
+            </div>
+          </div>
+          <ul>
+            <li>Ты подружился с полезным NPC</li>
+            <li>Ты слышишь слухи о возможности</li>
+            <li>Ты получаешь полезную информацию</li>
+            <li>Тебя не втянули в неприятности</li>
+          </ul>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Ратибор:</span> После охоты на упырей — гуляем в таверне! Ставлю всем мёд, трачу 5 монет.</p>
+            <p><span class="speaker">Ведущий:</span> Carouse с +3. Бросай.</p>
+            <p><span class="speaker">Ратибор:</span> 8.</p>
+            <p><span class="speaker">Ведущий:</span> Выбери одно. Но ты перебрал — и наутро обнаруживаешь, что пообещал старосте очистить колодец от «чего-то склизкого». Бесплатно.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Supply -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Supply (Пополнить припасы)
+            <span class="trigger">в поселении</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда идёшь на рынок или к торговцу за обычным снаряжением</strong>, если оно доступно в этом поселении — плати указанную цену и получай товар.</p>
+          <p>Если ищешь что-то особенное или редкое, ведущий скажет:</p>
+          <ul>
+            <li>Это стоит дороже обычного</li>
+            <li>Это можно найти, но не здесь — скажет где</li>
+            <li>Придётся обойтись похожим, но не идеальным</li>
+            <li>Сначала нужно заслужить доверие или выполнить услугу</li>
+          </ul>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Зима:</span> Ищу серебряные наконечники для стрел. Есть у кузнеца?</p>
+            <p><span class="speaker">Ведущий:</span> Кузнец чешет бороду. «Серебро? Откуда в такой глуши? Но в Белозерье есть мастер, который с духами торгует. Он может. Только дорога туда через Гнилую Падь...»</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recover -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Recover (Восстановиться)
+            <span class="trigger">при длительном отдыхе</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда ничего не делаешь, кроме отдыха, в безопасном месте</strong>, после дня восстанавливаешь все HP.</p>
+          <p>Если за тобой ухаживает кто-то с навыками лечения — можешь также вылечить одно увечье (Debility).</p>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Ведущий:</span> Бабка-травница берёт тебя к себе. Три дня ты лежишь на печи, пьёшь горькие отвары.</p>
+            <p><span class="speaker">Мирко:</span> Три дня? Мы столько ждать не можем!</p>
+            <p><span class="speaker">Ведущий:</span> Один день — все HP. Три дня — снимешь «Слабый» с STR. Решай.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recruit -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Recruit (Нанять)
+            <span class="trigger">в поселении</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда распространяешь весть, что ищешь наёмников</strong>, бросай:</p>
+          <ul>
+            <li>+1 если предлагаешь хорошую плату или долю добычи</li>
+            <li>+1 если ты известен как честный наниматель</li>
+            <li>−1 если задание звучит самоубийственно</li>
+          </ul>
+          <div class="move-results">
+            <div class="result success">
+              <span class="result-label">10+</span> Находишь d6 кандидатов с нужными навыками. Выбирай лучшего.
+            </div>
+            <div class="result partial">
+              <span class="result-label">7–9</span> Есть один, но у него недостаток или особое условие.
+            </div>
+          </div>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Дарья:</span> Ищу проводника через Гнилую Падь.</p>
+            <p><span class="speaker">Ведущий:</span> Recruit. Деньги есть, но задание опасное. Бросай +0.</p>
+            <p><span class="speaker">Дарья:</span> 7.</p>
+            <p><span class="speaker">Ведущий:</span> Есть один — старый охотник Ворон. Но он требует оплату вперёд. И у него дрожат руки — говорят, духов видит даже днём.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bolster -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Bolster (Подготовиться)
+            <span class="trigger">при подготовке</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда тратишь время на личную подготовку к предстоящему испытанию</strong>, скажи ведущему, как готовишься. Если он согласен — получаешь +1 Forward к определённому действию.</p>
+          <p>Ты можешь подготовиться только к одной вещи за раз.</p>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Зима:</span> Перед логовом волколака изучаю следы и помёт, чтобы понять его повадки.</p>
+            <p><span class="speaker">Ведущий:</span> Bolster. Час на изучение — +1 Forward на первый Discern Realities или Spout Lore про этого волколака.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Outstanding Warrants -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Outstanding Warrants (Проблемы с законом)
+            <span class="trigger">при входе в поселение</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда возвращаешься туда, где у тебя могут быть проблемы</strong>, бросай +CHA.</p>
+          <div class="move-results">
+            <div class="result success">
+              <span class="result-label">10+</span> Тебя не узнали или проблемы улеглись.
+            </div>
+            <div class="result partial">
+              <span class="result-label">7–9</span> Выбери: тебя узнают и это создаст проблемы позже; или реши проблему сейчас за деньги, услугу или репутацию.
+            </div>
+          </div>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Ведущий:</span> Входите в Белозерье. Ратибор, ты ведь тут дрался с дружинниками князя...</p>
+            <p><span class="speaker">Ратибор:</span> Бросаю +CHA... 7.</p>
+            <p><span class="speaker">Ведущий:</span> Стражник щурится. Пока не узнал. Но если останешься надолго — вспомнит. Или сунь ему пару монет, чтобы «забыл» твоё лицо.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- End of Session -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            End of Session (Конец сессии)
+            <span class="trigger">в конце игры</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда заканчиваете сессию</strong>, ответьте на вопросы как группа:</p>
+          <ul>
+            <li>Мы узнали что-то новое и важное о мире?</li>
+            <li>Мы победили заметного врага?</li>
+            <li>Мы получили сокровище или ценность?</li>
+          </ul>
+          <p>За каждый ответ «да» — каждый игрок получает 1 XP.</p>
+          <p>Затем каждый отвечает на вопрос своего мировоззрения (Alignment). Если да — ещё 1 XP.</p>
+          <p>Проверь связи (Bonds). Если связь разрешилась — отметь XP и запиши новую.</p>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Ведущий:</span> Конец сессии. Узнали что-то новое о мире?</p>
+            <p><span class="speaker">Все:</span> Да — узнали, что Яр'мог связан с пропавшими детьми.</p>
+            <p><span class="speaker">Ведущий:</span> Победили заметного врага?</p>
+            <p><span class="speaker">Все:</span> Нет, упыри сбежали.</p>
+            <p><span class="speaker">Ведущий:</span> Получили ценность?</p>
+            <p><span class="speaker">Дарья:</span> Я нашла рунный амулет!</p>
+            <p><span class="speaker">Ведущий:</span> Считается. 2 XP всем. Теперь — ваши мировоззрения...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level Up -->
+      <div class="move-card">
+        <div class="move-header">
+          <h4>
+            Level Up (Повышение уровня)
+            <span class="trigger">при накоплении XP</span>
+          </h4>
+        </div>
+        <div class="move-body">
+          <p><strong>Когда накопил XP = текущий уровень + 7</strong>, повышаешь уровень:</p>
+          <ul>
+            <li>Сбрось XP до 0</li>
+            <li>Увеличь уровень на 1</li>
+            <li>Выбери новый ход из своего класса</li>
+            <li>На 2+ уровне можешь взять ход другого класса (мультикласс)</li>
+            <li>Можешь увеличить одну характеристику на 1 (максимум 18)</li>
+          </ul>
+          <p>На 10 уровне вместо обычного повышения выбери:</p>
+          <ul>
+            <li>Уйди на покой в безопасное место</li>
+            <li>Возьми ученика</li>
+            <li>Смени класс на совершенно новый</li>
+          </ul>
+          <button class="example-toggle" onclick="toggleExample(this)">Пример из Мюрквида</button>
+          <div class="example-content">
+            <p><span class="speaker">Ведущий:</span> Ратибор, у тебя 9 XP, ты 2 уровня. 2+7=9 — повышаешься!</p>
+            <p><span class="speaker">Ратибор:</span> Сбрасываю XP. Беру ход «Железная шкура». И повышаю CON с 13 до 14!</p>
+            <p><span class="speaker">Ведущий:</span> Отлично. Для следующего уровня нужно 10 XP.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1314,6 +1744,217 @@
       </table>
     </section>
 
+    <!-- Section: Monster Tags -->
+    <section id="monster-tags">
+      <h2>Теги монстров</h2>
+      <p>
+        Теги монстров описывают их особенности и влияют на то, как с ними взаимодействовать.
+        Ведущий использует теги, чтобы определить поведение и способности существ.
+      </p>
+
+      <h3>Размер</h3>
+      <table>
+        <tr>
+          <th>Тег</th>
+          <th>Значение</th>
+        </tr>
+        <tr>
+          <td><span class="tag size">Tiny</span></td>
+          <td>Крошечный — меньше кошки. Крысы, пауки, фейри.</td>
+        </tr>
+        <tr>
+          <td><span class="tag size">Small</span></td>
+          <td>Маленький — размером с ребёнка или полурослика. Гоблины, кобольды.</td>
+        </tr>
+        <tr>
+          <td><span class="tag size">Large</span></td>
+          <td>Большой — крупнее человека. Огры, тролли, медведи.</td>
+        </tr>
+        <tr>
+          <td><span class="tag size">Huge</span></td>
+          <td>Огромный — размером с дом. Драконы, великаны, левиафаны.</td>
+        </tr>
+      </table>
+
+      <h3>Организация</h3>
+      <table>
+        <tr>
+          <th>Тег</th>
+          <th>Значение</th>
+          <th>HP</th>
+          <th>Урон</th>
+        </tr>
+        <tr>
+          <td><span class="tag org">Horde</span></td>
+          <td>Орда — много слабых существ, атакуют толпой</td>
+          <td>3 HP</td>
+          <td>d6</td>
+        </tr>
+        <tr>
+          <td><span class="tag org">Group</span></td>
+          <td>Группа — несколько существ, обычно 2-5</td>
+          <td>6 HP</td>
+          <td>d8</td>
+        </tr>
+        <tr>
+          <td><span class="tag org">Solitary</span></td>
+          <td>Одиночка — одно мощное существо</td>
+          <td>12 HP</td>
+          <td>d10</td>
+        </tr>
+      </table>
+
+      <h3>Особенности</h3>
+      <table>
+        <tr>
+          <th>Тег</th>
+          <th>Значение</th>
+        </tr>
+        <tr>
+          <td><span class="tag monster">Magical</span></td>
+          <td>Магическое — обладает сверхъестественными способностями</td>
+        </tr>
+        <tr>
+          <td><span class="tag monster">Intelligent</span></td>
+          <td>Разумное — способно думать, планировать, говорить</td>
+        </tr>
+        <tr>
+          <td><span class="tag monster">Hoarder</span></td>
+          <td>Собиратель — накапливает сокровища или определённые предметы</td>
+        </tr>
+        <tr>
+          <td><span class="tag monster">Stealthy</span></td>
+          <td>Скрытное — умеет прятаться и подкрадываться</td>
+        </tr>
+        <tr>
+          <td><span class="tag monster">Terrifying</span></td>
+          <td>Ужасающее — вызывает страх, может парализовать жертву</td>
+        </tr>
+        <tr>
+          <td><span class="tag monster">Cautious</span></td>
+          <td>Осторожное — избегает прямой схватки, отступает при угрозе</td>
+        </tr>
+        <tr>
+          <td><span class="tag monster">Devious</span></td>
+          <td>Коварное — использует хитрость, ловушки, обман</td>
+        </tr>
+        <tr>
+          <td><span class="tag monster">Organized</span></td>
+          <td>Организованное — действует слаженно с другими, имеет тактику</td>
+        </tr>
+        <tr>
+          <td><span class="tag monster">Amorphous</span></td>
+          <td>Бесформенное — не имеет постоянной формы, слизи, тени</td>
+        </tr>
+        <tr>
+          <td><span class="tag monster">Planar</span></td>
+          <td>Планарное — пришло из другого плана бытия</td>
+        </tr>
+        <tr>
+          <td><span class="tag monster">Construct</span></td>
+          <td>Конструкт — искусственное, созданное магией или мастерством</td>
+        </tr>
+        <tr>
+          <td><span class="tag monster">Divine</span></td>
+          <td>Божественное — связано с богами, святое или проклятое</td>
+        </tr>
+      </table>
+
+      <h3>Защита и атака</h3>
+      <table>
+        <tr>
+          <th>Тег</th>
+          <th>Значение</th>
+        </tr>
+        <tr>
+          <td><span class="tag special">n Armor</span></td>
+          <td>Снижает входящий урон на n (шкура, чешуя, магия)</td>
+        </tr>
+        <tr>
+          <td><span class="tag special">Piercing n</span></td>
+          <td>Атаки игнорируют n брони цели</td>
+        </tr>
+        <tr>
+          <td><span class="tag special">Forceful</span></td>
+          <td>Атаки отбрасывают, сбивают с ног</td>
+        </tr>
+        <tr>
+          <td><span class="tag special">Messy</span></td>
+          <td>Оставляет страшные раны, может оторвать конечности</td>
+        </tr>
+        <tr>
+          <td><span class="tag range">Reach</span></td>
+          <td>Может атаковать на расстоянии копья (щупальца, хвост)</td>
+        </tr>
+        <tr>
+          <td><span class="tag range">Near</span></td>
+          <td>Может атаковать на дистанции (плевок, метание)</td>
+        </tr>
+        <tr>
+          <td><span class="tag range">Far</span></td>
+          <td>Может атаковать издалека (дыхание дракона, магия)</td>
+        </tr>
+      </table>
+
+      <h3>Примеры монстров (Мюрквид)</h3>
+      <table>
+        <tr>
+          <th>Монстр</th>
+          <th>Теги</th>
+          <th>HP</th>
+          <th>Armor</th>
+          <th>Урон</th>
+        </tr>
+        <tr>
+          <td>Упырь</td>
+          <td>Group, Stealthy, Terrifying</td>
+          <td>6</td>
+          <td>1</td>
+          <td>d8 (когти)</td>
+        </tr>
+        <tr>
+          <td>Волколак</td>
+          <td>Solitary, Terrifying, Organized</td>
+          <td>12</td>
+          <td>1</td>
+          <td>d10+2 (клыки), Messy</td>
+        </tr>
+        <tr>
+          <td>Леший</td>
+          <td>Solitary, Large, Magical, Devious</td>
+          <td>16</td>
+          <td>2</td>
+          <td>d10 (ветви), Forceful, Reach</td>
+        </tr>
+        <tr>
+          <td>Навь (призрак)</td>
+          <td>Solitary, Magical, Terrifying, Amorphous</td>
+          <td>10</td>
+          <td>0</td>
+          <td>d8 (холод), игнорирует броню</td>
+        </tr>
+        <tr>
+          <td>Гоблины-воры</td>
+          <td>Horde, Small, Stealthy, Devious</td>
+          <td>3</td>
+          <td>0</td>
+          <td>d6 (ножи)</td>
+        </tr>
+        <tr>
+          <td>Яр'мог (бог смерти)</td>
+          <td>Solitary, Huge, Divine, Terrifying, Intelligent</td>
+          <td>∞</td>
+          <td>5</td>
+          <td>d12+5, Messy, Forceful</td>
+        </tr>
+      </table>
+
+      <div class="quote-block">
+        Теги — это подсказки для ведущего. Когда монстр Terrifying — опиши ужас.
+        Когда Stealthy — он появляется из тени. Используй теги в описаниях!
+      </div>
+    </section>
+
     <!-- Rune divider -->
     <div class="rune-divider">
       <div class="line"></div>
@@ -1324,7 +1965,6 @@
       <div class="line"></div>
     </div>
 
-    <!-- Section: Experience -->
     <section id="experience">
       <h2>Experience (Опыт)</h2>
 
@@ -1453,7 +2093,213 @@
       const content = button.nextElementSibling;
       content.classList.toggle('show');
     }
+
+    // Tags sidebar
+    function toggleSidebar() {
+      const sidebar = document.getElementById('tagsSidebar');
+      sidebar.classList.toggle('collapsed');
+      document.body.classList.toggle('sidebar-collapsed');
+    }
+
+    function filterTags() {
+      const query = document.getElementById('tagsSearch').value.toLowerCase();
+      const items = document.querySelectorAll('.tag-item');
+      
+      items.forEach(item => {
+        const name = item.querySelector('.tag-name').textContent.toLowerCase();
+        const desc = item.querySelector('.tag-desc').textContent.toLowerCase();
+        if (name.includes(query) || desc.includes(query)) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    }
+
+    function scrollToEquipment() {
+      document.getElementById('equipment').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function scrollToMonsters() {
+      document.getElementById('monster-tags').scrollIntoView({ behavior: 'smooth' });
+    }
   </script>
+
+  <!-- Tags Sidebar -->
+  <aside class="tags-sidebar" id="tagsSidebar">
+    <button class="tags-sidebar-toggle" onclick="toggleSidebar()">ТЕГИ</button>
+    <div class="tags-sidebar-header">
+      <h3>Теги снаряжения</h3>
+      <input type="text" class="tags-search" id="tagsSearch" placeholder="Поиск..." oninput="filterTags()">
+    </div>
+    <div class="tags-content">
+      
+      <div class="tags-group">
+        <div class="tags-group-title damage">Урон</div>
+        <div class="tag-item damage" onclick="scrollToEquipment()">
+          <span class="tag-name">n Damage</span>
+          <span class="tag-desc">Заменяет урон класса на указанный кубик</span>
+        </div>
+        <div class="tag-item damage" onclick="scrollToEquipment()">
+          <span class="tag-name">+n Damage</span>
+          <span class="tag-desc">Добавляет к урону</span>
+        </div>
+      </div>
+
+      <div class="tags-group">
+        <div class="tags-group-title range">Дистанция</div>
+        <div class="tag-item range" onclick="scrollToEquipment()">
+          <span class="tag-name">Hand</span>
+          <span class="tag-desc">Вплотную, рукопашная</span>
+        </div>
+        <div class="tag-item range" onclick="scrollToEquipment()">
+          <span class="tag-name">Close</span>
+          <span class="tag-desc">На расстоянии руки с оружием</span>
+        </div>
+        <div class="tag-item range" onclick="scrollToEquipment()">
+          <span class="tag-name">Reach</span>
+          <span class="tag-desc">На расстоянии копья/посоха</span>
+        </div>
+        <div class="tag-item range" onclick="scrollToEquipment()">
+          <span class="tag-name">Near</span>
+          <span class="tag-desc">Можно докинуть камнем</span>
+        </div>
+        <div class="tag-item range" onclick="scrollToEquipment()">
+          <span class="tag-name">Far</span>
+          <span class="tag-desc">Дальше, чем можно бросить</span>
+        </div>
+      </div>
+
+      <div class="tags-group">
+        <div class="tags-group-title special">Особые</div>
+        <div class="tag-item special" onclick="scrollToEquipment()">
+          <span class="tag-name">Piercing n</span>
+          <span class="tag-desc">Игнорирует n брони</span>
+        </div>
+        <div class="tag-item special" onclick="scrollToEquipment()">
+          <span class="tag-name">Forceful</span>
+          <span class="tag-desc">Отбрасывает, сбивает</span>
+        </div>
+        <div class="tag-item special" onclick="scrollToEquipment()">
+          <span class="tag-name">Messy</span>
+          <span class="tag-desc">Грязные, страшные раны</span>
+        </div>
+        <div class="tag-item special" onclick="scrollToEquipment()">
+          <span class="tag-name">Two-handed</span>
+          <span class="tag-desc">Требует обе руки</span>
+        </div>
+        <div class="tag-item special" onclick="scrollToEquipment()">
+          <span class="tag-name">n Ammo</span>
+          <span class="tag-desc">Столько выстрелов до перезарядки</span>
+        </div>
+        <div class="tag-item special" onclick="scrollToEquipment()">
+          <span class="tag-name">Reload</span>
+          <span class="tag-desc">Нужно время, чтобы перезарядить</span>
+        </div>
+        <div class="tag-item special" onclick="scrollToEquipment()">
+          <span class="tag-name">n Armor</span>
+          <span class="tag-desc">Снижает урон на n</span>
+        </div>
+        <div class="tag-item special" onclick="scrollToEquipment()">
+          <span class="tag-name">Clumsy</span>
+          <span class="tag-desc">−1 к DEX пока носишь</span>
+        </div>
+        <div class="tag-item special" onclick="scrollToEquipment()">
+          <span class="tag-name">n Weight</span>
+          <span class="tag-desc">Добавляет к нагрузке</span>
+        </div>
+      </div>
+
+      <div class="tags-group">
+        <div class="tags-group-title size">Размер</div>
+        <div class="tag-item size" onclick="scrollToMonsters()">
+          <span class="tag-name">Tiny</span>
+          <span class="tag-desc">Крошечный — меньше кошки</span>
+        </div>
+        <div class="tag-item size" onclick="scrollToMonsters()">
+          <span class="tag-name">Small</span>
+          <span class="tag-desc">Маленький — размером с ребёнка</span>
+        </div>
+        <div class="tag-item size" onclick="scrollToMonsters()">
+          <span class="tag-name">Large</span>
+          <span class="tag-desc">Большой — крупнее человека</span>
+        </div>
+        <div class="tag-item size" onclick="scrollToMonsters()">
+          <span class="tag-name">Huge</span>
+          <span class="tag-desc">Огромный — размером с дом</span>
+        </div>
+      </div>
+
+      <div class="tags-group">
+        <div class="tags-group-title org">Организация</div>
+        <div class="tag-item org" onclick="scrollToMonsters()">
+          <span class="tag-name">Horde</span>
+          <span class="tag-desc">Орда — много слабых (3 HP, d6)</span>
+        </div>
+        <div class="tag-item org" onclick="scrollToMonsters()">
+          <span class="tag-name">Group</span>
+          <span class="tag-desc">Группа — несколько (6 HP, d8)</span>
+        </div>
+        <div class="tag-item org" onclick="scrollToMonsters()">
+          <span class="tag-name">Solitary</span>
+          <span class="tag-desc">Одиночка — один мощный (12 HP, d10)</span>
+        </div>
+      </div>
+
+      <div class="tags-group">
+        <div class="tags-group-title monster">Особенности монстров</div>
+        <div class="tag-item monster" onclick="scrollToMonsters()">
+          <span class="tag-name">Magical</span>
+          <span class="tag-desc">Магическое существо</span>
+        </div>
+        <div class="tag-item monster" onclick="scrollToMonsters()">
+          <span class="tag-name">Intelligent</span>
+          <span class="tag-desc">Разумное, способно думать</span>
+        </div>
+        <div class="tag-item monster" onclick="scrollToMonsters()">
+          <span class="tag-name">Hoarder</span>
+          <span class="tag-desc">Собирает сокровища</span>
+        </div>
+        <div class="tag-item monster" onclick="scrollToMonsters()">
+          <span class="tag-name">Stealthy</span>
+          <span class="tag-desc">Скрытное, прячется</span>
+        </div>
+        <div class="tag-item monster" onclick="scrollToMonsters()">
+          <span class="tag-name">Terrifying</span>
+          <span class="tag-desc">Ужасающее, вызывает страх</span>
+        </div>
+        <div class="tag-item monster" onclick="scrollToMonsters()">
+          <span class="tag-name">Cautious</span>
+          <span class="tag-desc">Осторожное, избегает схватки</span>
+        </div>
+        <div class="tag-item monster" onclick="scrollToMonsters()">
+          <span class="tag-name">Devious</span>
+          <span class="tag-desc">Коварное, использует хитрость</span>
+        </div>
+        <div class="tag-item monster" onclick="scrollToMonsters()">
+          <span class="tag-name">Organized</span>
+          <span class="tag-desc">Организованное, имеет тактику</span>
+        </div>
+        <div class="tag-item monster" onclick="scrollToMonsters()">
+          <span class="tag-name">Amorphous</span>
+          <span class="tag-desc">Бесформенное, слизь/тень</span>
+        </div>
+        <div class="tag-item monster" onclick="scrollToMonsters()">
+          <span class="tag-name">Planar</span>
+          <span class="tag-desc">Из другого плана бытия</span>
+        </div>
+        <div class="tag-item monster" onclick="scrollToMonsters()">
+          <span class="tag-name">Construct</span>
+          <span class="tag-desc">Искусственное создание</span>
+        </div>
+        <div class="tag-item monster" onclick="scrollToMonsters()">
+          <span class="tag-name">Divine</span>
+          <span class="tag-desc">Божественное, связано с богами</span>
+        </div>
+      </div>
+
+    </div>
+  </aside>
 
 </body>
 

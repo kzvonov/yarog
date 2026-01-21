@@ -123,11 +123,29 @@ h2 {
 }
 
 .flash {
-  max-width: 800px;
-  margin: 0 auto 20px;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 600px;
+  width: 90%;
   padding: 15px 20px;
   border-left: 4px solid var(--accent-blood);
   background: var(--bg-card);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 .flash.success {
@@ -162,6 +180,15 @@ h2 {
 
 .btn-secondary:hover {
   background: var(--bg-hover);
+}
+
+.btn-active {
+  background: var(--accent-green);
+  border: 1px solid var(--accent-green);
+}
+
+.btn-active:hover {
+  background: #3a7a3a;
 }
 
 /* Forms */

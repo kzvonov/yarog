@@ -5,7 +5,7 @@ class Hero < ApplicationRecord
   has_many :game_heroes, class_name: "GameHero", dependent: :destroy
   has_many :games, through: :game_heroes
 
-  SPECIALIZATIONS = %w[warrior forest_walker rune_master].freeze
+  SPECIALIZATIONS = %w[warrior path_master rune_master evil_hunter].freeze
 
   validates :code, presence: true, uniqueness: true, format: { with: /\A[A-Za-z0-9]{6,8}\z/ }
   validates :specialization, presence: true, inclusion: { in: SPECIALIZATIONS }

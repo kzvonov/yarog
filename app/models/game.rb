@@ -20,4 +20,21 @@ class Game < ApplicationRecord
       { success: false, error: "Hero already in game" }
     end
   end
+
+  def activate!
+    transaction do
+      # Get all hero IDs in this game
+      hero_ids = heroes.pluck(:id)
+
+      # Find all other games that contain any of these heroes
+      Game.where.not(id: id)
+          .joins(:game_heroes)
+          .where(game_heroes: { hero_id: hero_ids })
+          .distinct
+          .update_all(active: false)
+
+      # Activate this game
+      update!(active: true)
+    end
+  end
 end
