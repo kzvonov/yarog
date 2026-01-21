@@ -1,6 +1,6 @@
 module Master
   class GamesController < BaseController
-    before_action :set_game, only: [ :show, :edit, :update, :destroy, :add_hero, :update_notes ]
+    before_action :set_game, only: [ :show, :edit, :update, :destroy, :add_hero, :update_notes, :toggle_active ]
 
     def index
       @games = Game.order(created_at: :desc)
@@ -65,6 +65,20 @@ module Master
         head :ok
       else
         head :unprocessable_entity
+      end
+    end
+
+    def toggle_active
+      new_state = !@game.active
+
+      if new_state
+        # Activate this game and deactivate all other games with shared heroes
+        @game.activate!
+        redirect_to master_game_path(@game), notice: "Game activated successfully."
+      else
+        # Deactivate this game
+        @game.update(active: false)
+        redirect_to master_game_path(@game), notice: "Game deactivated successfully."
       end
     end
 

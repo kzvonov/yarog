@@ -46,7 +46,14 @@ export default class extends Controller {
   }
 
   calculateModifier(statValue) {
-    return Math.floor((statValue - 10) / 2)
+    // Dungeon World modifier tiers
+    if (statValue <= 3) return -3
+    if (statValue <= 5) return -2
+    if (statValue <= 8) return -1
+    if (statValue <= 12) return 0
+    if (statValue <= 15) return 1
+    if (statValue <= 17) return 2
+    return 3
   }
 
   saveNow() {

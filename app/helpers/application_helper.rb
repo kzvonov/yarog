@@ -1,33 +1,36 @@
 module ApplicationHelper
   # Calculate DW ability modifier (same logic as in hero.html)
   def stat_modifier(value, debility = false)
-    base_mod = if value <= 3
-                 -3
-               elsif value <= 5
-                 -2
-               elsif value <= 8
-                 -1
-               elsif value <= 12
-                 0
-               elsif value <= 15
-                 1
-               elsif value <= 17
-                 2
-               else
-                 3
-               end
+    mod = case value.to_i
+    when ..3
+      -3
+    when 4..5
+      -2
+    when 6..8
+      -1
+    when 9..12
+      0
+    when 13..15
+      1
+    when 16..17
+      2
+    else
+      3
+    end
 
-    mod = debility ? base_mod - 1 : base_mod
-    mod >= 0 ? "+#{mod}" : mod.to_s
+    mod -= 1 if debility
+    return mod if mod.zero?
+
+    mod.positive? ? "+#{mod}" : mod.to_s
   end
 
   # Debility names in Russian
   DEBILITY_NAMES = {
-    'str' => 'Слаб',
-    'dex' => 'Трясётся',
-    'con' => 'Болен',
-    'int' => 'Оглушён',
-    'wis' => 'Растерян',
-    'cha' => 'Травмирован'
+    "str" => "\u0421\u043B\u0430\u0431",
+    "dex" => "\u0422\u0440\u044F\u0441\u0451\u0442\u0441\u044F",
+    "con" => "\u0411\u043E\u043B\u0435\u043D",
+    "int" => "\u041E\u0433\u043B\u0443\u0448\u0451\u043D",
+    "wis" => "\u0420\u0430\u0441\u0442\u0435\u0440\u044F\u043D",
+    "cha" => "\u0422\u0440\u0430\u0432\u043C\u0438\u0440\u043E\u0432\u0430\u043D"
   }.freeze
 end

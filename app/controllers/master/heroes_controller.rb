@@ -21,32 +21,52 @@ module Master
     def update
       @hero = Hero.find(params[:id])
 
-      # Allow all hero_data params since it's stored as JSON
-      hero_params = params.require(:hero).permit!
+      # Extract hero_data fields
+      hero_data_params = params.require(:hero).permit(
+        :name, :level, :xp,
+        :hpCurrent, :hpMax, :armor, :damage, :coins,
+        :look, :weapons, :equipment, :bonds, :notes,
+        stats: {}, debilities: {}, moves: [ :name, :desc ]
+      )
 
       # Build updated hero_data
       current_data = @hero.hero_data || {}
-      new_data = current_data.deep_merge(hero_params[:hero_data].to_h)
 
-      # Update hero_data (this sets the JSON data field)
+      # Update hero_data with all fields
+      new_data = current_data.merge({
+        "hpCurrent" => hero_data_params[:hpCurrent],
+        "hpMax" => hero_data_params[:hpMax],
+        "armor" => hero_data_params[:armor],
+        "damage" => hero_data_params[:damage],
+        "coins" => hero_data_params[:coins],
+        "look" => hero_data_params[:look],
+        "weapons" => hero_data_params[:weapons],
+        "equipment" => hero_data_params[:equipment],
+        "bonds" => hero_data_params[:bonds],
+        "notes" => hero_data_params[:notes],
+        "stats" => hero_data_params[:stats] || {},
+        "debilities" => hero_data_params[:debilities] || {},
+        "moves" => hero_data_params[:moves] || []
+      }.compact)
+
       @hero.hero_data = new_data
-
-      # Update level and xp from the new data
-      @hero.level = hero_params[:level] if hero_params[:level].present?
-      @hero.xp = hero_params[:xp] if hero_params[:xp].present?
+      @hero.level = hero_data_params[:level] if hero_data_params[:level].present?
+      @hero.xp = hero_data_params[:xp] if hero_data_params[:xp].present?
 
       # For master interface, allow name changes by skipping validation
-      if hero_params[:name].present? && hero_params[:name] != @hero.name
-        @hero.name = hero_params[:name]
-        @hero.save(validate: false) # Skip immutable_fields validation for DM
+      if hero_data_params[:name].present? && hero_data_params[:name] != @hero.name
+        @hero.name = hero_data_params[:name]
+        @hero.save(validate: false)
       else
         @hero.save
       end
 
       if @hero.persisted?
-        head :ok
+        redirect_to master_hero_path(@hero), notice: "Hero updated successfully."
       else
-        head :unprocessable_entity
+        @games = @hero.games.order(created_at: :desc)
+        flash.now[:alert] = "Failed to update hero."
+        render :show
       end
     end
   end

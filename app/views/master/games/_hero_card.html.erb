@@ -4,16 +4,13 @@
   debilities = hero_data['debilities'] || {}
 
   # Calculate modifiers
-  def modifier(stat_value)
-    return 0 if stat_value.nil?
-    ((stat_value - 10) / 2.0).floor
-  end
+  
 %>
 
 <div id="hero_card_<%= hero.id %>" class="hero-card-large" data-controller="collapsible">
   <!-- Hero Header -->
   <div class="hero-card-large-header">
-    <div class="hero-card-large-name"><%= hero.name %></div>
+    <div class="hero-card-large-name"><%= link_to hero.name, master_hero_path(hero) %></div>
     <div class="hero-card-large-meta"><%= hero.specialization.titleize %> • Lvl <%= hero.level %> • Code <%= hero.code %></div>
   </div>
 
@@ -55,11 +52,11 @@
       <div class="collapsible-content-large hidden" data-collapsible-target="content" data-section="char-<%= hero.id %>">
         <div class="stats-large">
           <% %w[str dex con int wis cha].each do |stat| %>
-            <div class="stat-row-large" style="<%= debilities[stat] ? 'border-color: var(--accent-blood); background: rgba(139, 0, 0, 0.1);' : '' %>">
+            <div class="stat-row-large" style="<%= debilities[stat].to_s == "true" ? 'border-color: var(--accent-blood); background: rgba(139, 0, 0, 0.1);' : '' %>">
               <span class="stat-label-large"><%= stat.upcase %>:</span>
               <span class="stat-value-large">
-                <%= stats[stat] || 10 %> (<%= modifier(stats[stat]) >= 0 ? "+#{modifier(stats[stat])}" : modifier(stats[stat]) %>)
-                <%= debilities[stat] ? "⚠️" : "" %>
+                <%= stats[stat] || 10 %> (<%= stat_modifier(stats[stat], debility: debilities[stat].to_s == "true") %>)
+                <%= debilities[stat].to_s == "true" ? "⚠️" : "" %>
               </span>
             </div>
           <% end %>

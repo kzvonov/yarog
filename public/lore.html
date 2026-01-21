@@ -1,724 +1,759 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мюрквид — Лор для игроков</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap');
-        
-        :root {
-            --bg-dark: #0a0a0a;
-            --bg-card: #111111;
-            --bg-card-hover: #1a1a1a;
-            --text-primary: #c9c9c9;
-            --text-secondary: #888888;
-            --text-heading: #e0e0e0;
-            --accent-blood: #8b0000;
-            --accent-blood-light: #a52a2a;
-            --accent-green: #1a3a1a;
-            --accent-green-light: #2d4a2d;
-            --border-dark: #2a2a2a;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            background-color: var(--bg-dark);
-            color: var(--text-primary);
-            line-height: 1.7;
-            font-size: 18px;
-        }
-        
-        /* Header with forest silhouette */
-        .header {
-            position: relative;
-            height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: linear-gradient(to bottom, #0d1a0d 0%, var(--bg-dark) 100%);
-        }
-        
-        .forest-silhouette {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 200px;
-        }
-        
-        .header-title {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-        }
-        
-        .header-title h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            color: var(--text-heading);
-            letter-spacing: 0.3em;
-            text-shadow: 0 0 30px rgba(0,0,0,0.8);
-        }
-        
-        .header-title .subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            letter-spacing: 0.5em;
-            margin-top: 10px;
-        }
-        
-        /* Main content */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        
-        /* Section styling */
-        section {
-            margin-bottom: 60px;
-        }
-        
-        h2 {
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--text-heading);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-dark);
-        }
-        
-        h3 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: var(--text-heading);
-            margin: 25px 0 15px 0;
-        }
-        
-        p {
-            margin-bottom: 15px;
-            text-align: justify;
-        }
-        
-        /* Rune divider */
-        .rune-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 50px 0;
-            gap: 20px;
-        }
-        
-        .rune-divider .line {
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--accent-blood), transparent);
-        }
-        
-        .rune-divider svg {
-            width: 30px;
-            height: 30px;
-        }
-        
-        /* God cards */
-        .gods-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .god-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-dark);
-            padding: 25px;
-            display: flex;
-            gap: 25px;
-            align-items: flex-start;
-            transition: background 0.3s ease;
-        }
-        
-        .god-card:hover {
-            background: var(--bg-card-hover);
-        }
-        
-        .god-card.main-god {
-            border-color: var(--accent-blood);
-            background: linear-gradient(135deg, var(--bg-card) 0%, #1a0a0a 100%);
-        }
-        
-        .god-icon {
-            flex-shrink: 0;
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .god-icon svg {
-            width: 100%;
-            height: 100%;
-        }
-        
-        .god-content h3 {
-            margin: 0 0 10px 0;
-            color: var(--accent-blood-light);
-        }
-        
-        .god-content p {
-            margin: 0 0 10px 0;
-            font-size: 1rem;
-        }
-        
-        .god-aspect {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-style: italic;
-        }
-        
-        .allowed, .forbidden {
-            font-size: 0.95rem;
-            margin: 5px 0;
-            padding-left: 15px;
-            position: relative;
-        }
-        
-        .allowed::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--accent-green-light);
-        }
-        
-        .forbidden::before {
-            content: "✗";
-            position: absolute;
-            left: 0;
-            color: var(--accent-blood);
-        }
-        
-        /* Circles of protection */
-        .circles-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .circle-item {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 15px 20px;
-            background: var(--bg-card);
-            border-left: 3px solid var(--accent-blood);
-        }
-        
-        .circle-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--accent-blood);
-            width: 40px;
-            text-align: center;
-        }
-        
-        .circle-content h4 {
-            font-size: 1.2rem;
-            color: var(--text-heading);
-            margin-bottom: 5px;
-        }
-        
-        .circle-content p {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            margin: 0;
-        }
-        
-        /* Quote block */
-        .quote-block {
-            border-left: 3px solid var(--accent-blood);
-            padding: 20px 30px;
-            margin: 30px 0;
-            background: var(--bg-card);
-            font-style: italic;
-            color: var(--text-secondary);
-        }
-        
-        /* Legend/rumor block */
-        .legend-block {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a0a 100%);
-            border: 1px solid var(--border-dark);
-            padding: 25px;
-            margin: 20px 0;
-        }
-        
-        .legend-block h4 {
-            color: var(--accent-blood-light);
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-        
-        .legend-block p {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            margin: 0;
-        }
-        
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid var(--border-dark);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        
-        /* Responsive */
-        @media (max-width: 600px) {
-            .header-title h1 {
-                font-size: 2.5rem;
-                letter-spacing: 0.1em;
-            }
-            
-            .god-card {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            
-            .god-icon {
-                width: 60px;
-                height: 60px;
-            }
-            
-            .allowed, .forbidden {
-                text-align: left;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Яр — Лор для игроков</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap');
+
+    :root {
+      --bg-dark: #0a0a0a;
+      --bg-card: #111111;
+      --bg-card-hover: #1a1a1a;
+      --text-primary: #c9c9c9;
+      --text-secondary: #888888;
+      --text-heading: #e0e0e0;
+      --accent-blood: #8b0000;
+      --accent-blood-light: #a52a2a;
+      --accent-green: #1a3a1a;
+      --accent-green-light: #2d4a2d;
+      --border-dark: #2a2a2a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-size: 18px;
+    }
+
+    /* Header with forest silhouette */
+    .header {
+      position: relative;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #0d1a0d 0%, var(--bg-dark) 100%);
+    }
+
+    .forest-silhouette {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+    }
+
+    .header-title {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+    }
+
+    .header-title h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: 0.3em;
+      text-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .header-title .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.5em;
+      margin-top: 10px;
+    }
+
+    /* Main content */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Section styling */
+    section {
+      margin-bottom: 60px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      margin: 25px 0 15px 0;
+    }
+
+    p {
+      margin-bottom: 15px;
+      text-align: justify;
+    }
+
+    /* Rune divider */
+    .rune-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 50px 0;
+      gap: 20px;
+    }
+
+    .rune-divider .line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent-blood), transparent);
+    }
+
+    .rune-divider svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    /* God cards */
+    .gods-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .god-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      padding: 25px;
+      display: flex;
+      gap: 25px;
+      align-items: flex-start;
+      transition: background 0.3s ease;
+    }
+
+    .god-card:hover {
+      background: var(--bg-card-hover);
+    }
+
+    .god-card.main-god {
+      border-color: var(--accent-blood);
+      background: linear-gradient(135deg, var(--bg-card) 0%, #1a0a0a 100%);
+    }
+
+    .god-icon {
+      flex-shrink: 0;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .god-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .god-content h3 {
+      margin: 0 0 10px 0;
+      color: var(--accent-blood-light);
+    }
+
+    .god-content p {
+      margin: 0 0 10px 0;
+      font-size: 1rem;
+    }
+
+    .god-aspect {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    .allowed,
+    .forbidden {
+      font-size: 0.95rem;
+      margin: 5px 0;
+      padding-left: 15px;
+      position: relative;
+    }
+
+    .allowed::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent-green-light);
+    }
+
+    .forbidden::before {
+      content: "✗";
+      position: absolute;
+      left: 0;
+      color: var(--accent-blood);
+    }
+
+    /* Circles of protection */
+    .circles-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .circle-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 15px 20px;
+      background: var(--bg-card);
+      border-left: 3px solid var(--accent-blood);
+    }
+
+    .circle-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-blood);
+      width: 40px;
+      text-align: center;
+    }
+
+    .circle-content h4 {
+      font-size: 1.2rem;
+      color: var(--text-heading);
+      margin-bottom: 5px;
+    }
+
+    .circle-content p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* Quote block */
+    .quote-block {
+      border-left: 3px solid var(--accent-blood);
+      padding: 20px 30px;
+      margin: 30px 0;
+      background: var(--bg-card);
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    /* Legend/rumor block */
+    .legend-block {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a0a 100%);
+      border: 1px solid var(--border-dark);
+      padding: 25px;
+      margin: 20px 0;
+    }
+
+    .legend-block h4 {
+      color: var(--accent-blood-light);
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .legend-block p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid var(--border-dark);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .header-title h1 {
+        font-size: 2.5rem;
+        letter-spacing: 0.1em;
+      }
+
+      .god-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .god-icon {
+        width: 60px;
+        height: 60px;
+      }
+
+      .allowed,
+      .forbidden {
+        text-align: left;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Header with forest silhouette -->
-    <header class="header">
-        <div class="header-title">
-            <h1>МЮРКВИД</h1>
-            <div class="subtitle">Старый ЛЕС</div>
-        </div>
-        <svg class="forest-silhouette" viewBox="0 0 1200 200" preserveAspectRatio="none">
-            <defs>
-                <linearGradient id="forestGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" style="stop-color:#0d1a0d;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#0a0a0a;stop-opacity:1" />
-                </linearGradient>
-            </defs>
-            <!-- Layer 3 - furthest trees (darkest) -->
-            <path fill="#050505" d="M0,200 L0,120 L30,120 L45,60 L60,120 L80,120 L100,40 L120,120 L150,120 L170,70 L190,120 L220,120 L240,50 L260,120 L300,120 L320,80 L340,120 L380,120 L400,30 L420,120 L460,120 L480,65 L500,120 L540,120 L560,45 L580,120 L620,120 L650,70 L680,120 L720,120 L750,35 L780,120 L820,120 L850,75 L880,120 L920,120 L950,55 L980,120 L1020,120 L1050,40 L1080,120 L1120,120 L1150,60 L1180,120 L1200,120 L1200,200 Z"/>
-            <!-- Layer 2 - middle trees -->
-            <path fill="#080808" d="M0,200 L0,140 L40,140 L60,90 L80,140 L120,140 L150,70 L180,140 L230,140 L260,85 L290,140 L340,140 L370,60 L400,140 L450,140 L490,80 L530,140 L580,140 L620,55 L660,140 L710,140 L750,75 L790,140 L840,140 L880,50 L920,140 L970,140 L1010,70 L1050,140 L1100,140 L1140,80 L1180,140 L1200,140 L1200,200 Z"/>
-            <!-- Layer 1 - closest trees (lightest) -->
-            <path fill="#0a0a0a" d="M0,200 L0,160 L50,160 L80,110 L110,160 L170,160 L200,100 L230,160 L300,160 L340,90 L380,160 L450,160 L500,105 L550,160 L620,160 L670,85 L720,160 L800,160 L850,95 L900,160 L970,160 L1020,80 L1070,160 L1140,160 L1180,100 L1200,160 L1200,200 Z"/>
-        </svg>
-    </header>
+  <!-- Header with forest silhouette -->
+  <header class="header">
+    <div class="header-title">
+      <h1>ЯР</h1>
+      <div class="subtitle">Древний лес</div>
+    </div>
+    <svg class="forest-silhouette" viewBox="0 0 1200 200" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="forestGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#0d1a0d;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#0a0a0a;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <!-- Layer 3 - furthest trees (darkest) -->
+      <path fill="#050505"
+        d="M0,200 L0,120 L30,120 L45,60 L60,120 L80,120 L100,40 L120,120 L150,120 L170,70 L190,120 L220,120 L240,50 L260,120 L300,120 L320,80 L340,120 L380,120 L400,30 L420,120 L460,120 L480,65 L500,120 L540,120 L560,45 L580,120 L620,120 L650,70 L680,120 L720,120 L750,35 L780,120 L820,120 L850,75 L880,120 L920,120 L950,55 L980,120 L1020,120 L1050,40 L1080,120 L1120,120 L1150,60 L1180,120 L1200,120 L1200,200 Z" />
+      <!-- Layer 2 - middle trees -->
+      <path fill="#080808"
+        d="M0,200 L0,140 L40,140 L60,90 L80,140 L120,140 L150,70 L180,140 L230,140 L260,85 L290,140 L340,140 L370,60 L400,140 L450,140 L490,80 L530,140 L580,140 L620,55 L660,140 L710,140 L750,75 L790,140 L840,140 L880,50 L920,140 L970,140 L1010,70 L1050,140 L1100,140 L1140,80 L1180,140 L1200,140 L1200,200 Z" />
+      <!-- Layer 1 - closest trees (lightest) -->
+      <path fill="#0a0a0a"
+        d="M0,200 L0,160 L50,160 L80,110 L110,160 L170,160 L200,100 L230,160 L300,160 L340,90 L380,160 L450,160 L500,105 L550,160 L620,160 L670,85 L720,160 L800,160 L850,95 L900,160 L970,160 L1020,80 L1070,160 L1140,160 L1180,100 L1200,160 L1200,200 Z" />
+    </svg>
+  </header>
 
-    <main class="container">
-        
-        <!-- Section: The Forest -->
-        <section id="forest">
-            <h2>Лес</h2>
-            <p>
-                Мюрквид — это имя леса. Старый лес. Он был здесь до людей, до королей, до всего. 
-                Никто не ходил на восток достаточно далеко, чтобы найти, где он кончается. 
-                Свободные люди зовут его уважительно - батюшка лес. Люди с запада - злой лес.
-            </p>
-            <p>
-                Мюрквид живой. Не так, как дерево живое или зверь. По-другому. Он помнит, думает, решает — только медленно, как всё большое. 
-                Давным-давно люди пришли сюда с огнём и топорами. Лес поглотил многих, но и сохранил некоторых. 
-                Позволил жить, научил языку рун. Так был заключен главный эйд(договор на крови) - если лес просит, ты выступаешь на его защиту.
-            </p>
-            <p>
-              Люди с запада пробуют пройти, но свободные люди не дают пройти далеко и со временем забирают землю назад, каждый раз чуть больше.
-            </p>
-        </section>
+  <main class="container">
 
-        <!-- Rune divider -->
-        <div class="rune-divider">
-            <div class="line"></div>
-            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 5 L20 35 M10 12 L20 20 L10 28 M30 12 L20 20 L30 28" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
+    <!-- Section: The Forest -->
+    <section id="forest">
+      <h2>Лес</h2>
+      <p>
+        Яр — имя леса, древнего леса. Он был здесь до всего.
+        До сих пор никто не ходил на восток достаточно далеко, чтобы найти, где он кончается.
+      </p>
+      <p>
+        Яр живой, не так, как древо или зверь. По-другому. Он помнит, думает, решает — только медленно, как
+        всё большое. Западные королевства пробовали осваивать, приходили с огнем и мечем. Из памяти живых существ уж
+        стерлись их имена, а лес стоит.
+      </p>
+    </section>
+
+    <!-- Rune divider -->
+    <div class="rune-divider">
+      <div class="line"></div>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 5 L20 35 M10 12 L20 20 L10 28 M30 12 L20 20 L30 28" stroke="#8b0000" stroke-width="2"
+          stroke-linecap="round" />
+      </svg>
+      <div class="line"></div>
+    </div>
+
+    <!-- Section: People of the Forest -->
+    <section id="people">
+      <h2>Свободный люд</h2>
+      <p>
+        Люди с запада, что отринули своих королей, а лес дал место.
+        За многие лета люди изменились. Выше, крепче, сильнее, чем их предки.
+      </p>
+      <p>
+        Ценят свободу. Живут независимыми деревнями.
+        Часто сражаются между собой, но ради тренировки и забавы, убийства строго запрещены.
+        Осенью перепалки стихают и все встречаются на ярмарках.
+      </p>
+      <p>
+        Используют руны для защиты, хозяйства, сражений.
+      </p>
+    </section>
+
+    <!-- Rune divider -->
+    <div class="rune-divider">
+      <div class="line"></div>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 5 L20 35 M12 10 L28 10 M12 20 L25 20 M12 30 L28 30" stroke="#8b0000" stroke-width="2"
+          stroke-linecap="round" />
+      </svg>
+      <div class="line"></div>
+    </div>
+
+    <section id="dogfolk">
+      <h2>Песий люд</h2>
+      <p>
+        Давным-давно, до королевств запада, несколько племен отправилось в лес.
+        Яр заинтересовался новыми существами и подарил сильные чувства: обоняние, слух, зрение.
+        Это все еще люди с покрытой шерстью телом и головами собак.
+      </p>
+      <p>
+        Ценят преданность. Нередко живут среди свободных людей. Именно они принесли знания о том, как путешествовать в
+        глубь леса.
+      </p>
+    </section>
+
+    <!-- Rune divider -->
+    <div class="rune-divider">
+      <div class="line"></div>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 5 L20 35 M12 10 L28 10 M12 20 L25 20 M12 30 L28 30" stroke="#8b0000" stroke-width="2"
+          stroke-linecap="round" />
+      </svg>
+      <div class="line"></div>
+    </div>
+
+    <!-- Section: Gods -->
+    <section id="gods">
+      <h2>Яр и три аспекта</h2>
+      <p>
+        Яр — это имя леса. У него несколько лиц. Одно созидает. Один, но с тремя лицами. Так проще понять:
+        одно лицо смотрит на людей, другое на лес, третье на мёртвых.
+        Каждый аспект что-то даёт и что-то просит взамен.
+        И у каждого есть черта, которую лучше не переступать.
+      </p>
+
+      <div class="gods-grid">
+        <!-- Yar - main god -->
+        <div class="god-card main-god">
+          <div class="god-icon">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Yar - sun/circle with three rays pointing down -->
+              <circle cx="40" cy="28" r="14" stroke="#8b0000" stroke-width="2.5" fill="none" />
+              <circle cx="40" cy="28" r="6" fill="#8b0000" />
+              <!-- Three paths down representing three aspects -->
+              <path d="M40 42 L40 70" stroke="#8b0000" stroke-width="2.5" stroke-linecap="round" />
+              <path d="M40 50 L25 70" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+              <path d="M40 50 L55 70" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+              <!-- Small circles at the end -->
+              <circle cx="25" cy="70" r="3" fill="#8b0000" />
+              <circle cx="40" cy="70" r="3" fill="#8b0000" />
+              <circle cx="55" cy="70" r="3" fill="#8b0000" />
             </svg>
-            <div class="line"></div>
+          </div>
+          <div class="god-content">
+            <h3>ЯР</h3>
+            <p>Бог всего сущего. Ему молятся, но как говорить с ним напрямую — никто не знает. Может, знали когда-то, да
+              забыли. Поэтому обращаются через три его лица — так проще, так понятнее.</p>
+            <p class="god-aspect">Руны Яра чертят редко. Говорят, они сильнее всех, но и опаснее.</p>
+          </div>
         </div>
 
-        <!-- Section: People of the Forest -->
-        <section id="people">
-            <h2>Свободные люди</h2>
-            <p>
-                Это люди живущие в Мюрквиде. У них нет королей, конунгов, князей.
-                Мюрквид изменил их. Сделал выше, сильнее и быстрее обычных людей.
-                Торговцы, что приезжают с запада, смотрят снизу вверх. 
-                Из-за боевых навыков люди запада нанимают их на войну или на защиту.
-            </p>
-            <p>
-                Живут деревнями, где каждая живёт своим укладом, где староста, где знающие, а где и вече.
-                Деревни сражаются между собой — молодым надо учиться, мужчинам размяться, невест откуда-то брать.
-                Женщины сражаются так-же, как и мужчины, но часто не против быть похищеными.
-                Свободные не режут своих. Поколечить соседа можно, но убить — позор.
-                Осенью все перепалки стихают, и вчерашний враг сидит с тобой за одним столом на ярмарке.
-            </p>
-        </section>
-
-        <!-- Rune divider -->
-        <div class="rune-divider">
-            <div class="line"></div>
-            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 5 L20 35 M12 10 L28 10 M12 20 L25 20 M12 30 L28 30" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
+        <!-- Yar'og -->
+        <div class="god-card">
+          <div class="god-icon">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Yar'og - ancient fire/hearth rune (Kenaz-inspired) -->
+              <!-- Main vertical stave -->
+              <path d="M40 8 L40 72" stroke="#8b0000" stroke-width="3" stroke-linecap="round" />
+              <!-- Upper flame branches -->
+              <path d="M40 18 L55 8" stroke="#8b0000" stroke-width="2.5" stroke-linecap="round" />
+              <path d="M40 28 L58 18" stroke="#8b0000" stroke-width="2.5" stroke-linecap="round" />
+              <!-- Lower hearth base -->
+              <path d="M25 58 L40 72 L55 58" stroke="#8b0000" stroke-width="2.5" stroke-linecap="round" fill="none" />
+              <!-- Inner flame -->
+              <path d="M40 45 L48 55 M40 45 L32 55" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
             </svg>
-            <div class="line"></div>
+          </div>
+          <div class="god-content">
+            <h3>ЯР'ОГ</h3>
+            <p class="god-aspect">Лицо, что смотрит на людей</p>
+            <p>К Яр'огу идут, когда нужно место для жизни. Он отвоёвывает землю у леса — под дома, под поля, под
+              пастбища. Волхвы его именем чертят круги защиты. Благодаря ему деревни стоят там, где стоят.</p>
+            <p class="allowed">Создавать защищённое место</p>
+            <p class="allowed">Расчищать землю под поля</p>
+            <p class="allowed">Ставить руны ограждения</p>
+            <p class="forbidden">Брать больше, чем нужно — лес это запомнит</p>
+            <p class="god-aspect">Руны чертят на камне и дереве.</p>
+          </div>
         </div>
 
-        <!-- Section: Gods -->
-        <section id="gods">
-            <h2>Яр и три аспекта</h2>
-            <p>
-                Яр — это бог. Один, но с тремя лицами. Так проще понять: 
-                одно лицо смотрит на людей, другое на лес, третье на мёртвых. 
-                Каждый аспект что-то даёт и что-то просит взамен. 
-                И у каждого есть черта, которую лучше не переступать.
-            </p>
-            
-            <div class="gods-grid">
-                <!-- Yar - main god -->
-                <div class="god-card main-god">
-                    <div class="god-icon">
-                        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Yar - sun/circle with three rays pointing down -->
-                            <circle cx="40" cy="28" r="14" stroke="#8b0000" stroke-width="2.5" fill="none"/>
-                            <circle cx="40" cy="28" r="6" fill="#8b0000"/>
-                            <!-- Three paths down representing three aspects -->
-                            <path d="M40 42 L40 70" stroke="#8b0000" stroke-width="2.5" stroke-linecap="round"/>
-                            <path d="M40 50 L25 70" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M40 50 L55 70" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
-                            <!-- Small circles at the end -->
-                            <circle cx="25" cy="70" r="3" fill="#8b0000"/>
-                            <circle cx="40" cy="70" r="3" fill="#8b0000"/>
-                            <circle cx="55" cy="70" r="3" fill="#8b0000"/>
-                        </svg>
-                    </div>
-                    <div class="god-content">
-                        <h3>ЯР</h3>
-                        <p>Бог всего сущего. Ему молятся, но как говорить с ним напрямую — никто не знает. Может, знали когда-то, да забыли. Поэтому обращаются через три его лица — так проще, так понятнее.</p>
-                        <p class="god-aspect">Руны Яра чертят редко. Говорят, они сильнее всех, но и опаснее.</p>
-                    </div>
-                </div>
-
-                <!-- Yar'og -->
-                <div class="god-card">
-                    <div class="god-icon">
-                        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Yar'og - ancient fire/hearth rune (Kenaz-inspired) -->
-                            <!-- Main vertical stave -->
-                            <path d="M40 8 L40 72" stroke="#8b0000" stroke-width="3" stroke-linecap="round"/>
-                            <!-- Upper flame branches -->
-                            <path d="M40 18 L55 8" stroke="#8b0000" stroke-width="2.5" stroke-linecap="round"/>
-                            <path d="M40 28 L58 18" stroke="#8b0000" stroke-width="2.5" stroke-linecap="round"/>
-                            <!-- Lower hearth base -->
-                            <path d="M25 58 L40 72 L55 58" stroke="#8b0000" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-                            <!-- Inner flame -->
-                            <path d="M40 45 L48 55 M40 45 L32 55" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <div class="god-content">
-                        <h3>ЯР'ОГ</h3>
-                        <p class="god-aspect">Лицо, что смотрит на людей</p>
-                        <p>К Яр'огу идут, когда нужно место для жизни. Он отвоёвывает землю у леса — под дома, под поля, под пастбища. Волхвы его именем чертят круги защиты. Благодаря ему деревни стоят там, где стоят.</p>
-                        <p class="allowed">Создавать защищённое место</p>
-                        <p class="allowed">Расчищать землю под поля</p>
-                        <p class="allowed">Ставить руны ограждения</p>
-                        <p class="forbidden">Брать больше, чем нужно — лес это запомнит</p>
-                        <p class="god-aspect">Руны чертят на камне и дереве.</p>
-                    </div>
-                </div>
-
-                <!-- Yar'drog -->
-                <div class="god-card">
-                    <div class="god-icon">
-                        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Yar'drog - tree with roots, connection to forest -->
-                            <!-- Trunk -->
-                            <path d="M40 25 L40 55" stroke="#8b0000" stroke-width="3" stroke-linecap="round"/>
-                            <!-- Branches -->
-                            <path d="M40 25 L28 12" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M40 25 L52 12" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M40 32 L30 22" stroke="#8b0000" stroke-width="1.5" stroke-linecap="round"/>
-                            <path d="M40 32 L50 22" stroke="#8b0000" stroke-width="1.5" stroke-linecap="round"/>
-                            <!-- Roots -->
-                            <path d="M40 55 L25 70" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M40 55 L55 70" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M40 55 L40 72" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M32 62 L20 65" stroke="#8b0000" stroke-width="1.5" stroke-linecap="round"/>
-                            <path d="M48 62 L60 65" stroke="#8b0000" stroke-width="1.5" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <div class="god-content">
-                        <h3>ЯР'ДРОГ</h3>
-                        <p class="god-aspect">Лицо, что смотрит на лес</p>
-                        <p>Яр'дрог — это сам Мюрквид. Путники служат ему, учатся слышать лес и говорить с его обитателями. Через Яр'дрога лес слышит нас. Лешие, духи, дети леса — все они часть этого лица.</p>
-                        <p class="allowed">Находить тропы в чаще</p>
-                        <p class="allowed">Говорить с духами и лесным народом</p>
-                        <p class="allowed">Слышать, чего хочет Мюрквид</p>
-                        <p class="forbidden">Уйти слишком глубоко — можно стать частью леса навсегда</p>
-                        <p class="god-aspect">Руны чертят только на коре живого дерева.</p>
-                    </div>
-                </div>
-
-                <!-- Yar'mog -->
-                <div class="god-card">
-                    <div class="god-icon">
-                        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Yar'mog - death rune (Eihwaz/death stave inspired) -->
-                            <!-- Main stave with hooks - symbol of passage between worlds -->
-                            <path d="M40 5 L40 75" stroke="#8b0000" stroke-width="3" stroke-linecap="round"/>
-                            <!-- Upper hook - reaching up (life) -->
-                            <path d="M40 15 L55 5" stroke="#8b0000" stroke-width="2.5" stroke-linecap="round"/>
-                            <!-- Lower hook - reaching down (death) -->
-                            <path d="M40 65 L25 75" stroke="#8b0000" stroke-width="2.5" stroke-linecap="round"/>
-                            <!-- Cross bars - the barrier between -->
-                            <path d="M28 30 L52 30" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M28 50 L52 50" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
-                            <!-- Central binding point -->
-                            <circle cx="40" cy="40" r="5" fill="#8b0000"/>
-                        </svg>
-                    </div>
-                    <div class="god-content">
-                        <h3>ЯР'МОГ</h3>
-                        <p class="god-aspect">Лицо, что смотрит на мёртвых</p>
-                        <p>Яр'мог — бог плоти и того, что с ней случается. К нему идут, когда нужно залечить рану или вернуть потерянную руку. Он поможет, но попросит жертву — корову, свинью, что-то живое. Он же повелевает нежитью. Упыри, что роют норы под корнями — его дети, болезнь, которую люди занесли в лес давным-давно.</p>
-                        <p class="allowed">Лечить раны и болезни</p>
-                        <p class="allowed">Восстанавливать утраченное (за жертву)</p>
-                        <p class="allowed">Говорить с теми, кто ушёл</p>
-                        <p class="forbidden">Поднимать мёртвых и управлять ими — можно, но цена такая, что лучше не надо</p>
-                        <p class="god-aspect">Руны чертят на костях — звериных или человечьих.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Rune divider -->
-        <div class="rune-divider">
-            <div class="line"></div>
-            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 20 L30 20 M20 8 L20 32 M10 10 L20 20 L30 10 M10 30 L20 20 L30 30" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
+        <!-- Yar'drog -->
+        <div class="god-card">
+          <div class="god-icon">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Yar'drog - tree with roots, connection to forest -->
+              <!-- Trunk -->
+              <path d="M40 25 L40 55" stroke="#8b0000" stroke-width="3" stroke-linecap="round" />
+              <!-- Branches -->
+              <path d="M40 25 L28 12" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+              <path d="M40 25 L52 12" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+              <path d="M40 32 L30 22" stroke="#8b0000" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M40 32 L50 22" stroke="#8b0000" stroke-width="1.5" stroke-linecap="round" />
+              <!-- Roots -->
+              <path d="M40 55 L25 70" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+              <path d="M40 55 L55 70" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+              <path d="M40 55 L40 72" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+              <path d="M32 62 L20 65" stroke="#8b0000" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M48 62 L60 65" stroke="#8b0000" stroke-width="1.5" stroke-linecap="round" />
             </svg>
-            <div class="line"></div>
+          </div>
+          <div class="god-content">
+            <h3>ЯР'ДРОГ</h3>
+            <p class="god-aspect">Лицо, что смотрит на лес</p>
+            <p>Яр'дрог — это сам Мюрквид. Путники служат ему, учатся слышать лес и говорить с его обитателями. Через
+              Яр'дрога лес слышит нас. Лешие, духи, дети леса — все они часть этого лица.</p>
+            <p class="allowed">Находить тропы в чаще</p>
+            <p class="allowed">Говорить с духами и лесным народом</p>
+            <p class="allowed">Слышать, чего хочет Мюрквид</p>
+            <p class="forbidden">Уйти слишком глубоко — можно стать частью леса навсегда</p>
+            <p class="god-aspect">Руны чертят только на коре живого дерева.</p>
+          </div>
         </div>
 
-        <!-- Section: Runes -->
-        <section id="runes">
-            <h2>Руны</h2>
-            <p>
-                Руны — это как разговаривать с Яром, только без слов. Рисуешь знак, капаешь кровью, 
-                и если всё правильно — эйд заключён. Защита стоит, пока знак цел.
-            </p>
-            <p>
-                Пишут руны на дереве — на столбах, на дощечках, на косяках дверей. 
-                Простые знаки, что дом защищают, любой ребёнок знает. 
-                Сложные, что деревню хранят — это уже дело волхвов.
-            </p>
-            <p>
-                Важно помнить: за границей Мюрквида руны не работают. Это эйд с лесом. 
-                Нет леса — нет эйда.
-            </p>
-            
-            <h3>Что могут руны</h3>
-            <p><strong>Защищать</strong> — не пускать нежить, зверей, чужих</p>
-            <p><strong>Усиливать</strong> — топор острее, рука твёрже</p>
-            <p><strong>Изменять</strong> — менять суть вещи (редко и опасно)</p>
-            <p><strong>Отпугивать</strong> — нагонять страх, отвращение</p>
-            
-            <div class="quote-block">
-                Руна кривая — хуже, чем никакой руны. Договор сломанный бьёт по тому, кто его чертил.
-            </div>
-        </section>
-
-        <!-- Rune divider -->
-        <div class="rune-divider">
-            <div class="line"></div>
-            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 5 L20 35" stroke="#8b0000" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M12 12 L28 20 M28 12 L12 20" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
-                <circle cx="20" cy="30" r="4" stroke="#8b0000" stroke-width="2" fill="none"/>
+        <!-- Yar'mog -->
+        <div class="god-card">
+          <div class="god-icon">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Yar'mog - death rune (Eihwaz/death stave inspired) -->
+              <!-- Main stave with hooks - symbol of passage between worlds -->
+              <path d="M40 5 L40 75" stroke="#8b0000" stroke-width="3" stroke-linecap="round" />
+              <!-- Upper hook - reaching up (life) -->
+              <path d="M40 15 L55 5" stroke="#8b0000" stroke-width="2.5" stroke-linecap="round" />
+              <!-- Lower hook - reaching down (death) -->
+              <path d="M40 65 L25 75" stroke="#8b0000" stroke-width="2.5" stroke-linecap="round" />
+              <!-- Cross bars - the barrier between -->
+              <path d="M28 30 L52 30" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+              <path d="M28 50 L52 50" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+              <!-- Central binding point -->
+              <circle cx="40" cy="40" r="5" fill="#8b0000" />
             </svg>
-            <div class="line"></div>
+          </div>
+          <div class="god-content">
+            <h3>ЯР'МОГ</h3>
+            <p class="god-aspect">Лицо, что смотрит на мёртвых</p>
+            <p>Яр'мог — бог плоти и того, что с ней случается. К нему идут, когда нужно залечить рану или вернуть
+              потерянную руку. Он поможет, но попросит жертву — корову, свинью, что-то живое. Он же повелевает нежитью.
+              Упыри, что роют норы под корнями — его дети, болезнь, которую люди занесли в лес давным-давно.</p>
+            <p class="allowed">Лечить раны и болезни</p>
+            <p class="allowed">Восстанавливать утраченное (за жертву)</p>
+            <p class="allowed">Говорить с теми, кто ушёл</p>
+            <p class="forbidden">Поднимать мёртвых и управлять ими — можно, но цена такая, что лучше не надо</p>
+            <p class="god-aspect">Руны чертят на костях — звериных или человечьих.</p>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Section: Four Circles -->
-        <section id="circles">
-            <h2>Четыре круга</h2>
-            <p>
-                Жизнь у нас устроена кругами. Чем ближе к центру — тем спокойнее спишь. 
-                Чем дальше — тем больше смотри по сторонам.
-            </p>
-            
-            <div class="circles-container">
-                <div class="circle-item">
-                    <div class="circle-number">I</div>
-                    <div class="circle-content">
-                        <h4>Церковь</h4>
-                        <p>Чёрное дерево, руны снаружи и внутри, от пола до крыши. 
-                        Самое безопасное место в деревне. Сюда идут в самые плохие ночи, 
-                        когда даже дома неспокойно.</p>
-                    </div>
-                </div>
-                <div class="circle-item">
-                    <div class="circle-number">II</div>
-                    <div class="circle-content">
-                        <h4>Дом</h4>
-                        <p>Руны на дверях, окнах, дымоходе — это каждый с детства умеет. 
-                        Сиди дома после заката, и ничего не случится.</p>
-                    </div>
-                </div>
-                <div class="circle-item">
-                    <div class="circle-number">III</div>
-                    <div class="circle-content">
-                        <h4>Деревня</h4>
-                        <p>Столбы по краю, руны волхва. Защита хорошая, но есть ночи, когда и она слабеет. 
-                        Волхв скажет, когда лучше сидеть по домам.</p>
-                    </div>
-                </div>
-                <div class="circle-item">
-                    <div class="circle-number">IV</div>
-                    <div class="circle-content">
-                        <h4>Поля</h4>
-                        <p>Тут защита только пока солнце светит. 
-                        Вышел до рассвета или задержался после заката — сам виноват.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="quote-block">
-                После девяти вечера — сиди дома. Это не бабкины сказки. Это почему бабка до сих пор жива.
-            </div>
-        </section>
+    <!-- Rune divider -->
+    <div class="rune-divider">
+      <div class="line"></div>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 20 L30 20 M20 8 L20 32 M10 10 L20 20 L30 10 M10 30 L20 20 L30 30" stroke="#8b0000" stroke-width="2"
+          stroke-linecap="round" />
+      </svg>
+      <div class="line"></div>
+    </div>
 
-        <!-- Rune divider -->
-        <div class="rune-divider">
-            <div class="line"></div>
-            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 20 L32 20 M20 8 L20 32" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
-                <circle cx="20" cy="20" r="8" stroke="#8b0000" stroke-width="1.5" fill="none"/>
-            </svg>
-            <div class="line"></div>
+    <!-- Section: Runes -->
+    <section id="runes">
+      <h2>Руны</h2>
+      <p>
+        Руны — это как разговаривать с Яром, только без слов. Рисуешь знак, капаешь кровью,
+        и если всё правильно — эйд заключён. Защита стоит, пока знак цел.
+      </p>
+      <p>
+        Пишут руны на дереве — на столбах, на дощечках, на косяках дверей.
+        Простые знаки, что дом защищают, любой ребёнок знает.
+        Сложные, что деревню хранят — это уже дело волхвов.
+      </p>
+      <p>
+        Важно помнить: за границей Мюрквида руны не работают. Это эйд с лесом.
+        Нет леса — нет эйда.
+      </p>
+
+      <h3>Что могут руны</h3>
+      <p><strong>Защищать</strong> — не пускать нежить, зверей, чужих</p>
+      <p><strong>Усиливать</strong> — топор острее, рука твёрже</p>
+      <p><strong>Изменять</strong> — менять суть вещи (редко и опасно)</p>
+      <p><strong>Отпугивать</strong> — нагонять страх, отвращение</p>
+
+      <div class="quote-block">
+        Руна кривая — хуже, чем никакой руны. Договор сломанный бьёт по тому, кто его чертил.
+      </div>
+    </section>
+
+    <!-- Rune divider -->
+    <div class="rune-divider">
+      <div class="line"></div>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 5 L20 35" stroke="#8b0000" stroke-width="2.5" stroke-linecap="round" />
+        <path d="M12 12 L28 20 M28 12 L12 20" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+        <circle cx="20" cy="30" r="4" stroke="#8b0000" stroke-width="2" fill="none" />
+      </svg>
+      <div class="line"></div>
+    </div>
+
+    <!-- Section: Four Circles -->
+    <section id="circles">
+      <h2>Четыре круга</h2>
+      <p>
+        Жизнь у нас устроена кругами. Чем ближе к центру — тем спокойнее спишь.
+        Чем дальше — тем больше смотри по сторонам.
+      </p>
+
+      <div class="circles-container">
+        <div class="circle-item">
+          <div class="circle-number">I</div>
+          <div class="circle-content">
+            <h4>Церковь</h4>
+            <p>Чёрное дерево, руны снаружи и внутри, от пола до крыши.
+              Самое безопасное место в деревне. Сюда идут в самые плохие ночи,
+              когда даже дома неспокойно.</p>
+          </div>
         </div>
-
-        <!-- Section: The Dead -->
-        <section id="dead">
-            <h2>Мёртвые</h2>
-            <p>
-                Своих мертвецов мы не закапываем и не сжигаем. Их отдают лесу. 
-                Выносят за деревню, кладут на землю, и лес забирает. К утру ничего не остаётся — 
-                ни тела, ни костей. Куда уходит — не наше дело. Лес знает.
-            </p>
-            <p>
-                Но перед этим нужен обряд. Без обряда мёртвый может встать. 
-                Не сразу, может через день, может через неделю — но встанет. 
-                И это уже не твой отец, не твоя жена. Это упырь, и он голодный.
-            </p>
-            <p>
-                Обряды знают знающие — волхвы, старухи, те, кого учили. 
-                В каждой деревне есть хоть один такой человек. Если нет — беда.
-            </p>
-            <div class="quote-block">
-                Умер — позови знающего. Нет знающего — беги в соседнюю деревню. 
-                Не успел — молись, чтобы успели другие.
-            </div>
-        </section>
-
-        <!-- Rune divider -->
-        <div class="rune-divider">
-            <div class="line"></div>
-            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 5 L20 35 M10 15 L30 25 M30 15 L10 25" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <div class="line"></div>
+        <div class="circle-item">
+          <div class="circle-number">II</div>
+          <div class="circle-content">
+            <h4>Дом</h4>
+            <p>Руны на дверях, окнах, дымоходе — это каждый с детства умеет.
+              Сиди дома после заката, и ничего не случится.</p>
+          </div>
         </div>
-
-        <!-- Section: Children of the Forest -->
-        <section id="children">
-            <h2>Дети леса</h2>
-            <p>
-                Глубже в Мюрквиде живут другие. Похожи на людей, но не люди. 
-                Высокие, уши длинные, кожа то ли зелёная, то ли коричневая — как мох на коре. 
-                Их мало кто видел вблизи.
-            </p>
-            <p>
-                Путники, что служат Яр'дрогу, иногда с ними разговаривают. 
-                Говорят, дети леса не злые, просто другие. Служат Мюрквиду напрямую, без эйдов, без рун. 
-                Лес для них — не сосед, а дом.
-            </p>
-            
-            <div class="legend-block">
-                <h4>Что рассказывают</h4>
-                <p>Старики говорят разное. Одни — что дети леса были тут до нас и будут после. 
-                Другие — что это мы такими станем, если уйдём слишком глубоко. 
-                Третьи — что лес их вырастит нам на замену, если мы его подведём. 
-                Кто прав — не знаю. Кто знал наверняка, тот не вернулся рассказать.</p>
-            </div>
-        </section>
-
-        <!-- Rune divider -->
-        <div class="rune-divider">
-            <div class="line"></div>
-            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 5 L20 35 M10 15 L30 25 M30 15 L10 25" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <div class="line"></div>
+        <div class="circle-item">
+          <div class="circle-number">III</div>
+          <div class="circle-content">
+            <h4>Деревня</h4>
+            <p>Столбы по краю, руны волхва. Защита хорошая, но есть ночи, когда и она слабеет.
+              Волхв скажет, когда лучше сидеть по домам.</p>
+          </div>
         </div>
+        <div class="circle-item">
+          <div class="circle-number">IV</div>
+          <div class="circle-content">
+            <h4>Поля</h4>
+            <p>Тут защита только пока солнце светит.
+              Вышел до рассвета или задержался после заката — сам виноват.</p>
+          </div>
+        </div>
+      </div>
 
-        <!-- Section: Beyond -->
-        <section id="beyond">
-            <h2>За пределами</h2>
-            <p>
-                На западе — королевства. Там люди пониже нас, послабее, но их много, и у них свои порядки. 
-                Короли, конунги, князья — у каждого своё название для того, кто сидит наверху и собирает дань.
-            </p>
-            <p>
-                Иногда они приходят сюда с армиями. Хотят землю, хотят лес, хотят знаний.
-                Мы вместе с лесом их встречаем. Пока что ни одна армия далеко не зашла.
-            </p>
-            <p>
-                В мирное время торгуем. Они привозят железо, ткани, вещи, которых в лесу не сделаешь. 
-                Мы продаём меха, мёд, травы, что только тут растут. 
-                Смотрят на нас странно — мы для них великаны из страшных сказок.
-            </p>
-            <p>
-                Они думают, что они свободны, потому что могут идти куда хотят. 
-                Но над каждым из них — король, конунг, князь. 
-                У нас же только лес, что держит эйд, не лезет в дела и не собирает дань.
-            </p>
-        </section>
+      <div class="quote-block">
+        После девяти вечера — сиди дома. Это не бабкины сказки. Это почему бабка до сих пор жива.
+      </div>
+    </section>
 
-    </main>
+    <!-- Rune divider -->
+    <div class="rune-divider">
+      <div class="line"></div>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 20 L32 20 M20 8 L20 32" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+        <circle cx="20" cy="20" r="8" stroke="#8b0000" stroke-width="1.5" fill="none" />
+      </svg>
+      <div class="line"></div>
+    </div>
 
-    <footer>
-        <svg width="30" height="40" viewBox="0 0 30 50" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 15px;">
-            <!-- Yar rune - simplified: circle with three paths down -->
-            <circle cx="15" cy="10" r="7" stroke="#8b0000" stroke-width="2" fill="none"/>
-            <circle cx="15" cy="10" r="2.5" fill="#8b0000"/>
-            <path d="M15 17 L15 45" stroke="#8b0000" stroke-width="2" stroke-linecap="round"/>
-            <path d="M15 25 L5 40" stroke="#8b0000" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M15 25 L25 40" stroke="#8b0000" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-        <p>Слушай лес. Держи эйд.</p>
-    </footer>
+    <!-- Section: The Dead -->
+    <!-- <section id="dead">
+      <h2>Мёртвые</h2>
+      <p>
+        Своих мертвецов мы не закапываем и не сжигаем. Их отдают лесу.
+        Выносят за деревню, кладут на землю, и лес забирает. К утру ничего не остаётся —
+        ни тела, ни костей. Куда уходит — не наше дело. Лес знает.
+      </p>
+      <p>
+        Но перед этим нужен обряд. Без обряда мёртвый может встать.
+        Не сразу, может через день, может через неделю — но встанет.
+        И это уже не твой отец, не твоя жена. Это упырь, и он голодный.
+      </p>
+      <p>
+        Обряды знают знающие — волхвы, старухи, те, кого учили.
+        В каждой деревне есть хоть один такой человек. Если нет — беда.
+      </p>
+      <div class="quote-block">
+        Умер — позови знающего. Нет знающего — беги в соседнюю деревню.
+        Не успел — молись, чтобы успели другие.
+      </div>
+    </section> -->
+
+    <!-- Rune divider -->
+    <!-- <div class="rune-divider">
+      <div class="line"></div>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 5 L20 35 M10 15 L30 25 M30 15 L10 25" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      <div class="line"></div>
+    </div> -->
+
+    <!-- Section: Children of the Forest -->
+    <!-- <section id="children">
+      <h2>Дети леса</h2>
+      <p>
+        Глубже в Мюрквиде живут другие. Похожи на людей, но не люди.
+        Высокие, уши длинные, кожа то ли зелёная, то ли коричневая — как мох на коре.
+        Их мало кто видел вблизи.
+      </p>
+      <p>
+        Путники, что служат Яр'дрогу, иногда с ними разговаривают.
+        Говорят, дети леса не злые, просто другие. Служат Мюрквиду напрямую, без эйдов, без рун.
+        Лес для них — не сосед, а дом.
+      </p>
+
+      <div class="legend-block">
+        <h4>Что рассказывают</h4>
+        <p>Старики говорят разное. Одни — что дети леса были тут до нас и будут после.
+          Другие — что это мы такими станем, если уйдём слишком глубоко.
+          Третьи — что лес их вырастит нам на замену, если мы его подведём.
+          Кто прав — не знаю. Кто знал наверняка, тот не вернулся рассказать.</p>
+      </div>
+    </section> -->
+
+    <!-- Rune divider -->
+    <div class="rune-divider">
+      <div class="line"></div>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 5 L20 35 M10 15 L30 25 M30 15 L10 25" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      <div class="line"></div>
+    </div>
+
+    <!-- Section: Beyond -->
+    <section id="beyond">
+      <h2>За пределами</h2>
+      <p>
+        На западе — королевства. Там люди пониже нас, послабее, но их много, и у них свои порядки.
+        Короли, конунги, князья — у каждого своё название для того, кто сидит наверху и собирает дань.
+      </p>
+      <p>
+        Иногда они приходят сюда с армиями. Хотят землю, хотят лес, хотят знаний.
+        Мы вместе с лесом их встречаем. Пока что ни одна армия далеко не зашла.
+      </p>
+      <p>
+        В мирное время торгуем. Они привозят железо, ткани, вещи, которых в лесу не сделаешь.
+        Мы продаём меха, мёд, травы, что только тут растут.
+        Смотрят на нас странно — мы для них великаны из страшных сказок.
+      </p>
+      <p>
+        Они думают, что они свободны, потому что могут идти куда хотят.
+        Но над каждым из них — король, конунг, князь.
+        У нас же только лес, что держит эйд, не лезет в дела и не собирает дань.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <svg width="30" height="40" viewBox="0 0 30 50" fill="none" xmlns="http://www.w3.org/2000/svg"
+      style="margin-bottom: 15px;">
+      <!-- Yar rune - simplified: circle with three paths down -->
+      <circle cx="15" cy="10" r="7" stroke="#8b0000" stroke-width="2" fill="none" />
+      <circle cx="15" cy="10" r="2.5" fill="#8b0000" />
+      <path d="M15 17 L15 45" stroke="#8b0000" stroke-width="2" stroke-linecap="round" />
+      <path d="M15 25 L5 40" stroke="#8b0000" stroke-width="1.5" stroke-linecap="round" />
+      <path d="M15 25 L25 40" stroke="#8b0000" stroke-width="1.5" stroke-linecap="round" />
+    </svg>
+    <p>Слушай лес. Держи эйд.</p>
+  </footer>
 
 </body>
+
 </html>

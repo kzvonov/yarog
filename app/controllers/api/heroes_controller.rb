@@ -16,7 +16,7 @@ module Api
             **hero.hero_data,
             name: hero.name,
             level: hero.level,
-            specialization: hero.specialization,
+            specialization: I18n.t("hero.spec.#{hero.specialization}", default: hero.specialization.humanize),
             xp: hero.xp
           },
           updatedAt: hero.updated_at.iso8601

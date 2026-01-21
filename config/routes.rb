@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     post "heroes/load", to: "heroes#load"
     post "heroes/save", to: "heroes#save"
     post "roll", to: "rolls#create"
+    get "party", to: "party#show"
   end
 
   # DM Dashboard
@@ -26,6 +27,7 @@ Rails.application.routes.draw do
       member do
         post :add_hero
         patch :update_notes
+        post :toggle_active
       end
     end
   end

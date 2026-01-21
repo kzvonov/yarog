@@ -1,10 +1,20 @@
 <div style="margin-bottom: 30px; padding: 20px; background: var(--bg-card); border: 1px solid var(--border-dark);">
   <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Add Hero by Code</h3>
 
-  <%= form_with url: add_hero_master_game_path(game), method: :post, style: "display: flex; gap: 10px;" do |f| %>
-    <%= text_field_tag :hero_code, "",
-        placeholder: "Enter hero code...",
-        style: "flex: 1;" %>
-    <%= submit_tag "Add Hero", class: "btn" %>
-  <% end %>
+  <div style="display: flex; gap: 10px; align-items: center;">
+    <%= form_with url: add_hero_master_game_path(game), method: :post, style: "display: flex; gap: 10px; flex: 1;" do |f| %>
+      <%= text_field_tag :hero_code, "",
+          placeholder: "Enter hero code...",
+          style: "flex: 1;" %>
+      <%= submit_tag "Add Hero", class: "btn" %>
+    <% end %>
+
+    <%= form_with url: toggle_active_master_game_path(game), method: :post, style: "margin: 0;" do |f| %>
+      <%= select_tag :active_status,
+          options_for_select([["Active", "active"], ["Inactive", "inactive"]], game.active? ? "active" : "inactive"),
+          data: { current_value: game.active? ? "active" : "inactive" },
+          onchange: "const currentValue = this.dataset.currentValue; if (this.value !== currentValue) { let message = this.value === 'active' ? 'Activate this game? This will deactivate all other games with the same heroes.' : 'Deactivate this game?'; if (confirm(message)) { this.form.submit(); } else { this.value = currentValue; } }",
+          style: "padding: 10px 20px; background: var(--bg-card); border: 1px solid var(--border-dark); color: var(--text-primary); font-family: inherit; font-size: 1rem; cursor: pointer;" %>
+    <% end %>
+  </div>
 </div>

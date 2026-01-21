@@ -1,220 +1,570 @@
 <%
-  hero_data = @hero.hero_data
+  hero_data = @hero.hero_data || {}
   stats = hero_data['stats'] || {}
   debilities = hero_data['debilities'] || {}
   moves = hero_data['moves'] || []
-
-  # Calculate modifiers
-  def modifier(stat_value)
-    return 0 if stat_value.nil?
-    ((stat_value - 10) / 2.0).floor
-  end
 %>
 
-<div style="max-width: 900px;" data-controller="hero-editor" data-hero-editor-url-value="<%= master_hero_path(@hero) %>">
-  <%= link_to "← Back to Heroes", master_heroes_path, style: "display: inline-block; margin-bottom: 20px; color: var(--accent-blood-light); text-decoration: none;" %>
+<style>
+  /* Hero Editor Styles */
+  .hero-editor-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 15px;
+  }
 
-  <!-- Save Controls -->
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-    <div class="hero-editor-status" data-hero-editor-target="status"></div>
-    <button type="button"
-            class="btn"
-            data-action="click->hero-editor#saveNow">Save Now</button>
-  </div>
+  .hero-back-link {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: var(--accent-blood-light);
+    text-decoration: none;
+  }
 
-  <div class="card">
-    <!-- Editable Name -->
-    <div class="hero-editor-field">
-      <input type="text"
-             class="hero-name-input"
-             value="<%= @hero.name %>"
-             data-action="input->hero-editor#scheduleUpdate"
-             data-hero-editor-target="nameInput"
-             data-field="name"
-             placeholder="Hero Name"
-             maxlength="100">
+  .hero-back-link:hover {
+    text-decoration: underline;
+  }
+
+  .hero-save-bar {
+    position: sticky;
+    top: 0;
+    background: var(--bg-card);
+    padding: 10px 15px;
+    border: 1px solid var(--border-dark);
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .hero-meta-info {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  /* Field Row Layout */
+  .field-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .field-row .field {
+    flex: 1;
+  }
+
+  .field {
+    margin-bottom: 8px;
+  }
+
+  .field label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  .field input[type="text"],
+  .field input[type="number"],
+  .field textarea {
+    width: 100%;
+    padding: 6px 8px;
+    background: var(--input-bg);
+    border: 1px solid var(--border-dark);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.95rem;
+  }
+
+  .field input:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--accent-blood);
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 70px;
+  }
+
+  .char-count {
+    text-align: right;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+
+  /* Combat Stats Row */
+  .combat-stats-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .combat-stat-box {
+    background: var(--input-bg);
+    border: 1px solid var(--border-dark);
+    padding: 6px 4px;
+    text-align: center;
+  }
+
+  .combat-stat-box label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  .combat-stat-box input {
+    width: 100%;
+    padding: 4px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border-dark);
+    color: var(--text-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .combat-stat-box input:focus {
+    outline: none;
+    border-bottom-color: var(--accent-blood);
+  }
+
+  /* Stats + Abilities Grid */
+  .stats-abilities-grid {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    gap: 12px;
+  }
+
+  /* Stats Table */
+  .stats-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .stats-table thead th {
+    background: var(--bg-dark);
+    color: var(--text-secondary);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    padding: 6px 4px;
+    border: 1px solid var(--border-dark);
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .stats-table tbody td {
+    padding: 6px 4px;
+    border: 1px solid var(--border-dark);
+    text-align: center;
+  }
+
+  .stats-table .stat-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: left;
+    padding-left: 10px;
+  }
+
+  .stats-table input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border-dark);
+    color: var(--text-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .stats-table input[type="number"]:focus {
+    outline: none;
+    border-bottom-color: var(--accent-blood);
+  }
+
+  .stats-table .modifier {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+  }
+
+  .stats-table input[type="checkbox"] {
+    width: auto;
+    cursor: pointer;
+  }
+
+  /* Abilities Column */
+  .abilities-column h3 {
+    font-size: 0.9rem;
+    color: var(--accent-blood-light);
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border-dark);
+  }
+
+  .abilities-list {
+    max-height: 280px;
+    overflow-y: auto;
+    margin-bottom: 8px;
+  }
+
+  .move-item {
+    background: var(--input-bg);
+    border: 1px solid var(--border-dark);
+    border-left: 3px solid var(--accent-blood);
+    padding: 6px 8px;
+    margin-bottom: 6px;
+  }
+
+  .move-item-header {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .move-item-header input {
+    flex: 1;
+    padding: 4px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border-dark);
+    color: var(--text-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .move-item-header input:focus {
+    outline: none;
+    border-bottom-color: var(--accent-blood);
+  }
+
+  .move-remove-btn {
+    padding: 2px 6px;
+    background: var(--button-bg);
+    border: 1px solid var(--border-dark);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.85rem;
+  }
+
+  .move-remove-btn:hover {
+    background: var(--accent-blood);
+    color: var(--text-primary);
+  }
+
+  .move-item textarea {
+    width: 100%;
+    padding: 4px 6px;
+    background: transparent;
+    border: 1px solid var(--border-dark);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.85rem;
+    min-height: 50px;
+    resize: vertical;
+  }
+
+  .move-item textarea:focus {
+    outline: none;
+    border-color: var(--accent-blood);
+  }
+
+  .add-ability-btn {
+    width: 100%;
+    padding: 6px;
+    background: var(--button-bg);
+    border: 1px solid var(--border-dark);
+    color: var(--text-primary);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+
+  .add-ability-btn:hover {
+    background: var(--accent-blood);
+    border-color: var(--accent-blood);
+  }
+
+  /* Two Column Grid for Text Fields */
+  .two-col-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .combat-stats-row {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .stats-abilities-grid,
+    .two-col-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .combat-stats-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .field-row {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<div class="hero-editor-container">
+  <%= link_to "← Back to Heroes", master_heroes_path, class: "hero-back-link" %>
+
+  <%= form_with model: @hero, url: master_hero_path(@hero), method: :patch, local: true do |f| %>
+    <div class="hero-save-bar">
+      <div class="hero-meta-info">
+        <%= @hero.specialization.titleize %> • Code: <span style="color: var(--accent-gold);"><%= @hero.code %></span>
+        <% if @games.any? %>
+          • Games: <%= @games.map(&:name).join(", ") %>
+        <% end %>
+      </div>
+      <%= f.submit "Save Changes", class: "btn" %>
     </div>
 
-    <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 20px;">
-      <%= @hero.specialization.titleize %> • Level <%= @hero.level %> • Code: <span style="color: var(--accent-gold);"><%= @hero.code %></span>
-    </p>
-
-    <% if @games.any? %>
-      <div style="margin-bottom: 30px;">
-        <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 10px;">Games:</h3>
-        <div style="display: flex; flex-direction: column; gap: 8px;">
-          <% @games.each do |game| %>
-            <%= link_to master_game_path(game), style: "display: block; padding: 10px 15px; background: var(--bg-dark); border: 1px solid var(--border-dark); color: var(--text-primary); text-decoration: none; transition: border-color 0.2s;" do %>
-              🎮 <%= game.name %>
-            <% end %>
-          <% end %>
+    <!-- Basic Info -->
+    <div class="card">
+      <div class="field-row">
+        <div class="field">
+          <label>Имя</label>
+          <%= f.text_field :name, value: @hero.name, maxlength: 100, placeholder: "Hero name" %>
+        </div>
+        <div class="field">
+          <label>Класс</label>
+          <input type="text" value="<%= @hero.specialization.titleize %>" disabled style="background: var(--bg-dark); color: var(--text-secondary);">
         </div>
       </div>
-    <% end %>
 
-    <!-- Combat Stats (Editable) -->
-    <div class="combat-stats-grid">
-      <div class="combat-stat-box">
-        <div class="combat-stat-label">Level</div>
-        <input type="number"
-               class="combat-stat-input"
-               value="<%= @hero.level %>"
-               data-action="input->hero-editor#scheduleUpdate"
-               data-field="level"
-               min="1" max="10">
-      </div>
-      <div class="combat-stat-box">
-        <div class="combat-stat-label">XP</div>
-        <input type="number"
-               class="combat-stat-input"
-               value="<%= @hero.xp %>"
-               data-action="input->hero-editor#scheduleUpdate"
-               data-field="xp"
-               min="0">
-      </div>
-      <div class="combat-stat-box hp-box">
-        <div class="combat-stat-label">HP Current</div>
-        <input type="number"
-               class="combat-stat-input"
-               value="<%= hero_data['hpCurrent'] %>"
-               data-action="input->hero-editor#scheduleUpdate"
-               data-field="hpCurrent"
-               min="0">
-        <div class="combat-stat-sub">/ <%= hero_data['hpMax'] %></div>
-      </div>
-      <div class="combat-stat-box hp-box">
-        <div class="combat-stat-label">HP Max</div>
-        <input type="number"
-               class="combat-stat-input"
-               value="<%= hero_data['hpMax'] %>"
-               data-action="input->hero-editor#scheduleUpdate"
-               data-field="hpMax"
-               min="1">
-      </div>
-      <div class="combat-stat-box armor-box">
-        <div class="combat-stat-label">Armor</div>
-        <input type="number"
-               class="combat-stat-input"
-               value="<%= hero_data['armor'] %>"
-               data-action="input->hero-editor#scheduleUpdate"
-               data-field="armor"
-               min="0">
-      </div>
-      <div class="combat-stat-box damage-box">
-        <div class="combat-stat-label">Damage</div>
-        <input type="text"
-               class="combat-stat-input"
-               value="<%= hero_data['damage'] %>"
-               data-action="input->hero-editor#scheduleUpdate"
-               data-field="damage"
-               placeholder="d10">
-      </div>
-    </div>
-
-    <!-- Characteristics (Editable) -->
-    <div style="margin-bottom: 30px;">
-      <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Characteristics</h3>
-      <div class="stats-edit-grid">
-        <% %w[str dex con int wis cha].each do |stat| %>
-          <div class="stat-edit-box">
-            <div class="stat-edit-name"><%= stat.upcase %></div>
-            <input type="number"
-                   class="stat-edit-input"
-                   value="<%= stats[stat] || 10 %>"
-                   data-action="input->hero-editor#scheduleUpdate"
-                   data-field="stat_<%= stat %>"
-                   min="1" max="20">
-            <div class="stat-edit-modifier" data-hero-editor-target="modifier_<%= stat %>">
-              <%= modifier(stats[stat]) >= 0 ? "+#{modifier(stats[stat])}" : modifier(stats[stat]) %>
-            </div>
-            <div class="stat-edit-debility">
-              <input type="checkbox"
-                     <%= debilities[stat] ? 'checked' : '' %>
-                     data-action="change->hero-editor#scheduleUpdate"
-                     data-field="deb_<%= stat %>">
-              <span>Debilitated</span>
-            </div>
+      <!-- Combat Stats -->
+      <div class="combat-stats-row">
+        <div class="combat-stat-box">
+          <label>Уровень ⭐</label>
+          <%= f.number_field :level, value: @hero.level, min: 1, max: 10 %>
+        </div>
+        <div class="combat-stat-box">
+          <label>Опыт ✨</label>
+          <%= f.number_field :xp, value: @hero.xp, min: 0 %>
+        </div>
+        <div class="combat-stat-box">
+          <label>HP ❤️</label>
+          <%= f.number_field :hpCurrent, value: hero_data['hpCurrent'] || 10, min: 0 %>
+          <div style="font-size: 0.65rem; color: var(--text-secondary); margin-top: 2px;">
+            / <%= hero_data['hpMax'] || 10 %>
           </div>
-        <% end %>
+        </div>
+        <div class="combat-stat-box">
+          <label>Max HP</label>
+          <%= f.number_field :hpMax, value: hero_data['hpMax'] || 10, min: 1 %>
+        </div>
+        <div class="combat-stat-box">
+          <label>Броня 🛡️</label>
+          <%= f.number_field :armor, value: hero_data['armor'] || 0, min: 0 %>
+        </div>
+        <div class="combat-stat-box">
+          <label>Урон ⚔️</label>
+          <%= f.text_field :damage, value: hero_data['damage'] || 'd10', placeholder: "d10" %>
+        </div>
+        <div class="combat-stat-box">
+          <label>Монеты 🪙</label>
+          <%= f.number_field :coins, value: hero_data['coins'] || 0, min: 0 %>
+        </div>
       </div>
     </div>
 
-    <!-- Abilities (Editable) -->
-    <div style="margin-bottom: 30px;">
-      <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Abilities</h3>
-      <div class="moves-edit-list" data-hero-editor-target="movesList">
-        <% moves.each_with_index do |move, index| %>
-          <div class="move-edit-item">
-            <div class="move-edit-header">
-              <input type="text"
-                     class="move-edit-name-input"
-                     value="<%= move['name'] %>"
-                     data-action="input->hero-editor#scheduleUpdate"
-                     data-field="move_<%= index %>_name"
-                     placeholder="Ability Name"
-                     maxlength="100">
-              <button type="button"
-                      class="move-remove-btn"
-                      data-action="click->hero-editor#removeMove"
-                      data-index="<%= index %>">✕</button>
-            </div>
-            <textarea class="move-edit-desc-input"
-                      data-action="input->hero-editor#scheduleUpdate"
-                      data-field="move_<%= index %>_desc"
-                      placeholder="Ability description..."
-                      maxlength="500"><%= move['desc'] %></textarea>
+    <!-- Stats + Abilities -->
+    <div class="card">
+      <div class="stats-abilities-grid">
+        <!-- Stats Table -->
+        <div class="stats-column">
+          <h3 style="font-size: 0.9rem; color: var(--accent-blood-light); margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid var(--border-dark);">Характеристики</h3>
+          <table class="stats-table">
+            <tbody>
+              <% %w[str dex con int wis cha].each do |stat| %>
+                <% icons = { 'str' => '💪', 'dex' => '🎯', 'con' => '💚', 'int' => '🧠', 'wis' => '🦉', 'cha' => '💬' } %>
+                <tr>
+                  <td class="stat-name"><%= stat.upcase %> <%= icons[stat] %></td>
+                  <td>
+                    <%= f.number_field "stats[#{stat}]", name: "hero[stats][#{stat}]", value: stats[stat] || 10, min: 1, max: 20, class: "stat-input", data: { stat: stat } %>
+                  </td>
+                  <td><%= stat_modifier(stats[stat]) %></td>
+                  <td>
+                    <%= f.select "debilities_#{stat}", [["ok", false], ["-1", true]], { selected: hero_data["debilities"][stat] }, name: "hero[debilities][#{stat}]", include_blank: false %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Abilities -->
+        <div class="abilities-column">
+          <h3>Способности</h3>
+          <div class="abilities-list" id="abilitiesList">
+            <% moves.each_with_index do |move, index| %>
+              <div class="move-item" data-move-index="<%= index %>">
+                <div class="move-item-header">
+                  <%= f.text_field "name", name: "hero[moves][][name]", value: move['name'], placeholder: "Ability name" %>
+                  <button type="button" class="move-remove-btn" onclick="removeMove(<%= index %>)">✕</button>
+                </div>
+                <%= f.text_area "desc", name: "hero[moves][][desc]", value: move['desc'], placeholder: "Ability description...", maxlength: 500 %>
+              </div>
+            <% end %>
           </div>
-        <% end %>
-      </div>
-      <button type="button"
-              class="add-move-btn"
-              data-action="click->hero-editor#addMove">+ Add Ability</button>
-    </div>
-
-    <!-- Equipment (Editable) -->
-    <div style="margin-bottom: 30px;">
-      <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Equipment</h3>
-      <textarea class="hero-edit-textarea"
-                data-action="input->hero-editor#scheduleUpdate"
-                data-field="equipment"
-                placeholder="Weapons, armor, items..."
-                maxlength="300"
-                rows="4"><%= (hero_data['equipment'] || '').strip %></textarea>
-      <div class="char-count-display">
-        <span data-hero-editor-target="equipmentCount"><%= (hero_data['equipment'] || '').strip.length %></span>/300
+          <button type="button" class="add-ability-btn" onclick="addMove()">+ Добавить способность</button>
+        </div>
       </div>
     </div>
 
-    <!-- Condition (Editable) -->
-    <div style="margin-bottom: 30px;">
-      <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Condition</h3>
-      <textarea class="hero-edit-textarea"
-                data-action="input->hero-editor#scheduleUpdate"
-                data-field="condition"
-                placeholder="Curses, debts, special conditions..."
-                maxlength="500"
-                rows="4"><%= hero_data['condition'] %></textarea>
-      <div class="char-count-display">
-        <span data-hero-editor-target="conditionCount"><%= (hero_data['condition'] || '').length %></span>/500
+    <!-- Weapons & Equipment -->
+    <div class="card">
+      <h3 style="font-size: 0.9rem; color: var(--accent-blood-light); margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid var(--border-dark);">Снаряжение</h3>
+      <div class="two-col-grid">
+        <div class="field">
+          <label>Оружие</label>
+          <%= f.text_area :weapons, value: hero_data['weapons'], maxlength: 200, placeholder: "Меч, лук, кинжал...", onkeyup: "updateCharCount('weapons', 200)" %>
+          <div class="char-count"><span id="weaponsCount"><%= (hero_data['weapons'] || '').length %></span>/200</div>
+        </div>
+        <div class="field">
+          <label>Предметы</label>
+          <%= f.text_area :equipment, value: hero_data['equipment'], maxlength: 300, placeholder: "Броня, зелья, инструменты...", onkeyup: "updateCharCount('equipment', 300)" %>
+          <div class="char-count"><span id="equipmentCount"><%= (hero_data['equipment'] || '').length %></span>/300</div>
+        </div>
       </div>
     </div>
 
-    <!-- Notes (Editable) -->
-    <div style="margin-bottom: 30px;">
-      <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Notes</h3>
-      <textarea class="hero-edit-textarea"
-                data-action="input->hero-editor#scheduleUpdate"
-                data-field="notes"
-                placeholder="Bonds, goals, important info..."
-                maxlength="1000"
-                rows="6"><%= hero_data['notes'] %></textarea>
-      <div class="char-count-display">
-        <span data-hero-editor-target="notesCount"><%= (hero_data['notes'] || '').length %></span>/1000
+    <!-- Bonds & Notes -->
+    <div class="card">
+      <h3 style="font-size: 0.9rem; color: var(--accent-blood-light); margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid var(--border-dark);">Заметки</h3>
+      <div class="two-col-grid">
+        <div class="field">
+          <label>Связи</label>
+          <%= f.text_area :bonds, value: hero_data['bonds'], maxlength: 300, placeholder: "Отношения с другими персонажами...", onkeyup: "updateCharCount('bonds', 300)" %>
+          <div class="char-count"><span id="bondsCount"><%= (hero_data['bonds'] || '').length %></span>/300</div>
+        </div>
+        <div class="field">
+          <label>Записи</label>
+          <%= f.text_area :notes, value: hero_data['notes'], maxlength: 500, placeholder: "Цели, секреты, важное...", onkeyup: "updateCharCount('notes', 500)" %>
+          <div class="char-count"><span id="notesCount"><%= (hero_data['notes'] || '').length %></span>/500</div>
+        </div>
       </div>
     </div>
 
-    <div style="text-align: right; font-size: 0.85rem; color: var(--text-secondary); margin-top: 30px;">
+    <!-- About -->
+    <div class="card">
+      <div class="field">
+        <label>О себе</label>
+        <%= f.text_area :look, value: hero_data['look'], maxlength: 1000, placeholder: "Внешность, происхождение, история героя...", onkeyup: "updateCharCount('look', 1000)", style: "min-height: 100px;" %>
+        <div class="char-count"><span id="lookCount"><%= (hero_data['look'] || '').length %></span>/1000</div>
+      </div>
+    </div>
+
+    <!-- Footer Info -->
+    <div style="text-align: right; font-size: 0.85rem; color: var(--text-secondary); margin-top: 20px;">
       Version: <%= @hero.version %> • Created: <%= @hero.created_at.strftime('%Y-%m-%d %H:%M') %>
     </div>
-  </div>
+  <% end %>
 </div>
+
+<script>
+  // Character counter
+  function updateCharCount(fieldName, max) {
+    const field = document.querySelector(`#hero_${fieldName}`);
+    const counter = document.getElementById(`${fieldName}Count`);
+    if (field && counter) {
+      counter.textContent = field.value.length;
+    }
+  }
+
+  // Calculate DW stat modifier
+  function calculateModifier(statValue) {
+    if (statValue <= 3) return -3;
+    if (statValue <= 5) return -2;
+    if (statValue <= 8) return -1;
+    if (statValue <= 12) return 0;
+    if (statValue <= 15) return 1;
+    if (statValue <= 17) return 2;
+    return 3;
+  }
+
+  // Update stat modifiers on input
+  document.addEventListener('DOMContentLoaded', function() {
+    const statInputs = document.querySelectorAll('.stat-input');
+    statInputs.forEach(input => {
+      input.addEventListener('input', function() {
+        const stat = this.dataset.stat;
+        const value = parseInt(this.value) || 10;
+        const checkbox = document.querySelector(`input[name="hero[debilities][${stat}]"]`);
+        const debility = checkbox ? checkbox.checked : false;
+
+        let mod = calculateModifier(value);
+        if (debility) mod -= 1;
+
+        const modDisplay = document.querySelector(`[data-modifier="${stat}"]`);
+        if (modDisplay) {
+          if (mod === 0) {
+            modDisplay.textContent = '0';
+          } else if (mod > 0) {
+            modDisplay.textContent = '+' + mod;
+          } else {
+            modDisplay.textContent = mod;
+          }
+        }
+      });
+    });
+
+    // Update modifiers when debility checkboxes change
+    const debilityCheckboxes = document.querySelectorAll('input[name^="hero[debilities]"]');
+    debilityCheckboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        const stat = this.name.match(/\[([^\]]+)\]/g)[1].replace(/[\[\]]/g, '');
+        const input = document.querySelector(`.stat-input[data-stat="${stat}"]`);
+        if (input) {
+          input.dispatchEvent(new Event('input'));
+        }
+      });
+    });
+  });
+
+  // Abilities management
+  let moveCounter = <%= moves.length %>;
+
+  function addMove() {
+    const list = document.getElementById('abilitiesList');
+    const moveDiv = document.createElement('div');
+    moveDiv.className = 'move-item';
+    moveDiv.dataset.moveIndex = moveCounter;
+    moveDiv.innerHTML = `
+      <div class="move-item-header">
+        <input type="text" name="hero[moves][][name]" placeholder="Ability name" maxlength="100">
+        <button type="button" class="move-remove-btn" onclick="removeMove(${moveCounter})">✕</button>
+      </div>
+      <textarea name="hero[moves][][desc]" placeholder="Ability description..." maxlength="500"></textarea>
+    `;
+    list.appendChild(moveDiv);
+    moveCounter++;
+  }
+
+  function removeMove(index) {
+    const moveItem = document.querySelector(`[data-move-index="${index}"]`);
+    if (moveItem && confirm('Удалить эту способность?')) {
+      moveItem.remove();
+    }
+  }
+</script>
