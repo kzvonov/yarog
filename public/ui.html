@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI Library — Dungeon World</title>
+  <link rel="stylesheet" href="ui.css" />
+  <style>
+    .uilib-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--bg-dark);
+      border-bottom: 2px solid var(--border-dark);
+    }
+
+    details {
+      margin-bottom: 8px;
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 12px 15px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--accent-blood-light);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      user-select: none;
+    }
+
+    summary:hover {
+      background: var(--input-bg);
+    }
+
+    details[open] summary {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    details>div {
+      border: 1px solid var(--border-dark);
+      border-top: none;
+      padding: 15px;
+      background: var(--bg-card);
+    }
+
+    .example {
+      margin: 12px 0;
+      padding: 12px;
+      background: var(--input-bg);
+      border: 1px solid var(--border-dark);
+    }
+
+    .example-title {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .code-wrapper {
+      position: relative;
+      margin: 8px 0;
+    }
+
+    .code-wrapper pre {
+      margin: 0;
+      padding: 10px;
+      background: #000;
+      border: 1px solid var(--border-dark);
+      overflow-x: auto;
+      font-size: 0.8rem;
+    }
+
+    .code-wrapper code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      color: #ddd;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      padding: 4px 8px;
+      background: var(--accent-blood);
+      border: 1px solid var(--accent-blood-light);
+      color: var(--text-primary);
+      font-size: 0.7rem;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .copy-btn:hover {
+      opacity: 1;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-green);
+      border-color: var(--accent-green);
+    }
+
+    .demo-grid {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .demo-stack>* {
+      margin-bottom: 8px;
+    }
+
+    .demo-stack> :last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header uilib-header">
+    <h1>UI Library</h1>
+    <p class="subtitle">Dungeon World Components</p>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+  </header>
+
+  <div class="page">
+
+    <!-- LAYOUT -->
+    <details open>
+      <summary>Layout & Structure</summary>
+      <div>
+        <div class="example">
+          <div class="example-title">Page Container</div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="page"&gt;...&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Grid Layouts</div>
+          <div class="grid-2" style="margin-bottom: 8px;">
+            <div class="panel">Col 1</div>
+            <div class="panel">Col 2</div>
+          </div>
+          <div class="grid-3">
+            <div class="panel">Col 1</div>
+            <div class="panel">Col 2</div>
+            <div class="panel">Col 3</div>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="grid-2"&gt;...&lt;/div&gt;
+&lt;div class="grid-3"&gt;...&lt;/div&gt;
+&lt;div class="grid"&gt;...&lt;/div&gt; &lt;!-- auto-fit --&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Panel & Title</div>
+          <div class="panel">
+            <div class="title">
+              <span>Section Title</span>
+              <span class="badge">info</span>
+            </div>
+            <p>Panel content goes here.</p>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="panel"&gt;
+  &lt;div class="title"&gt;
+    &lt;span&gt;Title&lt;/span&gt;
+    &lt;span class="badge"&gt;badge&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;p&gt;Content&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- BUTTONS & BADGES -->
+    <details open>
+      <summary>Buttons & Badges</summary>
+      <div>
+        <div class="example">
+          <div class="example-title">Buttons</div>
+          <div class="demo-grid">
+            <button class="btn">Primary</button>
+            <button class="btn btn-secondary">Secondary</button>
+            <button class="btn btn-success">Success</button>
+            <button class="btn btn-warning">Warning</button>
+            <button class="btn" disabled>Disabled</button>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;button class="btn"&gt;Primary&lt;/button&gt;
+&lt;button class="btn btn-secondary"&gt;Secondary&lt;/button&gt;
+&lt;button class="btn btn-success"&gt;Success&lt;/button&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Button Sizes</div>
+          <div class="demo-grid">
+            <button class="btn btn-small">Small</button>
+            <button class="btn">Normal</button>
+            <button class="btn btn-large">Large</button>
+            <button class="btn btn-block">Block</button>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;button class="btn btn-small"&gt;Small&lt;/button&gt;
+&lt;button class="btn btn-large"&gt;Large&lt;/button&gt;
+&lt;button class="btn btn-block"&gt;Block&lt;/button&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Badges</div>
+          <div class="demo-grid">
+            <span class="badge">Default</span>
+            <span class="badge badge-success">Success</span>
+            <span class="badge badge-warning">Warning</span>
+            <span class="badge badge-info">Info</span>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;span class="badge"&gt;Default&lt;/span&gt;
+&lt;span class="badge badge-success"&gt;Success&lt;/span&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- FORMS -->
+    <details>
+      <summary>Form Elements</summary>
+      <div>
+        <div class="example">
+          <div class="example-title">Text & Number Inputs</div>
+          <fieldset style="border: none; padding: 0; margin: 0;">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-input" placeholder="Enter name..." style="margin-bottom: 8px;">
+            <label class="form-label">HP</label>
+            <input type="number" class="form-input" value="10">
+          </fieldset>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;label class="form-label"&gt;Label&lt;/label&gt;
+&lt;input type="text" class="form-input" placeholder="..."&gt;
+&lt;input type="number" class="form-input" value="10"&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Select & Textarea</div>
+          <select class="form-select" style="margin-bottom: 8px;">
+            <option>Fighter</option>
+            <option>Wizard</option>
+            <option>Thief</option>
+          </select>
+          <textarea class="form-textarea" placeholder="Description..."></textarea>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;select class="form-select"&gt;
+  &lt;option&gt;Option 1&lt;/option&gt;
+&lt;/select&gt;
+&lt;textarea class="form-textarea"&gt;&lt;/textarea&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Number Control</div>
+          <div class="number-control">
+            <button class="btn-spinner">−</button>
+            <input type="number" value="5">
+            <button class="btn-spinner">+</button>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="number-control"&gt;
+  &lt;button class="btn-spinner"&gt;−&lt;/button&gt;
+  &lt;input type="number" value="5"&gt;
+  &lt;button class="btn-spinner"&gt;+&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Param Input (for characteristics)</div>
+          <input type="number" class="param" value="10">
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;input type="number" class="param" value="10"&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Checkboxes</div>
+          <label class="checkbox-custom">
+            <input type="checkbox">
+            <span class="checkbox-box"></span>
+            <span>Option 1</span>
+          </label>
+          <label class="checkbox-custom">
+            <input type="checkbox" checked>
+            <span class="checkbox-box"></span>
+            <span>Option 2</span>
+          </label>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;label class="checkbox-custom"&gt;
+  &lt;input type="checkbox"&gt;
+  &lt;span class="checkbox-box"&gt;&lt;/span&gt;
+  &lt;span&gt;Label&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- DISPLAY COMPONENTS -->
+    <details>
+      <summary>Display Components</summary>
+      <div>
+        <div class="example">
+          <div class="example-title">Card</div>
+          <div class="card">
+            <div class="card-header">Card Title</div>
+            <div class="card-body">Card content goes here.</div>
+            <div class="card-footer">Footer text</div>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="card"&gt;
+  &lt;div class="card-header"&gt;Title&lt;/div&gt;
+  &lt;div class="card-body"&gt;Content&lt;/div&gt;
+  &lt;div class="card-footer"&gt;Footer&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Table</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Stat</th>
+                <th>Value</th>
+                <th>Mod</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>STR</td>
+                <td>16</td>
+                <td>+2</td>
+              </tr>
+              <tr>
+                <td>DEX</td>
+                <td>14</td>
+                <td>+1</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;table&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Header&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Data&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Key-Value Grid</div>
+          <div class="kv">
+            <div>HP</div>
+            <div>8 + CON</div>
+            <div>Damage</div>
+            <div>d6</div>
+            <div>Armor</div>
+            <div>0</div>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="kv"&gt;
+  &lt;div&gt;Key&lt;/div&gt;
+  &lt;div&gt;Value&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Stat Boxes</div>
+          <div class="grid-3">
+            <div class="stat-box hp">
+              <div class="stat-label">Health</div>
+              <div class="stat-value">25/25</div>
+            </div>
+            <div class="stat-box armor">
+              <div class="stat-label">Armor</div>
+              <div class="stat-value">3</div>
+            </div>
+            <div class="stat-box damage">
+              <div class="stat-label">Damage</div>
+              <div class="stat-value">d10+2</div>
+            </div>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="stat-box hp"&gt;
+  &lt;div class="stat-label"&gt;Health&lt;/div&gt;
+  &lt;div class="stat-value"&gt;25/25&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Progress Bar</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 75%"></div>
+            <div class="progress-text">75%</div>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="progress-bar"&gt;
+  &lt;div class="progress-fill" style="width: 75%"&gt;&lt;/div&gt;
+  &lt;div class="progress-text"&gt;75%&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- GAME COMPONENTS -->
+    <details>
+      <summary>Game Components</summary>
+      <div>
+        <div class="example">
+          <div class="example-title">Move Card</div>
+          <div class="move">
+            <b>Hack and Slash</b><br>
+            When you attack an enemy in melee, roll <span class="mono">2d6+STR</span>.
+            <ul>
+              <li><b>10+</b>: deal damage, avoid attack</li>
+              <li><b>7–9</b>: deal damage, enemy attacks you</li>
+            </ul>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="move"&gt;
+  &lt;b&gt;Move Name&lt;/b&gt;&lt;br&gt;
+  Description with &lt;span class="mono"&gt;2d6&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Move Card (Alternative)</div>
+          <div class="move-card">
+            <div class="move-name">Discern Realities</div>
+            <div class="move-description">
+              When you study a situation, roll 2d6+WIS. On 10+, ask 3 questions. On 7–9, ask 1.
+            </div>
+            <div class="move-meta">Basic • WIS</div>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="move-card"&gt;
+  &lt;div class="move-name"&gt;Name&lt;/div&gt;
+  &lt;div class="move-description"&gt;Text&lt;/div&gt;
+  &lt;div class="move-meta"&gt;Meta&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Dice Results</div>
+          <div class="grid-3">
+            <div class="dice-result success">
+              <div class="result-value">12</div>
+              <div class="result-breakdown">2d6: 6+6</div>
+            </div>
+            <div class="dice-result partial">
+              <div class="result-value">8</div>
+              <div class="result-breakdown">2d6: 4+4</div>
+            </div>
+            <div class="dice-result fail">
+              <div class="result-value">5</div>
+              <div class="result-breakdown">2d6: 2+3</div>
+            </div>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="dice-result success"&gt;
+  &lt;div class="result-value"&gt;12&lt;/div&gt;
+  &lt;div class="result-breakdown"&gt;2d6: 6+6&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Party Member</div>
+          <div class="party-member">
+            <div class="character-avatar">⚔️</div>
+            <div class="party-member-info">
+              <div class="party-member-name">Aragorn</div>
+              <div class="party-member-class">Fighter</div>
+              <div class="party-member-stats">
+                <span class="hp">30/30</span>
+                <span class="armor">3 ARM</span>
+              </div>
+            </div>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="party-member"&gt;
+  &lt;div class="character-avatar"&gt;⚔️&lt;/div&gt;
+  &lt;div class="party-member-info"&gt;
+    &lt;div class="party-member-name"&gt;Name&lt;/div&gt;
+    &lt;div class="party-member-class"&gt;Class&lt;/div&gt;
+    &lt;div class="party-member-stats"&gt;Stats&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- FEEDBACK -->
+    <details>
+      <summary>Feedback & Alerts</summary>
+      <div>
+        <div class="example">
+          <div class="example-title">Alerts</div>
+          <div class="demo-stack">
+            <div class="alert alert-info"><b>Info:</b> Informational message</div>
+            <div class="alert alert-success"><b>Success:</b> Operation completed</div>
+            <div class="alert alert-warning"><b>Warning:</b> Be careful</div>
+            <div class="alert alert-error"><b>Error:</b> Something failed</div>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="alert alert-info"&gt;Message&lt;/div&gt;
+&lt;div class="alert alert-success"&gt;Message&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Toasts</div>
+          <div class="demo-stack">
+            <div class="toast info">Info notification</div>
+            <div class="toast success">Success notification</div>
+            <div class="toast warning">Warning notification</div>
+            <div class="toast error">Error notification</div>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="toast info"&gt;Message&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- INTERACTIVE -->
+    <details>
+      <summary>Interactive Elements</summary>
+      <div>
+        <div class="example">
+          <div class="example-title">Native Details/Summary (Collapsible)</div>
+          <details>
+            <summary>Click to expand</summary>
+            <div style="padding: 10px;">This uses native HTML &lt;details&gt; element. No JS needed!</div>
+          </details>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;details&gt;
+  &lt;summary&gt;Title&lt;/summary&gt;
+  &lt;div&gt;Content&lt;/div&gt;
+&lt;/details&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Tabs</div>
+          <div class="tabs">
+            <button class="tab-button active" onclick="switchTab(event, 'tab1')">Tab 1</button>
+            <button class="tab-button" onclick="switchTab(event, 'tab2')">Tab 2</button>
+            <button class="tab-button" onclick="switchTab(event, 'tab3')">Tab 3</button>
+          </div>
+          <div id="tab1" class="tab-content active">
+            <p>Content for tab 1</p>
+          </div>
+          <div id="tab2" class="tab-content">
+            <p>Content for tab 2</p>
+          </div>
+          <div id="tab3" class="tab-content">
+            <p>Content for tab 3</p>
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="tabs"&gt;
+  &lt;button class="tab-button active" onclick="switchTab(event, 'tab1')"&gt;Tab 1&lt;/button&gt;
+&lt;/div&gt;
+&lt;div id="tab1" class="tab-content active"&gt;Content&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- UTILITIES -->
+    <details>
+      <summary>Utility Classes</summary>
+      <div>
+        <div class="example">
+          <div class="example-title">Text Colors</div>
+          <p class="text-muted">Muted text (.text-muted)</p>
+          <p class="text-primary">Primary text (.text-primary)</p>
+          <p class="text-accent">Accent text (.text-accent)</p>
+          <p class="text-green">Green text (.text-green)</p>
+          <p class="text-red">Red text (.text-red)</p>
+          <p class="text-gold">Gold text (.text-gold)</p>
+          <p class="text-blue">Blue text (.text-blue)</p>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>.text-muted, .text-primary, .text-accent
+.text-green, .text-red, .text-gold, .text-blue</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Text Sizes</div>
+          <p class="text-small">Small text — используется для подсказок и мелких деталей (.text-small или .small)</p>
+          <p class="text-medium">Medium text — обычный размер текста по умолчанию (.text-medium)</p>
+          <p class="text-big">Big text — для заголовков и важного текста (.text-big)</p>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;p class="text-small"&gt;Small text&lt;/p&gt;
+&lt;p class="text-medium"&gt;Medium text&lt;/p&gt;
+&lt;p class="text-big"&gt;Big text&lt;/p&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Text Alignment</div>
+          <p class="text-center">Center aligned (.text-center)</p>
+          <p class="text-right">Right aligned (.text-right)</p>
+          <p class="uppercase">Uppercase text (.uppercase)</p>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>.text-center, .text-right, .uppercase</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Spacing Utilities</div>
+          <p class="small">Margin: .mt-1, .mt-2, .mb-1, .mb-2</p>
+          <p class="small">Padding: .p-1, .p-2</p>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>.mt-1 .mt-2 .mb-1 .mb-2 .p-1 .p-2</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Divider & Helpers</div>
+          <p>Text above</p>
+          <div class="hr"></div>
+          <p>Text below</p>
+          <p class="small">Small text (.small)</p>
+          <p>Inline code: <span class="mono">2d6+STR</span></p>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="hr"&gt;&lt;/div&gt;
+&lt;p class="small"&gt;Small&lt;/p&gt;
+&lt;span class="mono"&gt;code&lt;/span&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-title">Containers</div>
+          <div class="box">
+            <div class="box-title">Box with Title</div>
+            <p>Generic container with optional title.</p>
+          </div>
+          <div class="foot" style="margin-top: 8px;">
+            Footer-style container (.foot)
+          </div>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;div class="box"&gt;
+  &lt;div class="box-title"&gt;Title&lt;/div&gt;
+  Content
+&lt;/div&gt;
+&lt;div class="foot"&gt;Footer content&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <script>
+    // Theme Toggle
+    function toggleTheme() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      body.setAttribute('data-theme', currentTheme === 'light' ? 'dark' : 'light');
+    }
+
+    // Tab Switch
+    function switchTab(event, tabId) {
+      const tabContents = document.querySelectorAll('.tab-content');
+      tabContents.forEach(tab => tab.classList.remove('active'));
+
+      const tabButtons = document.querySelectorAll('.tab-button');
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    // Copy Code
+    function copyCode(button) {
+      const codeBlock = button.nextElementSibling.querySelector('code');
+      const text = codeBlock.textContent;
+
+      navigator.clipboard.writeText(text).then(() => {
+        button.textContent = 'Copied!';
+        button.classList.add('copied');
+
+        setTimeout(() => {
+          button.textContent = 'Copy';
+          button.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+      });
+    }
+  </script>
+</body>
+
+</html>

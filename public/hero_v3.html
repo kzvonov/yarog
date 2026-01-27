@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лист героя — Dungeon World</title>
+  <link rel="stylesheet" href="ui.css" />
+  <style>
+    .grid-main {
+      display: grid;
+      grid-template-columns: 1fr 4fr 4fr 1fr;
+      gap: 15px;
+    }
+
+    .grid-settings {
+      display: grid;
+      grid-template-columns: 1fr 8fr 1fr;
+      gap: 15px;
+    }
+
+    @media (max-width: 1200px) {
+      .grid-main {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .grid-main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .grid-2_3 {
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      gap: 15px;
+    }
+
+    .clickable {
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s;
+    }
+
+    .clickable:hover {
+      background: var(--accent-blood);
+      color: var(--text-heading);
+    }
+
+    .clickable:active {
+      transform: scale(0.95);
+    }
+
+    .mb-15 {
+      margin-bottom: 15px;
+    }
+  </style>
+
+  <script>
+    function calculateModifier(stat) {
+      if (stat <= 3) return -3;
+      if (stat <= 5) return -2;
+      if (stat <= 8) return -1;
+      if (stat <= 12) return 0;
+      if (stat <= 15) return 1;
+      if (stat <= 17) return 2;
+      return 3;
+    }
+
+    function updateModifier(statName) {
+      const input = document.getElementById(statName);
+      const modElement = document.getElementById(`${statName}-mod`);
+      const stat = parseInt(input.value) || 10;
+      const modifier = calculateModifier(stat);
+
+      const sign = modifier >= 0 ? '+' : '';
+      modElement.textContent = sign + modifier;
+      modElement.className = 'text-center text-accent';
+      if (modifier > 0) modElement.classList.add('text-green');
+      if (modifier < 0) modElement.classList.add('text-red');
+    }
+
+    function rollStat(statName) {
+      const statValue = parseInt(document.getElementById(statName).value) || 10;
+      const modifier = calculateModifier(statValue);
+      const hasDebuff = document.getElementById(`${statName}-debuff`).checked;
+      const debuff = hasDebuff ? -1 : 0;
+
+      const die1 = Math.floor(Math.random() * 6) + 1;
+      const die2 = Math.floor(Math.random() * 6) + 1;
+      const total = die1 + die2 + modifier + debuff;
+
+      // Display result
+      const resultElement = document.getElementById('diceResult');
+      resultElement.className = 'dice-result';
+
+      if (total >= 10) resultElement.classList.add('success');
+      else if (total >= 7) resultElement.classList.add('partial');
+      else resultElement.classList.add('fail');
+
+      const statLabel = {
+        'str': 'СИЛ',
+        'dex': 'ЛОВ',
+        'con': 'ТЕЛ',
+        'int': 'ИНТ',
+        'wis': 'МДР',
+        'cha': 'ХАР'
+      }[statName] || statName.toUpperCase();
+
+      resultElement.innerHTML = `
+        <div class="result-value">${total}</div>
+        <div class="result-breakdown">2d6: ${die1}+${die2} ${modifier >= 0 ? '+' : ''}${modifier}${hasDebuff ? ' -1' : ''}</div>
+      `;
+
+      // Log to history
+      const log = document.getElementById('diceLog');
+      const logEntry = document.createElement('div');
+      logEntry.className = 'small';
+      logEntry.style.padding = '4px';
+      logEntry.style.borderBottom = '1px solid var(--border-dark)';
+
+      let resultText = '';
+      if (total >= 10) resultText = '✓ Успех';
+      else if (total >= 7) resultText = '~ Частично';
+      else resultText = '✗ Провал';
+
+      logEntry.textContent = `${statLabel}: ${total} (${die1}+${die2}${modifier >= 0 ? '+' : ''}${modifier}${hasDebuff ? ' -1' : ''}) — ${resultText}`;
+      log.insertBefore(logEntry, log.firstChild);
+
+      // Limit log to 10 entries
+      while (log.children.length > 10) {
+        log.removeChild(log.lastChild);
+      }
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      body.setAttribute('data-theme', currentTheme === 'light' ? 'dark' : 'light');
+    }
+
+    function switchTab(event, tabId) {
+      const tabContents = document.querySelectorAll('.tab-content');
+      tabContents.forEach(tab => tab.classList.remove('active'));
+
+      const tabButtons = document.querySelectorAll('.tab-button');
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    function init() {
+      // Initialize all modifiers
+      ['str', 'dex', 'con', 'int', 'wis', 'cha'].forEach(stat => {
+        updateModifier(stat);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', init)
+  </script>
+</head>
+
+<body>
+  <div class="header">
+    <h1 data-sync="hero.name">Герой</h1>
+    <div class="subtitle" data-sync="hero.spec">Класс</div>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+  </div>
+  <div class="container">
+    <section class="section grid-main">
+      <div></div>
+      <div>
+        <details class="box">
+          <summary>Настройки</summary>
+          <div>
+            <div class="form-group">
+              <label class="form-label">Сервер:</label>
+              <input type="text" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Код:</label>
+              <input type="text" class="form-input">
+            </div>
+          </div>
+        </details>
+        <div class="box">
+          <div class="grid-3">
+            <div class="form-group">
+              <label class="form-label">Имя:</label>
+              <input type="text" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Класс:</label>
+              <input type="text" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Расса:</label>
+              <input type="text" class="form-input">
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <h2 class="title">База</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Уровень</th>
+                <th>Опыт</th>
+                <th>Здоровье</th>
+                <th>Броня</th>
+                <th>Урон</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="number" class="param" id="level" value="1" min="1" max="10"></td>
+                <td><input type="number" class="param" id="xp" value="0" min="0" max="20"></td>
+                <td><input type="number" class="param" id="hp" value="10" min="0" max="60"></td>
+                <td><input type="number" class="param" id="armor" value="0" min="-5" max="10"></td>
+                <td><input type="text" class="param" id="damage" value="d6"></td>
+              </tr>
+            </tbody>
+          </table>
+          <h2 class="title">Характеристики</h2>
+          <table>
+            <thead>
+              <tr>
+                <th class="clickable" onclick="rollStat('str')" title="Нажми для броска 2d6">СИЛ</th>
+                <th class="clickable" onclick="rollStat('dex')" title="Нажми для броска 2d6">ЛОВ</th>
+                <th class="clickable" onclick="rollStat('con')" title="Нажми для броска 2d6">ТЕЛ</th>
+                <th class="clickable" onclick="rollStat('int')" title="Нажми для броска 2d6">ИНТ</th>
+                <th class="clickable" onclick="rollStat('wis')" title="Нажми для броска 2d6">МДР</th>
+                <th class="clickable" onclick="rollStat('cha')" title="Нажми для броска 2d6">ХАР</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input type="number" class="param" id="str" value="10" min="1" max="20"
+                    onchange="updateModifier('str')">
+                </td>
+                <td>
+                  <input type="number" class="param" id="dex" value="10" min="1" max="20"
+                    onchange="updateModifier('dex')">
+                </td>
+                <td>
+                  <input type="number" class="param" id="con" value="10" min="1" max="20"
+                    onchange="updateModifier('con')">
+                </td>
+                <td>
+                  <input type="number" class="param" id="int" value="10" min="1" max="20"
+                    onchange="updateModifier('int')">
+                </td>
+                <td>
+                  <input type="number" class="param" id="wis" value="10" min="1" max="20"
+                    onchange="updateModifier('wis')">
+                </td>
+                <td>
+                  <input type="number" class="param" id="cha" value="10" min="1" max="20"
+                    onchange="updateModifier('cha')">
+                </td>
+              </tr>
+              <tr>
+                <td id="str-mod" class="text-center text-medium text-accent">0</td>
+                <td id="dex-mod" class="text-center text-medium text-accent">0</td>
+                <td id="con-mod" class="text-center text-medium text-accent">0</td>
+                <td id="int-mod" class="text-center text-medium text-accent">0</td>
+                <td id="wis-mod" class="text-center text-medium text-accent">0</td>
+                <td id="cha-mod" class="text-center text-medium text-accent">0</td>
+              </tr>
+              <tr>
+                <td class="text-center">
+                  <label class="checkbox-custom">
+                    <input type="checkbox" id="str-debuff">
+                    <span class="checkbox-box"></span>
+                    <span class="small">-1</span>
+                  </label>
+                </td>
+                <td class="text-center">
+                  <label class="checkbox-custom">
+                    <input type="checkbox" id="dex-debuff">
+                    <span class="checkbox-box"></span>
+                    <span class="small">-1</span>
+                  </label>
+                </td>
+                <td class="text-center">
+                  <label class="checkbox-custom">
+                    <input type="checkbox" id="con-debuff">
+                    <span class="checkbox-box"></span>
+                    <span class="small">-1</span>
+                  </label>
+                </td>
+                <td class="text-center">
+                  <label class="checkbox-custom">
+                    <input type="checkbox" id="int-debuff">
+                    <span class="checkbox-box"></span>
+                    <span class="small">-1</span>
+                  </label>
+                </td>
+                <td class="text-center">
+                  <label class="checkbox-custom">
+                    <input type="checkbox" id="wis-debuff">
+                    <span class="checkbox-box"></span>
+                    <span class="small">-1</span>
+                  </label>
+                </td>
+                <td class="text-center">
+                  <label class="checkbox-custom">
+                    <input type="checkbox" id="cha-debuff">
+                    <span class="checkbox-box"></span>
+                    <span class="small">-1</span>
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="box">
+          <div class="tabs">
+            <button class="tab-button active" onclick="switchTab(event, 'tab-weapons')">Оружие</button>
+            <button class="tab-button" onclick="switchTab(event, 'tab-equipment')">Снаряжение</button>
+            <button class="tab-button" onclick="switchTab(event, 'tab-notes')">Заметки</button>
+          </div>
+
+          <div id="tab-weapons" class="tab-content active">
+            <div class="form-group">
+              <textarea id="weapons" class="form-textarea" placeholder="Лук (near, far), Топор (hand, thrown)..."
+                rows="8"></textarea>
+            </div>
+          </div>
+
+          <div id="tab-equipment" class="tab-content">
+            <div class="form-group">
+              <textarea id="equipment" class="form-textarea" placeholder="Верёвка, факел, зелья..." rows="8"></textarea>
+            </div>
+          </div>
+
+          <div id="tab-notes" class="tab-content">
+            <div class="form-group">
+              <textarea id="notes" class="form-textarea" placeholder="Связи, заметки, квесты..." rows="8"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="box">
+          <h2 class="title">
+            <span>Способности</span>
+          </h2>
+
+          <div class="move text-small">
+            <b>Название способности</b><br>
+            Описание способности. Когда ты делаешь X, брось <span class="mono">2d6+STAT</span>.
+            <ul>
+              <li><b>10+</b>: полный успех</li>
+              <li><b>7–9</b>: частичный успех</li>
+              <li><b>6−</b>: провал</li>
+            </ul>
+          </div>
+
+          <div class="move text-small">
+            <b>Еще одна способность</b><br>
+            Описание второй способности с эффектом.
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="box">
+          <div class="mb-1">
+            <button class="btn btn-large btn-block btn-2d6" data-dice="2d6">2d6</button>
+          </div>
+          <div class="grid-3 mb-1">
+            <button class="btn btn-block" data-dice="d4">d2</button>
+            <button class="btn btn-block" data-dice="d4">d4</button>
+            <button class="btn btn-block" data-dice="d6">d6</button>
+          </div>
+          <div class="grid-3 mb-1">
+            <button class="btn btn-block" data-dice="d8">d8</button>
+            <button class="btn btn-block" data-dice="d10">d10</button>
+            <button class="btn btn-block" data-dice="d12">d12</button>
+          </div>
+          <div class="dice-result" id="diceResult">
+            <div class="result-value">—</div>
+            <div class="result-breakdown">Выбери кубик</div>
+          </div>
+          <div class="progress-bar" id="cooldownBar">
+            <div class="progress-fill" id="cooldownFill" style="width: 0%"></div>
+          </div>
+          <div class="box" id="diceLog"
+            style="margin-top: 10px; max-height: 150px; overflow-y: auto; font-size: 0.85rem;">
+            <!-- Dice roll history will appear here -->
+          </div>
+
+        </div>
+      </div>
+      <!-- <div class="box">
+        <h3>test</h3>
+      </div> -->
+    </section>
+  </div>
+</body>
+
+</html>

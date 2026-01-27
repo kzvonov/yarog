@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dungeon World — Охотник на нелюдь (Playbook)</title>
+  <link rel="stylesheet" href="../ui.css" />
+</head>
+
+<body>
+  <div class="page">
+
+    <header>
+      <h1>Охотник на нелюдь</h1>
+      <p class="sub">Dungeon World • знания • грязная подготовка • добивание тварей</p>
+    </header>
+
+    <div class="grid">
+
+      <!-- LEFT COLUMN -->
+      <div class="panel">
+
+        <div class="title">
+          <span>Игроку</span>
+          <span class="badge">роль</span>
+        </div>
+
+        <p>
+          Ты не герой. Ты — <b>специалист</b>.<br>
+          Тебя зовут, когда кто-то пропал, когда находят растерзанный скот,
+          когда ночью в деревне не зажигают огней.
+        </p>
+
+        <p>
+          Ты работаешь с тем, что осталось:
+          кровью, костями, слизью, следами.
+          Если тварь можно убить — ты знаешь как.
+        </p>
+
+        <div class="hr"></div>
+
+        <div class="title">
+          <span>Параметры</span>
+          <span class="badge">база</span>
+        </div>
+
+        <div class="kv">
+          <div><b>HP</b></div>
+          <div>8 + CON</div>
+          <div><b>Урон</b></div>
+          <div>d6</div>
+          <div><b>Броня</b></div>
+          <div>0</div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="title">
+          <span>Характеристики</span>
+          <span class="badge">модификаторы</span>
+        </div>
+
+        <table>
+          <tr>
+            <th>СИЛ</th>
+            <th>ЛОВ</th>
+            <th>ТЕЛ</th>
+            <th>ИНТ</th>
+            <th>МДР</th>
+            <th>ХАР</th>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td><b>+2</b></td>
+            <td><b>+1</b></td>
+            <td>−1</td>
+          </tr>
+        </table>
+
+        <p class="small">
+          Улучшения повышают <b>score</b>, не модификатор.
+          Максимум score = 20, модификатор максимум +3.
+        </p>
+
+        <div class="hr"></div>
+
+        <div class="title">
+          <span>Снаряжение</span>
+          <span class="badge">старт</span>
+        </div>
+
+        <ul>
+          <li>Лук или арбалет (near, far)</li>
+          <li>Топорик / тесак / короткое копьё</li>
+          <li>Набор охотника (верёвка, мешочки, фляга)</li>
+          <li><b>Масло и огниво</b> — всегда при тебе, их нельзя потерять</li>
+        </ul>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="panel">
+
+        <div class="title">
+          <span>Ходы</span>
+          <span class="badge">базовые</span>
+        </div>
+
+        <div class="move">
+          <b>Изучить следы напасти</b><br>
+          Когда ты исследуешь труп, место нападения или следы
+          <b>нелюди</b> (неразумной или недоговороспособной),
+          брось <span class="mono">2d6 + INT</span>.
+          <ul>
+            <li><b>10+</b>: узнай тип твари, как она охотится и одну уязвимость</li>
+            <li><b>7–9</b>: узнай что-то одно</li>
+            <li><b>6−</b>: ошибка или позднее понимание (ход GM)</li>
+          </ul>
+        </div>
+
+        <div class="move">
+          <b>Собрать травы</b><br>
+          Когда ты собираешь травы в относительной безопасности,
+          брось <span class="mono">2d6 + INT</span>.
+          <ul>
+            <li><b>10+</b>: получи 2 травы</li>
+            <li><b>7–9</b>: получи 1 траву</li>
+            <li><b>6−</b>: получи 1 траву, но GM делает ход</li>
+          </ul>
+          <span class="small">Травы — абстрактный ресурс, не виды.</span>
+        </div>
+
+        <div class="move">
+          <b>Подготовка охоты</b><br>
+          Ты можешь тратить травы без броска:
+          <ul>
+            <li><b>Намазать оружие</b>: 1 трава + масло</li>
+            <li><b>Приготовить отвар</b>: 1 трава + вода</li>
+          </ul>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="title">
+          <span>Эффекты подготовки</span>
+          <span class="badge">масштабируются</span>
+        </div>
+
+        <div class="move">
+          <b>Масло на оружие</b><br>
+          Первый успешный удар по нелюди в сцене:
+          <ul>
+            <li>ур. 1–4: <b>+2 урона</b></li>
+            <li>ур. 5–8: <b>+4 урона</b></li>
+            <li>ур. 9–10: <b>+6 урона</b></li>
+          </ul>
+        </div>
+
+        <div class="move">
+          <b>Отвары</b><br>
+          Когда ты пьёшь отвар, брось <span class="mono">2d6 + INT</span>.
+          <ul>
+            <li><b>10+</b>: выбери эффект</li>
+            <li><b>7–9</b>: эффект с ограничением</li>
+            <li><b>6−</b>: эффект искажен (GM)</li>
+          </ul>
+          <ul>
+            <li><b>Хладнокровие</b>: 6− на Defy Danger считается как 7–9</li>
+            <li><b>Отвращение</b>: нелюдь избегает тебя, пока ты не атакуешь</li>
+            <li><b>Горький настой</b>: игнорируешь страх и ужас</li>
+          </ul>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="title">
+          <span>Продвинутые ходы</span>
+          <span class="badge">2–5</span>
+        </div>
+
+        <ul>
+          <li>При 10+ на сбор трав получай 3 травы</li>
+          <li>Можешь держать 2 активных отвара</li>
+          <li>+1 к урону по выявленной уязвимости</li>
+          <li>Или +1 к одному stat score</li>
+        </ul>
+
+        <div class="title">
+          <span>Опытный охотник</span>
+          <span class="badge">6–9</span>
+        </div>
+
+        <ul>
+          <li>Масло действует на каждый удар в сцене</li>
+          <li>Отвары можно применять дважды</li>
+          <li>Когда нелюдь пытается сбежать — ты немедленно атакуешь или загоняешь её обратно (1 раз за сцену)</li>
+          <li>Изучить следы напасти никогда не даёт 6−</li>
+        </ul>
+
+        <div class="title">
+          <span>Уровень 10</span>
+          <span class="badge">финал</span>
+        </div>
+
+        <div class="move">
+          <b>Я знаю, как это умирает</b><br>
+          Один раз за сессию при использовании уязвимости:
+          <ul>
+            <li>игнорируй защиту твари</li>
+            <li>или удвой эффект масла</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="foot">
+      Этот класс намеренно прост: один ресурс, один ключевой ход,
+      усиление через подготовку, а не через списки способностей.
+    </div>
+
+  </div>
+</body>
+
+</html>
