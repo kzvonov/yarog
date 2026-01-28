@@ -19,12 +19,12 @@
 [data-theme="light"] {
   --bg-dark: #e9e3d8;
   --bg-card: #f3eee5;
-  --text-primary: #3f3a2f;
+  --text-primary: #3a3529;
   --text-secondary: #6f685b;
-  --text-heading: #2f2b22;
-  --accent-blood: #a84a3b;
-  --accent-blood-light: #b85a47;
-  --accent-gold: #8b7430;
+  --text-heading: #2a2520;
+  --accent-blood: #8b4635;
+  --accent-blood-light: #7a3829;
+  --accent-gold: #80692f;
   --accent-green: #3d6b3d;
   --accent-blue: #2d5a7a;
   --border-dark: #d2c7b2;
@@ -543,7 +543,8 @@ h1 {
 /* Text Elements */
 p {
   margin: 10px 0;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 ul {
@@ -553,6 +554,36 @@ ul {
 
 li {
   margin: 2px 0;
+}
+
+/* Links */
+a {
+  color: var(--accent-blood-light);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+a:visited {
+  color: var(--accent-blood);
+}
+
+a:hover {
+  color: var(--accent-blood-light);
+  border-bottom-color: var(--accent-blood-light);
+}
+
+a:focus {
+  outline: 2px solid var(--accent-blood);
+  outline-offset: 2px;
+  border-bottom-color: var(--accent-blood);
+}
+
+a:active {
+  color: var(--text-heading);
+  border-bottom-color: var(--text-heading);
+  transform: translateY(1px);
 }
 
 /* Tables */
@@ -1014,7 +1045,8 @@ th {
 
 .mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--input-bg);
+  border: 1px solid var(--border-dark);
   padding: 2px 6px;
   border-radius: 2px;
 }

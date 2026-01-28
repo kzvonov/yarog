@@ -1,0 +1,2 @@
+class HeroTemplate < ApplicationRecord
+end

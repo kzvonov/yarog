@@ -2,12 +2,16 @@
   <h1 class="sidebar-title">YAR'OG</h1>
 
   <nav>
+    <%= link_to master_hero_templates_path, class: (current_page?(master_hero_templates_path) ? 'active' : '') do %>
+      Hero Templates
+    <% end %>
+
     <%= link_to master_heroes_path, class: (current_page?(master_heroes_path) || current_page?(master_root_path) ? 'active' : '') do %>
-      🦸 Heroes
+      Heroes
     <% end %>
 
     <%= link_to master_games_path, class: (current_page?(master_games_path) ? 'active' : '') do %>
-      🎮 Games
+      Games
     <% end %>
   </nav>
 </aside>

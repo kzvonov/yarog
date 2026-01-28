@@ -1,0 +1,31 @@
+<div class="panel">
+  <h1 class="title">
+    <span>Templates</span>
+    <span class="badge"><%= link_to "new +", new_master_hero_template_path %></span>
+  </h1>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Code</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @templates.none? %>
+        <tr>
+          <td colspan="2">no templates yet - <%= link_to "create one", new_master_hero_template_path %></td>
+        </tr>
+      <% else %>
+        <% @templates.each do |t| %>
+            <%= link_to master_hero_template_path(t.id) do %>
+              <tr>
+                <td><%= t.name %></td>
+                <td><%= t.code %></td>
+              </tr>
+            <% end %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
