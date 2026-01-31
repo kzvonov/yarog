@@ -10,6 +10,15 @@ class Game < ApplicationRecord
     game_heroes.create(hero: hero, game_index: heroes.count)
   end
 
+  def remove_hero(hero)
+    if heroes.include?(hero)
+      game_heroes.find_by(hero:)&.destroy
+      true
+    else
+      false
+    end
+  end
+
   def add_hero_by_code(code)
     hero = Hero.find_by(code: code)
     return { success: false, error: "Hero not found" } unless hero
@@ -18,6 +27,17 @@ class Game < ApplicationRecord
       { success: true, hero: hero }
     else
       { success: false, error: "Hero already in game" }
+    end
+  end
+
+  def remove_hero_by_code(code)
+    hero = Hero.find_by(code: code)
+    return { success: false, error: "Hero not found" } unless hero
+
+    if remove_hero(hero)
+      { success: true }
+    else
+      { success: false, error: "Hero is not in the game" }
     end
   end
 

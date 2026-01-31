@@ -26,7 +26,8 @@ Rails.application.routes.draw do
 
     resources :games do
       member do
-        post :add_hero
+        get :settings
+        post :manage_hero
         patch :update_notes
         post :toggle_active
       end

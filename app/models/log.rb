@@ -1,5 +1,5 @@
 class Log < ApplicationRecord
-  belongs_to :hero, class_name: 'Hero', foreign_key: 'hero_id', optional: false
+  belongs_to :hero, class_name: "Hero", foreign_key: "hero_id", optional: false
 
   LOG_TYPES = %w[dice_roll hero_change].freeze
 
@@ -48,14 +48,14 @@ class Log < ApplicationRecord
     return "Hero data updated" if changes.empty?
 
     # Text fields that should be displayed vertically with preserved formatting
-    text_fields = %w[condition notes equipment look origin]
+    text_fields = %w[condition notes weapons equipment look origin]
 
     formatted_changes = changes.map do |field, change|
       old_val = change["old"]
       new_val = change["new"]
 
       # Check if this is a text field (remove the nested key part for comparison)
-      base_field = field.split('.').first
+      base_field = field.split(".").first
 
       if text_fields.include?(base_field)
         # Vertical format for text fields with <pre> to preserve formatting

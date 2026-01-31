@@ -1,7 +1,15 @@
 module ApplicationHelper
-  # Calculate DW ability modifier (same logic as in hero.html)
-  def stat_modifier(value, debility = false)
-    mod = case value.to_i
+  def stat_modifier(value, debility: false)
+    mod = cacl_modifier(value)
+
+    mod -= 1 if debility
+    return mod if mod.zero?
+
+    mod.positive? ? "+#{mod}" : mod.to_s
+  end
+
+  def cacl_modifier(value)
+    case value.to_i
     when ..3
       -3
     when 4..5
@@ -12,16 +20,11 @@ module ApplicationHelper
       0
     when 13..15
       1
-    when 16..17
+    when 16..18
       2
     else
       3
     end
-
-    mod -= 1 if debility
-    return mod if mod.zero?
-
-    mod.positive? ? "+#{mod}" : mod.to_s
   end
 
   # Debility names in Russian

@@ -1,0 +1,100 @@
+<header>
+  <h1><%= @game.name %></h1>
+</header>
+
+<div class="tabs">
+  <% [
+    ["Heroes", master_game_path(@game)],
+    ["Settings", settings_master_game_path(@game)]
+  ].each do |(name, path)| %>
+    <%= link_to name, path, class:  "tab-button " + (current_page?(path) ? "active" : "") %>
+  <% end %>
+</div>
+
+<div class="tab-content active">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <!-- Game Status Section -->
+    <div style="margin-bottom: 30px; padding: 20px; background: var(--bg-card); border: 1px solid var(--border-dark);">
+      <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Game Status</h3>
+
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <div style="flex: 1;">
+          <p style="margin-bottom: 8px; color: var(--text-secondary);">
+            Current Status:
+            <strong style="color: <%= @game.active? ? 'var(--accent-blood-light)' : 'var(--text-secondary)' %>;">
+              <%= @game.active? ? "Active" : "Inactive" %>
+            </strong>
+          </p>
+          <% if @game.active? %>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin: 0;">
+              This game is currently active. Players can interact with heroes in this game.
+            </p>
+          <% end %>
+        </div>
+
+        <%= form_with url: toggle_active_master_game_path(@game), method: :post, style: "margin: 0;" do |f| %>
+          <% if @game.active? %>
+            <%= submit_tag "Deactivate Game",
+                class: "btn",
+                style: "background: var(--border-dark); color: var(--text-primary);",
+                data: { confirm: "Deactivate this game?" } %>
+          <% else %>
+            <%= submit_tag "Activate Game",
+                class: "btn",
+                data: { confirm: "Activate this game? This will deactivate all other games with the same heroes." } %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Add Hero Section -->
+    <div style="margin-bottom: 30px; padding: 20px; background: var(--bg-card); border: 1px solid var(--border-dark);">
+      <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Manage Heroes</h3>
+
+      <%= form_with url: manage_hero_master_game_path(@game), method: :post do |f| %>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <%= select_tag :master_action, options_for_select([["Add Hero", "add"], ["Remove Hero", "remove"]], "add"), style: "flex: 0 0 150px;" %>
+          <%= text_field_tag :hero_code, "",
+              placeholder: "Enter hero code...",
+              style: "flex: 1; padding: 10px; background: var(--bg-primary); border: 1px solid var(--border-dark); color: var(--text-primary); font-family: inherit; font-size: 1rem;" %>
+          <%= submit_tag "Go", class: "btn", style: "flex: 0 0 auto;" %>
+        </div>
+      <% end %>
+
+
+      <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 10px; margin-bottom: 0;">
+        Enter the unique code of a hero to add them to this game.
+      </p>
+    </div>
+
+    <!-- Game Information Section -->
+    <div style="padding: 20px; background: var(--bg-card); border: 1px solid var(--border-dark);">
+      <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Game Information</h3>
+
+      <div style="display: grid; gap: 15px;">
+        <div>
+          <label style="display: block; color: var(--text-secondary); margin-bottom: 5px; font-size: 0.9rem;">Game Name</label>
+          <p style="margin: 0; color: var(--text-primary); font-size: 1.1rem;"><%= @game.name %></p>
+        </div>
+
+        <div>
+          <label style="display: block; color: var(--text-secondary); margin-bottom: 5px; font-size: 0.9rem;">Game ID</label>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <code style="padding: 5px 10px; background: var(--bg-primary); border: 1px solid var(--border-dark); color: var(--accent-blood-light); border-radius: 3px;"><%= @game.id %></code>
+            <button class="copy-handler btn" data-copy-value="<%= @game.id %>" style="padding: 5px 15px; font-size: 0.9rem;">Copy ID</button>
+          </div>
+        </div>
+
+        <div>
+          <label style="display: block; color: var(--text-secondary); margin-bottom: 5px; font-size: 0.9rem;">Total Heroes</label>
+          <p style="margin: 0; color: var(--text-primary);"><%= @game.heroes.count %></p>
+        </div>
+
+        <div>
+          <label style="display: block; color: var(--text-secondary); margin-bottom: 5px; font-size: 0.9rem;">Created</label>
+          <p style="margin: 0; color: var(--text-primary);"><%= @game.created_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 module Master
   class GamesController < BaseController
-    before_action :set_game, only: [ :show, :edit, :update, :destroy, :add_hero, :update_notes, :toggle_active ]
+    before_action :set_game, only: [ :show, :settings, :edit, :update, :destroy, :manage_hero, :update_notes, :toggle_active ]
 
     def index
       @games = Game.order(created_at: :desc)
@@ -8,6 +8,9 @@ module Master
 
     def show
       @heroes = @game.heroes.includes(:game_heroes).order("game_heroes.game_index")
+    end
+
+    def settings
     end
 
     def new
@@ -40,23 +43,17 @@ module Master
       redirect_to master_games_path, notice: "Game deleted successfully."
     end
 
-    def add_hero
-      result = @game.add_hero_by_code(params[:hero_code])
+    def manage_hero
+      result = if params[:master_action].to_s == "remove"
+        @game.remove_hero_by_code(params[:hero_code])
+      else
+        @game.add_hero_by_code(params[:hero_code])
+      end
 
       if result[:success]
-        # Broadcast update to game view via Turbo Stream
-        respond_to do |format|
-          format.turbo_stream do
-            render turbo_stream: turbo_stream.append(
-              "game_heroes",
-              partial: "master/games/hero_card",
-              locals: { hero: result[:hero], game: @game }
-            )
-          end
-          format.html { redirect_to master_game_path(@game), notice: "Hero added to game." }
-        end
+        redirect_to settings_master_game_path(@game), notice: "Hero added to game."
       else
-        redirect_to master_game_path(@game), alert: result[:error]
+        redirect_to settings_master_game_path(@game), alert: result[:error]
       end
     end
 
@@ -74,11 +71,11 @@ module Master
       if new_state
         # Activate this game and deactivate all other games with shared heroes
         @game.activate!
-        redirect_to master_game_path(@game), notice: "Game activated successfully."
+        redirect_to settings_master_game_path(@game), notice: "Game activated successfully."
       else
         # Deactivate this game
         @game.update(active: false)
-        redirect_to master_game_path(@game), notice: "Game deactivated successfully."
+        redirect_to settings_master_game_path(@game), notice: "Game deactivated successfully."
       end
     end
 

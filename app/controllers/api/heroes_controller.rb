@@ -111,6 +111,7 @@ module Api
         :armor,
         :damage,
         :condition,
+        :weapons,
         :equipment,
         :notes,
         stats: [ :str, :dex, :con, :int, :wis, :cha ],

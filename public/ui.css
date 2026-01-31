@@ -402,6 +402,58 @@ h1 {
   min-height: 80px;
 }
 
+/* Select Styling */
+select,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  background: var(--input-bg);
+  border: 1px solid var(--border-dark);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888888' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 35px;
+}
+
+select:hover {
+  border-color: var(--accent-blood-light);
+}
+
+select:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent-blood);
+}
+
+select:disabled,
+input:disabled,
+textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Select options */
+select option {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  padding: 10px;
+}
+
 /* Number Controls */
 .number-control {
   display: flex;
@@ -575,8 +627,8 @@ a:hover {
 }
 
 a:focus {
-  outline: 2px solid var(--accent-blood);
-  outline-offset: 2px;
+  outline: none;
+  outline-offset: none;
   border-bottom-color: var(--accent-blood);
 }
 
@@ -806,6 +858,7 @@ th {
 }
 
 .tab-button {
+  display: inline-block;
   padding: 10px 20px;
   background: transparent;
   border: none;
@@ -815,6 +868,12 @@ th {
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s;
+}
+
+a.tab-button:focus {
+  outline: none;
+  outline-offset: none;
+  border-bottom-color: none;
 }
 
 .tab-button:hover {
@@ -833,6 +892,8 @@ th {
 .tab-content.active {
   display: block;
 }
+
+
 
 /* Toast */
 .toast {
