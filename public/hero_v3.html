@@ -75,15 +75,63 @@
 
     function updateModifier(statName) {
       const input = document.getElementById(statName);
+      const stat = parseInt(input.value) || 0;
       const modElement = document.getElementById(`${statName}-mod`);
-      const stat = parseInt(input.value) || 10;
-      const modifier = calculateModifier(stat);
+      const debuff = parseInt(modElement.dataset.debuff) || 0;
 
-      const sign = modifier >= 0 ? '+' : '';
+      let modifier = calculateModifier(stat) + debuff;
+      let sign = '';
+      if (modifier > 0) {
+        sign = '+';
+      } else if (modifier > 0) {
+        sign = '-';
+      }
+
       modElement.textContent = sign + modifier;
-      modElement.className = 'text-center text-accent';
+      modElement.classList.remove('text-green', 'text-red');
       if (modifier > 0) modElement.classList.add('text-green');
       if (modifier < 0) modElement.classList.add('text-red');
+    }
+
+    function rollDice(diceNotation) {
+      const match = diceNotation.match(/(\d*)d(\d+)/i);
+      if (!match) return;
+
+      const count = parseInt(match[1]) || 1;
+      const sides = parseInt(match[2]);
+      const rolls = [];
+      let total = 0;
+
+      for (let i = 0; i < count; i++) {
+        const roll = Math.floor(Math.random() * sides) + 1;
+        rolls.push(roll);
+        total += roll;
+      }
+
+      const resultElement = document.getElementById('diceResult');
+      resultElement.className = 'dice-result';
+
+      const rollsText = rolls.join('+');
+      resultElement.innerHTML = `
+        <div class="result-value">${total}</div>
+        <div class="result-breakdown">${diceNotation}: ${rollsText}</div>
+      `;
+
+      const log = document.getElementById('diceLog');
+      const logEntry = document.createElement('div');
+      logEntry.className = 'small';
+      logEntry.style.padding = '4px';
+      logEntry.style.borderBottom = '1px solid var(--border-dark)';
+
+      const now = new Date();
+      const timestamp = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+
+      logEntry.textContent = `[${timestamp}] ${diceNotation}: ${total} (${rollsText})`;
+      log.insertBefore(logEntry, log.firstChild);
+
+      while (log.children.length > 10) {
+        log.removeChild(log.lastChild);
+      }
     }
 
     function rollStat(statName) {
@@ -130,7 +178,10 @@
       else if (total >= 7) resultText = '~ Частично';
       else resultText = '✗ Провал';
 
-      logEntry.textContent = `${statLabel}: ${total} (${die1}+${die2}${modifier >= 0 ? '+' : ''}${modifier}${hasDebuff ? ' -1' : ''}) — ${resultText}`;
+      const now = new Date();
+      const timestamp = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+
+      logEntry.textContent = `[${timestamp}] ${statLabel}: ${total} (${die1}+${die2}${modifier >= 0 ? '+' : ''}${modifier}${hasDebuff ? ' -1' : ''}) — ${resultText}`;
       log.insertBefore(logEntry, log.firstChild);
 
       // Limit log to 10 entries
@@ -157,9 +208,29 @@
     }
 
     function init() {
-      // Initialize all modifiers
       ['str', 'dex', 'con', 'int', 'wis', 'cha'].forEach(stat => {
         updateModifier(stat);
+      });
+
+      document.querySelectorAll('.checkbox-custom[data-debuff-stat]').forEach(label => {
+        const checkbox = label.querySelector('input[type="checkbox"]');
+        const statName = label.dataset.debuffStat;
+        const modElement = document.getElementById(statName + '-mod');
+        const debuffValue = parseInt(label.dataset.debuff);
+
+        modElement.dataset.debuff = checkbox.checked ? debuffValue : 0;
+
+        checkbox.addEventListener('change', function () {
+          modElement.dataset.debuff = this.checked ? debuffValue : 0;
+          updateModifier(statName);
+        });
+      });
+
+      document.querySelectorAll('[data-dice]').forEach(button => {
+        button.addEventListener('click', function () {
+          const diceNotation = this.dataset.dice;
+          rollDice(diceNotation);
+        });
       });
     }
 
@@ -180,6 +251,7 @@
         <details class="box">
           <summary>Настройки</summary>
           <div>
+            <hr>
             <div class="form-group">
               <label class="form-label">Сервер:</label>
               <input type="text" class="form-input">
@@ -191,23 +263,11 @@
           </div>
         </details>
         <div class="box">
-          <div class="grid-3">
-            <div class="form-group">
-              <label class="form-label">Имя:</label>
-              <input type="text" class="form-input">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Класс:</label>
-              <input type="text" class="form-input">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Расса:</label>
-              <input type="text" class="form-input">
-            </div>
-          </div>
-        </div>
-        <div class="box">
-          <h2 class="title">База</h2>
+          <h2 class="title">
+            <span class="uppercase" data-sync="hero.name">имя</span> •
+            <span class="uppercase" data-sync="spec">класс</span> •
+            <span class="uppercase" data-sync="race">расса</span>
+          </h2>
           <table>
             <thead>
               <tr>
@@ -224,10 +284,14 @@
                 <td><input type="number" class="param" id="xp" value="0" min="0" max="20"></td>
                 <td><input type="number" class="param" id="hp" value="10" min="0" max="60"></td>
                 <td><input type="number" class="param" id="armor" value="0" min="-5" max="10"></td>
-                <td><input type="text" class="param" id="damage" value="d6"></td>
+                <td>
+                  <input type="text" class="param" id="damage" value="d6">
+                </td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="box">
           <h2 class="title">Характеристики</h2>
           <table>
             <thead>
@@ -268,51 +332,51 @@
                 </td>
               </tr>
               <tr>
-                <td id="str-mod" class="text-center text-medium text-accent">0</td>
-                <td id="dex-mod" class="text-center text-medium text-accent">0</td>
-                <td id="con-mod" class="text-center text-medium text-accent">0</td>
-                <td id="int-mod" class="text-center text-medium text-accent">0</td>
-                <td id="wis-mod" class="text-center text-medium text-accent">0</td>
-                <td id="cha-mod" class="text-center text-medium text-accent">0</td>
+                <td id="str-mod" class="text-center text-medium">0</td>
+                <td id="dex-mod" class="text-center text-medium">0</td>
+                <td id="con-mod" class="text-center text-medium">0</td>
+                <td id="int-mod" class="text-center text-medium">0</td>
+                <td id="wis-mod" class="text-center text-medium">0</td>
+                <td id="cha-mod" class="text-center text-medium">0</td>
               </tr>
               <tr>
                 <td class="text-center">
-                  <label class="checkbox-custom">
+                  <label class="checkbox-custom" data-debuff-stat="str" data-debuff="-1">
                     <input type="checkbox" id="str-debuff">
                     <span class="checkbox-box"></span>
                     <span class="small">-1</span>
                   </label>
                 </td>
                 <td class="text-center">
-                  <label class="checkbox-custom">
+                  <label class="checkbox-custom" data-debuff-stat="dex" data-debuff="-1">
                     <input type="checkbox" id="dex-debuff">
                     <span class="checkbox-box"></span>
                     <span class="small">-1</span>
                   </label>
                 </td>
                 <td class="text-center">
-                  <label class="checkbox-custom">
+                  <label class="checkbox-custom" data-debuff-stat="con" data-debuff="-1">
                     <input type="checkbox" id="con-debuff">
                     <span class="checkbox-box"></span>
                     <span class="small">-1</span>
                   </label>
                 </td>
                 <td class="text-center">
-                  <label class="checkbox-custom">
+                  <label class="checkbox-custom" data-debuff-stat="int" data-debuff="-1">
                     <input type="checkbox" id="int-debuff">
                     <span class="checkbox-box"></span>
                     <span class="small">-1</span>
                   </label>
                 </td>
                 <td class="text-center">
-                  <label class="checkbox-custom">
+                  <label class="checkbox-custom" data-debuff-stat="wis" data-debuff="-1">
                     <input type="checkbox" id="wis-debuff">
                     <span class="checkbox-box"></span>
                     <span class="small">-1</span>
                   </label>
                 </td>
                 <td class="text-center">
-                  <label class="checkbox-custom">
+                  <label class="checkbox-custom" data-debuff-stat="cha" data-debuff="-1">
                     <input type="checkbox" id="cha-debuff">
                     <span class="checkbox-box"></span>
                     <span class="small">-1</span>
@@ -379,7 +443,7 @@
             <button class="btn btn-large btn-block btn-2d6" data-dice="2d6">2d6</button>
           </div>
           <div class="grid-3 mb-1">
-            <button class="btn btn-block" data-dice="d4">d2</button>
+            <button class="btn btn-block" data-dice="d2">d2</button>
             <button class="btn btn-block" data-dice="d4">d4</button>
             <button class="btn btn-block" data-dice="d6">d6</button>
           </div>

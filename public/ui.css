@@ -197,10 +197,6 @@ h1 {
 }
 
 .title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
   margin: 0 0 12px;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--border-dark);
@@ -405,13 +401,14 @@ h1 {
 /* Select Styling */
 select,
 input[type="text"],
+input[type="number"],
 input[type="email"],
 input[type="password"],
 textarea {
   width: 100%;
-  padding: 10px;
+  padding: 5px;
   background: var(--input-bg);
-  border: 1px solid var(--border-dark);
+  border-bottom: 1px solid var(--border-dark);
   color: var(--text-primary);
   font-family: inherit;
   font-size: 1rem;
@@ -642,21 +639,21 @@ a:active {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin: 0;
   font-size: 0.95rem;
   background: var(--bg-card);
-  margin-bottom: 15px;
 }
 
 th,
 td {
   border: 1px solid var(--border-dark);
-  padding: 8px 10px;
+  padding: 0;
   vertical-align: top;
   text-align: center;
 }
 
 th {
+  padding: 5px;
   text-transform: uppercase;
   font-size: 0.75rem;
   letter-spacing: 0.1em;
@@ -1163,4 +1160,10 @@ a.tab-button:focus {
   content: "🎲";
   font-size: 0.7em;
   padding: 0 0 3px 3px;
+}
+
+hr {
+  margin: 8px 0;
+  border: none;
+  border-bottom: 1px solid var(--border-dark);
 }

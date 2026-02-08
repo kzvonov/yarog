@@ -1,0 +1,128 @@
+{
+  "meta": {
+    "system": "Dungeon World",
+    "description": "Словарь тегов для оружия и снаряжения",
+    "version": "1.0"
+  },
+  "weapon_tags": {
+    "close": {
+      "name_ru": "Ближний бой",
+      "name_original": "Close",
+      "description_ru": "Эффективно в ближнем бою, на расстоянии вытянутой руки"
+    },
+    "reach": {
+      "name_ru": "Досягаемость",
+      "name_original": "Reach",
+      "description_ru": "Позволяет атаковать врагов на расстоянии около 3 метров"
+    },
+    "hand": {
+      "name_ru": "Рукопашный",
+      "name_original": "Hand",
+      "description_ru": "Оружие для боя в упор, буквально касаясь противника"
+    },
+    "precise": {
+      "name_ru": "Точное",
+      "name_original": "Precise",
+      "description_ru": "Позволяет использовать DEX вместо STR для атаки"
+    },
+    "messy": {
+      "name_ru": "Кровавое",
+      "name_original": "Messy",
+      "description_ru": "Оставляет страшные раны и разбрасывает кровь повсюду"
+    },
+    "forceful": {
+      "name_ru": "Мощное",
+      "name_original": "Forceful",
+      "description_ru": "Может отбрасывать врагов или сбивать с ног"
+    },
+    "piercing": {
+      "name_ru": "Пробивание",
+      "name_original": "Piercing",
+      "description_ru": "Игнорирует указанное количество брони (например, piercing 2 игнорирует 2 брони)"
+    },
+    "clumsy": {
+      "name_ru": "Неуклюжий",
+      "name_original": "Clumsy",
+      "description_ru": "Мешает в бою, налагает -1 на ongoing пока носишь"
+    },
+    "near": {
+      "name_ru": "Близкий",
+      "name_original": "Near",
+      "description_ru": "Дальность около 15 метров"
+    },
+    "far": {
+      "name_ru": "Дальний",
+      "name_original": "Far",
+      "description_ru": "Дальность около 30-50 метров"
+    },
+    "thrown": {
+      "name_ru": "Метательное",
+      "name_original": "Thrown",
+      "description_ru": "Можно метать в ближних врагов"
+    },
+    "reload": {
+      "name_ru": "Перезарядка",
+      "name_original": "Reload",
+      "description_ru": "После атаки требуется действие на перезарядку"
+    },
+    "two_handed": {
+      "name_ru": "Двуручное",
+      "name_original": "Two-handed",
+      "description_ru": "Требует обе руки для использования"
+    },
+    "stun": {
+      "name_ru": "Оглушение",
+      "name_original": "Stun",
+      "description_ru": "При атаке может оглушить противника"
+    },
+    "awkward": {
+      "name_ru": "Неудобное",
+      "name_original": "Awkward",
+      "description_ru": "Сложно использовать, требует особых условий"
+    }
+  },
+  "armor_tags": {
+    "clumsy": {
+      "name_ru": "Неуклюжая",
+      "name_original": "Clumsy",
+      "description_ru": "Мешает движению, -1 на ongoing пока носишь (игнорируется с приёмом Привычка к броне)"
+    },
+    "worn": {
+      "name_ru": "Носимая",
+      "name_original": "Worn",
+      "description_ru": "Надета на тело"
+    }
+  },
+  "item_tags": {
+    "adventuring_gear": {
+      "name_ru": "Припасы путешественника",
+      "name_original": "Adventuring Gear",
+      "description_ru": "Набор полезных предметов: верёвка, свечи, факелы, шипы и т.д."
+    },
+    "rations": {
+      "name_ru": "Провизия",
+      "name_original": "Rations",
+      "description_ru": "Еда на один день"
+    },
+    "dungeon_rations": {
+      "name_ru": "Пайки подземелий",
+      "name_original": "Dungeon Rations",
+      "description_ru": "Долгохранящаяся еда для исследования подземелий"
+    },
+    "healing_potion": {
+      "name_ru": "Лечебное зелье",
+      "name_original": "Healing Potion",
+      "description_ru": "Восстанавливает здоровье"
+    },
+    "antitoxin": {
+      "name_ru": "Противоядие",
+      "name_original": "Antitoxin",
+      "description_ru": "Нейтрализует яды"
+    },
+    "poultices_and_herbs": {
+      "name_ru": "Мази и травы",
+      "name_original": "Poultices and Herbs",
+      "description_ru": "Набор для лечения ран и болезней"
+    }
+  }
+}
