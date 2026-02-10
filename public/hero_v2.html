@@ -11,92 +11,7 @@
   <link rel="apple-touch-icon" href="/icon.png">
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap');
-
-    :root {
-      --bg-dark: #0a0a0a;
-      --bg-card: #111111;
-      --text-primary: #c9c9c9;
-      --text-secondary: #888888;
-      --text-heading: #e0e0e0;
-      --accent-blood: #8b0000;
-      --accent-blood-light: #a52a2a;
-      --accent-gold: #8b7500;
-      --accent-green: #2d5a2d;
-      --accent-blue: #1a4a6a;
-      --border-dark: #2a2a2a;
-      --input-bg: #1a1a1a;
-    }
-
-    /* Light Theme - Warm (Claude style) */
-    [data-theme="light"] {
-      --bg-dark: #f5f4f0;
-      --bg-card: #fafaf8;
-      --text-primary: #3d3929;
-      --text-secondary: #6b6456;
-      --text-heading: #2d2a20;
-      --accent-blood: #c45c3e;
-      --accent-blood-light: #d4714f;
-      --accent-gold: #a68a3a;
-      --accent-green: #4a8a4a;
-      --accent-blue: #4a7a9a;
-      --border-dark: #e0ddd5;
-      --input-bg: #ffffff;
-    }
-
-    [data-theme="light"] .header {
-      background: linear-gradient(to bottom, #fafaf8 0%, #f5f4f0 100%);
-    }
-
-    [data-theme="light"] .card {
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    }
-
-    [data-theme="light"] .dice-result .result-value {
-      color: #2d2a20;
-    }
-
-    [data-theme="light"] .dice-result.success .result-value {
-      color: var(--accent-green);
-    }
-
-    [data-theme="light"] .dice-result.partial .result-value {
-      color: var(--accent-gold);
-    }
-
-    [data-theme="light"] .dice-result.fail .result-value {
-      color: var(--accent-blood);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      background-color: var(--bg-dark);
-      color: var(--text-primary);
-      line-height: 1.6;
-      font-size: 18px;
-    }
-
-    /* Header */
-    .header {
-      padding: 25px 20px;
-      text-align: center;
-      background: linear-gradient(to bottom, #0d0d0d 0%, var(--bg-dark) 100%);
-      border-bottom: 1px solid var(--border-dark);
-      position: relative;
-    }
-
-    .header h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--text-heading);
-      letter-spacing: 0.15em;
-    }
+    /* Hero-specific styles (not in ui.css) */
 
     .header .class-name {
       font-size: 0.95rem;
@@ -145,68 +60,11 @@
       }
     }
 
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 15px;
-    }
-
-    /* Settings Panel */
-    .panel {
-      background: var(--bg-card);
-      border: 1px solid var(--border-dark);
-      margin-bottom: 15px;
-    }
-
-    .panel-toggle {
-      width: 100%;
-      padding: 10px 15px;
-      background: var(--bg-card);
-      border: none;
-      color: var(--text-secondary);
-      font-family: inherit;
-      font-size: 0.9rem;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .panel-toggle:hover {
-      background: var(--input-bg);
-    }
-
-    .panel-toggle .arrow {
-      transition: transform 0.3s ease;
-      display: inline-block;
-    }
-
-    .panel-toggle.open .arrow {
-      transform: rotate(-90deg);
-    }
-
-    .panel-content {
-      max-height: 0;
-      overflow: hidden;
-      padding: 0 15px;
-      border-top: 1px solid transparent;
-      transition: max-height 0.3s ease, padding 0.3s ease, border-color 0.3s ease;
-    }
-
-    .panel-content.open {
-      max-height: 500px;
-      padding: 15px;
-      border-top-color: var(--border-dark);
-    }
-
+    /* Settings panel */
     .settings-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 15px;
-    }
-
-    .settings-grid.full {
-      grid-template-columns: 1fr;
     }
 
     .settings-field label {
@@ -271,155 +129,13 @@
       font-size: 0.8rem;
     }
 
-    .btn {
-      padding: 8px 16px;
-      background: var(--accent-blood);
-      border: none;
-      color: var(--text-primary);
-      font-family: inherit;
-      font-size: 0.85rem;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      background: var(--accent-blood-light);
-    }
-
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .btn.secondary {
-      background: var(--border-dark);
-    }
-
-    .btn.secondary:hover {
-      background: #3a3a3a;
-    }
-
     .last-sync {
       margin-top: 10px;
       font-size: 0.75rem;
       color: var(--text-secondary);
     }
 
-    /* Cards */
-    .sheet {
-      display: grid;
-      gap: 15px;
-    }
-
-    /* Party Panel */
-    .party-panel {
-      background: var(--bg-card);
-      border: 1px solid var(--border-dark);
-      margin-bottom: 15px;
-    }
-
-    .party-header {
-      padding: 10px 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border-dark);
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-    }
-
-    .party-refresh {
-      background: transparent;
-      border: 1px solid var(--border-dark);
-      color: var(--text-secondary);
-      width: 28px;
-      height: 28px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: all 0.2s;
-    }
-
-    .party-refresh:hover {
-      border-color: var(--accent-blood);
-      color: var(--text-primary);
-    }
-
-    .party-refresh.loading {
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .party-list {
-      /* padding: 10px; */
-      display: flex;
-      flex-direction: row;
-      gap: 8px;
-    }
-
-    .party-member {
-      padding: 8px 12px;
-      background: var(--input-bg);
-      border: 1px solid var(--border-dark);
-      font-size: 1rem;
-      align-items: center;
-    }
-
-    .party-member .name {
-      font-weight: 600;
-      color: var(--text-heading);
-      text-align: center;
-    }
-
-    .party-member .class {
-      color: var(--text-secondary);
-    }
-
-    .party-member .hp {
-      color: var(--accent-blood-light);
-    }
-
-    .party-member .armor {
-      color: var(--accent-gold);
-    }
-
-    .party-member .damage {
-      color: var(--accent-green);
-    }
-
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-dark);
-      padding: 15px;
-    }
-
-    .card h2 {
-      font-size: 1rem;
-      color: var(--accent-blood-light);
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border-dark);
-    }
-
-    /* Fields */
-    .field {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 10px;
-    }
-
-    .field:last-child {
-      margin-bottom: 0;
-    }
-
-    /* Field Row - for horizontal layout */
+    /* Field customizations */
     .field-row {
       display: flex;
       gap: 1rem;
@@ -433,128 +149,7 @@
       margin-bottom: 0;
     }
 
-    /* Stack on mobile */
-    @media (max-width: 600px) {
-      .field-row {
-        flex-direction: column;
-      }
-    }
-
-    .field label {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      margin-bottom: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .field input,
-    .field textarea {
-      padding: 8px;
-      background: var(--input-bg);
-      border: 1px solid var(--border-dark);
-      color: var(--text-primary);
-      font-family: inherit;
-      font-size: 0.95rem;
-    }
-
-    .field input:focus,
-    .field textarea:focus {
-      outline: none;
-      border-color: var(--accent-blood);
-    }
-
-    /* Hide number input spinners */
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    input[type="number"] {
-      -moz-appearance: textfield;
-      /* Firefox */
-      appearance: textfield;
-    }
-
-    /* Number input with custom controls */
-    .number-control {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .number-control input {
-      flex: 1;
-      text-align: center;
-      min-width: 40px;
-    }
-
-    .number-control .btn-spinner {
-      width: 24px;
-      height: 24px;
-      padding: 0;
-      background: var(--input-bg);
-      border: 1px solid var(--border-dark);
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      user-select: none;
-    }
-
-    .number-control .btn-spinner:hover {
-      background: var(--accent-blood);
-      border-color: var(--accent-blood);
-      color: var(--text-primary);
-    }
-
-    .number-control .btn-spinner:active {
-      transform: scale(0.95);
-    }
-
-    /* Number control inside combat box */
-    .combat-box .number-control {
-      display: inline-flex;
-      width: auto;
-      margin: 0 auto;
-    }
-
-    .combat-box .number-control input {
-      width: 45px;
-      /* 3 digits */
-      flex: 0 0 auto;
-    }
-
-    .combat-box .number-control .btn-spinner {
-      width: 20px;
-      height: 20px;
-      font-size: 0.75rem;
-    }
-
-    .field textarea {
-      resize: vertical;
-    }
-
-    .field textarea.rows-3 {
-      min-height: 72px;
-    }
-
-    .field textarea.rows-6 {
-      min-height: 144px;
-    }
-
-    .field .char-count {
-      font-size: 0.7rem;
-      color: var(--text-secondary);
-      text-align: right;
-      margin-top: 2px;
-    }
-
-    /* Combat Stats Row */
+    /* Combat Stats */
     .combat-row {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -608,7 +203,6 @@
       font-weight: 700;
       text-align: center;
       width: 45px;
-      /* Default: fit 3 digits */
     }
 
     .combat-box input:focus {
@@ -616,256 +210,122 @@
       border-bottom-color: var(--accent-blood);
     }
 
-    /* Specific input widths */
-    #damage {
-      width: 60px;
-      /* 6 characters for damage like "d10+2" */
-    }
-
-    #coins {
-      width: 55px;
-    }
-
-    /* Stats + Abilities Two-Column Layout */
-    .stats-abilities-grid {
-      display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: 1.5rem;
-    }
-
     /* Stats Table */
-    .stats-column {
-      min-width: 0;
-    }
-
-    .stats-column h2 {
-      font-size: 1rem;
-      color: var(--accent-blood-light);
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border-dark);
-    }
-
-    .stats-table {
-      width: 100%;
+    .stats {
       border-collapse: collapse;
     }
 
-    .stats-table tbody tr {
-      border-bottom: 1px solid var(--border-dark);
+    .stats thead th {
+      cursor: pointer;
+      transition: color 0.2s;
     }
 
-    .stats-table tbody tr:last-child {
-      border-bottom: none;
+    .stats thead th:hover {
+      color: var(--accent-blood-light);
     }
 
-    .stats-table tbody td {
-      padding: 6px 6px;
-      text-align: center;
+    /* Party member line layout */
+    .party-member .line {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin: 4px 0;
     }
 
-    .stats-table .stat-name {
+    .party-member .name {
       font-weight: 600;
-      color: var(--text-primary);
-      text-align: left;
-      padding-left: 10px;
-      font-size: 0.95rem;
-      letter-spacing: 0.05em;
+      color: var(--text-heading);
     }
 
-    .stats-table input[type="number"] {
-      width: 50px;
-      padding: 4px;
+    .party-member .class {
+      color: var(--text-secondary);
+    }
+
+    .party-member .hp {
+      color: var(--accent-blood-light);
+    }
+
+    .party-member .armor {
+      color: var(--accent-gold);
+    }
+
+    .party-member .damage {
+      color: var(--accent-green);
+    }
+
+    /* Moves */
+    .moves-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .move-item {
+      padding: 5px;
+      background: var(--input-bg);
+      border: 1px solid var(--border-dark);
+      border-left: 3px solid var(--accent-blood);
+      margin-bottom: 5px;
+    }
+
+    .move-header {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .move-item input[type="text"] {
+      flex: 1;
+      padding: 4px 6px;
       background: transparent;
       border: none;
       border-bottom: 1px solid var(--border-dark);
       color: var(--text-heading);
       font-family: inherit;
-      font-size: 1.1rem;
-      font-weight: 700;
-      text-align: center;
-    }
-
-    .stats-table input[type="number"]:focus {
-      outline: none;
-      border-bottom-color: var(--accent-blood);
-    }
-
-    .stats-table .modifier {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--text-heading);
-      min-width: 45px;
-      display: inline-block;
-    }
-
-    .stats-table .modifier.debilitated {
-      color: var(--accent-blood);
-    }
-
-    /* Custom Debility Checkbox */
-    .debility-toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .debility-toggle input[type="checkbox"] {
-      display: none;
-    }
-
-    .debility-toggle .checkbox-custom {
-      width: 18px;
-      height: 18px;
-      border: 2px solid var(--border-dark);
-      background: var(--input-bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-
-    .debility-toggle .checkbox-custom::after {
-      content: '';
-      width: 10px;
-      height: 10px;
-      background: transparent;
-      transition: background 0.2s;
-    }
-
-    .debility-toggle input[type="checkbox"]:checked+.checkbox-custom {
-      border-color: var(--accent-blood);
-      background: var(--accent-blood);
-    }
-
-    .debility-toggle input[type="checkbox"]:checked+.checkbox-custom::after {
-      background: var(--text-heading);
-    }
-
-    .debility-toggle:hover .checkbox-custom {
-      border-color: var(--accent-blood-light);
-    }
-
-    .debility-toggle .penalty {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
+      font-size: 0.9rem;
       font-weight: 600;
     }
 
-    .stats-table input[type="checkbox"] {
-      width: auto;
-      cursor: pointer;
-    }
-
-    /* Abilities Column */
-    .abilities-column {
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-    }
-
-    .abilities-column h2 {
-      font-size: 1rem;
-      color: var(--accent-blood-light);
-      margin-bottom: 6px;
-      padding-bottom: 4px;
-      border-bottom: 1px solid var(--border-dark);
-    }
-
-    .abilities-list {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      max-height: 240px;
-      overflow-y: auto;
-      background: rgba(0, 0, 0, 0.2);
-      border: 1px solid var(--border-dark);
-      padding: 8px;
-      margin-bottom: 8px;
-    }
-
-    .abilities-list::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .abilities-list::-webkit-scrollbar-track {
-      background: var(--input-bg);
-    }
-
-    .abilities-list::-webkit-scrollbar-thumb {
-      background: var(--border-dark);
-      border-radius: 3px;
-    }
-
-    .abilities-list::-webkit-scrollbar-thumb:hover {
-      background: var(--accent-blood);
-    }
-
-    .add-ability {
-      padding: 8px;
-      background: var(--button-bg);
-      border: 1px solid var(--border-dark);
-      color: var(--text-primary);
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 0.85rem;
-      transition: all 0.2s;
-    }
-
-    .add-ability:hover {
-      background: var(--accent-blood);
-      border-color: var(--accent-blood);
-    }
-
-    .stat-box input:focus {
+    .move-item input[type="text"]:focus {
       outline: none;
       border-bottom-color: var(--accent-blood);
     }
 
-    .stat-box .modifier {
-      font-size: 0.85rem;
-      color: var(--accent-gold);
-      margin-top: 4px;
+    .move-remove {
+      padding: 2px 8px;
+      background: transparent;
+      border: 1px solid var(--border-dark);
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 0.8rem;
     }
 
-    .stat-box .modifier.debilitated {
+    .move-remove:hover {
+      border-color: var(--accent-blood);
       color: var(--accent-blood-light);
     }
 
-    .stat-box .debility {
-      margin-top: 6px;
-      padding-top: 6px;
-      border-top: 1px solid var(--border-dark);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      font-size: 0.65rem;
+    .move-item textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 6px;
+      background: transparent;
+      border: 1px solid var(--border-dark);
       color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 1rem;
+      resize: none;
     }
 
-    .stat-box .debility input[type="checkbox"] {
-      width: 12px;
-      height: 12px;
-      accent-color: var(--accent-blood);
+    .move-item textarea:focus {
+      outline: none;
+      border-color: var(--accent-blood);
     }
 
-    /* Condition */
-    .condition-section {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border-dark);
-    }
-
-    /* Sticky Dice Panel */
+    /* Dice panel */
     .dice-panel {
       position: fixed;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
       z-index: 100;
       display: flex;
       align-items: flex-start;
@@ -941,17 +401,6 @@
       cursor: not-allowed;
     }
 
-    .dice-result {
-      padding: 15px 10px;
-      background: var(--bg-dark);
-      border: 1px solid var(--border-dark);
-      text-align: center;
-      min-height: 70px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
     .dice-result .result-value {
       font-size: 2.2rem;
       font-weight: 700;
@@ -968,18 +417,6 @@
       font-size: 0.75rem;
       color: var(--accent-gold);
       margin-top: 3px;
-    }
-
-    .dice-result.success .result-value {
-      color: var(--accent-green);
-    }
-
-    .dice-result.partial .result-value {
-      color: var(--accent-gold);
-    }
-
-    .dice-result.fail .result-value {
-      color: var(--accent-blood-light);
     }
 
     .cooldown-bar {
@@ -1025,126 +462,7 @@
       color: var(--text-heading);
     }
 
-    /* Moves */
-    .moves-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .move-item {
-      padding: 5px;
-      background: var(--input-bg);
-      border: 1px solid var(--border-dark);
-      border-left: 3px solid var(--accent-blood);
-    }
-
-    .move-header {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-
-    .move-item input[type="text"] {
-      flex: 1;
-      padding: 4px 6px;
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid var(--border-dark);
-      color: var(--text-heading);
-      font-family: inherit;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .move-item input[type="text"]:focus {
-      outline: none;
-      border-bottom-color: var(--accent-blood);
-    }
-
-    .move-remove {
-      padding: 2px 8px;
-      background: transparent;
-      border: 1px solid var(--border-dark);
-      color: var(--text-secondary);
-      cursor: pointer;
-      font-size: 0.8rem;
-    }
-
-    .move-remove:hover {
-      border-color: var(--accent-blood);
-      color: var(--accent-blood-light);
-    }
-
-    .move-item textarea {
-      width: 100%;
-      padding: 6px;
-      background: transparent;
-      border: 1px solid var(--border-dark);
-      color: var(--text-secondary);
-      font-family: inherit;
-      font-size: 1rem;
-      resize: none;
-    }
-
-    .move-item textarea:focus {
-      outline: none;
-      border-color: var(--accent-blood);
-    }
-
-    .add-move {
-      margin-top: 10px;
-      margin-left: 20px;
-      padding: 10px 15px;
-      background: transparent;
-      border: 1px dashed var(--border-dark);
-      color: var(--text-secondary);
-      font-family: inherit;
-      font-size: 0.85rem;
-      cursor: pointer;
-      text-align: center;
-    }
-
-    .add-move:hover {
-      border-color: var(--accent-blood);
-      color: var(--text-primary);
-    }
-
-    .add-move:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
-
-    /* Two-column card layout */
-    .card-two-col {
-      display: grid;
-      grid-template-columns: 2fr 3fr;
-      gap: 1rem;
-    }
-
-    .card-two-col .field {
-      margin-bottom: 0;
-      min-width: 0;
-    }
-
-    .card-two-col textarea {
-      height: 120px;
-      resize: none;
-      width: 100%;
-    }
-
-    @media (max-width: 600px) {
-      .card-two-col {
-        grid-template-columns: 1fr;
-      }
-
-      .combat-row {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    /* Toast */
+    /* Toast container (animation) */
     .toast-container {
       position: fixed;
       bottom: 20px;
@@ -1158,10 +476,6 @@
     }
 
     .toast {
-      padding: 12px 24px;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      color: white;
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.3s ease;
@@ -1173,28 +487,15 @@
       transform: translateY(0);
     }
 
-    .toast.info {
-      background: var(--accent-blue);
-    }
-
-    .toast.error {
-      background: var(--accent-blood);
-    }
-
-    .toast.success {
-      background: var(--accent-green);
+    /* Layout Grid */
+    .grid-main {
+      display: grid;
+      grid-template-columns: 5fr 5fr 2fr;
+      gap: 15px;
     }
 
     /* Responsive */
     @media (max-width: 768px) {
-      .stats-abilities-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .abilities-list {
-        max-height: 200px;
-      }
-
       .dice-panel {
         right: 10px;
         top: auto;
@@ -1220,6 +521,10 @@
     }
 
     @media (max-width: 600px) {
+      .field-row {
+        flex-direction: column;
+      }
+
       .combat-row {
         grid-template-columns: repeat(3, 1fr);
       }
@@ -1227,21 +532,14 @@
       .settings-grid {
         grid-template-columns: 1fr;
       }
-
-      .stats-table {
-        font-size: 0.85rem;
-      }
-
-      .stats-table input[type="number"] {
-        width: 40px;
-        font-size: 0.95rem;
-      }
     }
   </style>
+
+  <link rel="stylesheet" href="ui.css" />
+  <script src="ui.js"></script>
 </head>
 
 <body>
-
   <header class="header">
     <div class="connection-indicator">
       <div class="connection-dot" id="connectionDot"></div>
@@ -1252,280 +550,272 @@
   </header>
 
   <div class="container">
-
-    <!-- Settings Panel -->
-    <div class="panel">
-      <button class="panel-toggle" data-panel-toggle-target="settingsContent">
-        <span>⚙ Настройки</span>
-        <span class="arrow">◀</span>
-      </button>
-      <div class="panel-content" id="settingsContent">
-        <div class="settings-grid">
-          <div class="settings-field">
-            <label>Сервер</label>
-            <input type="text" id="serverUrl" placeholder="http://localhost:3000">
-          </div>
-          <div class="settings-field">
-            <label>Код героя</label>
-            <input type="text" id="heroCode" placeholder="ABC123">
-          </div>
-        </div>
-        <div class="settings-grid" style="margin-top: 15px;">
-          <div class="settings-field">
-            <label>Тема</label>
-            <select id="themeSelect" class="theme-select">
-              <option value="dark">🌙 Ночь</option>
-              <option value="light">☀️ День</option>
-            </select>
-          </div>
-          <div class="settings-field">
-            <label>Данные</label>
-            <div class="data-actions">
-              <button class="btn secondary" id="exportBtn">📤 Экспорт</button>
-              <button class="btn secondary" id="importBtn">📥 Импорт</button>
-              <input type="file" id="importFile" accept=".json" style="display: none;">
+    <div class="grid-main">
+      <div>
+        <div class="panel">
+          <button class="panel-toggle" data-panel-toggle-target="settingsContent">
+            <span>⚙ Настройки</span>
+            <span class="arrow">◀</span>
+          </button>
+          <div class="panel-content" id="settingsContent">
+            <div class="settings-grid">
+              <div class="settings-field">
+                <label>Сервер</label>
+                <input type="text" id="serverUrl" placeholder="http://localhost:3000">
+              </div>
+              <div class="settings-field">
+                <label>Код героя</label>
+                <input type="text" id="heroCode" placeholder="ABC123">
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="panel-actions">
-          <button class="btn" id="loadBtn">Загрузить с сервера</button>
-          <button class="btn secondary" id="saveNowBtn">Сохранить сейчас</button>
-        </div>
-        <div class="last-sync" id="lastSync"></div>
-      </div>
-    </div>
-
-    <!-- Party Panel (hidden by default, shown when server returns party data) -->
-    <div class="panel" id="partyPanel" style="display: none;">
-      <button class="panel-toggle" data-panel-toggle-target="partyContent">
-        <span>Группа</span>
-        <span class="arrow">◀</span>
-      </button>
-      <div class="panel-content" id="partyContent">
-        <div class="party-list" id="partyList"></div>
-        <div class="panel-actions">
-          <button class="btn" id="partyRefresh">Обновить</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="sheet">
-      <!-- Basic Info -->
-      <div class="card">
-        <!-- <h2>Основное</h2> -->
-        <div class="field-row">
-          <div class="field">
-            <label data-label="name">Имя</label>
-            <input type="text" id="name" data-field="name" maxlength="100" placeholder="Рагнар">
-          </div>
-          <div class="field">
-            <label data-label="spec">Класс</label>
-            <input type="text" id="specialization" data-field="specialization" maxlength="100" placeholder="Берсерк"
-              style="text-transform: uppercase;">
+            <div class="settings-grid" style="margin-top: 15px;">
+              <div class="settings-field">
+                <label>Тема</label>
+                <select id="themeSelect" class="theme-select">
+                  <option value="dark">🌙 Ночь</option>
+                  <option value="light">☀️ День</option>
+                </select>
+              </div>
+              <div class="settings-field">
+                <label>Данные</label>
+                <div class="data-actions">
+                  <button class="btn secondary" id="exportBtn">📤 Экспорт</button>
+                  <button class="btn secondary" id="importBtn">📥 Импорт</button>
+                  <input type="file" id="importFile" accept=".json" style="display: none;">
+                </div>
+              </div>
+            </div>
+            <div class="panel-actions">
+              <button class="btn" id="loadBtn">Загрузить с сервера</button>
+              <button class="btn secondary" id="saveNowBtn">Сохранить сейчас</button>
+            </div>
+            <div class="last-sync" id="lastSync"></div>
           </div>
         </div>
 
-        <div class="combat-row">
-          <div class="combat-box">
-            <div class="label">Уровень ⭐</div>
-            <div class="number-control">
-              <button type="button" class="btn-spinner" data-action="decrement" data-target="level">−</button>
-              <input type="number" id="level" data-field="level" value="1" min="0" max="10">
-              <button type="button" class="btn-spinner" data-action="increment" data-target="level">+</button>
+        <div class="card">
+          <div class="field-row">
+            <div class="field">
+              <label data-label="name" class="form-label">имя</label>
+              <input type="text" id="name" class="form-input" data-field="name" maxlength="100" placeholder="Рагнар"
+                disabled>
+            </div>
+            <div class="field">
+              <label data-label="spec" class="form-label">класс</label>
+              <input type="text" id="specialization" class="form-input" data-field="specialization" maxlength="100"
+                placeholder="Берсерк" style="text-transform: uppercase;" disabled>
             </div>
           </div>
-          <div class="combat-box">
-            <div class="label">Опыт(<span id="xpNext">8</span>) ✨</div>
-            <div class="number-control">
-              <button type="button" class="btn-spinner" data-action="decrement" data-target="xp">−</button>
-              <input type="number" id="xp" data-field="xp" value="0" min="0">
-              <button type="button" class="btn-spinner" data-action="increment" data-target="xp">+</button>
-            </div>
-          </div>
-          <div class="combat-box hp">
-            <div class="label">Здоровье(<span id="hpMax">10</span>) ❤️</div>
-            <div class="number-control">
-              <button type="button" class="btn-spinner" data-action="decrement" data-target="hpCurrent">−</button>
-              <input type="number" id="hpCurrent" data-field="hpCurrent" value="10">
-              <button type="button" class="btn-spinner" data-action="increment" data-target="hpCurrent">+</button>
-            </div>
-          </div>
-          <div class="combat-box arm">
-            <div class="label">Броня 🛡️</div>
-            <div class="number-control">
-              <button type="button" class="btn-spinner" data-action="decrement" data-target="armor">−</button>
-              <input type="number" id="armor" data-field="armor" value="0">
-              <button type="button" class="btn-spinner" data-action="increment" data-target="armor">+</button>
-            </div>
-          </div>
-          <div class="combat-box dmg">
-            <div class="label">Урон ⚔️</div>
-            <input type="text" id="damage" data-field="damage" value="d10">
-          </div>
-          <div class="combat-box coins">
-            <div class="label">Монеты 🪙</div>
-            <input type="number" id="coins" data-field="coins" value="0" min="0">
-          </div>
-        </div>
-      </div>
 
-      <!-- Stats + Abilities (Two Column Layout) -->
-      <div class="card">
-        <div class="stats-abilities-grid">
-          <!-- Left Column: Stats Table -->
+          <table class="base-stats">
+            <thead>
+              <tr>
+                <th>Уровень</th>
+                <th>Опыт(<span id="xpNext">8</span>)✨</th>
+                <th>Здоровье(<span id="hpMax">16</span>)❤️</th>
+                <th>Броня🛡️</th>
+                <th>Урон⚔️</th>
+                <th>Монеты</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="number" class="param" id="level" data-field="level" value="1" min="1" max="10"></td>
+                <td><input type="number" class="param" id="xp" data-field="xp" value="0" min="0" max="20"></td>
+                <td><input type="number" class="param" id="hpCurrent" data-field="hpCurrent" value="10" min="0"
+                    max="60"></td>
+                <td><input type="number" class="param" id="armor" data-field="armor" value="0" min="-5" max="10"></td>
+                <td>
+                  <input type="text" class="param" id="damage" data-field="damage" value="d6">
+                </td>
+                <td>
+                  <input type="number" class="param" id="coins" data-field="coins" value="0">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Stats + Abilities (Two Column Layout) -->
+        <div class="card">
+
           <div class="stats-column">
             <h2>Характеристики</h2>
-            <table class="stats-table">
+            <table class="stats">
+              <thead>
+                <tr>
+                  <th class="clickable" onclick="rollStat('str')" title="Нажми для броска 2d6">СИЛ</th>
+                  <th class="clickable" onclick="rollStat('dex')" title="Нажми для броска 2d6">ЛОВ</th>
+                  <th class="clickable" onclick="rollStat('con')" title="Нажми для броска 2d6">ТЕЛ</th>
+                  <th class="clickable" onclick="rollStat('int')" title="Нажми для броска 2d6">ИНТ</th>
+                  <th class="clickable" onclick="rollStat('wis')" title="Нажми для броска 2d6">МДР</th>
+                  <th class="clickable" onclick="rollStat('cha')" title="Нажми для броска 2d6">ХАР</th>
+                </tr>
+              </thead>
               <tbody>
                 <tr>
-                  <td class="stat-name">СИЛА 💪</td>
-                  <td><input type="number" id="stat_str" data-field="stat_str" value="10" min="1" max="20"></td>
-                  <td class="modifier" id="strMod">+0</td>
                   <td>
-                    <label class="debility-toggle">
+                    <input type="number" class="param" id="stat_str" data-field="stat_str" value="10" min="1" max="18">
+                  </td>
+                  <td>
+                    <input type="number" class="param" id="stat_dex" data-field="stat_dex" value="10" min="1" max="18">
+                  </td>
+                  <td>
+                    <input type="number" class="param" id="stat_con" data-field="stat_con" value="10" min="1" max="18">
+                  </td>
+                  <td>
+                    <input type="number" class="param" id="stat_int" data-field="stat_int" value="10" min="1" max="18">
+                  </td>
+                  <td>
+                    <input type="number" class="param" id="stat_wis" data-field="stat_wis" value="10" min="1" max="18">
+                  </td>
+                  <td>
+                    <input type="number" class="param" id="stat_cha" data-field="stat_cha" value="10" min="1" max="18">
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mod_str" class="text-center text-big">0</td>
+                  <td id="mod_dex" class="text-center text-big">0</td>
+                  <td id="mod_con" class="text-center text-big">0</td>
+                  <td id="mod_int" class="text-center text-big">0</td>
+                  <td id="mod_wis" class="text-center text-big">0</td>
+                  <td id="mod_cha" class="text-center text-big">0</td>
+                </tr>
+                <tr>
+                  <td class="text-center">
+                    <label class="checkbox-custom" data-debuff-stat="str" data-debuff="-1">
                       <input type="checkbox" id="deb_str" data-field="deb_str">
-                      <span class="checkbox-custom"></span>
-                      <span class="penalty">(-1)</span>
+                      <span class="checkbox-box"></span>
+                      <span class="small">-1</span>
                     </label>
                   </td>
-                </tr>
-                <tr>
-                  <td class="stat-name">ЛОВКОСТЬ 🎯</td>
-                  <td><input type="number" id="stat_dex" data-field="stat_dex" value="10" min="1" max="20"></td>
-                  <td class="modifier" id="dexMod">+0</td>
-                  <td>
-                    <label class="debility-toggle">
+                  <td class="text-center">
+                    <label class="checkbox-custom" data-debuff-stat="dex" data-debuff="-1">
                       <input type="checkbox" id="deb_dex" data-field="deb_dex">
-                      <span class="checkbox-custom"></span>
-                      <span class="penalty">(-1)</span>
+                      <span class="checkbox-box"></span>
+                      <span class="small">-1</span>
                     </label>
                   </td>
-                </tr>
-                <tr>
-                  <td class="stat-name">ТЕЛО 💚</td>
-                  <td><input type="number" id="stat_con" data-field="stat_con" value="10" min="1" max="20"></td>
-                  <td class="modifier" id="conMod">+0</td>
-                  <td>
-                    <label class="debility-toggle">
+                  <td class="text-center">
+                    <label class="checkbox-custom" data-debuff-stat="con" data-debuff="-1">
                       <input type="checkbox" id="deb_con" data-field="deb_con">
-                      <span class="checkbox-custom"></span>
-                      <span class="penalty">(-1)</span>
+                      <span class="checkbox-box"></span>
+                      <span class="small">-1</span>
                     </label>
                   </td>
-                </tr>
-                <tr>
-                  <td class="stat-name">ИНТЕЛЛЕКТ 🧠</td>
-                  <td><input type="number" id="stat_int" data-field="stat_int" value="10" min="1" max="20"></td>
-                  <td class="modifier" id="intMod">+0</td>
-                  <td>
-                    <label class="debility-toggle">
+                  <td class="text-center">
+                    <label class="checkbox-custom" data-debuff-stat="int" data-debuff="-1">
                       <input type="checkbox" id="deb_int" data-field="deb_int">
-                      <span class="checkbox-custom"></span>
-                      <span class="penalty">(-1)</span>
+                      <span class="checkbox-box"></span>
+                      <span class="small">-1</span>
                     </label>
                   </td>
-                </tr>
-                <tr>
-                  <td class="stat-name">МУДРОСТЬ 🦉</td>
-                  <td><input type="number" id="stat_wis" data-field="stat_wis" value="10" min="1" max="20"></td>
-                  <td class="modifier" id="wisMod">+0</td>
-                  <td>
-                    <label class="debility-toggle">
+                  <td class="text-center">
+                    <label class="checkbox-custom" data-debuff-stat="wis" data-debuff="-1">
                       <input type="checkbox" id="deb_wis" data-field="deb_wis">
-                      <span class="checkbox-custom"></span>
-                      <span class="penalty">(-1)</span>
+                      <span class="checkbox-box"></span>
+                      <span class="small">-1</span>
                     </label>
                   </td>
-                </tr>
-                <tr>
-                  <td class="stat-name">ХАРИЗМА 💬</td>
-                  <td><input type="number" id="stat_cha" data-field="stat_cha" value="10" min="1" max="20"></td>
-                  <td class="modifier" id="chaMod">+0</td>
-                  <td>
-                    <label class="debility-toggle">
+                  <td class="text-center">
+                    <label class="checkbox-custom" data-debuff-stat="cha" data-debuff="-1">
                       <input type="checkbox" id="deb_cha" data-field="deb_cha">
-                      <span class="checkbox-custom"></span>
-                      <span class="penalty">(-1)</span>
+                      <span class="checkbox-box"></span>
+                      <span class="small">-1</span>
                     </label>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
+        </div>
 
-          <!-- Right Column: Abilities (Scrollable) -->
-          <div class="abilities-column">
-            <h2>Способности</h2>
-            <div class="abilities-list" id="movesList"></div>
-            <button class="add-ability" id="addMoveBtn">+ Добавить способность</button>
+        <div class="box">
+          <div class="tabs">
+            <button class="tab-button active" onclick="switchTab(event, 'tab-weapons')">Оружие</button>
+            <button class="tab-button" onclick="switchTab(event, 'tab-equipment')">Снаряжение</button>
+            <button class="tab-button" onclick="switchTab(event, 'tab-notes')">Заметки</button>
+          </div>
+
+          <div id="tab-weapons" class="tab-content active">
+            <div class="form-group">
+              <textarea id="weapons" data-field="weapons" class="form-textarea"
+                placeholder="Лук (near, far), Топор (hand, thrown)..." rows="8"></textarea>
+              <div class="char-count"><span data-field-count="weapons">0</span>/300</div>
+            </div>
+          </div>
+
+          <div id="tab-equipment" class="tab-content">
+            <div class="form-group">
+              <textarea id="equipment" data-field="equipment" class="form-textarea"
+                placeholder="Верёвка, факел, зелья..." rows="8"></textarea>
+              <div class="char-count"><span data-field-count="equipment">0</span>/300</div>
+            </div>
+          </div>
+
+          <div id="tab-notes" class="tab-content">
+            <div class="form-group">
+              <textarea id="notes" data-field="notes" class="form-textarea" placeholder="Связи, заметки, квесты..."
+                rows="8"></textarea>
+              <div class="char-count"><span data-field-count="notes">0</span>/600</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Equipment & Weapons -->
-      <div class="card">
-        <!-- <h2>Снаряжение</h2> -->
-        <div class="card-two-col">
-          <div class="field">
-            <label>Оружие</label>
-            <textarea id="weapons" data-field="weapons" maxlength="200" placeholder="Меч, лук, кинжал..."></textarea>
-            <div class="char-count"><span id="weaponsCount">0</span>/200</div>
+      <div>
+        <div class="box" style="overflow-y: scroll;">
+          <div class="tabs">
+            <button class="tab-button active" onclick="switchTab(event, 'tab-moves')">Способности</button>
+            <button class="tab-button" onclick="switchTab(event, 'tab-party')">Группа</button>
           </div>
-          <div class="field">
-            <label>Предметы</label>
-            <textarea id="equipment" data-field="equipment" maxlength="300"
-              placeholder="Броня, зелья, инструменты..."></textarea>
-            <div class="char-count"><span id="equipmentCount">0</span>/300</div>
+
+          <div id="tab-moves" class="tab-content active">
+            <div id="movesList"></div>
+            <button class="btn btn-secondary" id="addMoveBtn">+ Добавить способность</button>
+          </div>
+
+          <div id="tab-party" class="tab-content">
+            <div class="party-list" id="partyList"></div>
+            <div class="panel-actions">
+              <button class="btn" id="partyRefresh">Обновить</button>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Bonds & Notes -->
-      <div class="card">
-        <!-- <h2>Заметки</h2> -->
-        <div class="card-two-col">
-          <div class="field">
-            <label>Связи</label>
-            <textarea id="bonds" data-field="bonds" maxlength="300"
-              placeholder="Отношения с другими персонажами..."></textarea>
-            <div class="char-count"><span id="bondsCount">0</span>/300</div>
-          </div>
-          <div class="field">
-            <label>Записи</label>
-            <textarea id="notes" data-field="notes" maxlength="500" placeholder="Цели, секреты, важное..."></textarea>
-            <div class="char-count"><span id="notesCount">0</span>/500</div>
+
+      <div>
+        <div class="dice-panel" id="dicePanel">
+          <button class="dice-panel-toggle" id="dicePanelToggle">🎲</button>
+          <div class="dice-panel-content">
+            <div class="dice-main">
+              <button class="dice-btn" data-dice="2d6">2d6</button>
+            </div>
+            <div class="dice-buttons">
+              <button class="dice-btn" data-dice="d4">d4</button>
+              <button class="dice-btn" data-dice="d6">d6</button>
+              <button class="dice-btn" data-dice="d8">d8</button>
+              <button class="dice-btn" data-dice="d10">d10</button>
+              <button class="dice-btn" data-dice="d12">d12</button>
+              <button class="dice-btn" data-dice="d20">d20</button>
+            </div>
+            <div class="dice-result" id="diceResult">
+              <div class="result-value">—</div>
+              <div class="result-breakdown">Выбери кубик</div>
+            </div>
+            <div class="cooldown-bar">
+              <div class="fill" id="cooldownFill"></div>
+            </div>
+            <div class="dice-log" id="diceLog"></div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
   <!-- Sticky Dice Panel -->
-  <div class="dice-panel" id="dicePanel">
-    <button class="dice-panel-toggle" id="dicePanelToggle">🎲</button>
-    <div class="dice-panel-content">
-      <div class="dice-main">
-        <button class="dice-btn" data-dice="2d6">2d6</button>
-      </div>
-      <div class="dice-buttons">
-        <button class="dice-btn" data-dice="d4">d4</button>
-        <button class="dice-btn" data-dice="d6">d6</button>
-        <button class="dice-btn" data-dice="d8">d8</button>
-        <button class="dice-btn" data-dice="d10">d10</button>
-        <button class="dice-btn" data-dice="d12">d12</button>
-        <button class="dice-btn" data-dice="d20">d20</button>
-      </div>
-      <div class="dice-result" id="diceResult">
-        <div class="result-value">—</div>
-        <div class="result-breakdown">Выбери кубик</div>
-      </div>
-      <div class="cooldown-bar">
-        <div class="fill" id="cooldownFill"></div>
-      </div>
-      <div class="dice-log" id="diceLog"></div>
-    </div>
-  </div>
+
 
   <!-- Toast Container -->
   <div class="toast-container" id="toastContainer"></div>
@@ -1640,8 +930,14 @@
     const Storage = {
       loadSettings() {
         const saved = localStorage.getItem(Config.STORAGE_KEY_SETTINGS);
-        if (saved) {
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+        const server = params.get('server') || window.location.origin;
+
+        if (saved && !code) {
           State.settings = { ...State.settings, ...JSON.parse(saved) };
+        } else {
+          State.settings = { serverUrl: server, heroCode: code }
         }
       },
 
@@ -2021,6 +1317,8 @@
       },
 
       formatModifier(mod) {
+        if (mod == 0) return mod;
+
         return mod >= 0 ? '+' + mod : '' + mod;
       },
 
@@ -2070,26 +1368,24 @@
         // Stats + Debilities
         Config.STATS.forEach(stat => {
           document.getElementById('stat_' + stat).value = h.stats[stat];
-          document.getElementById('deb_' + stat).checked = String(h.debilities[stat]).toLowerCase() == "true";
+          document.getElementById('deb_' + stat).checked = !!h.debilities[stat];
 
           const baseMod = this.getModifier(h.stats[stat]);
-          const finalMod = String(h.debilities[stat]) == "true" ? baseMod - 1 : baseMod;
-          const modEl = document.getElementById(stat + 'Mod');
+          const finalMod = h.debilities[stat] ? baseMod - 1 : baseMod;
+          const modEl = document.getElementById('mod_' + stat);
           modEl.textContent = this.formatModifier(finalMod);
-          modEl.className = String(h.debilities[stat]) == "true" ? 'modifier debilitated' : 'modifier';
+          modEl.className = h.debilities[stat] ? 'text-big modifier debilitated' : 'text-big modifier';
         });
 
         // Weapons & Equipment
         document.getElementById('weapons').value = h.weapons;
-        document.getElementById('weaponsCount').textContent = (h.weapons || '').length;
+        document.querySelector('[data-field-count="weapons"]').textContent = (h.weapons || '').length;
         document.getElementById('equipment').value = h.equipment;
-        document.getElementById('equipmentCount').textContent = (h.equipment || '').length;
+        document.querySelector('[data-field-count="equipment"]').textContent = (h.equipment || '').length;
 
         // Bonds & Notes
-        document.getElementById('bonds').value = h.bonds;
-        document.getElementById('bondsCount').textContent = (h.bonds || '').length;
         document.getElementById('notes').value = h.notes;
-        document.getElementById('notesCount').textContent = (h.notes || '').length;
+        document.querySelector('[data-field-count="notes"]').textContent = (h.notes || '').length;
       },
 
       updateLastSync() {
@@ -2122,10 +1418,10 @@
 
           // Update modifier display
           const baseMod = this.getModifier(value);
-          const finalMod = String(State.hero.debilities[stat]) == "true" ? baseMod - 1 : baseMod;
+          const finalMod = State.hero.debilities[stat] ? baseMod - 1 : baseMod;
           const modEl = document.getElementById(stat + 'Mod');
           modEl.textContent = this.formatModifier(finalMod);
-          modEl.className = String(State.hero.debilities[stat]) == "true" ? 'modifier debilitated' : 'modifier';
+          modEl.className = State.hero.debilities[stat] ? 'modifier debilitated' : 'modifier';
 
           // Update max HP if CON changed
           if (stat === 'con') {
@@ -2135,12 +1431,10 @@
           const stat = field.replace('deb_', '');
           State.hero.debilities[stat] = value;
 
-          // Update modifier display
           const baseMod = this.getModifier(State.hero.stats[stat]);
           const finalMod = value ? baseMod - 1 : baseMod;
-          const modEl = document.getElementById(stat + 'Mod');
+          const modEl = document.getElementById('mod_' + stat);
           modEl.textContent = this.formatModifier(finalMod);
-          modEl.className = value ? 'modifier debilitated' : 'modifier';
         } else {
           State.hero[field] = value;
 
@@ -2380,13 +1674,9 @@
 
           if (result.status === 'ok' && result.party && result.party.length > 0) {
             this.render(result.party);
-            document.getElementById('partyPanel').style.display = 'block';
-          } else {
-            document.getElementById('partyPanel').style.display = 'none';
           }
         } catch (err) {
-          // Silently fail - party is optional
-          document.getElementById('partyPanel').style.display = 'none';
+          console.log(err);
         } finally {
           btn.classList.remove('loading');
         }
@@ -2409,8 +1699,6 @@
             </div>
           </div>
         `).join('');
-
-        // document.querySelector("#partyPanel > burron.panel-toggle").click();
       },
 
       escape(text) {

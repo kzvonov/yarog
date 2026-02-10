@@ -71,8 +71,7 @@ body {
 }
 
 .header {
-  padding: 20px;
-  margin-bottom: 10px;
+  padding: 10px;
   text-align: center;
   background: linear-gradient(to bottom, #0d0d0d 0%, var(--bg-dark) 100%);
   border-bottom: 1px solid var(--border-dark);
@@ -90,7 +89,12 @@ h1 {
   font-size: 2.2rem;
   font-weight: 700;
   color: var(--text-heading);
-  letter-spacing: 0.15em;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -186,14 +190,14 @@ h1 {
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border-dark);
-  padding: 15px;
-  margin-bottom: 15px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .panel {
   background: var(--bg-card);
   border: 1px solid var(--border-dark);
-  padding: 15px;
+  margin-bottom: 10px;
 }
 
 .title {
@@ -851,12 +855,12 @@ th {
 /* Tabs */
 .tabs {
   border-bottom: 1px solid var(--border-dark);
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .tab-button {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 10px;
   background: transparent;
   border: none;
   border-bottom: 2px solid transparent;
@@ -1135,8 +1139,8 @@ a.tab-button:focus {
 .box {
   background: var(--bg-card);
   border: 1px solid var(--border-dark);
-  padding: 15px;
-  margin-bottom: 15px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .box:last-child {
@@ -1166,4 +1170,23 @@ hr {
   margin: 8px 0;
   border: none;
   border-bottom: 1px solid var(--border-dark);
+}
+
+.char-count {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-align: right;
+  margin-top: 2px;
+}
+
+table.base-stats th {
+  white-space: nowrap;
+}
+
+.modifier {
+  padding: 5px;
+}
+
+.checkbox-custom {
+  padding: 3px;
 }
