@@ -301,28 +301,6 @@
       font-size: 0.8rem;
     }
 
-    .move-remove:hover {
-      border-color: var(--accent-blood);
-      color: var(--accent-blood-light);
-    }
-
-    .move-item textarea {
-      width: 100%;
-      min-height: 100px;
-      padding: 6px;
-      background: transparent;
-      border: 1px solid var(--border-dark);
-      color: var(--text-secondary);
-      font-family: inherit;
-      font-size: 1rem;
-      resize: none;
-    }
-
-    .move-item textarea:focus {
-      outline: none;
-      border-color: var(--accent-blood);
-    }
-
     /* Dice panel */
     .dice-panel {
       position: fixed;
@@ -490,8 +468,8 @@
     /* Layout Grid */
     .grid-main {
       display: grid;
-      grid-template-columns: 5fr 5fr 2fr;
-      gap: 15px;
+      grid-template-columns: 4fr 4fr 3fr;
+      gap: 10px;
     }
 
     /* Responsive */
@@ -611,10 +589,10 @@
             <thead>
               <tr>
                 <th>Уровень</th>
-                <th>Опыт(<span id="xpNext">8</span>)✨</th>
-                <th>Здоровье(<span id="hpMax">16</span>)❤️</th>
-                <th>Броня🛡️</th>
-                <th>Урон⚔️</th>
+                <th>Опыт ✨</th>
+                <th>Здоровье ❤️</th>
+                <th>Броня 🛡️</th>
+                <th>Урон ⚔️</th>
                 <th>Монеты</th>
               </tr>
             </thead>
@@ -632,6 +610,14 @@
                   <input type="number" class="param" id="coins" data-field="coins" value="0">
                 </td>
               </tr>
+              <tr>
+                <td>-</td>
+                <td>/<span id="xpNext">8</span></td>
+                <td>/<span id="hpMax">16</span></td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -640,7 +626,7 @@
         <div class="card">
 
           <div class="stats-column">
-            <h2>Характеристики</h2>
+            <h3>Характеристики</h3>
             <table class="stats">
               <thead>
                 <tr>
@@ -1264,7 +1250,7 @@
                     <input type="text" value="${this.escape(move.name)}" placeholder="Название способности" data-move-index="${index}" data-move-field="name" maxlength="100">
                     <button class="move-remove" data-move-index="${index}">✕</button>
                 </div>
-                <textarea placeholder="Описание..." data-move-index="${index}" data-move-field="desc" maxlength="300">${this.escape(move.desc)}</textarea>
+                <textarea placeholder="Описание..." data-move-index="${index}" data-move-field="desc" class="form-textarea" maxlength="600">${this.escape(move.desc)}</textarea>
             `;
           list.appendChild(item);
         });
