@@ -92,9 +92,8 @@
     }
 
     .panel-actions {
-      margin-top: 15px;
-      display: flex;
-      gap: 10px;
+      margin-top: 10px;
+      text-align: right;
     }
 
     .theme-select {
@@ -590,15 +589,18 @@
             </thead>
             <tbody>
               <tr>
-                <td><input type="number" class="param" id="level" data-field="level" value="1" min="1" max="10"></td>
-                <td><input type="number" class="param" id="xp" data-field="xp" value="0" min="0" max="20"></td>
-                <td><input type="number" class="param" id="hpCurrent" data-field="hpCurrent" value="10" min="0"
-                    max="60"></td>
-                <td><input type="number" class="param" id="armor" data-field="armor" value="0" min="-5" max="10"></td>
-                <td>
+                <td class="no-padding"><input type="number" class="param" id="level" data-field="level" value="1"
+                    min="1" max="10"></td>
+                <td class="no-padding"><input type="number" class="param" id="xp" data-field="xp" value="0" min="0"
+                    max="20"></td>
+                <td class="no-padding"><input type="number" class="param" id="hpCurrent" data-field="hpCurrent"
+                    value="10" min="0" max="60"></td>
+                <td class="no-padding"><input type="number" class="param" id="armor" data-field="armor" value="0"
+                    min="-5" max="10"></td>
+                <td class="no-padding">
                   <input type="text" class="param" id="damage" data-field="damage" value="d6">
                 </td>
-                <td>
+                <td class="no-padding">
                   <input type="number" class="param" id="coins" data-field="coins" value="0">
                 </td>
               </tr>
@@ -630,22 +632,22 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>
+                  <td class="no-padding">
                     <input type="number" class="param" id="stat_str" data-field="stat_str" value="10" min="1" max="18">
                   </td>
-                  <td>
+                  <td class="no-padding">
                     <input type="number" class="param" id="stat_dex" data-field="stat_dex" value="10" min="1" max="18">
                   </td>
-                  <td>
+                  <td class="no-padding">
                     <input type="number" class="param" id="stat_con" data-field="stat_con" value="10" min="1" max="18">
                   </td>
-                  <td>
+                  <td class="no-padding">
                     <input type="number" class="param" id="stat_int" data-field="stat_int" value="10" min="1" max="18">
                   </td>
-                  <td>
+                  <td class="no-padding">
                     <input type="number" class="param" id="stat_wis" data-field="stat_wis" value="10" min="1" max="18">
                   </td>
-                  <td>
+                  <td class="no-padding">
                     <input type="number" class="param" id="stat_cha" data-field="stat_cha" value="10" min="1" max="18">
                   </td>
                 </tr>
@@ -715,24 +717,22 @@
 
           <div id="tab-weapons" class="tab-content active">
             <div class="form-group">
-              <textarea id="weapons" data-field="weapons" class="form-textarea"
-                placeholder="Лук (near, far), Топор (hand, thrown)..." rows="8"></textarea>
+              <textarea id="weapons" data-field="weapons" class="form-textarea" placeholder="..." rows="8"></textarea>
               <div class="char-count"><span data-field-count="weapons">0</span>/300</div>
             </div>
           </div>
 
           <div id="tab-equipment" class="tab-content">
             <div class="form-group">
-              <textarea id="equipment" data-field="equipment" class="form-textarea"
-                placeholder="Верёвка, факел, зелья..." rows="8"></textarea>
+              <textarea id="equipment" data-field="equipment" class="form-textarea" placeholder="..."
+                rows="8"></textarea>
               <div class="char-count"><span data-field-count="equipment">0</span>/300</div>
             </div>
           </div>
 
           <div id="tab-notes" class="tab-content">
             <div class="form-group">
-              <textarea id="notes" data-field="notes" class="form-textarea" placeholder="Связи, заметки, квесты..."
-                rows="8"></textarea>
+              <textarea id="notes" data-field="notes" class="form-textarea" placeholder="..." rows="8"></textarea>
               <div class="char-count"><span data-field-count="notes">0</span>/600</div>
             </div>
           </div>
@@ -748,11 +748,27 @@
 
           <div id="tab-moves" class="tab-content active">
             <div id="movesList"></div>
-            <button class="btn btn-secondary" id="addMoveBtn">+ Добавить способность</button>
+            <div style="text-align: right;">
+              <button class="btn btn-secondary" id="addMoveBtn">добавить способность</button>
+            </div>
           </div>
 
           <div id="tab-party" class="tab-content">
-            <div class="party-list" id="partyList"></div>
+            <table>
+              <thead>
+                <tr>
+                  <th>имя</th>
+                  <th>расса</th>
+                  <th>класс</th>
+                  <th>lvl</th>
+                  <th>❤️</th>
+                  <th>🛡️</th>
+                  <th>⚔️</th>
+                </tr>
+              </thead>
+              <tbody class="party-list" id="partyList">
+              </tbody>
+            </table>
             <div class="panel-actions">
               <button class="btn" id="partyRefresh">Обновить</button>
             </div>
@@ -1666,18 +1682,15 @@
         const list = document.getElementById('partyList');
 
         list.innerHTML = party.map(member => `
-          <div class="party-member">
-            <div class="line">
-              <span class="name">${this.escape(member.name) || '???'}</span>
-              <span class="class">(${this.escape(member.specialization) || '—'})</span>
-            </div>
-            <div class="line">
-              <span>${member.level || 0} ⭐️</span>
-              <span class="hp">${member.hpCurrent || 0}/${member.hpMax || 0} ❤️</span>
-              <span class="armor">${member.armor || 0} 🛡️</span>
-              <span class="damage">${this.escape(member.damage) || '—'} ⚔️</span>
-            </div>
-          </div>
+          <tr>
+            <td>${this.escape(member.name) || '???'}</td>
+            <td>${this.escape(member.race) || '???'}</td>
+            <td>${this.escape(member.specialization) || '—'}</td>
+            <td>${member.level || 0}</td>
+            <td>${member.hpCurrent || 0}/${member.hpMax || 0}</td>
+            <td>${this.escape(member.armor)}</td>
+            <td>${this.escape(member.damage) || '—'}</td>
+          </tr>
         `).join('');
       },
 
