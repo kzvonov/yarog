@@ -230,12 +230,11 @@ h4 {
 
 /* Buttons */
 .btn {
-  padding: 10px 20px;
+  padding: 5px 10px;
   background: var(--accent-blood);
   border: 1px solid var(--accent-blood-light);
   color: var(--text-primary);
   font-family: inherit;
-  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -576,7 +575,7 @@ select option {
   content: '';
   width: 10px;
   height: 10px;
-  background: transparent;
+  background: none;
   transition: background 0.2s;
 }
 
