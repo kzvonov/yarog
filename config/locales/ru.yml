@@ -1,8 +1,34 @@
 ru:
   hero:
-    spec:
-      warrior: "рубака"
-      forest_walker: "находящий путь"
-      path_master: "находящий путь"
-      rune_master: "рунари"
-      evil_hunter: "охотник на нелюдь"
+    origin:
+      human: "человек"
+      elf: "эльф"
+      dark_elf: "темный эльф"
+      high_elf: "высший эльф"
+      dwarf: "дворф"
+      gnome: "гном"
+      orc: "орк"
+      troll: "троль"
+      goblin: "гоблин"
+      tauren: "таурен"
+      tiefling: "тифлинг"
+      frog_folk: "лягуха"
+      turtle_folk: "черепаха"
+      # homebrew
+      yar_human: "человек из яра"
+      yar_dog_folk: "песеголовец"
+      yar_elf: "эльф из яра"
+    klass:
+      bard: "бард"
+      priest: "жрец" # cleric
+      druid: "друид"
+      fighter: "мастер оружия"
+      paladin: "паладин"
+      ranger: "стрелок"
+      thief: "вор"
+      wizard: "волшебник"
+      # homebrew
+      yar_berserk: "берсерк"
+      yar_path_master: "находящий пути"
+      yar_rune_master: "рунари"
+      yar_evil_hunter: "охотник на нелюдь"

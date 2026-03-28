@@ -3,13 +3,21 @@ module Master
     def index
       @heroes = Hero.order(created_at: :desc)
 
-      # Simple search by code, name, or specialization (lowercase exact match)
       if params[:search].present?
         search_term = params[:search].downcase
-        @heroes = @heroes.where(
-          "LOWER(code) = ? OR LOWER(name) = ? OR LOWER(specialization) = ?",
-          search_term, search_term, search_term
-        )
+        klass_value = Hero.klasses.keys.find { |k| k.to_s.downcase == search_term }
+
+        if klass_value
+          @heroes = @heroes.where(
+            "LOWER(code) = ? OR LOWER(name) = ? OR klass = ?",
+            search_term, search_term, Hero.klasses[klass_value]
+          )
+        else
+          @heroes = @heroes.where(
+            "LOWER(code) = ? OR LOWER(name) = ?",
+            search_term, search_term
+          )
+        end
       end
     end
 
@@ -21,53 +29,61 @@ module Master
     def update
       @hero = Hero.find(params[:id])
 
-      # Extract hero_data fields
-      hero_data_params = params.require(:hero).permit(
-        :name, :level, :xp,
-        :hpCurrent, :hpMax, :armor, :damage, :coins,
-        :look, :weapons, :equipment, :bonds, :notes,
-        stats: {}, debilities: {}, moves: [ :name, :desc ]
+      hero_params = params.require(:hero).permit(
+        :name, :origin, :level, :xp, :hp_current, :armor, :damage, :coins,
+        :weapons, :equipment, :notes,
+        *Hero::STATS.keys.map { |stat| "stat_#{stat}".to_sym },
+        *Hero::STATS.keys.map { |stat| "deb_#{stat}".to_sym },
+        moves: [:name, :desc]
       )
 
-      # Build updated hero_data
-      current_data = @hero.hero_data || {}
-
-      # Update hero_data with all fields
-      new_data = current_data.merge({
-        "hpCurrent" => hero_data_params[:hpCurrent],
-        "hpMax" => hero_data_params[:hpMax],
-        "armor" => hero_data_params[:armor],
-        "damage" => hero_data_params[:damage],
-        "coins" => hero_data_params[:coins],
-        "look" => hero_data_params[:look],
-        "weapons" => hero_data_params[:weapons],
-        "equipment" => hero_data_params[:equipment],
-        "bonds" => hero_data_params[:bonds],
-        "notes" => hero_data_params[:notes],
-        "stats" => hero_data_params[:stats] || {},
-        "debilities" => hero_data_params[:debilities] || {},
-        "moves" => hero_data_params[:moves] || []
-      }.compact)
-
-      @hero.hero_data = new_data
-      @hero.level = hero_data_params[:level] if hero_data_params[:level].present?
-      @hero.xp = hero_data_params[:xp] if hero_data_params[:xp].present?
-
-      # For master interface, allow name changes by skipping validation
-      if hero_data_params[:name].present? && hero_data_params[:name] != @hero.name
-        @hero.name = hero_data_params[:name]
-        @hero.save(validate: false)
-      else
-        @hero.save
+      Hero::STATS.keys.each do |stat|
+        @hero.send("deb_#{stat}=", false)
       end
 
-      if @hero.persisted?
+      hero_params.each do |key, value|
+        if key.to_s.start_with?('deb_')
+          value = value == "true" || value == true
+        end
+        @hero.send("#{key}=", value) if @hero.respond_to?("#{key}=")
+      end
+
+      @hero.version += 1
+
+      if @hero.save
         redirect_to master_hero_path(@hero), notice: "Hero updated successfully."
       else
         @games = @hero.games.order(created_at: :desc)
         flash.now[:alert] = "Failed to update hero."
         render :show
       end
+    end
+
+    def duplicate
+      @original = Hero.find(params[:id])
+
+      @hero = Hero.new(
+        name: "Copy of #{@original.name}",
+        origin: @original.origin,
+        klass: @original.klass,
+        level: @original.level,
+        xp: @original.xp
+      )
+
+      @hero.data = @original.data.deep_dup
+
+      if @hero.save
+        redirect_to master_hero_path(@hero), notice: "Hero duplicated successfully. Code: #{@hero.code}"
+      else
+        redirect_to master_hero_path(@original), alert: "Failed to duplicate hero."
+      end
+    end
+
+    def destroy
+      @hero = Hero.find(params[:id])
+      @hero.destroy
+
+      redirect_to master_heroes_path, notice: "Hero '#{@hero.name}' was deleted."
     end
   end
 end

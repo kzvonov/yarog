@@ -15,13 +15,13 @@
     <% @heroes.each do |hero| %>
       <%= link_to master_hero_path(hero), class: "item-card" do %>
         <div style="font-size: 1.8rem; margin-bottom: 10px;">
-          <%= hero.specialization == 'warrior' ? '⚔️' : hero.specialization == 'forest_walker' ? '🏹' : '🔮' %>
+          <%= hero.klass_fighter? ? '⚔️' : hero.klass_bard? ? '🎵' : hero.klass_priest? ? '✝️' : '🔮' %>
         </div>
         <div class="item-title"><%= hero.name %></div>
         <div class="item-meta">
-          <%= hero.specialization.titleize %> • Level <%= hero.level %><br>
+          <%= I18n.t("hero.klass.#{hero.klass}", default: hero.klass.humanize) %> • Level <%= hero.level %><br>
           Code: <%= hero.code %><br>
-          HP: <%= hero.hero_data['hpCurrent'] %>/<%= hero.hero_data['hpMax'] %> • XP: <%= hero.xp %>
+          HP: <%= hero.hp_current %>/<%= hero.hp_max %> • XP: <%= hero.xp %>
         </div>
       <% end %>
     <% end %>

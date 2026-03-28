@@ -48,18 +48,6 @@
       animation: pulse 1s infinite;
     }
 
-    @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0.5;
-      }
-    }
-
     /* Settings panel */
     .settings-grid {
       display: grid;
@@ -93,120 +81,12 @@
 
     .panel-actions {
       margin-top: 10px;
-      text-align: right;
-    }
-
-    .theme-select {
-      width: 100%;
-      padding: 8px 12px;
-      background: var(--input-bg);
-      border: 1px solid var(--border-dark);
-      color: var(--text-primary);
-      font-family: inherit;
-      font-size: 0.9rem;
-      cursor: pointer;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-      padding-right: 30px;
-    }
-
-    .theme-select:focus {
-      outline: none;
-      border-color: var(--accent-blood);
-    }
-
-    .data-actions {
-      display: flex;
-      gap: 8px;
-    }
-
-    .data-actions .btn {
-      flex: 1;
-      padding: 8px 10px;
-      font-size: 0.8rem;
     }
 
     .last-sync {
       margin-top: 10px;
       font-size: 0.75rem;
       color: var(--text-secondary);
-    }
-
-    /* Field customizations */
-    .field-row {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-
-    .field-row .field {
-      flex: 1;
-      min-width: 150px;
-      margin-bottom: 0;
-    }
-
-    /* Combat Stats */
-    .combat-row {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 8px;
-    }
-
-    .combat-box {
-      background: var(--input-bg);
-      border: 1px solid var(--border-dark);
-      padding: 8px 4px;
-      text-align: center;
-    }
-
-    .combat-box.hp {
-      border-color: var(--accent-blood);
-    }
-
-    .combat-box.arm {
-      border-color: var(--accent-gold);
-    }
-
-    .combat-box.dmg {
-      border-color: var(--accent-green);
-    }
-
-    .combat-box.coins {
-      border-color: var(--accent-gold);
-    }
-
-    .combat-box .label {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      margin-bottom: 4px;
-      white-space: nowrap;
-    }
-
-    .combat-box .label span {
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    .combat-box input {
-      padding: 4px 2px;
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid var(--border-dark);
-      color: var(--text-heading);
-      font-family: inherit;
-      font-size: 1.2rem;
-      font-weight: 700;
-      text-align: center;
-      width: 45px;
-    }
-
-    .combat-box input:focus {
-      outline: none;
-      border-bottom-color: var(--accent-blood);
     }
 
     /* Stats Table */
@@ -223,41 +103,7 @@
       color: var(--accent-blood-light);
     }
 
-    /* Party member line layout */
-    .party-member .line {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      margin: 4px 0;
-    }
-
-    .party-member .name {
-      font-weight: 600;
-      color: var(--text-heading);
-    }
-
-    .party-member .class {
-      color: var(--text-secondary);
-    }
-
-    .party-member .hp {
-      color: var(--accent-blood-light);
-    }
-
-    .party-member .armor {
-      color: var(--accent-gold);
-    }
-
-    .party-member .damage {
-      color: var(--accent-green);
-    }
-
     /* Moves */
-    .moves-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
 
     .move-item {
       padding: 5px;
@@ -291,13 +137,11 @@
       border-bottom-color: var(--accent-blood);
     }
 
-    .move-remove {
-      padding: 2px 8px;
+    .move-item input[readonly],
+    .move-item textarea[readonly] {
       background: transparent;
-      border: 1px solid var(--border-dark);
-      color: var(--text-secondary);
-      cursor: pointer;
-      font-size: 0.8rem;
+      cursor: default;
+      opacity: 0.8;
     }
 
     /* Dice panel */
@@ -439,31 +283,6 @@
       color: var(--text-heading);
     }
 
-    /* Toast container (animation) */
-    .toast-container {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      pointer-events: none;
-    }
-
-    .toast {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.3s ease;
-      pointer-events: auto;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     /* Layout Grid */
     .grid-main {
       display: grid;
@@ -498,14 +317,6 @@
     }
 
     @media (max-width: 600px) {
-      .field-row {
-        flex-direction: column;
-      }
-
-      .combat-row {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
       .settings-grid {
         grid-template-columns: 1fr;
       }
@@ -514,6 +325,10 @@
 
   <link rel="stylesheet" href="ui.css" />
   <script src="ui.js"></script>
+  <script src="modules/hero.js"></script>
+  <script src="modules/dice.js"></script>
+  <script src="modules/party.js"></script>
+  <script src="modules/settings.js"></script>
 </head>
 
 <body>
@@ -522,8 +337,10 @@
       <div class="connection-dot" id="connectionDot"></div>
       <span id="connectionText">Offline</span>
     </div>
-    <h1 id="charName">Безымянный</h1>
-    <div class="class-name" id="specializationName" style="text-transform: uppercase;">ГЕРОЙ</div>
+    <h1 id="charName" data-sync-id="name">Безымянный</h1>
+    <div class="class-name" style="text-transform: uppercase;">
+      <span data-sync-id="origin"></span> | <span data-sync-id="klass"></span>
+    </div>
   </header>
 
   <div class="container">
@@ -545,15 +362,6 @@
                 <input type="text" id="heroCode" placeholder="ABC123">
               </div>
             </div>
-            <div class="settings-grid" style="margin-top: 15px;">
-              <div class="settings-field">
-                <label>Тема</label>
-                <select id="themeSelect" class="theme-select">
-                  <option value="dark">🌙 Ночь</option>
-                  <option value="light">☀️ День</option>
-                </select>
-              </div>
-            </div>
             <div class="panel-actions">
               <button class="btn" id="loadBtn">Загрузить</button>
               <button class="btn secondary" id="saveNowBtn">Сохранить</button>
@@ -563,19 +371,6 @@
         </div>
 
         <div class="card">
-          <div class="field-row">
-            <div class="field">
-              <label data-label="name" class="form-label">имя</label>
-              <input type="text" id="name" class="form-input" data-field="name" maxlength="100" placeholder="Рагнар"
-                disabled>
-            </div>
-            <div class="field">
-              <label data-label="spec" class="form-label">класс</label>
-              <input type="text" id="specialization" class="form-input" data-field="specialization" maxlength="100"
-                placeholder="Берсерк" style="text-transform: uppercase;" disabled>
-            </div>
-          </div>
-
           <table class="base-stats">
             <thead>
               <tr>
@@ -589,25 +384,25 @@
             </thead>
             <tbody>
               <tr>
-                <td class="no-padding"><input type="number" class="param" id="level" data-field="level" value="1"
+                <td class="no-padding"><input type="number" class="param" id="level" data-sync-id="level" value="1"
                     min="1" max="10"></td>
-                <td class="no-padding"><input type="number" class="param" id="xp" data-field="xp" value="0" min="0"
+                <td class="no-padding"><input type="number" class="param" id="xp" data-sync-id="xp" value="0" min="0"
                     max="20"></td>
-                <td class="no-padding"><input type="number" class="param" id="hpCurrent" data-field="hpCurrent"
+                <td class="no-padding"><input type="number" class="param" id="hp_current" data-sync-id="hp_current"
                     value="10" min="0" max="60"></td>
-                <td class="no-padding"><input type="number" class="param" id="armor" data-field="armor" value="0"
+                <td class="no-padding"><input type="number" class="param" id="armor" data-sync-id="armor" value="0"
                     min="-5" max="10"></td>
                 <td class="no-padding">
-                  <input type="text" class="param" id="damage" data-field="damage" value="d6">
+                  <input type="text" class="param" id="damage" data-sync-id="damage" value="d6">
                 </td>
                 <td class="no-padding">
-                  <input type="number" class="param" id="coins" data-field="coins" value="0">
+                  <input type="number" class="param" id="coins" data-sync-id="coins" value="0">
                 </td>
               </tr>
               <tr>
                 <td>-</td>
-                <td>/<span id="xpNext">8</span></td>
-                <td>/<span id="hpMax">16</span></td>
+                <td>/<span id="xpNext" data-sync-id="xp_next"></span></td>
+                <td>/<span id="hpMax" data-sync-id="hp_max"></span></td>
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
@@ -618,7 +413,6 @@
 
         <div class="card">
           <div class="stats-column">
-            <h3>Характеристики</h3>
             <table class="stats">
               <thead>
                 <tr>
@@ -633,71 +427,77 @@
               <tbody>
                 <tr>
                   <td class="no-padding">
-                    <input type="number" class="param" id="stat_str" data-field="stat_str" value="10" min="1" max="18">
+                    <input type="number" class="param" id="stat_str" data-sync-id="stat_str" value="10" min="1"
+                      max="18">
                   </td>
                   <td class="no-padding">
-                    <input type="number" class="param" id="stat_dex" data-field="stat_dex" value="10" min="1" max="18">
+                    <input type="number" class="param" id="stat_dex" data-sync-id="stat_dex" value="10" min="1"
+                      max="18">
                   </td>
                   <td class="no-padding">
-                    <input type="number" class="param" id="stat_con" data-field="stat_con" value="10" min="1" max="18">
+                    <input type="number" class="param" id="stat_con" data-sync-id="stat_con" value="10" min="1"
+                      max="18">
                   </td>
                   <td class="no-padding">
-                    <input type="number" class="param" id="stat_int" data-field="stat_int" value="10" min="1" max="18">
+                    <input type="number" class="param" id="stat_int" data-sync-id="stat_int" value="10" min="1"
+                      max="18">
                   </td>
                   <td class="no-padding">
-                    <input type="number" class="param" id="stat_wis" data-field="stat_wis" value="10" min="1" max="18">
+                    <input type="number" class="param" id="stat_wis" data-sync-id="stat_wis" value="10" min="1"
+                      max="18">
                   </td>
                   <td class="no-padding">
-                    <input type="number" class="param" id="stat_cha" data-field="stat_cha" value="10" min="1" max="18">
+                    <input type="number" class="param" id="stat_cha" data-sync-id="stat_cha" value="10" min="1"
+                      max="18">
                   </td>
                 </tr>
                 <tr>
-                  <td id="mod_str" class="text-center text-big">0</td>
-                  <td id="mod_dex" class="text-center text-big">0</td>
-                  <td id="mod_con" class="text-center text-big">0</td>
-                  <td id="mod_int" class="text-center text-big">0</td>
-                  <td id="mod_wis" class="text-center text-big">0</td>
-                  <td id="mod_cha" class="text-center text-big">0</td>
+                  <td data-sync-id="dice_mod_str" class="text-center text-big dice_modifier">0</td>
+                  <td data-sync-id="dice_mod_dex" class="text-center text-big dice_modifier">0</td>
+                  <td data-sync-id="dice_mod_con" class="text-center text-big dice_modifier">0</td>
+                  <td data-sync-id="dice_mod_int" class="text-center text-big dice_modifier">0</td>
+                  <td data-sync-id="dice_mod_wis" class="text-center text-big dice_modifier">0</td>
+                  <td data-sync-id="dice_mod_cha" class="text-center text-big dice_modifier">0</td>
                 </tr>
                 <tr>
                   <td class="text-center">
                     <label class="checkbox-custom" data-debuff-stat="str" data-debuff="-1">
-                      <input type="checkbox" id="deb_str" data-field="deb_str">
+                      <input type="checkbox" id="deb_str" data-sync-id="deb_str">
                       <span class="checkbox-box"></span>
                       <span class="small">-1</span>
                     </label>
                   </td>
                   <td class="text-center">
                     <label class="checkbox-custom" data-debuff-stat="dex" data-debuff="-1">
-                      <input type="checkbox" id="deb_dex" data-field="deb_dex">
+                      <input type="checkbox" id="deb_dex" data-sync-id="deb_dex">
                       <span class="checkbox-box"></span>
                       <span class="small">-1</span>
                     </label>
                   </td>
                   <td class="text-center">
                     <label class="checkbox-custom" data-debuff-stat="con" data-debuff="-1">
-                      <input type="checkbox" id="deb_con" data-field="deb_con">
+                      <input type="checkbox" id="deb_con" data-sync-id="deb_con">
                       <span class="checkbox-box"></span>
                       <span class="small">-1</span>
                     </label>
                   </td>
                   <td class="text-center">
                     <label class="checkbox-custom" data-debuff-stat="int" data-debuff="-1">
-                      <input type="checkbox" id="deb_int" data-field="deb_int">
+                      <input type="checkbox" id="deb_int" data-sync-id="deb_int">
                       <span class="checkbox-box"></span>
                       <span class="small">-1</span>
                     </label>
                   </td>
                   <td class="text-center">
                     <label class="checkbox-custom" data-debuff-stat="wis" data-debuff="-1">
-                      <input type="checkbox" id="deb_wis" data-field="deb_wis">
+                      <input type="checkbox" id="deb_wis" data-sync-id="deb_wis">
                       <span class="checkbox-box"></span>
                       <span class="small">-1</span>
                     </label>
                   </td>
                   <td class="text-center">
                     <label class="checkbox-custom" data-debuff-stat="cha" data-debuff="-1">
-                      <input type="checkbox" id="deb_cha" data-field="deb_cha">
+                      <input type="checkbox" id="deb_cha" data-sync-id="deb_cha">
                       <span class="checkbox-box"></span>
                       <span class="small">-1</span>
                     </label>
@@ -717,14 +517,14 @@
 
           <div id="tab-weapons" class="tab-content active">
             <div class="form-group">
-              <textarea id="weapons" data-field="weapons" class="form-textarea" placeholder="..." rows="8"></textarea>
+              <textarea id="weapons" data-sync-id="weapons" class="form-textarea" placeholder="..." rows="8"></textarea>
               <div class="char-count"><span data-field-count="weapons">0</span>/300</div>
             </div>
           </div>
 
           <div id="tab-equipment" class="tab-content">
             <div class="form-group">
-              <textarea id="equipment" data-field="equipment" class="form-textarea" placeholder="..."
+              <textarea id="equipment" data-sync-id="equipment" class="form-textarea" placeholder="..."
                 rows="8"></textarea>
               <div class="char-count"><span data-field-count="equipment">0</span>/300</div>
             </div>
@@ -732,7 +532,7 @@
 
           <div id="tab-notes" class="tab-content">
             <div class="form-group">
-              <textarea id="notes" data-field="notes" class="form-textarea" placeholder="..." rows="8"></textarea>
+              <textarea id="notes" data-sync-id="notes" class="form-textarea" placeholder="..." rows="8"></textarea>
               <div class="char-count"><span data-field-count="notes">0</span>/600</div>
             </div>
           </div>
@@ -747,9 +547,15 @@
           </div>
 
           <div id="tab-moves" class="tab-content active">
-            <div id="movesList"></div>
-            <div style="text-align: right;">
-              <button class="btn btn-secondary" id="addMoveBtn">добавить способность</button>
+            <div data-render-id="moves">
+              <template>
+                <div class="move-item">
+                  <div class="move-header">
+                    <input type="text" data-render-id="moves[].name" placeholder="Название способности" maxlength="100" readonly>
+                  </div>
+                  <textarea data-render-id="moves[].desc" placeholder="Описание..." class="form-textarea" maxlength="600" readonly></textarea>
+                </div>
+              </template>
             </div>
           </div>
 
@@ -775,7 +581,6 @@
           </div>
         </div>
       </div>
-
 
       <div>
         <div class="dice-panel" id="dicePanel">
@@ -806,10 +611,6 @@
     </div>
   </div>
 
-  <!-- Sticky Dice Panel -->
-
-
-  <!-- Toast Container -->
   <div class="toast-container" id="toastContainer"></div>
 
   <script>
@@ -818,15 +619,11 @@
     // ============================================================
     const Config = {
       STORAGE_KEY_SETTINGS: 'dw_settings',
-      STORAGE_KEY_HERO: 'dw_hero',
-      SCHEMA_VERSION: 1,
       COOLDOWN_MS: 1500,
       DEBOUNCE_MS: 1500,
       TIMEOUT_MS: 5000,
       RETRY_DELAY_MS: 1000,
-      TOAST_DURATION_MS: 3000,
-      MAX_MOVES: 5,
-      STATS: ['str', 'dex', 'con', 'int', 'wis', 'cha']
+      TOAST_DURATION_MS: 3000
     };
 
     // ============================================================
@@ -837,28 +634,7 @@
         serverUrl: '',
         heroCode: ''
       },
-      hero: {
-        specialization: 'hero',
-        name: '',
-        look: '',
-        origin: '',
-        level: 1,
-        xp: 0,
-        hpCurrent: 10,
-        hpMax: 10,
-        armor: 0,
-        damage: 'd10',
-        coins: 0,
-        stats: { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10 },
-        debilities: { str: false, dex: false, con: false, int: false, wis: false, cha: false },
-        moves: [],
-        weapons: '',
-        equipment: '',
-        bonds: '',
-        notes: ''
-      },
       version: 0,
-      schemaVersion: Config.SCHEMA_VERSION,
       updatedAt: null,
       isOnline: false,
       isSyncing: false,
@@ -935,30 +711,6 @@
 
       saveSettings() {
         localStorage.setItem(Config.STORAGE_KEY_SETTINGS, JSON.stringify(State.settings));
-      },
-
-      loadHero() {
-        const saved = localStorage.getItem(Config.STORAGE_KEY_HERO);
-        if (saved) {
-          const data = JSON.parse(saved);
-          // Migration
-          if (!data.schemaVersion || data.schemaVersion < Config.SCHEMA_VERSION) {
-            data.schemaVersion = Config.SCHEMA_VERSION;
-          }
-          State.hero = { ...State.hero, ...data.hero };
-          State.version = data.version || 0;
-          State.schemaVersion = data.schemaVersion;
-          State.updatedAt = data.updatedAt;
-        }
-      },
-
-      saveHero() {
-        localStorage.setItem(Config.STORAGE_KEY_HERO, JSON.stringify({
-          hero: State.hero,
-          version: State.version,
-          schemaVersion: State.schemaVersion,
-          updatedAt: State.updatedAt
-        }));
       }
     };
 
@@ -1034,15 +786,12 @@
           });
 
           if (result.status === 'ok') {
-            State.hero = { ...State.hero, ...result.hero };
             State.version = result.version;
             State.updatedAt = result.updatedAt;
-            Storage.saveHero();
             Connection.setStatus(true);
-            UI.update();
-            Moves.render();
+            Hero.render(result.hero);
             UI.updateLastSync();
-            Party.load();
+            Party.load({ State, API });
             Toast.success('Загружено с сервера');
             return true;
           } else {
@@ -1066,24 +815,21 @@
           const result = await this.request('/api/heroes/save', {
             code: State.settings.heroCode,
             version: State.version,
-            hero: State.hero
+            hero: Hero.getData()
           });
 
           if (result.status === 'ok') {
             State.version = result.version;
             State.updatedAt = result.updatedAt;
-            Storage.saveHero();
             Connection.setStatus(true);
+            Hero.render(result.hero);
             UI.updateLastSync();
           } else if (result.status === 'conflict') {
             // Server has newer data
-            State.hero = { ...State.hero, ...result.hero };
             State.version = result.version;
             State.updatedAt = result.updatedAt;
-            Storage.saveHero();
             Connection.setStatus(true);
-            UI.update();
-            Moves.render();
+            Hero.render(result.hero);
             UI.updateLastSync();
             Toast.info('Данные обновлены с сервера');
           } else {
@@ -1092,14 +838,10 @@
           }
         } catch (err) {
           Connection.setStatus(false);
-          // Still save locally
-          Storage.saveHero();
         }
       },
 
       saveDebounced() {
-        Storage.saveHero();
-
         if (!State.settings.serverUrl || !State.settings.heroCode) return;
 
         if (State.syncTimeout) clearTimeout(State.syncTimeout);
@@ -1128,264 +870,9 @@
     };
 
     // ============================================================
-    // DICE MODULE
-    // ============================================================
-    const Dice = {
-      rollLocal(dice) {
-        const match = dice.match(/(\d*)d(\d+)/);
-        const count = parseInt(match[1]) || 1;
-        const sides = parseInt(match[2]);
-        const rolls = [];
-
-        for (let i = 0; i < count; i++) {
-          rolls.push(Math.floor(Math.random() * sides) + 1);
-        }
-
-        return { rolls, total: rolls.reduce((a, b) => a + b, 0) };
-      },
-
-      formatResult(dice, rolls, total) {
-        if (rolls.length === 1) {
-          return `${dice}: ${total}`;
-        }
-        return `${dice}: ${rolls.join(' + ')} = ${total}`;
-      },
-
-      async execute(dice) {
-        const now = Date.now();
-        if (now - State.lastRollTime < Config.COOLDOWN_MS) return;
-
-        State.lastRollTime = now;
-        this.startCooldown();
-
-        document.querySelectorAll('.dice-btn').forEach(btn => btn.disabled = true);
-
-        const resultEl = document.getElementById('diceResult');
-        resultEl.className = 'dice-result';
-        resultEl.innerHTML = '<div class="result-value">...</div><div class="result-breakdown">' + dice + '</div>';
-
-        let rolls = [];
-        let total = 0;
-        let isOffline = false;
-
-        // Try server first
-        const serverResult = await API.roll(dice);
-
-        if (serverResult) {
-          rolls = serverResult.rolls;
-          total = serverResult.total;
-        } else {
-          // Local fallback
-          const localResult = this.rollLocal(dice);
-          rolls = localResult.rolls;
-          total = localResult.total;
-          isOffline = true;
-        }
-
-        // Display
-        let className = '';
-        if (dice === '2d6') {
-          if (total >= 10) className = 'success';
-          else if (total >= 7) className = 'partial';
-          else className = 'fail';
-        }
-
-        const breakdown = this.formatResult(dice, rolls, total);
-
-        resultEl.className = 'dice-result ' + className;
-        resultEl.innerHTML = `
-            <div class="result-value">${total}</div>
-            <div class="result-breakdown">${breakdown}</div>
-            ${isOffline ? '<div class="result-offline">(offline)</div>' : ''}
-        `;
-
-        this.addToLog(breakdown, isOffline);
-      },
-
-      startCooldown() {
-        const fill = document.getElementById('cooldownFill');
-        fill.style.width = '100%';
-
-        let elapsed = 0;
-        const step = 100;
-
-        if (State.cooldownInterval) clearInterval(State.cooldownInterval);
-
-        State.cooldownInterval = setInterval(() => {
-          elapsed += step;
-          fill.style.width = (100 - (elapsed / Config.COOLDOWN_MS * 100)) + '%';
-
-          if (elapsed >= Config.COOLDOWN_MS) {
-            clearInterval(State.cooldownInterval);
-            fill.style.width = '0%';
-            document.querySelectorAll('.dice-btn').forEach(btn => btn.disabled = false);
-          }
-        }, step);
-      },
-
-      addToLog(text, isOffline) {
-        const log = document.getElementById('diceLog');
-        const time = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.innerHTML = `<span class="log-time">${time}</span><span class="log-result">${text}${isOffline ? ' (offline)' : ''}</span>`;
-
-        log.insertBefore(entry, log.firstChild);
-        log.scrollTop = 0;
-
-        while (log.children.length > 5) {
-          log.removeChild(log.lastChild);
-        }
-      }
-    };
-
-    // ============================================================
-    // MOVES MODULE
-    // ============================================================
-    const Moves = {
-      render() {
-        const list = document.getElementById('movesList');
-        list.innerHTML = '';
-
-        (State.hero.moves || []).forEach((move, index) => {
-          const item = document.createElement('div');
-          item.className = 'move-item';
-          item.innerHTML = `
-                <div class="move-header">
-                    <input type="text" value="${this.escape(move.name)}" placeholder="Название способности" data-move-index="${index}" data-move-field="name" maxlength="100">
-                    <button class="move-remove" data-move-index="${index}">✕</button>
-                </div>
-                <textarea placeholder="Описание..." data-move-index="${index}" data-move-field="desc" class="form-textarea" maxlength="600">${this.escape(move.desc)}</textarea>
-            `;
-          list.appendChild(item);
-        });
-
-        this.updateAddButton();
-      },
-
-      escape(text) {
-        const div = document.createElement('div');
-        div.textContent = text || '';
-        return div.innerHTML;
-      },
-
-      updateAddButton() {
-        document.getElementById('addMoveBtn').disabled = State.hero.moves.length >= Config.MAX_MOVES;
-      },
-
-      add() {
-        if (State.hero.moves.length >= Config.MAX_MOVES) return;
-        State.hero.moves.push({ name: '', desc: '' });
-        API.saveDebounced();
-        this.render();
-      },
-
-      remove(index) {
-        if (!confirm('Удалить способность?')) return;
-        State.hero.moves.splice(index, 1);
-        API.saveDebounced();
-        this.render();
-      },
-
-      update(index, field, value) {
-        State.hero.moves[index][field] = value;
-        API.saveDebounced();
-      }
-    };
-
-    // ============================================================
     // UI MODULE
     // ============================================================
     const UI = {
-      getModifier(value) {
-        if (value <= 3) return -3;
-        if (value <= 5) return -2;
-        if (value <= 8) return -1;
-        if (value <= 12) return 0;
-        if (value <= 15) return 1;
-        if (value <= 17) return 2;
-        return 3;
-      },
-
-      formatModifier(mod) {
-        if (mod == 0) return mod;
-
-        return mod >= 0 ? '+' + mod : '' + mod;
-      },
-
-      update() {
-        const h = State.hero;
-        const s = State.settings;
-
-        // Settings
-        document.getElementById('serverUrl').value = s.serverUrl;
-        document.getElementById('heroCode').value = s.heroCode;
-
-        // Basic
-        document.getElementById('name').value = h.name;
-        document.getElementById('charName').textContent = h.name || 'Безымянный';
-        document.getElementById('specialization').value = h.specialization || '';
-        document.getElementById('specializationName').textContent = h.specialization ? h.specialization.toUpperCase() : 'ГЕРОЙ';
-
-        // Optional fields - only update if they exist
-        const lookEl = document.getElementById('look');
-        if (lookEl) {
-          lookEl.value = h.look;
-          const lookCountEl = document.getElementById('lookCount');
-          if (lookCountEl) lookCountEl.textContent = (h.look || '').length;
-        }
-
-        const originEl = document.getElementById('origin');
-        if (originEl) {
-          originEl.value = h.origin;
-          const originCountEl = document.getElementById('originCount');
-          if (originCountEl) originCountEl.textContent = (h.origin || '').length;
-        }
-
-        // Combat
-        document.getElementById('level').value = h.level;
-        document.getElementById('xp').value = h.xp;
-        document.getElementById('xpNext').textContent = h.level + 7;
-        document.getElementById('hpCurrent').value = h.hpCurrent;
-
-        // Calculate max HP
-        const conMod = this.getModifier(h.stats.con);
-        document.getElementById('hpMax').textContent = h.hpMax;
-
-        document.getElementById('armor').value = h.armor;
-        document.getElementById('damage').value = h.damage;
-        document.getElementById('coins').value = h.coins;
-
-        // Stats + Debilities
-        Config.STATS.forEach(stat => {
-          document.getElementById('stat_' + stat).value = h.stats[stat];
-          document.getElementById('deb_' + stat).checked = !!h.debilities[stat];
-
-          const baseMod = this.getModifier(h.stats[stat]);
-          const finalMod = h.debilities[stat] ? baseMod - 1 : baseMod;
-          const modEl = document.getElementById('mod_' + stat);
-          modEl.textContent = this.formatModifier(finalMod);
-          modEl.className = h.debilities[stat] ? 'text-big modifier debilitated' : 'text-big modifier';
-          console.log(stat, h.debilities[stat]);
-          if (finalMod > 0) {
-            modEl.className += " text-green"
-          } else if (finalMod < 0) {
-            modEl.className += " text-red"
-          }
-        });
-
-        // Weapons & Equipment
-        document.getElementById('weapons').value = h.weapons;
-        document.querySelector('[data-field-count="weapons"]').textContent = (h.weapons || '').length;
-        document.getElementById('equipment').value = h.equipment;
-        document.querySelector('[data-field-count="equipment"]').textContent = (h.equipment || '').length;
-
-        // Bonds & Notes
-        document.getElementById('notes').value = h.notes;
-        document.querySelector('[data-field-count="notes"]').textContent = (h.notes || '').length;
-      },
-
       updateLastSync() {
         const el = document.getElementById('lastSync');
         if (State.updatedAt) {
@@ -1397,77 +884,6 @@
       },
 
       handleFieldChange(e) {
-        const field = e.target.dataset.field;
-        if (!field) return;
-
-        let value;
-        if (e.target.type === 'checkbox') {
-          value = e.target.checked;
-        } else if (e.target.type === 'number') {
-          value = parseInt(e.target.value) || 0;
-        } else {
-          value = e.target.value;
-        }
-
-        // Route to correct place
-        if (field.startsWith('stat_')) {
-          const stat = field.replace('stat_', '');
-          State.hero.stats[stat] = value;
-
-          // Update modifier display
-          const baseMod = this.getModifier(value);
-          const finalMod = State.hero.debilities[stat] ? baseMod - 1 : baseMod;
-          console.log(finalMod)
-          const modEl = document.getElementById('mod_' + stat);
-          modEl.textContent = this.formatModifier(finalMod);
-          if (finalMod > 0) {
-            modEl.className += " text-green"
-          } else if (finalMod < 0) {
-            modEl.className += " text-red"
-          }
-
-          // Update max HP if CON changed
-          if (stat === 'con') {
-            document.getElementById('hpMax').textContent = State.hero.hpMax;
-          }
-        } else if (field.startsWith('deb_')) {
-          const stat = field.replace('deb_', '');
-          State.hero.debilities[stat] = value;
-
-          const baseMod = this.getModifier(State.hero.stats[stat]);
-          const finalMod = value ? baseMod - 1 : baseMod;
-          const modEl = document.getElementById('mod_' + stat);
-          modEl.textContent = this.formatModifier(finalMod);
-          if (finalMod > 0) {
-            modEl.className += " text-green"
-          } else if (finalMod < 0) {
-            modEl.className += " text-red"
-          }
-        } else {
-          State.hero[field] = value;
-
-          // Update header name
-          if (field === 'name') {
-            document.getElementById('charName').textContent = value || 'Безымянный';
-          }
-
-          // Update header class
-          if (field === 'specialization') {
-            document.getElementById('specializationName').textContent = value ? value.toUpperCase() : 'ГЕРОЙ';
-          }
-
-          // Update XP next
-          if (field === 'level') {
-            document.getElementById('xpNext').textContent = value + 7;
-          }
-        }
-
-        // Update char count
-        const countEl = document.getElementById(field + 'Count');
-        if (countEl && typeof value === 'string') {
-          countEl.textContent = value.length;
-        }
-
         API.saveDebounced();
       },
 
@@ -1506,33 +922,14 @@
         });
 
         // Character fields
-        document.querySelectorAll('[data-field]').forEach(el => {
+        document.querySelectorAll('[data-sync-id]').forEach(el => {
           el.addEventListener('input', (e) => UI.handleFieldChange(e));
           el.addEventListener('change', (e) => UI.handleFieldChange(e));
         });
 
-        // Moves
-        document.getElementById('movesList').addEventListener('input', (e) => {
-          if (e.target.dataset.moveIndex !== undefined) {
-            Moves.update(
-              parseInt(e.target.dataset.moveIndex),
-              e.target.dataset.moveField,
-              e.target.value
-            );
-          }
-        });
-
-        document.getElementById('movesList').addEventListener('click', (e) => {
-          if (e.target.classList.contains('move-remove')) {
-            Moves.remove(parseInt(e.target.dataset.moveIndex));
-          }
-        });
-
-        document.getElementById('addMoveBtn').addEventListener('click', () => Moves.add());
-
         // Dice
         document.querySelectorAll('.dice-btn').forEach(btn => {
-          btn.addEventListener('click', () => Dice.execute(btn.dataset.dice));
+          btn.addEventListener('click', () => Dice.execute(btn.dataset.dice, { State, Config, API }));
         });
 
         // Dice panel toggle (mobile)
@@ -1568,153 +965,22 @@
           });
         });
 
-        // Theme select
-        document.getElementById('themeSelect').addEventListener('change', (e) => {
-          Theme.set(e.target.value);
-        });
-
         // Party refresh
-        document.getElementById('partyRefresh').addEventListener('click', () => Party.load());
+        document.getElementById('partyRefresh').addEventListener('click', () => Party.load({ State, API }));
       }
     };
 
-    // ============================================================
-    // THEME MODULE
-    // ============================================================
-    const Theme = {
-      STORAGE_KEY: 'dw_theme',
 
-      init() {
-        const saved = localStorage.getItem(this.STORAGE_KEY) || 'dark';
-        this.apply(saved);
-      },
-
-      set(theme) {
-        localStorage.setItem(this.STORAGE_KEY, theme);
-        this.apply(theme);
-      },
-
-      apply(theme) {
-        document.body.setAttribute('data-theme', theme);
-        const select = document.getElementById('themeSelect');
-        if (select) select.value = theme;
-      }
-    };
-
-    // ============================================================
-    // DATA IO MODULE
-    // ============================================================
-    const DataIO = {
-      export() {
-        const data = {
-          version: State.version,
-          exportedAt: new Date().toISOString(),
-          hero: State.hero
-        };
-
-        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${State.hero.name || 'hero'}_${new Date().toISOString().split('T')[0]}.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-
-        Toast.success('Данные экспортированы');
-      },
-
-      import(file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          try {
-            const data = JSON.parse(e.target.result);
-
-            if (!data.hero) {
-              Toast.error('Неверный формат файла');
-              return;
-            }
-
-            if (!confirm('Загрузить данные из файла? Текущие данные будут заменены.')) {
-              return;
-            }
-
-            State.hero = { ...State.hero, ...data.hero };
-            Storage.saveHero();
-            UI.update();
-            Moves.render();
-            Toast.success('Данные импортированы');
-          } catch (err) {
-            Toast.error('Ошибка чтения файла');
-          }
-        };
-        reader.readAsText(file);
-      }
-    };
-
-    // ============================================================
-    // PARTY MODULE
-    // ============================================================
-    const Party = {
-      async load() {
-        if (!State.settings.serverUrl || !State.settings.heroCode) return;
-
-        const btn = document.getElementById('partyRefresh');
-        btn.classList.add('loading');
-
-        try {
-          const result = await API.get('/api/party', {
-            code: State.settings.heroCode
-          });
-
-          if (result.status === 'ok' && result.party && result.party.length > 0) {
-            this.render(result.party);
-          }
-        } catch (err) {
-          console.log(err);
-        } finally {
-          btn.classList.remove('loading');
-        }
-      },
-
-      render(party) {
-        const list = document.getElementById('partyList');
-
-        list.innerHTML = party.map(member => `
-          <tr>
-            <td>${this.escape(member.name) || '???'}</td>
-            <td>${this.escape(member.race) || '???'}</td>
-            <td>${this.escape(member.specialization) || '—'}</td>
-            <td>${member.level || 0}</td>
-            <td>${member.hpCurrent || 0}/${member.hpMax || 0}</td>
-            <td>${this.escape(member.armor)}</td>
-            <td>${this.escape(member.damage) || '—'}</td>
-          </tr>
-        `).join('');
-      },
-
-      escape(text) {
-        if (!text) return '';
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-      }
-    };
-
-    // ============================================================
-    // INIT
-    // ============================================================
     async function init() {
-      Theme.init();
       Storage.loadSettings();
-      Storage.loadHero();
-      UI.update();
+
+      // Update settings UI
+      document.getElementById('serverUrl').value = State.settings.serverUrl || '';
+      document.getElementById('heroCode').value = State.settings.heroCode || '';
+
       UI.updateLastSync();
-      Moves.render();
       Events.setup();
 
-      // Auto-load from server if configured
       if (State.settings.serverUrl && State.settings.heroCode) {
         await API.load();
       } else {

@@ -12,11 +12,11 @@ module ApplicationHelper
     case value.to_i
     when ..3
       -3
-    when 4..5
+    when 4..6
       -2
-    when 6..8
+    when 7..9
       -1
-    when 9..12
+    when 10..12
       0
     when 13..15
       1

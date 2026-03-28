@@ -91,11 +91,9 @@ export default class extends Controller {
 
   collectHeroData() {
     const data = {
-      hero_data: {
-        stats: {},
-        debilities: {},
-        moves: []
-      }
+      stats: {},
+      debilities: {},
+      moves: []
     }
 
     // Collect all fields
@@ -120,15 +118,15 @@ export default class extends Controller {
         data.xp = value
       } else if (fieldName.startsWith('stat_')) {
         const stat = fieldName.replace('stat_', '')
-        data.hero_data.stats[stat] = value
+        data.stats[stat] = value
       } else if (fieldName.startsWith('deb_')) {
         const stat = fieldName.replace('deb_', '')
-        data.hero_data.debilities[stat] = value
+        data.debilities[stat] = value
       } else if (fieldName.startsWith('move_')) {
         // Handle moves separately - we'll collect them all at once
       } else {
         // hpCurrent, hpMax, armor, damage, equipment, condition, notes
-        data.hero_data[fieldName] = value
+        data[fieldName] = value
       }
     })
 
@@ -146,7 +144,7 @@ export default class extends Controller {
         })
       }
     })
-    data.hero_data.moves = moves
+    data.moves = moves
 
     return data
   }

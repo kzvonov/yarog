@@ -24,16 +24,15 @@ module Api
       # Get all heroes in the active game
       party = active_game.heroes.includes(:game_heroes).where.not(id: hero.id).order("game_heroes.game_index")
       party_data = party.map do |member|
-        hero_data = member.hero_data || {}
         {
           name: member.name,
-          specialization: I18n.t("hero.spec.#{member.specialization}", default: member.specialization.humanize),
+          klass: I18n.t("hero.klass.#{member.klass}", default: member.klass.humanize),
           race: "-", # TODO: implement
           level: member.level,
-          hpCurrent: hero_data["hpCurrent"] || 10,
-          hpMax: hero_data["hpMax"] || 10,
-          armor: hero_data["armor"] || 0,
-          damage: hero_data["damage"] || "d6"
+          hpCurrent: member.hp_current || 10,
+          hpMax: member.hp_max || 10,
+          armor: member.armor || 0,
+          damage: member.damage || "d6"
         }
       end
 

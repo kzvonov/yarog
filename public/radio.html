@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>YouTube Radio</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      padding: 24px;
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    button {
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+
+    .meta {
+      margin-top: 12px;
+      opacity: 0.85;
+    }
+
+    .playerWrap {
+      max-width: 720px;
+    }
+
+    #player {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+    }
+
+    input[type="range"] {
+      width: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>YouTube Radio</h1>
+
+  <div class="playerWrap">
+    <div id="player"></div>
+  </div>
+
+  <div class="row">
+    <button id="btnPrev">⏮ Prev</button>
+    <button id="btnPlay">▶ Play</button>
+    <button id="btnPause">⏸ Pause</button>
+    <button id="btnNext">⏭ Next</button>
+    <button id="btnShuffle">🔀 Shuffle</button>
+    <label style="display:flex;align-items:center;gap:8px;">
+      Volume
+      <input id="vol" type="range" min="0" max="100" value="70" />
+    </label>
+    <label style="display:flex;align-items:center;gap:8px;">
+      <input id="loop" type="checkbox" checked />
+      Loop playlist
+    </label>
+    <label style="display:flex;align-items:center;gap:8px;">
+      <input id="auto" type="checkbox" checked />
+      Auto next
+    </label>
+  </div>
+
+  <div class="meta" id="nowPlaying">Loading…</div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    // ✅ Put your YouTube video IDs here
+    // https://youtu.be/U6eDlqtkDHI?si=D0UImydFqyb9RX3U
+    const PLAYLIST = [
+      "U6eDlqtkDHI",
+      "UXCxnelWrkA",
+      "CQWgIHIz_CU",
+      "sGkh1W5cbH4",
+      "76jVr9QVBtQ",
+      "u_A4kLr87RA",
+      "xYgEUFFHHG8"
+    ];
+
+    let player;
+    let index = 0;
+
+    function nowPlayingText() {
+      const id = PLAYLIST[index];
+      // title is only available after playback starts; so show index + id reliably
+      document.getElementById("nowPlaying").textContent =
+        `Now playing: #${index + 1}/${PLAYLIST.length} (videoId: ${id})`;
+    }
+
+    function loadCurrent({ autoplay = true } = {}) {
+      const videoId = PLAYLIST[index];
+      nowPlayingText();
+      if (!player) return;
+
+      // loadVideoById = autoplay; cueVideoById = load without autoplay
+      if (autoplay) player.loadVideoById(videoId);
+      else player.cueVideoById(videoId);
+    }
+
+    function next() {
+      if (PLAYLIST.length === 0) return;
+      index += 1;
+      if (index >= PLAYLIST.length) {
+        const loop = document.getElementById("loop").checked;
+        if (!loop) { index = PLAYLIST.length - 1; return; }
+        index = 0;
+      }
+      loadCurrent({ autoplay: true });
+    }
+
+    function prev() {
+      if (PLAYLIST.length === 0) return;
+      index -= 1;
+      if (index < 0) {
+        const loop = document.getElementById("loop").checked;
+        if (!loop) { index = 0; return; }
+        index = PLAYLIST.length - 1;
+      }
+      loadCurrent({ autoplay: true });
+    }
+
+    function shuffle() {
+      if (PLAYLIST.length <= 1) return;
+      // Keep current playing, shuffle the rest
+      const current = PLAYLIST[index];
+      const rest = PLAYLIST.filter((_, i) => i !== index);
+
+      for (let i = rest.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [rest[i], rest[j]] = [rest[j], rest[i]];
+      }
+
+      // rebuild playlist with current first
+      PLAYLIST.splice(0, PLAYLIST.length, current, ...rest);
+      index = 0;
+      nowPlayingText();
+    }
+
+    // Called by the YouTube API script
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player("player", {
+        videoId: PLAYLIST[index],
+        playerVars: {
+          // "radio-like" defaults
+          autoplay: 1,
+          controls: 1,
+          rel: 0
+        },
+        events: {
+          onReady: () => {
+            // initial volume
+            player.setVolume(Number(document.getElementById("vol").value));
+            nowPlayingText();
+          },
+          onStateChange: (e) => {
+            // When a video ends, auto-advance
+            if (e.data === YT.PlayerState.ENDED) {
+              const auto = document.getElementById("auto").checked;
+              if (auto) next();
+            }
+          }
+        }
+      });
+    }
+
+    // Wire UI
+    document.getElementById("btnPlay").addEventListener("click", () => player?.playVideo());
+    document.getElementById("btnPause").addEventListener("click", () => player?.pauseVideo());
+    document.getElementById("btnNext").addEventListener("click", next);
+    document.getElementById("btnPrev").addEventListener("click", prev);
+    document.getElementById("btnShuffle").addEventListener("click", shuffle);
+
+    document.getElementById("vol").addEventListener("input", (e) => {
+      const v = Number(e.target.value);
+      player?.setVolume(v);
+    });
+  </script>
+</body>
+
+</html>

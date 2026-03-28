@@ -38,11 +38,11 @@ module Dw
       # Create and save Hero (code will be auto-generated if nil)
       hero = Hero.new(
         code: code,
-        specialization: "bard",
+        klass: :bard,
         name: name,
         level: 1,
         xp: 0,
-        data: hero_data.to_json,
+        data: hero_data,
         version: 0
       )
 
@@ -133,19 +133,23 @@ module Dw
 
     def build_hero_data(name)
       {
-        specialization: "bard",
-        name: name,
-        look: format_look,
-        origin: "",
-        level: 1,
-        xp: 0,
-        hpCurrent: @character_data[:current_hp],
-        hpMax: @character_data[:max_hp],
+        hp_current: @character_data[:current_hp],
+        hp_max: @character_data[:max_hp],
         armor: @character_data[:armor],
         damage: @character_data[:damage_die],
-        stats: convert_stats_to_symbols,
-        debilities: { str: false, dex: false, con: false, int: false, wis: false, cha: false },
-        condition: "",
+        stat_str: convert_stats_to_symbols[:str],
+        stat_dex: convert_stats_to_symbols[:dex],
+        stat_con: convert_stats_to_symbols[:con],
+        stat_int: convert_stats_to_symbols[:int],
+        stat_wis: convert_stats_to_symbols[:wis],
+        stat_cha: convert_stats_to_symbols[:cha],
+        deb_str: false,
+        deb_dex: false,
+        deb_con: false,
+        deb_int: false,
+        deb_wis: false,
+        deb_cha: false,
+        look: format_look,
         moves: format_moves_for_hero,
         equipment: format_equipment,
         notes: format_notes
@@ -418,7 +422,7 @@ module Dw
       available_bonds = @class_data["bonds"]["options"]
 
       # Default to first 3 bonds if none specified
-      bond_choices = [0, 1, 2] if bond_choices.empty?
+      bond_choices = [ 0, 1, 2 ] if bond_choices.empty?
 
       bond_choices.each do |idx|
         @character_data[:bonds] << available_bonds[idx] if available_bonds[idx]

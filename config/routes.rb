@@ -21,7 +21,11 @@ Rails.application.routes.draw do
   namespace :master do
     root to: "heroes#index"
 
-    resources :heroes, only: [ :index, :show, :update ]
+    resources :heroes, only: [ :index, :show, :update, :destroy ] do
+      member do
+        post :duplicate
+      end
+    end
     resources :hero_templates
 
     resources :games do

@@ -21,7 +21,7 @@ class CreateHeroesAndLogs < ActiveRecord::Migration[7.1]
     end
 
     add_index :logs, :hero_id
-    add_index :logs, [:hero_id, :created_at]
+    add_index :logs, [ :hero_id, :created_at ]
     add_index :logs, :log_type
   end
 end

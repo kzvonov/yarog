@@ -2,23 +2,13 @@ module Api
   class HeroesController < ApplicationController
     skip_before_action :verify_authenticity_token
 
-    # POST /api/heroes/load
     def load
-      code = params[:code]
-
-      hero = Hero.find_by(code: code)
-
+      hero = Hero.find_by(code: params[:code])
       if hero
         render json: {
           status: "ok",
           version: hero.version,
-          hero: {
-            **hero.hero_data,
-            name: hero.name,
-            level: hero.level,
-            specialization: I18n.t("hero.spec.#{hero.specialization}", default: hero.specialization.humanize),
-            xp: hero.xp
-          },
+          hero: Dw::Hero::Serializer.new.call(hero),
           updatedAt: hero.updated_at.iso8601
         }
       else
@@ -29,14 +19,8 @@ module Api
       end
     end
 
-    # POST /api/heroes/save
     def save
-      code = params[:code].to_s
-      client_version = params[:version].to_i
-      hero_data = hero_params.to_h.except("name", "specialization")
-
-      hero = Hero.find_by(code: code)
-
+      hero = Hero.find_by(code: params[:code].to_s)
       if hero.nil?
         return render json: {
           status: "error",
@@ -44,30 +28,23 @@ module Api
         }, status: :not_found
       end
 
+      client_version = params[:version].to_i
       if client_version != hero.version
         return render json: {
           status: "conflict",
           version: hero.version,
-          hero: hero.hero_data,
+          hero: Dw::Hero::Serializer.new.call(hero),
           updatedAt: hero.updated_at.iso8601
         }, status: :conflict
       end
 
-      diff = hero.calculate_diff(hero_data)
-      if diff.present?
-        log = ApplicationRecord.transaction do
-          hero.update_hero_data!(hero_data)
-          hero.logs.create!(
-            log_type: "hero_change",
-            data: diff.to_json
-          )
-        end
-        broadcast_hero_update(hero, log)
-      end
+      hero, log = Dw::Hero::Saver.new.call(hero, hero_params)
+      broadcast_hero_update(hero, log) if log
 
       render json: {
         status: "ok",
         version: hero.version,
+        hero: Dw::Hero::Serializer.new.call(hero),
         updatedAt: hero.updated_at.iso8601
       }
     rescue => e
@@ -83,12 +60,7 @@ module Api
     private
 
     def broadcast_hero_update(hero, log)
-      # Reload hero to ensure fresh data
-      hero.reload
-
-      # Broadcast to game-specific channels
       hero.games.each do |game|
-        # Replace entire hero card to update stats and logs
         Turbo::StreamsChannel.broadcast_replace_to(
           "game_#{game.id}",
           target: "hero_card_#{hero.id}",
@@ -99,25 +71,7 @@ module Api
     end
 
     def hero_params
-      params.require(:hero).permit(
-        :specialization,
-        :name,
-        :look,
-        :origin,
-        :level,
-        :xp,
-        :hpCurrent,
-        :hpMax,
-        :armor,
-        :damage,
-        :condition,
-        :weapons,
-        :equipment,
-        :notes,
-        stats: [ :str, :dex, :con, :int, :wis, :cha ],
-        debilities: [ :str, :dex, :con, :int, :wis, :cha ],
-        moves: [ :name, :desc ]
-      )
+      params.require(:hero).permit(*Dw::Hero::Saver::INPUT)
     end
   end
 end

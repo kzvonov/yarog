@@ -1,23 +1,21 @@
 <%
-  hero_data = hero.hero_data
-  stats = hero_data['stats'] || {}
-  debilities = hero_data['debilities'] || {}
+  # Using store accessors directly now
 %>
 
 <div id="hero_card_<%= hero.id %>" class="hero-card" data-controller="collapsible">
   <div class="hero-card-header">
     <h2><%= link_to hero.name, master_hero_path(hero) %></h3>
     <div class="basics text-muted copy-handler" data-copy-value="<%= hero.code %>">
-      Spec <span class="text-primary"><%= hero.specialization.titleize %></span> • Lvl <span class="text-primary"><%= hero.level %></span> • Code <span class="text-primary"><%= hero.code %></span>
+      Spec <span class="text-primary"><%= I18n.t("hero.klass.#{hero.klass}", default: hero.klass.humanize) %></span> • Lvl <span class="text-primary"><%= hero.level %></span> • Code <span class="text-primary"><%= hero.code %></span>
     </div>
   </div>
 
   <!-- Main Content -->
   <div class="hero-card-content">
     <div class="hero-card-stats text-muted">
-      <div class="stat">HP: <span class="stat-value text-red"><%= hero_data['hpCurrent'] %>/<%= hero_data['hpMax'] %></span></div>
-      <div class="stat">ARM: <span class="stat-value text-primary"><%= hero_data['armor'] %></span></div>
-      <div class="stat">DMG: <span class="stat-value text-primary"><%= hero_data['damage'] %></span></div>
+      <div class="stat">HP: <span class="stat-value text-red"><%= hero.hp_current %>/<%= hero.hp_max %></span></div>
+      <div class="stat">ARM: <span class="stat-value text-primary"><%= hero.armor %></span></div>
+      <div class="stat">DMG: <span class="stat-value text-primary"><%= hero.damage %></span></div>
       <div class="stat">XP: <span class="stat-value text-primary"><%= hero.xp %>/<%= hero.level + 7 %></span></div>
     </div>
 
@@ -28,8 +26,11 @@
             <tr>
               <td><%= stat.upcase %></td>
               <td>
-                <%= stats[stat].to_i %> (<%= stat_modifier(stats[stat], debility: debilities[stat].to_s == "true") %>)
-                <%= debilities[stat].to_s == "true" ? "⚠️" : "" %>
+                <% stat_value = hero.send("stat_#{stat}") || 10 %>
+                <% has_debility = hero.send("deb_#{stat}") || false %>
+                <% modifier = hero.send("dice_mod_#{stat}") %>
+                <%= stat_value %> (<%= modifier.zero? ? '0' : (modifier.positive? ? "+#{modifier}" : modifier.to_s) %>)
+                <%= has_debility ? "⚠️" : "" %>
               </td>
             </tr>
           <% end %>
@@ -41,8 +42,11 @@
             <tr>
               <td><%= stat.upcase %></td>
               <td>
-                <%= stats[stat].to_i %> (<%= stat_modifier(stats[stat], debility: debilities[stat].to_s == "true") %>)
-                <%= debilities[stat].to_s == "true" ? "⚠️" : "" %>
+                <% stat_value = hero.send("stat_#{stat}") || 10 %>
+                <% has_debility = hero.send("deb_#{stat}") || false %>
+                <% modifier = hero.send("dice_mod_#{stat}") %>
+                <%= stat_value %> (<%= modifier.zero? ? '0' : (modifier.positive? ? "+#{modifier}" : modifier.to_s) %>)
+                <%= has_debility ? "⚠️" : "" %>
               </td>
             </tr>
           <% end %>
@@ -55,15 +59,25 @@
       <button type="button" class="collapsible-header-large"
               data-action="click->collapsible#toggle"
               data-collapsible-section="abil-<%= hero.id %>">
-        <span>▶ Abilities</span>
+        <span>▶ Abilities (<%= (hero.moves || []).size %>)</span>
       </button>
       <div class="collapsible-content-large hidden" data-collapsible-target="content" data-section="abil-<%= hero.id %>">
         <div class="abilities-large">
-          <% (hero_data['moves'] || []).each do |move| %>
-            <div class="ability-large">
-              <div class="ability-large-name"><%= move['name'].strip %></div>
-              <div class="ability-large-desc"><%= move['desc'].strip %></div>
-            </div>
+          <% moves = hero.moves || [] %>
+          <% if moves.empty? %>
+            <div class="text-muted">No abilities yet</div>
+          <% else %>
+            <% moves.each do |move| %>
+              <%
+                # Handle both string and symbol keys
+                name = move.is_a?(Hash) ? (move['name'] || move[:name] || '') : ''
+                desc = move.is_a?(Hash) ? (move['desc'] || move[:desc] || '') : ''
+              %>
+              <div class="ability-large">
+                <div class="ability-large-name"><%= name.to_s.strip %></div>
+                <div class="ability-large-desc"><%= desc.to_s.strip %></div>
+              </div>
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -77,8 +91,8 @@
         <span>▶ Equipment</span>
       </button>
       <div class="collapsible-content-large hidden" data-collapsible-target="content" data-section="equip-<%= hero.id %>">
-        <div class="equipment-large"><%= hero_data['weapons'].present? ? hero_data['weapons'].to_s.strip : 'No weapons' %></div>
-        <div class="equipment-large"><%= hero_data['equipment'].present? ? hero_data['equipment'].to_s.strip : 'No equipment' %></div>
+        <div class="equipment-large"><%= hero.weapons.present? ? hero.weapons.to_s.strip : 'No weapons' %></div>
+        <div class="equipment-large"><%= hero.equipment.present? ? hero.equipment.to_s.strip : 'No equipment' %></div>
       </div>
     </div>
   </div>

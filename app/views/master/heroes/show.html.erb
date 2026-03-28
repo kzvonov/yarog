@@ -1,14 +1,13 @@
 <%
-  hero_data = @hero.hero_data || {}
-  stats = hero_data['stats'] || {}
-  debilities = hero_data['debilities'] || {}
-  moves = hero_data['moves'] || []
+  # Now using store accessors directly
+  moves = @hero.moves || []
 %>
 
+<link rel="stylesheet" href="/ui.css" />
+
 <style>
-  /* Hero Editor Styles */
   .hero-editor-container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 15px;
   }
@@ -43,50 +42,28 @@
     color: var(--text-secondary);
   }
 
-  /* Field Row Layout */
-  .field-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 8px;
+  .hero-header-title {
+    text-align: center;
+    margin-bottom: 15px;
   }
 
-  .field-row .field {
-    flex: 1;
+  .hero-header-title h1 {
+    font-size: 1.8rem;
+    margin: 0;
   }
 
-  .field {
-    margin-bottom: 8px;
-  }
-
-  .field label {
-    display: block;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    margin-bottom: 4px;
-    font-weight: 600;
-  }
-
-  .field input[type="text"],
-  .field input[type="number"],
-  .field textarea {
-    width: 100%;
-    padding: 6px 8px;
-    background: var(--input-bg);
-    border: 1px solid var(--border-dark);
-    color: var(--text-primary);
-    font-family: inherit;
+  .hero-header-title .class-name {
     font-size: 0.95rem;
+    color: var(--accent-blood-light);
+    letter-spacing: 0.3em;
+    margin-top: 5px;
+    text-transform: uppercase;
   }
 
-  .field input:focus,
-  .field textarea:focus {
-    outline: none;
-    border-color: var(--accent-blood);
-  }
-
-  .field textarea {
-    resize: vertical;
-    min-height: 70px;
+  .grid-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
 
   .char-count {
@@ -96,169 +73,57 @@
     margin-top: 2px;
   }
 
-  /* Combat Stats Row */
-  .combat-stats-row {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
-    margin-bottom: 8px;
-  }
-
-  .combat-stat-box {
-    background: var(--input-bg);
-    border: 1px solid var(--border-dark);
-    padding: 6px 4px;
-    text-align: center;
-  }
-
-  .combat-stat-box label {
-    display: block;
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    margin-bottom: 4px;
-    font-weight: 600;
-  }
-
-  .combat-stat-box input {
-    width: 100%;
-    padding: 4px;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--border-dark);
-    color: var(--text-heading);
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-align: center;
-  }
-
-  .combat-stat-box input:focus {
-    outline: none;
-    border-bottom-color: var(--accent-blood);
-  }
-
-  /* Stats + Abilities Grid */
-  .stats-abilities-grid {
-    display: grid;
-    grid-template-columns: 45% 55%;
-    gap: 12px;
-  }
-
-  /* Stats Table */
-  .stats-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .stats-table thead th {
-    background: var(--bg-dark);
-    color: var(--text-secondary);
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    padding: 6px 4px;
-    border: 1px solid var(--border-dark);
-    text-align: center;
-    font-weight: 600;
-  }
-
-  .stats-table tbody td {
-    padding: 6px 4px;
-    border: 1px solid var(--border-dark);
-    text-align: center;
-  }
-
-  .stats-table .stat-name {
-    font-weight: 600;
-    color: var(--text-primary);
-    text-align: left;
-    padding-left: 10px;
-  }
-
-  .stats-table input[type="number"] {
-    width: 60px;
-    padding: 5px;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--border-dark);
-    color: var(--text-heading);
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-align: center;
-  }
-
-  .stats-table input[type="number"]:focus {
-    outline: none;
-    border-bottom-color: var(--accent-blood);
-  }
-
-  .stats-table .modifier {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--accent-gold);
-  }
-
-  .stats-table input[type="checkbox"] {
-    width: auto;
-    cursor: pointer;
-  }
-
-  /* Abilities Column */
-  .abilities-column h3 {
-    font-size: 0.9rem;
-    color: var(--accent-blood-light);
-    margin-bottom: 8px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid var(--border-dark);
-  }
-
-  .abilities-list {
-    max-height: 280px;
-    overflow-y: auto;
-    margin-bottom: 8px;
-  }
-
   .move-item {
+    padding: 8px;
     background: var(--input-bg);
     border: 1px solid var(--border-dark);
     border-left: 3px solid var(--accent-blood);
-    padding: 6px 8px;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    cursor: move;
+    transition: opacity 0.2s;
+  }
+
+  .move-item.dragging {
+    opacity: 0.5;
+  }
+
+  .move-item.drag-over {
+    border-top: 2px solid var(--accent-blood);
   }
 
   .move-item-header {
     display: flex;
-    gap: 8px;
-    margin-bottom: 4px;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 6px;
   }
 
-  .move-item-header input {
+  .move-drag-handle {
+    cursor: grab;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    user-select: none;
+  }
+
+  .move-drag-handle:active {
+    cursor: grabbing;
+  }
+
+  .move-item input[type="text"] {
     flex: 1;
-    padding: 4px;
+    padding: 4px 6px;
     background: transparent;
     border: none;
     border-bottom: 1px solid var(--border-dark);
     color: var(--text-heading);
-    font-weight: 600;
+    font-family: inherit;
     font-size: 0.9rem;
+    font-weight: 600;
   }
 
-  .move-item-header input:focus {
+  .move-item input[type="text"]:focus {
     outline: none;
     border-bottom-color: var(--accent-blood);
-  }
-
-  .move-remove-btn {
-    padding: 2px 6px;
-    background: var(--button-bg);
-    border: 1px solid var(--border-dark);
-    color: var(--text-secondary);
-    cursor: pointer;
-    font-size: 0.85rem;
-  }
-
-  .move-remove-btn:hover {
-    background: var(--accent-blood);
-    color: var(--text-primary);
   }
 
   .move-item textarea {
@@ -269,8 +134,8 @@
     color: var(--text-primary);
     font-family: inherit;
     font-size: 0.85rem;
-    min-height: 50px;
     resize: vertical;
+    min-height: 50px;
   }
 
   .move-item textarea:focus {
@@ -278,49 +143,39 @@
     border-color: var(--accent-blood);
   }
 
+  .move-remove-btn {
+    padding: 2px 8px;
+    background: var(--bg-dark);
+    border: 1px solid var(--border-dark);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .move-remove-btn:hover {
+    background: var(--accent-blood);
+    color: var(--text-heading);
+  }
+
   .add-ability-btn {
     width: 100%;
-    padding: 6px;
-    background: var(--button-bg);
-    border: 1px solid var(--border-dark);
-    color: var(--text-primary);
+    padding: 8px;
+    background: var(--input-bg);
+    border: 1px dashed var(--border-dark);
+    color: var(--text-secondary);
     cursor: pointer;
     font-family: inherit;
-    font-size: 0.85rem;
-    transition: all 0.2s;
+    font-size: 0.9rem;
   }
 
   .add-ability-btn:hover {
-    background: var(--accent-blood);
     border-color: var(--accent-blood);
+    color: var(--accent-blood-light);
   }
 
-  /* Two Column Grid for Text Fields */
-  .two-col-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  /* Responsive */
   @media (max-width: 768px) {
-    .combat-stats-row {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .stats-abilities-grid,
-    .two-col-grid {
+    .grid-main {
       grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .combat-stats-row {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .field-row {
-      flex-direction: column;
     }
   }
 </style>
@@ -328,102 +183,174 @@
 <div class="hero-editor-container">
   <%= link_to "← Back to Heroes", master_heroes_path, class: "hero-back-link" %>
 
-  <%= form_with model: @hero, url: master_hero_path(@hero), method: :patch, local: true do |f| %>
-    <div class="hero-save-bar">
-      <div class="hero-meta-info">
-        <%= @hero.specialization.titleize %> • Code: <span style="color: var(--accent-gold);"><%= @hero.code %></span>
-        <% if @games.any? %>
-          • Games: <%= @games.map(&:name).join(", ") %>
-        <% end %>
-      </div>
-      <%= f.submit "Save Changes", class: "btn" %>
+  <div class="hero-save-bar">
+    <div class="hero-meta-info">
+      Code: <span style="color: var(--accent-gold);"><%= @hero.code %></span>
+      <% if @games.any? %>
+        • Games: <%= @games.map(&:name).join(", ") %>
+      <% end %>
+      • Version: <%= @hero.version %>
     </div>
+    <div style="display: flex; gap: 8px;">
+      <button type="submit" form="hero-form" class="btn">Save</button>
+      <%= button_to "Duplicate", duplicate_master_hero_path(@hero), method: :post, class: "btn secondary", data: { turbo_confirm: "Create a copy of this hero?" } %>
+      <%= button_to "Delete", master_hero_path(@hero), method: :delete, class: "btn", style: "background: var(--accent-blood);", data: { turbo_confirm: "Are you sure you want to delete '#{@hero.name}'? This action cannot be undone!" } %>
+    </div>
+  </div>
 
-    <!-- Basic Info -->
-    <div class="card">
-      <div class="field-row">
-        <div class="field">
-          <label>Имя</label>
-          <%= f.text_field :name, value: @hero.name, maxlength: 100, placeholder: "Hero name" %>
-        </div>
-        <div class="field">
-          <label>Класс</label>
-          <input type="text" value="<%= @hero.specialization.titleize %>" disabled style="background: var(--bg-dark); color: var(--text-secondary);">
-        </div>
-      </div>
+  <%= form_with model: @hero, url: master_hero_path(@hero), method: :patch, id: "hero-form" do |f| %>
 
-      <!-- Combat Stats -->
-      <div class="combat-stats-row">
-        <div class="combat-stat-box">
-          <label>Уровень ⭐</label>
-          <%= f.number_field :level, value: @hero.level, min: 1, max: 10 %>
-        </div>
-        <div class="combat-stat-box">
-          <label>Опыт ✨</label>
-          <%= f.number_field :xp, value: @hero.xp, min: 0 %>
-        </div>
-        <div class="combat-stat-box">
-          <label>HP ❤️</label>
-          <%= f.number_field :hpCurrent, value: hero_data['hpCurrent'] || 10, min: 0 %>
-          <div style="font-size: 0.65rem; color: var(--text-secondary); margin-top: 2px;">
-            / <%= hero_data['hpMax'] || 10 %>
-          </div>
-        </div>
-        <div class="combat-stat-box">
-          <label>Max HP</label>
-          <%= f.number_field :hpMax, value: hero_data['hpMax'] || 10, min: 1 %>
-        </div>
-        <div class="combat-stat-box">
-          <label>Броня 🛡️</label>
-          <%= f.number_field :armor, value: hero_data['armor'] || 0, min: 0 %>
-        </div>
-        <div class="combat-stat-box">
-          <label>Урон ⚔️</label>
-          <%= f.text_field :damage, value: hero_data['damage'] || 'd10', placeholder: "d10" %>
-        </div>
-        <div class="combat-stat-box">
-          <label>Монеты 🪙</label>
-          <%= f.number_field :coins, value: hero_data['coins'] || 0, min: 0 %>
-        </div>
+    <div class="hero-header-title">
+      <h1><%= @hero.name %></h1>
+      <div class="class-name">
+        <%= I18n.t("hero.origin.#{@hero.origin}", default: @hero.origin.humanize) %> | <%= I18n.t("hero.klass.#{@hero.klass}", default: @hero.klass.humanize) %>
       </div>
     </div>
 
-    <!-- Stats + Abilities -->
-    <div class="card">
-      <div class="stats-abilities-grid">
-        <!-- Stats Table -->
-        <div class="stats-column">
-          <h3 style="font-size: 0.9rem; color: var(--accent-blood-light); margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid var(--border-dark);">Характеристики</h3>
-          <table class="stats-table">
+    <div class="grid-main">
+      <!-- Left Column -->
+      <div>
+        <!-- Name & Origin -->
+        <div class="card" style="display: flex; gap: 10px;">
+          <%= f.text_field :name, value: @hero.name, placeholder: "Hero name", maxlength: 100, style: "flex: 2; padding: 8px; background: var(--input-bg); border: 1px solid var(--border-dark); color: var(--text-primary); font-size: 1rem;" %>
+          <%= f.select :origin, Hero.origins.keys.map { |origin| [I18n.t("hero.origin.#{origin}", default: origin.humanize), origin] }, {}, style: "flex: 1; padding: 8px; background: var(--input-bg); border: 1px solid var(--border-dark); color: var(--text-primary); font-size: 1rem;" %>
+        </div>
+
+        <!-- Base Stats -->
+        <div class="card">
+          <table class="base-stats">
+            <thead>
+              <tr>
+                <th>Уровень</th>
+                <th>Опыт ✨</th>
+                <th>Здоровье ❤️</th>
+                <th>Броня 🛡️</th>
+                <th>Урон ⚔️</th>
+                <th>Монеты 🪙</th>
+              </tr>
+            </thead>
             <tbody>
-              <% %w[str dex con int wis cha].each do |stat| %>
-                <% icons = { 'str' => '💪', 'dex' => '🎯', 'con' => '💚', 'int' => '🧠', 'wis' => '🦉', 'cha' => '💬' } %>
-                <tr>
-                  <td class="stat-name"><%= stat.upcase %> <%= icons[stat] %></td>
-                  <td>
-                    <%= f.number_field "stats[#{stat}]", name: "hero[stats][#{stat}]", value: stats[stat] || 10, min: 1, max: 20, class: "stat-input", data: { stat: stat } %>
-                  </td>
-                  <td><%= stat_modifier(stats[stat]) %></td>
-                  <td>
-                    <%= f.select "debilities_#{stat}", [["ok", false], ["-1", true]], { selected: hero_data["debilities"][stat] }, name: "hero[debilities][#{stat}]", include_blank: false %>
-                  </td>
-                </tr>
-              <% end %>
+              <tr>
+                <td class="no-padding">
+                  <%= f.number_field :level, value: @hero.level, min: 1, max: 10, class: "param" %>
+                </td>
+                <td class="no-padding">
+                  <%= f.number_field :xp, value: @hero.xp, min: 0, class: "param" %>
+                </td>
+                <td class="no-padding">
+                  <%= f.number_field :hp_current, value: @hero.hp_current || 10, min: 0, class: "param" %>
+                </td>
+                <td class="no-padding">
+                  <%= f.number_field :armor, value: @hero.armor || 0, min: -5, max: 10, class: "param" %>
+                </td>
+                <td class="no-padding">
+                  <%= f.text_field :damage, value: @hero.damage || 'd6', class: "param" %>
+                </td>
+                <td class="no-padding">
+                  <%= f.number_field :coins, value: @hero.coins || 0, min: 0, class: "param" %>
+                </td>
+              </tr>
+              <tr>
+                <td>-</td>
+                <td>/<%= @hero.level + 7 %></td>
+                <td>/<%= @hero.hp_max || 10 %></td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
             </tbody>
           </table>
         </div>
 
-        <!-- Abilities -->
-        <div class="abilities-column">
-          <h3>Способности</h3>
-          <div class="abilities-list" id="abilitiesList">
+        <!-- Stats -->
+        <div class="card">
+          <table class="stats">
+            <thead>
+              <tr>
+                <th>СИЛ</th>
+                <th>ЛОВ</th>
+                <th>ТЕЛ</th>
+                <th>ИНТ</th>
+                <th>МДР</th>
+                <th>ХАР</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <% %w[str dex con int wis cha].each do |stat| %>
+                  <td class="no-padding">
+                    <%= f.number_field "stat_#{stat}", value: @hero.send("stat_#{stat}") || 10, min: 1, max: 18, class: "param" %>
+                  </td>
+                <% end %>
+              </tr>
+              <tr>
+                <% %w[str dex con int wis cha].each do |stat| %>
+                  <% modifier = @hero.send("dice_mod_#{stat}") %>
+                  <td class="text-center text-big">
+                    <%= modifier.zero? ? '0' : (modifier.positive? ? "+#{modifier}" : modifier.to_s) %>
+                  </td>
+                <% end %>
+              </tr>
+              <tr>
+                <% %w[str dex con int wis cha].each do |stat| %>
+                  <td class="text-center">
+                    <label class="checkbox-custom">
+                      <%= f.check_box "deb_#{stat}", {}, true, false %>
+                      <span class="checkbox-box"></span>
+                      <span class="small">-1</span>
+                    </label>
+                  </td>
+                <% end %>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Tabs: Weapons, Equipment, Notes -->
+        <div class="box">
+          <div class="tabs">
+            <button type="button" class="tab-button active" onclick="switchTab(event, 'tab-weapons')">Оружие</button>
+            <button type="button" class="tab-button" onclick="switchTab(event, 'tab-equipment')">Снаряжение</button>
+            <button type="button" class="tab-button" onclick="switchTab(event, 'tab-notes')">Заметки</button>
+          </div>
+
+          <div id="tab-weapons" class="tab-content active">
+            <div class="form-group">
+              <%= f.text_area :weapons, value: @hero.weapons, maxlength: 200, placeholder: "Меч, лук, кинжал...", class: "form-textarea", rows: 6, oninput: "updateCharCount('weapons', 200)" %>
+              <div class="char-count"><span id="weaponsCount"><%= (@hero.weapons || '').length %></span>/200</div>
+            </div>
+          </div>
+
+          <div id="tab-equipment" class="tab-content">
+            <div class="form-group">
+              <%= f.text_area :equipment, value: @hero.equipment, maxlength: 300, placeholder: "Броня, зелья, инструменты...", class: "form-textarea", rows: 6, oninput: "updateCharCount('equipment', 300)" %>
+              <div class="char-count"><span id="equipmentCount"><%= (@hero.equipment || '').length %></span>/300</div>
+            </div>
+          </div>
+
+          <div id="tab-notes" class="tab-content">
+            <div class="form-group">
+              <%= f.text_area :notes, value: @hero.notes, maxlength: 500, placeholder: "Цели, секреты, важное...", class: "form-textarea", rows: 6, oninput: "updateCharCount('notes', 500)" %>
+              <div class="char-count"><span id="notesCount"><%= (@hero.notes || '').length %></span>/500</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div>
+        <!-- Moves/Abilities -->
+        <div class="box" style="min-height: 500px;">
+          <h3 style="margin: 0 0 10px 0; padding-bottom: 8px; border-bottom: 1px solid var(--border-dark);">Способности (<%= moves.length %>)</h3>
+          <div id="abilitiesList">
             <% moves.each_with_index do |move, index| %>
-              <div class="move-item" data-move-index="<%= index %>">
+              <div class="move-item" data-move-index="<%= index %>" draggable="true">
                 <div class="move-item-header">
-                  <%= f.text_field "name", name: "hero[moves][][name]", value: move['name'], placeholder: "Ability name" %>
+                  <span class="move-drag-handle">⋮⋮</span>
+                  <%= text_field_tag "hero[moves][][name]", move['name'], placeholder: "Ability name", maxlength: 100 %>
                   <button type="button" class="move-remove-btn" onclick="removeMove(<%= index %>)">✕</button>
                 </div>
-                <%= f.text_area "desc", name: "hero[moves][][desc]", value: move['desc'], placeholder: "Ability description...", maxlength: 500 %>
+                <%= text_area_tag "hero[moves][][desc]", move['desc'], placeholder: "Ability description...", maxlength: 500 %>
               </div>
             <% end %>
           </div>
@@ -432,52 +359,8 @@
       </div>
     </div>
 
-    <!-- Weapons & Equipment -->
-    <div class="card">
-      <h3 style="font-size: 0.9rem; color: var(--accent-blood-light); margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid var(--border-dark);">Снаряжение</h3>
-      <div class="two-col-grid">
-        <div class="field">
-          <label>Оружие</label>
-          <%= f.text_area :weapons, value: hero_data['weapons'], maxlength: 200, placeholder: "Меч, лук, кинжал...", onkeyup: "updateCharCount('weapons', 200)" %>
-          <div class="char-count"><span id="weaponsCount"><%= (hero_data['weapons'] || '').length %></span>/200</div>
-        </div>
-        <div class="field">
-          <label>Предметы</label>
-          <%= f.text_area :equipment, value: hero_data['equipment'], maxlength: 300, placeholder: "Броня, зелья, инструменты...", onkeyup: "updateCharCount('equipment', 300)" %>
-          <div class="char-count"><span id="equipmentCount"><%= (hero_data['equipment'] || '').length %></span>/300</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bonds & Notes -->
-    <div class="card">
-      <h3 style="font-size: 0.9rem; color: var(--accent-blood-light); margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid var(--border-dark);">Заметки</h3>
-      <div class="two-col-grid">
-        <div class="field">
-          <label>Связи</label>
-          <%= f.text_area :bonds, value: hero_data['bonds'], maxlength: 300, placeholder: "Отношения с другими персонажами...", onkeyup: "updateCharCount('bonds', 300)" %>
-          <div class="char-count"><span id="bondsCount"><%= (hero_data['bonds'] || '').length %></span>/300</div>
-        </div>
-        <div class="field">
-          <label>Записи</label>
-          <%= f.text_area :notes, value: hero_data['notes'], maxlength: 500, placeholder: "Цели, секреты, важное...", onkeyup: "updateCharCount('notes', 500)" %>
-          <div class="char-count"><span id="notesCount"><%= (hero_data['notes'] || '').length %></span>/500</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- About -->
-    <div class="card">
-      <div class="field">
-        <label>О себе</label>
-        <%= f.text_area :look, value: hero_data['look'], maxlength: 1000, placeholder: "Внешность, происхождение, история героя...", onkeyup: "updateCharCount('look', 1000)", style: "min-height: 100px;" %>
-        <div class="char-count"><span id="lookCount"><%= (hero_data['look'] || '').length %></span>/1000</div>
-      </div>
-    </div>
-
-    <!-- Footer Info -->
     <div style="text-align: right; font-size: 0.85rem; color: var(--text-secondary); margin-top: 20px;">
-      Version: <%= @hero.version %> • Created: <%= @hero.created_at.strftime('%Y-%m-%d %H:%M') %>
+      Created: <%= @hero.created_at.strftime('%Y-%m-%d %H:%M') %>
     </div>
   <% end %>
 </div>
@@ -492,79 +375,103 @@
     }
   }
 
-  // Calculate DW stat modifier
-  function calculateModifier(statValue) {
-    if (statValue <= 3) return -3;
-    if (statValue <= 5) return -2;
-    if (statValue <= 8) return -1;
-    if (statValue <= 12) return 0;
-    if (statValue <= 15) return 1;
-    if (statValue <= 17) return 2;
-    return 3;
+  // Tab switching (from ui.js pattern)
+  function switchTab(event, tabId) {
+    const button = event.target;
+    const tabContainer = button.closest('.box');
+
+    // Hide all tabs
+    tabContainer.querySelectorAll('.tab-content').forEach(tab => {
+      tab.classList.remove('active');
+    });
+
+    // Deactivate all buttons
+    tabContainer.querySelectorAll('.tab-button').forEach(btn => {
+      btn.classList.remove('active');
+    });
+
+    // Show selected tab
+    document.getElementById(tabId).classList.add('active');
+    button.classList.add('active');
   }
-
-  // Update stat modifiers on input
-  document.addEventListener('DOMContentLoaded', function() {
-    const statInputs = document.querySelectorAll('.stat-input');
-    statInputs.forEach(input => {
-      input.addEventListener('input', function() {
-        const stat = this.dataset.stat;
-        const value = parseInt(this.value) || 10;
-        const checkbox = document.querySelector(`input[name="hero[debilities][${stat}]"]`);
-        const debility = checkbox ? checkbox.checked : false;
-
-        let mod = calculateModifier(value);
-        if (debility) mod -= 1;
-
-        const modDisplay = document.querySelector(`[data-modifier="${stat}"]`);
-        if (modDisplay) {
-          if (mod === 0) {
-            modDisplay.textContent = '0';
-          } else if (mod > 0) {
-            modDisplay.textContent = '+' + mod;
-          } else {
-            modDisplay.textContent = mod;
-          }
-        }
-      });
-    });
-
-    // Update modifiers when debility checkboxes change
-    const debilityCheckboxes = document.querySelectorAll('input[name^="hero[debilities]"]');
-    debilityCheckboxes.forEach(checkbox => {
-      checkbox.addEventListener('change', function() {
-        const stat = this.name.match(/\[([^\]]+)\]/g)[1].replace(/[\[\]]/g, '');
-        const input = document.querySelector(`.stat-input[data-stat="${stat}"]`);
-        if (input) {
-          input.dispatchEvent(new Event('input'));
-        }
-      });
-    });
-  });
 
   // Abilities management
   let moveCounter = <%= moves.length %>;
 
   function addMove() {
     const list = document.getElementById('abilitiesList');
-    const moveDiv = document.createElement('div');
-    moveDiv.className = 'move-item';
-    moveDiv.dataset.moveIndex = moveCounter;
-    moveDiv.innerHTML = `
+    const moveItem = document.createElement('div');
+    moveItem.className = 'move-item';
+    moveItem.dataset.moveIndex = moveCounter;
+    moveItem.draggable = true;
+    moveItem.innerHTML = `
       <div class="move-item-header">
+        <span class="move-drag-handle">⋮⋮</span>
         <input type="text" name="hero[moves][][name]" placeholder="Ability name" maxlength="100">
         <button type="button" class="move-remove-btn" onclick="removeMove(${moveCounter})">✕</button>
       </div>
       <textarea name="hero[moves][][desc]" placeholder="Ability description..." maxlength="500"></textarea>
     `;
-    list.appendChild(moveDiv);
+    list.appendChild(moveItem);
+    setupDragAndDrop(moveItem);
     moveCounter++;
   }
 
   function removeMove(index) {
     const moveItem = document.querySelector(`[data-move-index="${index}"]`);
-    if (moveItem && confirm('Удалить эту способность?')) {
+    if (moveItem) {
       moveItem.remove();
     }
   }
+
+  function setupDragAndDrop(item) {
+    item.addEventListener('dragstart', function(e) {
+      this.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+
+    item.addEventListener('dragend', function(e) {
+      this.classList.remove('dragging');
+      document.querySelectorAll('.move-item').forEach(el => {
+        el.classList.remove('drag-over');
+      });
+    });
+
+    item.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      const dragging = document.querySelector('.dragging');
+      if (dragging && dragging !== this) {
+        this.classList.add('drag-over');
+      }
+    });
+
+    item.addEventListener('dragleave', function(e) {
+      this.classList.remove('drag-over');
+    });
+
+    item.addEventListener('drop', function(e) {
+      e.preventDefault();
+      this.classList.remove('drag-over');
+
+      const dragging = document.querySelector('.dragging');
+      if (dragging && dragging !== this) {
+        const list = document.getElementById('abilitiesList');
+        const allItems = [...list.querySelectorAll('.move-item')];
+        const dragIndex = allItems.indexOf(dragging);
+        const dropIndex = allItems.indexOf(this);
+
+        if (dragIndex < dropIndex) {
+          this.parentNode.insertBefore(dragging, this.nextSibling);
+        } else {
+          this.parentNode.insertBefore(dragging, this);
+        }
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.move-item').forEach(item => {
+      setupDragAndDrop(item);
+    });
+  });
 </script>

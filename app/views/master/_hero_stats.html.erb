@@ -13,15 +13,15 @@
         </div>
         <div class="stat-item">
           <span class="stat-label">Здоровье</span>
-          <span class="stat-value hp"><%= hero.hero_data["hpCurrent"] %> / <%= hero.hero_data["hpMax"] %></span>
+          <span class="stat-value hp"><%= hero.hp_current %> / <%= hero.hp_max %></span>
         </div>
         <div class="stat-item">
           <span class="stat-label">Броня</span>
-          <span class="stat-value"><%= hero.hero_data["armor"] %></span>
+          <span class="stat-value"><%= hero.armor %></span>
         </div>
         <div class="stat-item">
           <span class="stat-label">Урон</span>
-          <span class="stat-value"><%= hero.hero_data["damage"] %></span>
+          <span class="stat-value"><%= hero.damage %></span>
         </div>
         <div class="stat-item version">
           <span class="stat-label">v</span>
@@ -34,12 +34,13 @@
       <h4>Характеристики</h4>
       <div class="abilities-grid">
         <% %w[str dex con int wis cha].each do |stat| %>
-          <% value = hero.hero_data.dig("stats", stat) || 10 %>
-          <% has_debility = hero.hero_data.dig("debilities", stat) || false %>
+          <% value = hero.send("stat_#{stat}") || 10 %>
+          <% has_debility = hero.send("deb_#{stat}") || false %>
+          <% modifier = hero.send("dice_mod_#{stat}") %>
           <div class="ability-item <%= 'debilitated' if has_debility %>">
             <span class="ability-name"><%= stat.upcase %></span>
             <span class="ability-value"><%= value %></span>
-            <span class="ability-modifier"><%= stat_modifier(value, has_debility) %></span>
+            <span class="ability-modifier"><%= modifier.zero? ? '0' : (modifier.positive? ? "+#{modifier}" : modifier.to_s) %></span>
             <% if has_debility %>
               <span class="ability-debility"><%= ApplicationHelper::DEBILITY_NAMES[stat] %></span>
             <% end %>

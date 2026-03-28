@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_28_185219) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_22_164423) do
   create_table "game_heroes", force: :cascade do |t|
     t.integer "game_id", null: false
     t.integer "hero_id", null: false
@@ -45,7 +45,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_28_185219) do
 
   create_table "heroes", force: :cascade do |t|
     t.string "code", null: false
-    t.string "specialization", null: false
     t.string "name", null: false
     t.integer "level", default: 1, null: false
     t.integer "xp", default: 0, null: false
@@ -53,6 +52,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_28_185219) do
     t.integer "version", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "klass", default: 0
+    t.integer "origin", default: 0
     t.index ["code"], name: "index_heroes_on_code", unique: true
   end
 
