@@ -34,7 +34,7 @@ module Master
         :weapons, :equipment, :notes,
         *Hero::STATS.keys.map { |stat| "stat_#{stat}".to_sym },
         *Hero::STATS.keys.map { |stat| "deb_#{stat}".to_sym },
-        moves: [:name, :desc]
+        moves: [ :name, :desc ]
       )
 
       Hero::STATS.keys.each do |stat|
@@ -42,7 +42,7 @@ module Master
       end
 
       hero_params.each do |key, value|
-        if key.to_s.start_with?('deb_')
+        if key.to_s.start_with?("deb_")
           value = value == "true" || value == true
         end
         @hero.send("#{key}=", value) if @hero.respond_to?("#{key}=")

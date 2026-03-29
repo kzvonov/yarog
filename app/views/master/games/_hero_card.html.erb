@@ -5,7 +5,7 @@
 <div id="hero_card_<%= hero.id %>" class="hero-card" data-controller="collapsible">
   <div class="hero-card-header">
     <h2><%= link_to hero.name, master_hero_path(hero) %></h3>
-    <div class="basics text-muted copy-handler" data-copy-value="<%= hero.code %>">
+    <div class="basics text-muted copy-handler" data-copy-value="<%= "#{request.base_url}/hero?code=#{hero.code}" %>">
       Spec <span class="text-primary"><%= I18n.t("hero.klass.#{hero.klass}", default: hero.klass.humanize) %></span> • Lvl <span class="text-primary"><%= hero.level %></span> • Code <span class="text-primary"><%= hero.code %></span>
     </div>
   </div>

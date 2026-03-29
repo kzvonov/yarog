@@ -1,5 +1,6 @@
 class Log < ApplicationRecord
   belongs_to :hero, class_name: "Hero", foreign_key: "hero_id", optional: false
+  belongs_to :game, class_name: "Game", foreign_key: "game_id", optional: true
 
   LOG_TYPES = %w[dice_roll hero_change].freeze
 

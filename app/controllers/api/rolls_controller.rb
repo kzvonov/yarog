@@ -28,21 +28,19 @@ module Api
       count = match[1].present? ? match[1].to_i : 1
       sides = match[2].to_i
 
-      # Roll dice
       rolls = count.times.map { rand(1..sides) }
       total = rolls.sum
 
-      # Create log entry
+      active_game = hero.games.find_by(active: true)
       log = hero.logs.create!(
         log_type: "dice_roll",
+        game_id: active_game&.id,
         data: {
           dice: dice,
           rolls: rolls,
           total: total
         }.to_json
       )
-
-      # Broadcast to DM dashboard
       broadcast_roll(hero, log)
 
       render json: {

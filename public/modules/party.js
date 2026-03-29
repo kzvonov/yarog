@@ -13,7 +13,7 @@ const Party = (function () {
     btn.classList.add('loading');
 
     try {
-      const result = await API.get('/api/party', {
+      const result = await API.get('/api/game/party', {
         code: State.settings.heroCode
       });
 
@@ -33,7 +33,7 @@ const Party = (function () {
     list.innerHTML = party.map(member => `
       <tr>
         <td>${escape(member.name) || '???'}</td>
-        <td>${escape(member.race) || '???'}</td>
+        <td>${escape(member.origin) || '???'}</td>
         <td>${escape(member.klass) || '—'}</td>
         <td>${member.level || 0}</td>
         <td>${member.hp_current || 0}/${member.hp_max || 0}</td>

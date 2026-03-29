@@ -14,7 +14,8 @@ Rails.application.routes.draw do
     post "heroes/load", to: "heroes#load"
     post "heroes/save", to: "heroes#save"
     post "roll", to: "rolls#create"
-    get "party", to: "party#show"
+    get "game/party", to: "games#party"
+    get "game/logs", to: "games#logs"
   end
 
   # DM Dashboard

@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
   has_many :game_heroes, class_name: "GameHero", dependent: :destroy
   has_many :heroes, class_name: "Hero", through: :game_heroes
+  has_many :logs, class_name: "Log", dependent: :nullify
 
   validates :name, presence: true
 

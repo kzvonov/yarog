@@ -1163,3 +1163,68 @@ table.base-stats th {
 .toast.warning {
   background: var(--accent-gold);
 }
+
+/* Panel Actions */
+.panel-actions {
+  margin-top: 10px;
+}
+
+/* Game Log */
+.game-log-list {
+  max-height: 400px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-dark);
+  margin-bottom: 10px;
+}
+
+.game-log-list .log-entry {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border-dark);
+  display: flex;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.game-log-list .log-entry:last-child {
+  border-bottom: none;
+}
+
+.game-log-list .log-entry.log-new {
+  background: rgba(139, 0, 0, 0.1);
+  animation: logFadeIn 0.3s ease-in;
+}
+
+@keyframes logFadeIn {
+  from { background: rgba(139, 0, 0, 0.3); }
+  to { background: rgba(139, 0, 0, 0.1); }
+}
+
+.game-log-list .log-time {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.game-log-list .log-hero {
+  color: var(--accent-blood-light);
+  font-weight: 600;
+}
+
+.game-log-list .log-content {
+  color: var(--text-heading);
+  margin-left: auto;
+}
+
+.log-loading,
+.log-empty,
+.log-error {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.log-error {
+  color: var(--accent-blood);
+}

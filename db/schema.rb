@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_22_164423) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_29_095647) do
   create_table "game_heroes", force: :cascade do |t|
     t.integer "game_id", null: false
     t.integer "hero_id", null: false
@@ -63,6 +63,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_22_164423) do
     t.text "data", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "game_id"
+    t.index ["game_id", "id"], name: "index_logs_on_game_id_and_id", order: { id: :desc }
     t.index ["hero_id", "created_at"], name: "index_logs_on_hero_id_and_created_at"
     t.index ["hero_id"], name: "index_logs_on_hero_id"
     t.index ["log_type"], name: "index_logs_on_log_type"

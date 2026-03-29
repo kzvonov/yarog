@@ -79,10 +79,6 @@
       border-color: var(--accent-blood);
     }
 
-    .panel-actions {
-      margin-top: 10px;
-    }
-
     .last-sync {
       margin-top: 10px;
       font-size: 0.75rem;
@@ -290,6 +286,13 @@
       gap: 10px;
     }
 
+    /* Party logs section */
+    .party-logs-section {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid var(--border-dark);
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .dice-panel {
@@ -328,6 +331,7 @@
   <script src="modules/hero.js"></script>
   <script src="modules/dice.js"></script>
   <script src="modules/party.js"></script>
+  <script src="modules/game-log.js"></script>
   <script src="modules/settings.js"></script>
 </head>
 
@@ -551,9 +555,11 @@
               <template>
                 <div class="move-item">
                   <div class="move-header">
-                    <input type="text" data-render-id="moves[].name" placeholder="Название способности" maxlength="100" readonly>
+                    <input type="text" data-render-id="moves[].name" placeholder="Название способности" maxlength="100"
+                      readonly>
                   </div>
-                  <textarea data-render-id="moves[].desc" placeholder="Описание..." class="form-textarea" maxlength="600" readonly></textarea>
+                  <textarea data-render-id="moves[].desc" placeholder="Описание..." class="form-textarea"
+                    maxlength="600" readonly></textarea>
                 </div>
               </template>
             </div>
@@ -566,7 +572,7 @@
                   <th>имя</th>
                   <th>расса</th>
                   <th>класс</th>
-                  <th>lvl</th>
+                  <th>уровень</th>
                   <th>❤️</th>
                   <th>🛡️</th>
                   <th>⚔️</th>
@@ -577,6 +583,16 @@
             </table>
             <div class="panel-actions">
               <button class="btn" id="partyRefresh">Обновить</button>
+            </div>
+
+            <div class="party-logs-section">
+              <div class="box-title">броски</div>
+              <div id="gameLogList" class="game-log-list">
+                <div class="log-loading">Загрузка...</div>
+              </div>
+              <div class="panel-actions">
+                <button class="btn" id="gameLogLoadMore" style="display: none;">Загрузить еще</button>
+              </div>
             </div>
           </div>
         </div>
@@ -967,6 +983,9 @@
 
         // Party refresh
         document.getElementById('partyRefresh').addEventListener('click', () => Party.load({ State, API }));
+
+        // Game log load more
+        document.getElementById('gameLogLoadMore').addEventListener('click', () => GameLog.loadOlder());
       }
     };
 
@@ -983,6 +1002,7 @@
 
       if (State.settings.serverUrl && State.settings.heroCode) {
         await API.load();
+        GameLog.init({ State, API });
       } else {
         Connection.setStatus(false);
       }
