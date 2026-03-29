@@ -1,7 +1,7 @@
 class Hero < ApplicationRecord
   self.table_name = "heroes"
 
-  HP_BASE = 10
+  HP_BASE = 8
   STATS = {
     str: "str",
     dex: "dex",

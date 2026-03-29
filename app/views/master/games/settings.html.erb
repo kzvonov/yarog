@@ -67,6 +67,31 @@
       </p>
     </div>
 
+    <!-- Ambient Music Section -->
+    <div style="margin-bottom: 30px; padding: 20px; background: var(--bg-card); border: 1px solid var(--border-dark);">
+      <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Ambient Music</h3>
+
+      <%= form_with model: @game, url: master_game_path(@game), method: :patch do |f| %>
+        <div style="margin-bottom: 15px;">
+          <%= f.label :ambient_music_url, "YouTube URL", style: "display: block; color: var(--text-secondary); margin-bottom: 5px; font-size: 0.9rem;" %>
+          <%= f.text_field :ambient_music_url,
+              placeholder: "https://youtube.com/watch?v=... or https://youtube.com/playlist?list=...",
+              style: "width: 100%; padding: 10px; background: var(--bg-primary); border: 1px solid var(--border-dark); color: var(--text-primary); font-family: inherit; font-size: 1rem;" %>
+          <% if @game.errors[:ambient_music_url].any? %>
+            <p style="color: var(--accent-blood); font-size: 0.85rem; margin-top: 5px;">
+              <%= @game.errors[:ambient_music_url].first %>
+            </p>
+          <% end %>
+        </div>
+
+        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 15px;">
+          Add a YouTube video or playlist URL for ambient music that will play for all heroes in this game.
+        </p>
+
+        <%= f.submit "Save Music URL", class: "btn" %>
+      <% end %>
+    </div>
+
     <!-- Game Information Section -->
     <div style="padding: 20px; background: var(--bg-card); border: 1px solid var(--border-dark);">
       <h3 style="font-size: 1.1rem; color: var(--accent-blood-light); margin-bottom: 15px;">Game Information</h3>

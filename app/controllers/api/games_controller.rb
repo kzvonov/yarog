@@ -35,6 +35,25 @@ module Api
       }
     end
 
+    # GET /api/game/current
+    def current
+      unless @game
+        return render json: {
+          status: "ok",
+          game: nil
+        }
+      end
+
+      render json: {
+        status: "ok",
+        game: {
+          id: @game.id,
+          name: @game.name,
+          ambient_music_url: @game.ambient_music_url
+        }
+      }
+    end
+
     # GET /api/game/logs
     # Params:
     #   - code: hero code (required)

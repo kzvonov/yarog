@@ -86,7 +86,7 @@ module Master
     end
 
     def game_params
-      params.require(:game).permit(:name, :notes)
+      params.require(:game).permit(:name, :notes, :ambient_music_url)
     end
   end
 end

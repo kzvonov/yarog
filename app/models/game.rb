@@ -4,6 +4,10 @@ class Game < ApplicationRecord
   has_many :logs, class_name: "Log", dependent: :nullify
 
   validates :name, presence: true
+  validates :ambient_music_url, format: {
+    with: %r{\Ahttps?://(www\.)?(youtube\.com|youtu\.be)/.+\z},
+    message: "must be a valid YouTube URL"
+  }, allow_blank: true
 
   def add_hero(hero)
     return false if heroes.include?(hero)

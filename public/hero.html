@@ -324,6 +324,10 @@
         grid-template-columns: 1fr;
       }
     }
+
+    .moves {
+      max-height: 800px;
+    }
   </style>
 
   <link rel="stylesheet" href="ui.css" />
@@ -332,6 +336,7 @@
   <script src="modules/dice.js"></script>
   <script src="modules/party.js"></script>
   <script src="modules/game-log.js"></script>
+  <script src="modules/ambient-music.js"></script>
   <script src="modules/settings.js"></script>
 </head>
 
@@ -544,10 +549,11 @@
       </div>
 
       <div>
-        <div class="box" style="overflow-y: scroll;">
+        <div class="box" style="overflow-y: scroll">
           <div class="tabs">
             <button class="tab-button active" onclick="switchTab(event, 'tab-moves')">Способности</button>
             <button class="tab-button" onclick="switchTab(event, 'tab-party')">Группа</button>
+            <button class="tab-button" onclick="switchTab(event, 'tab-ambient')">Атмосфера</button>
           </div>
 
           <div id="tab-moves" class="tab-content active">
@@ -593,6 +599,24 @@
               <div class="panel-actions">
                 <button class="btn" id="gameLogLoadMore" style="display: none;">Загрузить еще</button>
               </div>
+            </div>
+          </div>
+
+          <div id="tab-ambient" class="tab-content">
+            <div id="ambientMusicContainer">
+              <div class="ambient-music-empty">GM еще не настроил музыку</div>
+            </div>
+
+            <div id="ambientMusicControls" style="display: none;">
+              <div class="ambient-controls">
+                <button class="btn" id="ambientPlayPause">▶ Play</button>
+                <div class="ambient-volume">
+                  <label>Громкость:</label>
+                  <input type="range" id="ambientVolumeSlider" min="0" max="100" value="15">
+                  <span id="ambientVolumeValue">15%</span>
+                </div>
+              </div>
+              <div id="ambientPlayer"></div>
             </div>
           </div>
         </div>
@@ -1003,6 +1027,7 @@
       if (State.settings.serverUrl && State.settings.heroCode) {
         await API.load();
         GameLog.init({ State, API });
+        AmbientMusic.init({ State, API });
       } else {
         Connection.setStatus(false);
       }

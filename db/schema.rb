@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_29_095647) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_29_111747) do
   create_table "game_heroes", force: :cascade do |t|
     t.integer "game_id", null: false
     t.integer "hero_id", null: false
@@ -27,6 +27,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_29_095647) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "active", default: false, null: false
+    t.string "ambient_music_url"
   end
 
   create_table "hero_templates", force: :cascade do |t|

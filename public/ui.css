@@ -1228,3 +1228,92 @@ table.base-stats th {
 .log-error {
   color: var(--accent-blood);
 }
+
+/* Ambient Music */
+.ambient-music-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.ambient-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-dark);
+  margin-bottom: 15px;
+}
+
+.ambient-volume {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.ambient-volume label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.ambient-volume input[type="range"] {
+  flex: 1;
+  max-width: 200px;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: var(--input-bg);
+  border: 1px solid var(--border-dark);
+  outline: none;
+  cursor: pointer;
+}
+
+.ambient-volume input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--accent-blood);
+  border: 2px solid var(--accent-blood-light);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ambient-volume input[type="range"]::-webkit-slider-thumb:hover {
+  background: var(--accent-blood-light);
+  transform: scale(1.1);
+}
+
+.ambient-volume input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: var(--accent-blood);
+  border: 2px solid var(--accent-blood-light);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 0;
+}
+
+.ambient-volume input[type="range"]::-moz-range-thumb:hover {
+  background: var(--accent-blood-light);
+  transform: scale(1.1);
+}
+
+.ambient-volume input[type="range"]::-moz-range-track {
+  background: var(--input-bg);
+  border: 1px solid var(--border-dark);
+  height: 6px;
+}
+
+.ambient-volume span {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  min-width: 40px;
+}
+
+#ambientPlayer {
+  display: none;
+}
