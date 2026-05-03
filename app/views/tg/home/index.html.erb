@@ -1,0 +1,15 @@
+<%= form_with url: tg_auth_path, method: :post do |f| %>
+  <%= f.hidden_field :init_data, value: "", data: { telegram_init: true } %>
+  <%# no submit button - we submit programmatically %>
+<% end %>
+
+<% if defined?(@result) %>
+  <p class="status"><%= @result.error %><p>
+<% else %>
+  <p class="status">Authenticationg...</p>
+  <script>
+    document.querySelector("[data-telegram-init]").value = window.Telegram?.WebApp?.initData || "";
+    document.querySelector("form").requestSubmit();
+  </script>
+<% end %>
+

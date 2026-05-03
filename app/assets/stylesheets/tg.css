@@ -1,0 +1,739 @@
+/* ============================================================
+   TTRPG BASE STYLESHEET
+   Ink-on-paper brutalist. Mobile-first.
+   ============================================================ */
+
+/* --- TOKENS ------------------------------------------------- */
+:root {
+  --bg: #F5F0E8;
+  --ink: #0D0D0D;
+  --ink-mid: #3A3A3A;
+  --ink-mute: #888880;
+  --rule: 2px solid #0D0D0D;
+  --rule-thin: 1px solid #0D0D0D;
+  --rule-mute: 1px solid #BFBAB0;
+  --radius: 4px;
+  --gap: 1rem;
+
+  --font-body: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  --font-heading: 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Courier New', Courier, monospace;
+
+  /* status colours */
+  --c-danger: #C0392B;
+  --c-warn: #A0520A;
+  --c-info: #1A4F7A;
+  --c-ok: #1A5C2A;
+
+  --c-danger-bg: #FAE5E3;
+  --c-warn-bg: #FEF3E2;
+  --c-info-bg: #E3EEF7;
+  --c-ok-bg: #E3F5E8;
+}
+
+/* --- RESET -------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  overscroll-behavior: none;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  padding: 1.25rem;
+  max-width: 480px;
+  margin: 0 auto;
+  overscroll-behavior: none;
+}
+
+/* --- TYPOGRAPHY -------------------------------------------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  border-bottom: var(--rule);
+  padding-bottom: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+  border-bottom: var(--rule-thin);
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-mid);
+}
+
+p {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.7;
+  margin-bottom: 0.85rem;
+  color: var(--ink);
+}
+
+small,
+.mute {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--ink-mute);
+}
+
+strong {
+  font-family: var(--font-heading);
+  font-weight: 900;
+}
+
+em {
+  font-style: italic;
+}
+
+/* stat/data values — monospace */
+.stat,
+code,
+pre,
+kbd {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0.1em 0.4em;
+  border-radius: var(--radius);
+}
+
+pre {
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* --- LINKS -------------------------------------------------- */
+a {
+  color: var(--ink);
+  font-weight: 400;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: background 0.1s;
+}
+
+a:hover {
+  background: var(--ink);
+  color: var(--bg);
+  text-decoration: none;
+  padding: 0 2px;
+}
+
+/* --- LISTS -------------------------------------------------- */
+ul,
+ol {
+  padding-left: 1.25rem;
+  margin-bottom: 0.85rem;
+}
+
+ul {
+  list-style: square;
+}
+
+ol {
+  list-style: decimal;
+}
+
+li {
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.65;
+  margin-bottom: 0.25rem;
+  padding-left: 0.25rem;
+}
+
+ul li::marker {
+  color: var(--ink);
+  font-size: 1.1em;
+}
+
+/* definition list */
+dl {
+  margin-bottom: 0.85rem;
+}
+
+dt {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-mute);
+  margin-top: 0.5rem;
+}
+
+dd {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-left: 1rem;
+  color: var(--ink);
+}
+
+/* --- TABLE -------------------------------------------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  font-size: 0.88rem;
+  font-family: var(--font-mono);
+}
+
+th {
+  background: var(--ink);
+  color: var(--bg);
+  text-align: left;
+  padding: 0.45rem 0.6rem;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+td {
+  padding: 0.4rem 0.6rem;
+  border-bottom: var(--rule-mute);
+  vertical-align: top;
+  font-weight: 400;
+}
+
+tr:last-child td {
+  border-bottom: var(--rule-thin);
+}
+
+tr:hover td {
+  background: rgba(13, 13, 13, 0.04);
+}
+
+/* --- SECTION ----------------------------------------------- */
+section {
+  border: var(--rule);
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+  background: var(--bg);
+}
+
+section+section {
+  margin-top: 0;
+  border-top: none;
+}
+
+/* --- COLLAPSIBLE SECTION ----------------------------------- */
+details {
+  border: var(--rule);
+  margin-bottom: -2px;
+  /* stack borders */
+  background: var(--bg);
+}
+
+details+details {
+  border-top: none;
+}
+
+details:last-of-type {
+  margin-bottom: 1.25rem;
+}
+
+details>summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  user-select: none;
+  list-style: none;
+  gap: 0.5rem;
+}
+
+details>summary::-webkit-details-marker {
+  display: none;
+}
+
+details>summary::after {
+  content: '+';
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 900;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+details[open]>summary::after {
+  content: '−';
+}
+
+details>summary:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.details-body {
+  padding: 0.85rem 1rem 1rem;
+  border-top: var(--rule-thin);
+}
+
+/* --- BUTTONS ----------------------------------------------- */
+button,
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: var(--ink);
+  color: var(--bg);
+  border: var(--rule);
+  padding: 0.6rem 1.25rem;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: transform 0.08s, background 0.08s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:active,
+.btn:active {
+  transform: scale(0.97);
+}
+
+button.ghost,
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+}
+
+button.ghost:hover,
+.btn-ghost:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+button.danger,
+.btn-danger {
+  background: var(--c-danger);
+  border-color: var(--c-danger);
+}
+
+button:disabled,
+.btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* --- FORMS -------------------------------------------------- */
+label {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.3rem;
+  color: var(--ink-mute);
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="search"],
+textarea {
+  display: block;
+  width: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  border: var(--rule);
+  padding: 0.55rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 400;
+  border-radius: var(--radius);
+  margin-bottom: 0.75rem;
+  appearance: none;
+  outline: none;
+}
+
+input:focus,
+textarea:focus {
+  outline: 3px solid var(--ink);
+  outline-offset: 1px;
+}
+
+/* custom select */
+.select-wrap {
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+
+.select-wrap::after {
+  content: '▼';
+  font-size: 0.6rem;
+  color: var(--ink);
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+select {
+  display: block;
+  width: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  border: var(--rule);
+  padding: 0.55rem 2rem 0.55rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 400;
+  border-radius: var(--radius);
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+select:focus {
+  outline: 3px solid var(--ink);
+  outline-offset: 1px;
+}
+
+/* --- PROGRESS / BAR ---------------------------------------- */
+.progress {
+  width: 100%;
+  height: 14px;
+  background: var(--bg);
+  border: var(--rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 0.25rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--ink);
+  border-radius: 0;
+  transition: width 0.3s ease;
+}
+
+.progress-fill.danger {
+  background: var(--c-danger);
+}
+
+.progress-fill.warn {
+  background: var(--c-warn);
+}
+
+.progress-fill.ok {
+  background: var(--c-ok);
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-mute);
+  margin-bottom: 1rem;
+}
+
+/* --- NOTIFICATIONS ----------------------------------------- */
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.7rem 0.85rem;
+  border: 2px solid var(--ink);
+  margin-bottom: 0.75rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  font-family: var(--font-body);
+  font-weight: 400;
+  border-radius: var(--radius);
+}
+
+.notice-icon {
+  font-family: var(--font-mono);
+  font-weight: 900;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.notice strong {
+  display: block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.1rem;
+}
+
+.notice.error {
+  background: var(--c-danger-bg);
+  border-color: var(--c-danger);
+  color: var(--c-danger);
+}
+
+.notice.warn {
+  background: var(--c-warn-bg);
+  border-color: var(--c-warn);
+  color: var(--c-warn);
+}
+
+.notice.info {
+  background: var(--c-info-bg);
+  border-color: var(--c-info);
+  color: var(--c-info);
+}
+
+.notice.ok {
+  background: var(--c-ok-bg);
+  border-color: var(--c-ok);
+  color: var(--c-ok);
+}
+
+/* --- DIVIDER ----------------------------------------------- */
+hr {
+  border: none;
+  border-top: var(--rule);
+  margin: 1.5rem 0;
+}
+
+/* --- BADGE / TAG ------------------------------------------- */
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.15em 0.5em;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  line-height: 1.4;
+  color: var(--ink);
+  background: transparent;
+}
+
+.badge.filled {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.badge.danger {
+  border-color: var(--c-danger);
+  color: var(--c-danger);
+}
+
+.badge.ok {
+  border-color: var(--c-ok);
+  color: var(--c-ok);
+}
+
+/* --- STAT TAGS --------------------------------------------- */
+/*
+  Usage:
+    <span class="tag">HP: 8</span>
+    <span class="tag dmg">DMG: 1d6</span>
+    <span class="tag ok">AC: 14</span>
+
+  Anatomy: optional .tag-key + .tag-val, or just plain text.
+    <span class="tag info"><b>HP</b> 8</span>
+*/
+.tag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3em;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1;
+  padding: 0.3em 0.55em;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  color: var(--ink);
+  background: transparent;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* the label part inside a tag — e.g. <b>HP</b> */
+.tag b,
+.tag strong {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.55;
+}
+
+/* filled / solid variant */
+.tag.filled {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.tag.filled b,
+.tag.filled strong {
+  opacity: 0.7;
+}
+
+/* colour variants */
+.tag.dmg,
+.tag.danger {
+  border-color: var(--c-danger);
+  color: var(--c-danger);
+  background: var(--c-danger-bg);
+}
+
+.tag.warn {
+  border-color: var(--c-warn);
+  color: var(--c-warn);
+  background: var(--c-warn-bg);
+}
+
+.tag.info {
+  border-color: var(--c-info);
+  color: var(--c-info);
+  background: var(--c-info-bg);
+}
+
+.tag.ok,
+.tag.buff {
+  border-color: var(--c-ok);
+  color: var(--c-ok);
+  background: var(--c-ok-bg);
+}
+
+/* row of tags — wraps naturally */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+/* --- CARD -------------------------------------------------- */
+.card {
+  border: var(--rule);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: var(--bg);
+}
+
+.card-title {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-mute);
+  margin-bottom: 0.4rem;
+}
+
+/* --- STAT ROW (for TTRPG stats) ---------------------------- */
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: var(--rule-mute);
+  padding: 0.35rem 0;
+  font-size: 0.9rem;
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-row .label {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-mute);
+}
+
+.stat-row .value {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+/* --- UTILITY ---------------------------------------------- */
+.full-width {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt {
+  margin-top: 1rem;
+}
+
+.mb {
+  margin-bottom: 1rem;
+}
+
+.row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}

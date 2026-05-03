@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Yar'og</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- <meta name="turbo-visit-control" content="reload"> 
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="stylesheet" href="/ui.css">
+  
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "master", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %> -->
+
+    <%= stylesheet_link_tag "tg", "data-turbo-track": "reload" %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
