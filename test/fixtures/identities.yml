@@ -1,0 +1,11 @@
+telegram_one:
+  account: one
+  provider: 0
+  uid: "123456789"
+  data: { "username": "shadowblade", "first_name": "Shadow" }
+
+email_two:
+  account: two
+  provider: 1
+  uid: "ironmage@example.com"
+  data: { "email": "ironmage@example.com" }

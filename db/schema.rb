@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_29_111747) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_04_071131) do
+  create_table "accounts", force: :cascade do |t|
+    t.string "handle", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["handle"], name: "index_accounts_on_handle", unique: true
+  end
+
   create_table "game_heroes", force: :cascade do |t|
     t.integer "game_id", null: false
     t.integer "hero_id", null: false
@@ -58,6 +65,17 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_29_111747) do
     t.index ["code"], name: "index_heroes_on_code", unique: true
   end
 
+  create_table "identities", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.integer "provider", null: false
+    t.string "uid", null: false
+    t.text "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_identities_on_account_id"
+    t.index ["provider", "uid"], name: "index_identities_on_provider_and_uid", unique: true
+  end
+
   create_table "logs", force: :cascade do |t|
     t.integer "hero_id", null: false
     t.string "log_type", null: false
@@ -71,6 +89,17 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_29_111747) do
     t.index ["log_type"], name: "index_logs_on_log_type"
   end
 
+  create_table "sessions", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "ip_address"
+    t.string "user_agent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_sessions_on_account_id"
+  end
+
   add_foreign_key "game_heroes", "games"
   add_foreign_key "game_heroes", "heroes"
+  add_foreign_key "identities", "accounts"
+  add_foreign_key "sessions", "accounts"
 end
