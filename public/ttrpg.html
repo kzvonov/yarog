@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TTRPG Base Styles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700;900&family=MedievalSharp&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   TTRPG BASE STYLESHEET — ink-on-paper brutalist, mobile-first
+   ============================================================ */
+
+/* --- TOKENS ------------------------------------------------- */
+:root {
+  --font-body:    'Helvetica Neue', Arial, Helvetica, sans-serif;
+  --font-heading: 'Raleway', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:    ui-monospace, 'Cascadia Code', 'Courier New', monospace;
+  --radius: 4px;
+  --topbar-h:    48px;
+  --bottomnav-h: 56px;
+  --content-pad: 1.25rem;
+}
+
+/* LIGHT MODE (default) */
+:root {
+  --bg:        #F4F0E8;
+  --bg-raised: #EEE9DF;
+  --ink:       #1A1610;
+  --ink-mid:   #42382C;
+  --ink-mute:  #888880;
+  --rule:      2px solid #1A1610;
+  --rule-thin: 1px solid #1A1610;
+  --rule-mute: 1px solid #BFBAB0;
+  --ink-focus: #0D0A06;
+
+  --c-danger:    #8B2218; --c-danger-bg:  #F5DDD9; --c-danger-bd: #C4392C; --c-danger-btn: #C0392B;
+  --c-warn:      #7A3D08; --c-warn-bg:    #F5E8D0; --c-warn-bd:   #B05A10;
+  --c-info:      #163D5C; --c-info-bg:    #D8E9F5; --c-info-bd:   #2265A0;
+  --c-ok:        #14431E; --c-ok-bg:      #D5EDD9; --c-ok-bd:     #1E6B2A;
+
+  --str-bg: #D8DCE0; --str-bd: #7A8A96;
+  --dex-bg: #D4E5D0; --dex-bd: #5A8A50;
+  --con-bg: #EDE0D4; --con-bd: #A06040;
+  --wis-bg: #E0D5EC; --wis-bd: #7A50A0;
+  --cha-bg: #EDE4C4; --cha-bd: #A08830;
+  --int-bg: #D0D8EC; --int-bd: #4058A0;
+  --lck-bg: #CCE5DC; --lck-bd: #308870;
+  --per-bg: #EDD8C8; --per-bd: #A05828;
+  --wil-bg: #EDD0D0; --wil-bd: #963030;
+  --agi-bg: #DCDDE0; --agi-bd: #888C96;
+  --fth-bg: #EDE8D8; --fth-bd: #A09060;
+  --man-bg: #CCE0EC; --man-bd: #207898;
+}
+
+/* DARK MODE */
+[data-theme="dark"] {
+  --bg:        #1A1814;
+  --bg-raised: #242018;
+  --ink:       #C8C0B0;
+  --ink-mid:   #A89880;
+  --ink-mute:  #908070;
+  --rule:      2px solid #C8C0B0;
+  --rule-thin: 1px solid #C8C0B0;
+  --rule-mute: 1px solid #3A3630;
+  --ink-focus: #E8E0D0;
+
+  --c-danger:    #D08070; --c-danger-bg:  #3A1410; --c-danger-bd: #903028; --c-danger-btn: #8B2418;
+  --c-warn:      #C89850; --c-warn-bg:    #382008; --c-warn-bd:   #906018;
+  --c-info:      #7098C0; --c-info-bg:    #0C2038; --c-info-bd:   #205898;
+  --c-ok:        #60A870; --c-ok-bg:      #0C2814; --c-ok-bd:     #187030;
+
+  --str-bg: #1E2830; --str-bd: #6A8898;
+  --dex-bg: #182818; --dex-bd: #508848;
+  --con-bg: #2C1E14; --con-bd: #986050;
+  --wis-bg: #201428; --wis-bd: #7858A8;
+  --cha-bg: #281E08; --cha-bd: #A08830;
+  --int-bg: #101828; --int-bd: #485898;
+  --lck-bg: #0C2420; --lck-bd: #388870;
+  --per-bg: #281408; --per-bd: #A06030;
+  --wil-bg: #280C0C; --wil-bd: #983838;
+  --agi-bg: #181820; --agi-bd: #606878;
+  --fth-bg: #201C08; --fth-bd: #988848;
+  --man-bg: #081820; --man-bd: #307490;
+}
+
+/* --- RESET -------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+/* --- LAYOUT ------------------------------------------------- */
+main {
+  padding: var(--topbar-h) var(--content-pad) var(--bottomnav-h);
+}
+
+.content { margin: 0.5rem 0; }
+
+.col-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin: 0.5rem 0;
+}
+@media (min-width: 640px) {
+  .col-layout {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 0.75rem 0;
+    align-items: start;
+  }
+  .col-layout .col:first-child:last-child { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) {
+  .col-layout { grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 1rem 0; }
+  .col-layout.two-col { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* --- TOP BAR ----------------------------------------------- */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--topbar-h);
+  background: var(--bg);
+  border-bottom: var(--rule-thin);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+header span {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  pointer-events: none;
+  display: none;
+}
+@media (min-width: 640px) { header span { display: block; } }
+
+.topbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  padding: 0.3rem 0.5rem;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-mid);
+  cursor: pointer;
+  border-radius: var(--radius);
+  text-decoration: none;
+  line-height: 1;
+  transition: color 0.12s;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+}
+.topbar-btn:hover { color: var(--ink); }
+.topbar-btn:focus-visible { outline: 2px solid var(--ink-mid); outline-offset: 2px; }
+
+/* --- BOTTOM NAV -------------------------------------------- */
+nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 100;
+  height: calc(56px + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--bg);
+  border-top: var(--rule-thin);
+  display: flex;
+  align-items: stretch;
+  justify-content: space-evenly;
+}
+nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  border-top: 2px solid transparent;
+  padding: 0 0.75rem;
+  text-decoration: none;
+  color: var(--ink-mute);
+  transition: color 0.1s, border-color 0.1s;
+  -webkit-tap-highlight-color: transparent;
+  flex: 1;
+  max-width: 100px;
+}
+nav a .nav-icon {
+  font-size: 1rem;
+  line-height: 1;
+  font-family: var(--font-mono);
+  font-weight: 900;
+}
+nav a .nav-label {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+nav a.active { color: var(--ink); border-top-color: var(--ink); }
+nav a:hover  { color: var(--ink); }
+
+/* --- TYPOGRAPHY -------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+}
+h1 { font-size: 2rem;   border-bottom: var(--rule);      padding-bottom: 0.35rem; margin-bottom: 1rem; }
+h2 { font-size: 1.4rem; border-bottom: var(--rule-thin); padding-bottom: 0.25rem; margin-bottom: 0.75rem; }
+h3 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.04em; }
+h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-mid); }
+
+p  { font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.85rem; }
+
+small { font-size: 0.8rem; font-style: italic; color: var(--ink-mid); line-height: 1.5; }
+
+strong { font-family: var(--font-heading); font-weight: 900; }
+em     { font-style: italic; }
+
+code, kbd {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0.1em 0.4em;
+  border-radius: var(--radius);
+}
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  margin-bottom: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* --- LINKS -------------------------------------------------- */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: background 0.1s;
+}
+.content a:hover,
+.col-layout a:hover {
+  background: var(--ink);
+  color: var(--bg);
+  text-decoration: none;
+  box-shadow: 2px 0 0 var(--ink), -2px 0 0 var(--ink);
+}
+
+/* --- LISTS -------------------------------------------------- */
+ul, ol { padding-left: 1.25rem; margin-bottom: 0.85rem; }
+ul { list-style: square; }
+ol { list-style: decimal; }
+li { font-size: 0.95rem; line-height: 1.65; margin-bottom: 0.25rem; padding-left: 0.25rem; }
+ul li::marker { color: var(--ink); font-size: 1.1em; }
+
+dl  { margin-bottom: 0.85rem; }
+dt  { font-family: var(--font-heading); font-weight: 900; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-mid); margin-top: 0.5rem; }
+dd  { font-family: var(--font-mono); font-size: 0.9rem; margin-left: 1rem; }
+
+/* --- TABLE -------------------------------------------------- */
+table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.88rem; font-family: var(--font-mono); }
+th {
+  background: var(--ink); color: var(--bg);
+  text-align: left; padding: 0.45rem 0.6rem;
+  font-family: var(--font-heading); font-weight: 900; font-size: 0.75rem;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+td { padding: 0.4rem 0.6rem; border-bottom: var(--rule-mute); vertical-align: top; }
+tr:last-child td { border-bottom: var(--rule-thin); }
+tr:hover td { background: color-mix(in srgb, var(--ink) 6%, transparent); }
+
+/* --- SECTION & DETAILS (stacked block pattern) ------------- */
+section, details {
+  border: var(--rule);
+  margin-bottom: -2px;
+  background: var(--bg);
+}
+section { padding: 1rem; }
+section:last-child, details:last-child { margin-bottom: 1.25rem; }
+section + section, details + details { border-top: none; }
+
+details > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  user-select: none;
+  list-style: none;
+}
+details > summary::-webkit-details-marker { display: none; }
+details > summary::after       { content: '+'; font-family: var(--font-mono); font-size: 1.2rem; font-weight: 900; flex-shrink: 0; }
+details[open] > summary::after { content: '−'; }
+details > summary:hover        { background: var(--ink); color: var(--bg); }
+
+.details-body { padding: 0.85rem 1rem 1rem; border-top: var(--rule-thin); }
+
+/* --- BUTTONS ----------------------------------------------- */
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: var(--ink);
+  color: var(--bg);
+  border: var(--rule);
+  padding: 0.6rem 1.25rem;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: transform 0.08s, background 0.08s;
+  -webkit-tap-highlight-color: transparent;
+}
+button:active { transform: scale(0.97); }
+
+button.ghost { background: transparent; color: var(--ink); }
+button.ghost:hover { background: var(--ink); color: var(--bg); }
+
+button.danger { background: var(--c-danger-btn); border-color: var(--c-danger-btn); color: #F5F0E8; }
+
+button:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* --- FORMS -------------------------------------------------- */
+label {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.3rem;
+  color: var(--ink-mute);
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="search"],
+textarea {
+  display: block;
+  width: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  border: var(--rule);
+  padding: 0.55rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  border-radius: var(--radius);
+  margin-bottom: 0.75rem;
+  appearance: none;
+  outline: none;
+  transition: border-color 0.12s;
+}
+input:focus, textarea:focus { border-color: var(--ink-focus); border-width: 2px; outline: none; }
+
+.select-wrap { position: relative; margin-bottom: 0.75rem; }
+.select-wrap::after {
+  content: '▼';
+  font-size: 0.6rem;
+  color: var(--ink);
+  position: absolute;
+  right: 0.75rem; top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+select {
+  display: block; width: 100%;
+  background: var(--bg); color: var(--ink); border: var(--rule);
+  padding: 0.55rem 2rem 0.55rem 0.75rem;
+  font-family: var(--font-mono); font-size: 0.9rem;
+  border-radius: var(--radius);
+  appearance: none; -webkit-appearance: none;
+  outline: none; cursor: pointer;
+  transition: border-color 0.12s;
+}
+select:focus { border-color: var(--ink-focus); border-width: 2px; outline: none; }
+
+.field-check {
+  display: flex; align-items: center; gap: 0.6rem;
+  margin-bottom: 0.6rem; cursor: pointer;
+}
+.field-check input[type="checkbox"],
+.field-check input[type="radio"] {
+  appearance: none; -webkit-appearance: none;
+  width: 1.1rem; height: 1.1rem; min-width: 1.1rem;
+  border: var(--rule); background: var(--bg);
+  border-radius: var(--radius);
+  display: grid; place-items: center;
+  cursor: pointer; margin: 0; padding: 0; outline: none;
+  transition: border-color 0.12s, background 0.12s;
+}
+.field-check input[type="radio"] { border-radius: 50%; }
+.field-check input:checked { background: var(--ink); border-color: var(--ink); }
+.field-check input[type="checkbox"]:checked::after {
+  content: ''; display: block;
+  width: 0.35rem; height: 0.6rem;
+  border: 2px solid var(--bg); border-top: none; border-left: none;
+  transform: rotate(45deg) translateY(-1px);
+}
+.field-check input[type="radio"]:checked::after {
+  content: ''; display: block;
+  width: 0.4rem; height: 0.4rem;
+  background: var(--bg); border-radius: 50%;
+}
+.field-check input:focus { border-color: var(--ink-focus); }
+.field-check span { font-size: 0.9rem; color: var(--ink); line-height: 1.4; }
+
+.field-toggle { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; cursor: pointer; }
+.toggle-track {
+  position: relative;
+  width: 2.4rem; height: 1.3rem; min-width: 2.4rem;
+  border: var(--rule); border-radius: 999px;
+  background: var(--bg); cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.toggle-track::after {
+  content: ''; position: absolute;
+  top: 2px; left: 2px;
+  width: calc(1.3rem - 8px); height: calc(1.3rem - 8px);
+  background: var(--ink-mute); border-radius: 50%;
+  transition: transform 0.15s, background 0.15s;
+}
+input[type="checkbox"].toggle { display: none; }
+input[type="checkbox"].toggle:checked + .toggle-track { background: var(--ink); border-color: var(--ink); }
+input[type="checkbox"].toggle:checked + .toggle-track::after { transform: translateX(1.1rem); background: var(--bg); }
+.field-toggle span { font-size: 0.9rem; color: var(--ink); }
+
+/* --- NUMBER STEPPER ---------------------------------------- */
+.stepper { display: inline-flex; align-items: stretch; border: var(--rule); border-radius: var(--radius); overflow: hidden; margin-bottom: 0.75rem; }
+.stepper button { width: 2.4rem; padding: 0; border: none; border-radius: 0; font-size: 1.1rem; background: var(--bg-raised); color: var(--ink); flex-shrink: 0; margin: 0; }
+.stepper button:hover { background: var(--ink); color: var(--bg); }
+.stepper button:first-child { border-right: var(--rule-thin); }
+.stepper button:last-child  { border-left:  var(--rule-thin); }
+.stepper input[type="number"] {
+  width: 3.5rem; text-align: center;
+  border: none; border-radius: 0; margin: 0;
+  padding: 0.55rem 0.25rem;
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-mono); font-size: 1rem;
+  -moz-appearance: textfield;
+}
+.stepper input[type="number"]::-webkit-inner-spin-button,
+.stepper input[type="number"]::-webkit-outer-spin-button { appearance: none; }
+.stepper input[type="number"]:focus { outline: none; }
+
+/* --- PROGRESS ---------------------------------------------- */
+.progress { width: 100%; height: 14px; background: var(--bg); border: var(--rule); border-radius: var(--radius); overflow: hidden; margin-bottom: 0.25rem; }
+.progress-fill { height: 100%; background: var(--ink); transition: width 0.3s ease; }
+.progress-fill.danger { background: var(--c-danger); }
+.progress-fill.warn   { background: var(--c-warn); }
+.progress-fill.ok     { background: var(--c-ok); }
+
+.progress-labels { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-mute); margin-bottom: 1rem; }
+
+/* --- NOTICES ----------------------------------------------- */
+.notice {
+  display: flex; align-items: flex-start; gap: 0.6rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--rule-mute);
+  border-left-width: 4px;
+  margin-bottom: 0.75rem;
+  font-size: 0.88rem; line-height: 1.5;
+  color: var(--ink);
+}
+.notice-icon { font-family: var(--font-mono); font-weight: 900; font-size: 0.85rem; flex-shrink: 0; margin-top: 1px; color: var(--ink-mid); }
+.notice strong { display: block; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.1rem; }
+.notice.error { border-color: #8B3A2A; }
+.notice.warn  { border-color: #7A5010; }
+.notice.info  { border-color: #2A4A6A; }
+.notice.ok    { border-color: #2A5A30; }
+
+/* --- HR ---------------------------------------------------- */
+hr { border: none; border-top: var(--rule); margin: 1.5rem 0; }
+
+/* --- BADGE ------------------------------------------------- */
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono); font-size: 0.72rem; font-weight: 900;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 0.15em 0.5em;
+  border: 1.5px solid var(--ink); border-radius: var(--radius);
+  line-height: 1.4; color: var(--ink); background: transparent;
+}
+.badge.filled { background: var(--ink); color: var(--bg); }
+.badge.danger { border-color: var(--c-danger); color: var(--c-danger); }
+.badge.ok     { border-color: var(--c-ok);     color: var(--c-ok); }
+
+/* --- STAT TAGS --------------------------------------------- */
+/*
+  <span class="tag str"><b>STR</b> 16</span>
+  Stat: str dex con wis cha int lck per wil agi fth man
+  Status: danger/dmg  warn  info  ok/buff  filled
+*/
+.tag {
+  display: inline-flex; align-items: baseline; gap: 0.3em;
+  font-family: var(--font-mono); font-size: 0.8rem;
+  padding: 0.3em 0.55em;
+  border: 1.5px solid var(--ink-mute); border-radius: var(--radius);
+  color: var(--ink); background: var(--bg-raised);
+  white-space: nowrap; vertical-align: middle;
+}
+.tag b, .tag strong {
+  font-family: var(--font-heading); font-weight: 900;
+  font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.75;
+}
+.tag.filled               { background: var(--ink);        border-color: var(--ink);        color: var(--bg); }
+.tag.filled b             { opacity: 0.65; }
+.tag.dmg, .tag.danger     { background: var(--c-danger-bg); border-color: var(--c-danger-bd); color: var(--c-danger); }
+.tag.warn                 { background: var(--c-warn-bg);   border-color: var(--c-warn-bd);   color: var(--c-warn); }
+.tag.info                 { background: var(--c-info-bg);   border-color: var(--c-info-bd);   color: var(--c-info); }
+.tag.ok, .tag.buff        { background: var(--c-ok-bg);     border-color: var(--c-ok-bd);     color: var(--c-ok); }
+.tag.str { background: var(--str-bg); border-color: var(--str-bd); }
+.tag.dex { background: var(--dex-bg); border-color: var(--dex-bd); }
+.tag.con { background: var(--con-bg); border-color: var(--con-bd); }
+.tag.wis { background: var(--wis-bg); border-color: var(--wis-bd); }
+.tag.cha { background: var(--cha-bg); border-color: var(--cha-bd); }
+.tag.int { background: var(--int-bg); border-color: var(--int-bd); }
+.tag.lck { background: var(--lck-bg); border-color: var(--lck-bd); }
+.tag.per { background: var(--per-bg); border-color: var(--per-bd); }
+.tag.wil { background: var(--wil-bg); border-color: var(--wil-bd); }
+.tag.agi { background: var(--agi-bg); border-color: var(--agi-bd); }
+.tag.fth { background: var(--fth-bg); border-color: var(--fth-bd); }
+.tag.man { background: var(--man-bg); border-color: var(--man-bd); }
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
+
+/* --- CARD -------------------------------------------------- */
+.card { border: var(--rule); padding: 1rem; margin-bottom: 1rem; background: var(--bg); }
+.card > h4 { margin-bottom: 0.4rem; }
+
+/* --- STAT ROW ---------------------------------------------- */
+.stat-row { display: flex; justify-content: space-between; align-items: baseline; border-bottom: var(--rule-mute); padding: 0.35rem 0; }
+.stat-row:last-child { border-bottom: none; }
+.stat-row .label { font-family: var(--font-heading); font-weight: 900; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-mid); }
+.stat-row .value { font-family: var(--font-mono); font-size: 1rem; }
+
+/* --- VALUE BOX --------------------------------------------- */
+/*
+  A large numeric display with a small label. Composes into grids.
+  <div class="val-box">
+    <span>18</span>
+    <label>Strength</label>
+  </div>
+  Modifier variant: add <small>+4</small> between span and label.
+  Color variants: .val-box.danger / .warn / .ok
+*/
+.val-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: var(--rule);
+  padding: 0.5rem 0.4rem 0.4rem;
+  background: var(--bg-raised);
+  text-align: center;
+  gap: 0.1rem;
+}
+.val-box > span {
+  font-weight: 900;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--ink);
+}
+.val-box > small {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-style: normal;
+  color: var(--ink-mid);
+  line-height: 1;
+}
+.val-box > label {
+  font-size: 0.62rem;
+  color: var(--ink-mute);
+  margin: 0;
+  line-height: 1.2;
+}
+.val-box.danger { border-color: var(--c-danger-bd); background: var(--c-danger-bg); }
+.val-box.danger > span, .val-box.danger > small { color: var(--c-danger); }
+.val-box.warn   { border-color: var(--c-warn-bd);   background: var(--c-warn-bg); }
+.val-box.warn   > span, .val-box.warn   > small { color: var(--c-warn); }
+.val-box.ok     { border-color: var(--c-ok-bd);     background: var(--c-ok-bg); }
+.val-box.ok     > span, .val-box.ok     > small { color: var(--c-ok); }
+
+/* grid helper for a row of val-boxes */
+.val-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(4rem, 1fr));
+  gap: 0;
+  margin-bottom: 1rem;
+}
+.val-row .val-box { border-right: none; }
+.val-row .val-box:last-child { border-right: var(--rule); }
+
+/* --- PIP TRACK --------------------------------------------- */
+/*
+  Filled/empty pips. Completely system-agnostic.
+  <div class="pip-track">
+    <span class="pip on"></span>
+    <span class="pip on"></span>
+    <span class="pip"></span>
+    <span class="pip"></span>
+  </div>
+  Variants: .pip-track.sq (square pips) — default is round.
+  Color: .pip-track.danger / .warn / .ok
+  Interactive: add onclick to each pip, toggle class "on".
+*/
+.pip-track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.pip-track .pip {
+  width:  0.9rem;
+  height: 0.9rem;
+  border: 2px solid var(--ink-mid);
+  border-radius: 50%;
+  background: transparent;
+  transition: background 0.1s, border-color 0.1s;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.pip-track .pip.on          { background: var(--ink);     border-color: var(--ink); }
+.pip-track.sq .pip          { border-radius: var(--radius); }
+.pip-track.danger .pip.on   { background: var(--c-danger); border-color: var(--c-danger); }
+.pip-track.warn   .pip.on   { background: var(--c-warn);   border-color: var(--c-warn); }
+.pip-track.ok     .pip.on   { background: var(--c-ok);     border-color: var(--c-ok); }
+
+/* --- CURRENT / MAX ----------------------------------------- */
+/*
+  Two-value display: current / max.
+  Pairs naturally with .progress above.
+  <div class="cur-max">
+    <span>74</span>
+    <span>120</span>
+  </div>
+  Label: wrap in a .stat-row or add a <label> before it.
+  Color variants: .cur-max.danger / .warn / .ok
+*/
+.cur-max {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0;
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--ink);
+}
+.cur-max::after { content: '/'; font-size: 1rem; color: var(--ink-mute); margin: 0 0.2em; }
+.cur-max > span:last-child  { font-size: 1rem; color: var(--ink-mute); }
+.cur-max.danger > span:first-child { color: var(--c-danger); }
+.cur-max.warn   > span:first-child { color: var(--c-warn); }
+.cur-max.ok     > span:first-child { color: var(--c-ok); }
+
+/* --- UTILITY ----------------------------------------------- */
+.mt     { margin-top: 1rem; }
+.mb     { margin-bottom: 1rem; }
+.row    { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.number { font-family: 'MedievalSharp', serif; font-variant-numeric: lining-nums; }
+
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header>
+  <a class="topbar-btn" href="#">
+    Account
+  </a>
+  <span>Aldric the Broken</span>
+  <a class="topbar-btn" href="#">
+    Characters
+  </a>
+</header>
+
+<main>
+
+<!-- MAIN CONTENT -->
+<div class="content">
+
+  <h1>BASE STYLES</h1>
+  <p>Brutalist mobile-first stylesheet for TTRPG tools. <small>v1.0</small></p>
+
+  <div class="row mb">
+    <button class="ghost" id="theme-toggle" style="width:10rem" onclick="
+      const h = document.documentElement;
+      const next = h.dataset.theme === 'dark' ? 'light' : 'dark';
+      h.dataset.theme = next;
+      this.querySelector('span').textContent = next === 'dark' ? '☾ Dark' : '☀ Light';
+    "><span>☀ Light</span> mode</button>
+  </div>
+
+  <hr>
+
+  <!-- TYPOGRAPHY -->
+  <h2>Typography</h2>
+  <h3>Heading Three</h3>
+  <h4>Heading Four — Label style</h4>
+  <p>Paragraph text. The knight raised her <strong>broken sword</strong> against the incoming horde. Roll <em>2d6 + STR</em> to determine outcome. Wounds stack until you fall.</p>
+  <p>Inline code example: <code>STR + 2d6</code> &nbsp; Keyboard: <kbd>ESC</kbd></p>
+  <small>Small / muted text — source book reference, page 42</small>
+
+  <hr>
+
+  <!-- LISTS -->
+  <h2>Lists</h2>
+  <ul>
+    <li>Unordered item — square bullet</li>
+    <li>Second item with <strong>bold</strong> content</li>
+    <li>Third line entry</li>
+  </ul>
+  <ol>
+    <li>First step of the ritual</li>
+    <li>Second step — do not skip</li>
+    <li>Final step. No survivors.</li>
+  </ol>
+  <dl>
+    <dt>STR</dt><dd>18 (+4)</dd>
+    <dt>DEX</dt><dd>12 (+1)</dd>
+    <dt>CON</dt><dd>16 (+3)</dd>
+  </dl>
+
+  <hr>
+
+  <!-- LINKS -->
+  <h2>Links</h2>
+  <p>See the <a href="#">rulebook appendix</a> for details. Or visit the <a href="#">monster compendium</a>.</p>
+
+  <hr>
+
+  <!-- TABLE -->
+  <h2>Table</h2>
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Type</th><th>DMG</th><th>Weight</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Broken Sword</td><td>Melee</td><td>1d6</td><td>2 lb</td></tr>
+      <tr><td>War Axe</td><td>Melee</td><td>1d8+1</td><td>6 lb</td></tr>
+      <tr><td>Crossbow</td><td>Ranged</td><td>1d10</td><td>8 lb</td></tr>
+      <tr><td>Dagger</td><td>Thrown</td><td>1d4</td><td>1 lb</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- RESPONSIVE COLUMNS -->
+  <h2>Responsive Columns</h2>
+  <p>On mobile: stacked. Tablet: 2 col. Desktop: 3 col. Collapsibles stay interactive on mobile/tablet, auto-open on desktop.</p>
+
+</div><!-- /.content -->
+
+<!-- 3-COLUMN LAYOUT DEMO -->
+<div class="col-layout">
+
+  <div class="col">
+    <details open>
+      <summary>Character Stats</summary>
+      <div class="details-body">
+        <div class="stat-row"><span class="label">Strength</span><span class="value">18 (+4)</span></div>
+        <div class="stat-row"><span class="label">Dexterity</span><span class="value">12 (+1)</span></div>
+        <div class="stat-row"><span class="label">Constitution</span><span class="value">16 (+3)</span></div>
+        <div class="stat-row"><span class="label">Intelligence</span><span class="value">9 (−1)</span></div>
+        <div class="stat-row"><span class="label">Wisdom</span><span class="value">13 (+1)</span></div>
+        <div class="stat-row"><span class="label">Charisma</span><span class="value">7 (−2)</span></div>
+      </div>
+    </details>
+    <details>
+      <summary>HP & Resources</summary>
+      <div class="details-body">
+        <small>Hit Points</small>
+        <div class="progress mt" style="margin-top:0.3rem">
+          <div class="progress-fill" style="width:62%"></div>
+        </div>
+        <div class="progress-labels"><span>0</span><span>120</span></div>
+        <small>Mana</small>
+        <div class="progress" style="margin-top:0.3rem">
+          <div class="progress-fill warn" style="width:22%"></div>
+        </div>
+        <div class="progress-labels"><span>0</span><span>80</span></div>
+      </div>
+    </details>
+  </div>
+
+  <div class="col">
+    <details open>
+      <summary>Inventory</summary>
+      <div class="details-body">
+        <ul>
+          <li>Broken Sword <span class="badge">Equipped</span></li>
+          <li>Iron Shield <span class="badge filled">+2 AC</span></li>
+          <li>Health Potion ×3</li>
+          <li>Torchwood Bundle ×5</li>
+          <li>Mysterious Key <span class="badge danger">Cursed</span></li>
+        </ul>
+      </div>
+    </details>
+    <details>
+      <summary>Stat Tags</summary>
+      <div class="details-body">
+        <div class="tag-row">
+          <span class="tag str"><b>STR</b> 16</span>
+          <span class="tag dex"><b>DEX</b> 14</span>
+          <span class="tag con"><b>CON</b> 12</span>
+          <span class="tag wis"><b>WIS</b> 10</span>
+          <span class="tag cha"><b>CHA</b> 8</span>
+          <span class="tag int"><b>INT</b> 13</span>
+        </div>
+        <div class="tag-row">
+          <span class="tag dmg"><b>DMG</b> 1d6+2</span>
+          <span class="tag warn"><b>COND</b> Frightened</span>
+          <span class="tag ok"><b>BUFF</b> +2 STR</span>
+          <span class="tag info"><b>AC</b> 14</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="col">
+    <details open>
+      <summary>Quest Log</summary>
+      <div class="details-body">
+        <p>Find the lost relic of Karrath in the Sunken Vault. The guild pays 500gp on delivery.</p>
+        <div class="row mt">
+          <button class="ghost">Complete</button>
+          <button class="danger">Abandon</button>
+        </div>
+      </div>
+    </details>
+    <details>
+      <summary>Lore — The Pale Court</summary>
+      <div class="details-body">
+        <p>Rulers of the dead city. They do not speak. They do not sleep. They remember every name.</p>
+        <small>Compendium Vol. III, pg. 88</small>
+      </div>
+    </details>
+  </div>
+
+</div><!-- /.col-layout -->
+
+<div class="content">
+
+  <hr>
+
+  <!-- NOTIFICATIONS -->
+  <h2>Notifications</h2>
+  <div class="notice error"><span class="notice-icon">✕</span><div><strong>Error</strong>Invalid roll — dice pool cannot be empty.</div></div>
+  <div class="notice warn"><span class="notice-icon">!</span><div><strong>Warning</strong>HP below 25%. Consider retreating.</div></div>
+  <div class="notice info"><span class="notice-icon">i</span><div><strong>Info</strong>Your turn begins. You have 2 actions and 1 reaction.</div></div>
+  <div class="notice ok"><span class="notice-icon">✓</span><div><strong>Success</strong>Critical hit! Roll damage twice and apply both.</div></div>
+
+  <hr>
+
+  <!-- BUTTONS -->
+  <h2>Buttons</h2>
+  <div class="row mb">
+    <button>Roll Dice</button>
+    <button class="ghost">Cancel</button>
+    <button class="danger">Kill</button>
+    <button disabled>Locked</button>
+  </div>
+  <button style="width:100%" class="mt">Increase Level ✦</button>
+
+  <hr>
+
+  <!-- FORMS -->
+  <h2>Form Elements</h2>
+  <label for="char-name">Character Name</label>
+  <input type="text" id="char-name" placeholder="e.g. Aldric the Broken">
+
+  <label for="char-class">Class</label>
+  <div class="select-wrap">
+    <select id="char-class">
+      <option>Paladin</option><option>Rogue</option><option>Witch</option><option>Berserker</option>
+    </select>
+  </div>
+
+  <label>Hit Points</label>
+  <div class="stepper">
+    <button type="button" onclick="const i=this.nextElementSibling;i.value=Math.max(+i.min||0,+i.value-1)">−</button>
+    <input type="number" value="8" min="0" max="999">
+    <button type="button" onclick="const i=this.previousElementSibling;i.value=Math.min(+i.max||999,+i.value+1)">+</button>
+  </div>
+
+  <label>Checkboxes</label>
+  <label class="field-check"><input type="checkbox" checked><span>Proficient in heavy armour</span></label>
+  <label class="field-check"><input type="checkbox"><span>Has darkvision</span></label>
+
+  <label>Radio</label>
+  <label class="field-check"><input type="radio" name="alignment" checked><span>Lawful</span></label>
+  <label class="field-check"><input type="radio" name="alignment"><span>Neutral</span></label>
+  <label class="field-check"><input type="radio" name="alignment"><span>Chaotic</span></label>
+
+  <label>Toggles</label>
+  <label class="field-toggle"><input type="checkbox" class="toggle" checked><div class="toggle-track"></div><span>Show HP bar</span></label>
+  <label class="field-toggle"><input type="checkbox" class="toggle"><div class="toggle-track"></div><span>Enable death saves</span></label>
+
+  <hr>
+
+  <!-- TOP BAR DEMO NOTE -->
+  <h2>Navigation</h2>
+  <p>The sticky top bar and fixed bottom nav are live on this page — scroll up/down to see them in action. The bottom nav shows the active state on <strong>Me</strong>.</p>
+
+  <h3>Top Bar</h3>
+  <div class="card">
+    <h4>Structure</h4>
+    <code>[⚙ Account] ··· App / Character Name ··· [☰ Characters]</code>
+  </div>
+
+  <h3>Bottom Nav</h3>
+  <div class="card">
+    <h4>Structure</h4>
+    <code>space · [✦ Me] · [◈ Party] · [▣ Bag] · [◎ World] · space</code>
+  </div>
+
+  <hr>
+
+  <!-- VALUE BOX -->
+  <h2>Value Box</h2>
+  <p>Large numeric display with label. Compose into a <code>.val-row</code> grid, or use standalone. Add <code>&lt;small&gt;</code> for a modifier. Variants: <code>.lg</code> for hero numbers, <code>.danger / .warn / .ok</code>.</p>
+
+  <div class="val-row mb">
+    <div class="val-box"><span class="number">18</span><small>+4</small><label>Strength</label></div>
+    <div class="val-box"><span class="number">12</span><small>+1</small><label>Dexterity</label></div>
+    <div class="val-box"><span class="number">16</span><small>+3</small><label>Constitution</label></div>
+    <div class="val-box"><span class="number">9</span><small>−1</small><label>Intelligence</label></div>
+    <div class="val-box"><span class="number">13</span><small>+1</small><label>Wisdom</label></div>
+    <div class="val-box"><span class="number">7</span><small>−2</small><label>Charisma</label></div>
+  </div>
+
+
+  <hr>
+
+  <!-- PIP TRACK -->
+  <h2>Pip Track</h2>
+  <p>Filled/empty pips — use for HP boxes, stress, ammo, charges, any finite resource. Round by default, square with <code>.sq</code>. Click to toggle. Colour variants: <code>.danger / .warn / .ok</code>.</p>
+
+  <label>Hit Dice (d10 × 5)</label>
+  <div class="pip-track mb">
+    <span class="pip on" onclick="this.classList.toggle('on')"></span>
+    <span class="pip on" onclick="this.classList.toggle('on')"></span>
+    <span class="pip on" onclick="this.classList.toggle('on')"></span>
+    <span class="pip"    onclick="this.classList.toggle('on')"></span>
+    <span class="pip"    onclick="this.classList.toggle('on')"></span>
+  </div>
+
+  <label>Stress (Blades in the Dark)</label>
+  <div class="pip-track warn mb">
+    <span class="pip on" onclick="this.classList.toggle('on')"></span>
+    <span class="pip on" onclick="this.classList.toggle('on')"></span>
+    <span class="pip on" onclick="this.classList.toggle('on')"></span>
+    <span class="pip on" onclick="this.classList.toggle('on')"></span>
+    <span class="pip on" onclick="this.classList.toggle('on')"></span>
+    <span class="pip"    onclick="this.classList.toggle('on')"></span>
+    <span class="pip"    onclick="this.classList.toggle('on')"></span>
+    <span class="pip"    onclick="this.classList.toggle('on')"></span>
+    <span class="pip"    onclick="this.classList.toggle('on')"></span>
+  </div>
+
+  <label>Ammo (square)</label>
+  <div class="pip-track sq danger mb">
+    <span class="pip on" onclick="this.classList.toggle('on')"></span>
+    <span class="pip on" onclick="this.classList.toggle('on')"></span>
+    <span class="pip"    onclick="this.classList.toggle('on')"></span>
+    <span class="pip"    onclick="this.classList.toggle('on')"></span>
+    <span class="pip"    onclick="this.classList.toggle('on')"></span>
+    <span class="pip"    onclick="this.classList.toggle('on')"></span>
+  </div>
+
+  <hr>
+
+  <!-- CURRENT / MAX -->
+  <h2>Current / Max</h2>
+  <p>Inline two-value display for any tracked resource. Pairs with a progress bar. Colour on the current value: <code>.danger / .warn / .ok</code>.</p>
+
+  <div class="row mb" style="align-items:flex-end; gap:1.5rem; flex-wrap:wrap">
+    <div>
+      <label>Hit Points</label>
+      <div class="cur-max ok"><span class="number">74</span><span class="number">120</span></div>
+      <div class="progress" style="margin-top:0.4rem">
+        <div class="progress-fill ok" style="width:62%"></div>
+      </div>
+    </div>
+    <div>
+      <label>Mana</label>
+      <div class="cur-max warn"><span class="number">18</span><span class="number">80</span></div>
+      <div class="progress" style="margin-top:0.4rem">
+        <div class="progress-fill warn" style="width:22%"></div>
+      </div>
+    </div>
+    <div>
+      <label>Sanity</label>
+      <div class="cur-max danger"><span class="number">3</span><span class="number">40</span></div>
+      <div class="progress" style="margin-top:0.4rem">
+        <div class="progress-fill danger" style="width:8%"></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.content (last) -->
+
+</main>
+
+<!-- BOTTOM NAV -->
+<nav>
+  <a href="#" class="active">
+    <span class="nav-icon">✦</span>
+    <span class="nav-label">Me</span>
+  </a>
+  <a href="#">
+    <span class="nav-icon">◈</span>
+    <span class="nav-label">Party</span>
+  </a>
+  <a href="#">
+    <span class="nav-icon">▣</span>
+    <span class="nav-label">Bag</span>
+  </a>
+  <a href="#">
+    <span class="nav-icon">◎</span>
+    <span class="nav-label">World</span>
+  </a>
+</nav>
+
+</body>
+</html>

@@ -55,7 +55,7 @@ class IdentityTest < ActiveSupport::TestCase
   end
 
   test "find_or_create_from_auth creates new account and identity" do
-    assert_difference ["Account.count", "Identity.count"], 1 do
+    assert_difference [ "Account.count", "Identity.count" ], 1 do
       identity = Identity.find_or_create_from_auth(
         :telegram,
         "987654321",
@@ -78,7 +78,7 @@ class IdentityTest < ActiveSupport::TestCase
       data: { "username" => "oldname" }
     )
 
-    assert_no_difference ["Account.count", "Identity.count"] do
+    assert_no_difference [ "Account.count", "Identity.count" ] do
       identity = Identity.find_or_create_from_auth(
         :telegram,
         "111222333",

@@ -8,7 +8,7 @@ class Identity < ApplicationRecord
   validates :provider, presence: true
   validates :uid, presence: true, uniqueness: { scope: :provider }
 
-  def self.find_or_create_from_auth(provider, uid, auth_data = {})
+  def self.find_or_create_from_auth!(provider, uid, auth_data = {})
     identity = find_or_initialize_by(provider: provider, uid: uid)
 
     if identity.new_record?
@@ -23,5 +23,19 @@ class Identity < ApplicationRecord
     end
 
     identity
+  end
+
+  def summary
+    case provider.to_sym
+    when :telegram
+      [
+        data["username"],
+        data.slice("first_name", "last_name").values.join(" ").strip,
+        data["language_code"],
+        created_at
+      ].compact.join(" / ")
+    else
+      "not implemented"
+    end
   end
 end

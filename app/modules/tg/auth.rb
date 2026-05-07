@@ -1,6 +1,10 @@
 module Tg
   class Auth
-    Result = Struct.new(:valid?, :user_data, :error, keyword_init: true)
+    Result = Struct.new(:valid?, :user_data, :error, keyword_init: true) do
+      def invalid?
+        !valid?
+      end
+    end
 
     def self.validate(init_data)
       return Result.new(valid?: false, error: "Missing authentication data, close & open link again from the tg") if init_data.blank?
@@ -16,6 +20,8 @@ module Tg
       if expected_hash != received_hash
         return Result.new(valid?: false, error: "Invalid authentication data, close & open link again from the tg")
       end
+
+      # TODO: check the auth_date
 
       user_data = JSON.parse(parsed["user"])
       Result.new(valid?: true, user_data: user_data)

@@ -1,1 +1,26 @@
-<p>you are in</p>
+<div>
+  <h1>basics</h1>
+  <%= form_with url: tg_account_path, method: :post do |f| %>
+    <%= f.label "Handle (click to copy)" %>
+    <%= f.text_field :handle, value: @account.handle, disabled: true %>
+
+    <%= f.label :lang %>
+    <%= f.select :lang, [:en] %>
+
+    <%= f.label :color_mode %>
+    <%= f.select :color_mode, [:auto, :day, :night] %>
+
+    <%= f.hidden_field :init_data, value: "", data: { telegram_init: true } %>
+    <% if @test %>
+      <%= f.hidden_field :test, value: true %>
+    <% end %>
+    
+    <%= f.button :save %>
+  <% end %>
+
+  <h1 class="mt2">identities</h1>
+  <% @account.identities.each do |identity| %>
+    <h3><%= identity.provider %></h3>
+    <p><%= identity.summary %> </p>
+  <% end %>
+</div>

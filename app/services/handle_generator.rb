@@ -148,7 +148,7 @@ class HandleGenerator
   end
 
   def self.clean(handle)
-    handle.downcase.gsub(/[^a-z0-9_]/, '')
+    handle.downcase.gsub(/[^a-z0-9_]/, "")
   end
 
   def self.ensure_unique(base_handle)
