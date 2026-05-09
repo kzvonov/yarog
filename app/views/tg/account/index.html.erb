@@ -1,21 +1,23 @@
 <div>
   <h1>basics</h1>
-  <%= form_with url: tg_account_path, method: :post do |f| %>
+  <%= form_with model: @account, url: tg_account_path, method: :put do |f| %>
+    <%# TODO: make copy feature here %>
     <%= f.label "Handle (click to copy)" %>
     <%= f.text_field :handle, value: @account.handle, disabled: true %>
 
-    <%= f.label :lang %>
-    <%= f.select :lang, [:en] %>
+    <%# TODO: support class field_with_errors %>
+    <%= f.label :locale %>
+    <%= f.select :locale, [:en] %>
 
-    <%= f.label :color_mode %>
-    <%= f.select :color_mode, [:auto, :day, :night] %>
+    <%= f.label :theme %>
+    <%= f.select :theme, [:auto, :day, :night] %>
 
     <%= f.hidden_field :init_data, value: "", data: { telegram_init: true } %>
     <% if @test %>
       <%= f.hidden_field :test, value: true %>
     <% end %>
     
-    <%= f.button :save %>
+    <%= f.button "save" %>
   <% end %>
 
   <h1 class="mt2">identities</h1>

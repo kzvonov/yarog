@@ -1,4 +1,7 @@
 class Account < ApplicationRecord
+  enum :locale, { en: "en", ru: "ru" }, validate: true
+  enum :theme, { auto: "auto", day: "day", night: "night" }, validate: true
+
   has_many :identities, dependent: :destroy
   has_many :sessions, dependent: :destroy
 

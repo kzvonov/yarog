@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     root to: "home#index"
     post "auth", to: "home#auth"
     get "account", to: "account#index"
+    put "account", to: "account#update"
   end
 
   # Defines the root path route ("/")

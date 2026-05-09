@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="<%= theme %>">
   <head>
     <title>Yar'og</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -12,7 +12,7 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-  
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -21,6 +21,28 @@
     <%= javascript_importmap_tags %>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+      (function() {
+        const savedTheme = '<%= theme %>';
+
+        function applyAutoTheme() {
+          if (savedTheme === 'auto') {
+            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', isDark ? 'night' : 'day');
+          }
+        }
+
+        // Apply theme immediately
+        applyAutoTheme();
+
+        // Listen for system theme changes only when in auto mode
+        if (savedTheme === 'auto') {
+          window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            document.documentElement.setAttribute('data-theme', e.matches ? 'night' : 'day');
+          });
+        }
+      })();
+    </script>
   </head>
   <body>
     <% if Current.session %>

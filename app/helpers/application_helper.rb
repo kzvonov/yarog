@@ -36,4 +36,8 @@ module ApplicationHelper
     "wis" => "\u0420\u0430\u0441\u0442\u0435\u0440\u044F\u043D",
     "cha" => "\u0422\u0440\u0430\u0432\u043C\u0438\u0440\u043E\u0432\u0430\u043D"
   }.freeze
+
+  def theme
+    Current&.account&.theme || Account.themes[:auto]
+  end
 end

@@ -66,7 +66,7 @@
 }
 
 /* DARK MODE */
-[data-theme="dark"] {
+[data-theme="night"] {
   --bg: #1A1814;
   --bg-raised: #242018;
   --ink: #C8C0B0;
