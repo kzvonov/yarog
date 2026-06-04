@@ -1,0 +1,66 @@
+<%= form_with url: "" do |f| %>
+  <p class="separator text-md">base</p>
+  <div class="grid-base">
+    <div class="cell">
+      <%= f.label :level, class: "label" %>
+      <%= f.number_field :level, value: @character.level, class: "field", disabled: true %>
+      <span class="subvalue">of <%= @character.level_max %></span>
+    </div>
+    <div class="cell">
+      <%= f.label :xp, class: "label" %>
+      <%= f.number_field :level, value: @character.xp, class: "field" %>
+      <span class="subvalue">of <%= @character.xp_to_next_level %></span>
+    </div>
+    <div class="cell">
+      <%= f.label :coins, class: "label" %>
+      <%= f.number_field :coins, value: @character.coins, class: "field" %>
+    </div>
+    <div class="cell">
+      <%= f.label :hp, class: "label" %>
+      <%= f.number_field :hp_current, value: @character.hp_current, class: "field" %>
+      <span class="subvalue">of <%= @character.hp_max %></span>
+    </div>
+    <div class="cell">
+      <%= f.label :armor, class: "label" %>
+      <%= f.number_field :armor, value: @character.armor, class: "field" %>
+    </div>
+    <div class="cell">
+      <%= f.label :damage, class: "label" %>
+      <%= f.text_field :damage, value: @character.damage, class: "field" %>
+    </div>
+  </div>
+
+  <p class="separator text-md mt-05">stats</p>
+  <div class="grid-base">
+      <div class="cell">
+      <%= f.label :str, class: "label" %>
+      <span class="mod text-lg <%= @character.stat_modifier(:str) > 0 ? "pos" : "" %>"><%= @character.stat_modifier(:str) %></span>
+      <%= f.number_field :str, value: @character.str, class: "field" %>
+    </div>
+    <div class="cell">
+      <%= f.label :dex, class: "label" %>
+      <span class="mod text-lg <%= @character.stat_modifier(:dex) > 0 ? "pos" : "" %>"><%= @character.stat_modifier(:dex) %></span>
+      <%= f.number_field :dex, value: @character.xp, class: "field" %>
+    </div>
+    <div class="cell">
+      <%= f.label :con, class: "label" %>
+      <span class="mod text-lg <%= @character.stat_modifier(:con) > 0 ? "pos" : "" %>"><%= @character.stat_modifier(:con) %></span>
+      <%= f.number_field :con, value: @character.con, class: "field" %>
+    </div>
+    <div class="cell">
+      <%= f.label :int, class: "label" %>
+      <span class="mod text-lg <%= @character.stat_modifier(:int) > 0 ? "pos" : "" %>"><%= @character.stat_modifier(:int) %></span>
+      <%= f.number_field :int, value: @character.int, class: "field" %>
+    </div>
+    <div class="cell">
+      <%= f.label :wis, class: "label" %>
+      <span class="mod text-lg <%= @character.stat_modifier(:wis) > 0 ? "pos" : "" %>"><%= @character.stat_modifier(:wis) %></span>
+      <%= f.number_field :wis, value: @character.wis, class: "field" %>
+    </div>
+    <div class="cell">
+      <%= f.label :cha, class: "label" %>
+      <span class="mod text-lg <%= @character.stat_modifier(:cha) > 0 ? "pos" : "" %>"><%= @character.stat_modifier(:cha) %></span>
+      <%= f.text_field :cha, value: @character.cha, class: "field" %>
+    </div>
+  </div>
+<% end %>

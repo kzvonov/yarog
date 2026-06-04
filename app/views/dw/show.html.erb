@@ -1,0 +1,13 @@
+<% content_for :html_title, [@character.name, @character.klass, @character.origin].join(" · ") %>
+
+<div class="grid-main">
+  <div>
+    <h1><%= @character.name %></h1>
+    <p class="subtitle"><%= @character.klass %> · <%= @character.origin %></p>
+    <%= render "dw/base", character: @character %>
+    <%= render "dw/tabs", character: @character %>
+  </div>
+  <div>
+    <%= turbo_frame_tag :dw_content, src: @dw_content_src, loading: :lazy %>
+  </div>
+</div>

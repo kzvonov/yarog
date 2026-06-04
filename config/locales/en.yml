@@ -29,3 +29,170 @@
 
 en:
   hello: "Hello world"
+
+  # In game content
+  dungeon_world:
+    origin:
+      human: "human"
+      elf: "elf"
+      dark_elf: "dark elf"
+      high_elf: "high elf"
+      dwarf: "dwarf"
+      gnome: "gnome"
+      orc: "orc"
+      troll: "troll"
+      goblin: "goblin"
+      tauren: "tauren"
+      tiefling: "tiefling"
+      frog_folk: "frog folk"
+      turtle_folk: "turtle folk"
+      # homebrew
+      yar_human: "human (yar)"
+      yar_dog_folk: "dog folk (yar)"
+      yar_elf: "elf (yar)"
+    klass:
+      bard: "bard"
+      priest: "cleric"
+      druid: "druid"
+      fighter: "fighter"
+      paladin: "paladin"
+      ranger: "ranger"
+      thief: "thief"
+      wizard: "wizard"
+      # homebrew
+      yar_berserk: "berserker"
+      yar_path_master: "pathfinder"
+      yar_rune_master: "runari"
+      yar_evil_hunter: "evil hunter"
+    abilities:
+      lang:
+        common:
+          name: "Common"
+          description: "You can speak, read, and write Common, the trade language spoken across most civilized lands."
+        dwarf:
+          name: "Dwarvish"
+          description: "You can speak, read, and write Dwarvish, the ancient language of mountain halls and stone."
+        elf:
+          name: "Elvish"
+          description: "You can speak, read, and write Elvish, the flowing language of the forests and ancient magic."
+        undercommon:
+          name: "Undercommon"
+          description: "You can speak Undercommon, the rough trade language of the Underdark."
+        gnome:
+          name: "Gnomish"
+          description: "You can speak, read, and write Gnomish, full of technical jargon and riddles."
+        orc:
+          name: "Orcish"
+          description: "You can speak Orcish, the harsh language of war and tribes."
+        troll:
+          name: "Trollish"
+          description: "You can speak Trollish, the guttural tongue of the wilds."
+        goblin:
+          name: "Goblin"
+          description: "You can speak Goblin, the quick and chittering language of goblinoids."
+        tauren:
+          name: "Taur"
+          description: "You can speak Taur, the deep language of the plains folk."
+        infernal:
+          name: "Infernal"
+          description: "You can speak Infernal, the twisted language of devils and dark contracts."
+        frog:
+          name: "Frog-tongue"
+          description: "You can speak the croaking language of the frog folk."
+        turtle:
+          name: "Turtle-speak"
+          description: "You can speak the slow, measured language of the turtle folk."
+        yar:
+          name: "Yar"
+          description: "You can speak Yar, the frontier language of the harsh northern lands."
+      senses:
+        darkvision:
+          name: "Darkvision"
+          description: "You can see in darkness as if it were dim light up to 60 feet. You can't discern color in darkness, only shades of gray."
+        keen_senses:
+          name: "Keen Senses"
+          description: "Your senses are sharp. When you Discern Realities, you may ask one additional question, even on a 6-."
+        keen_nose:
+          name: "Keen Nose"
+          description: "Your sense of smell is exceptional. You can track by scent and detect nearby creatures by smell alone."
+      size:
+        small:
+          name: "Small"
+          description: "You are small and nimble. You can fit through tight spaces and are harder to hit, but your load is reduced."
+        massive:
+          name: "Massive"
+          description: "You are huge and imposing. You can't fit through small spaces, but you gain +1 armor and deal +1d4 damage with melee attacks."
+      movement:
+        swimmer:
+          name: "Swimmer"
+          description: "You are a natural swimmer. You can breathe underwater and move through water at full speed without penalty."
+        leap:
+          name: "Mighty Leap"
+          description: "Your powerful legs allow you to leap great distances. You can jump up to 20 feet horizontally or 10 feet vertically."
+      defense:
+        regeneration:
+          name: "Regeneration"
+          description: "At the start of your turn, if you have at least 1 HP, you heal 1d4 HP. Fire and acid damage prevents this healing until your next turn."
+        shell:
+          name: "Natural Shell"
+          description: "Your shell provides natural armor. You have +1 armor, or +3 armor when you withdraw into your shell (but you cannot move or attack)."
+      physical:
+        strength:
+          name: "Mighty"
+          description: "You are exceptionally strong. When you deal damage in melee, you deal +1d4 damage."
+        hooves:
+          name: "Hooves"
+          description: "Your hooves are natural weapons. Your unarmed attacks deal 1d6 damage."
+      racial:
+        human:
+          name: "Human Versatility"
+          description: "You are a jack of all trades. When you take a multiclass move, you count as one level higher for the purpose of choosing the move."
+        dwarf:
+          name: "Dwarven Stonecunning"
+          description: "When you Discern Realities about stonework, architecture, or underground passages, you may ask one additional question and take +1."
+        elf:
+          name: "Elven Senses"
+          description: "You have keen senses and perception. When you Discern Realities, take +1."
+        dark_elf:
+          name: "Dark Elf Heritage"
+          description: "You have darkvision and know the cantrip Darkness (create magical darkness in a small area that even darkvision cannot penetrate)."
+        high_elf:
+          name: "High Elf Grace"
+          description: "You have studied the arcane arts and move with supernatural grace. When you Spout Lore about magic or Defy Danger using DEX, take +1."
+        gnome:
+          name: "Gnomish Tinkerer"
+          description: "When you have time and materials, you can create useful gadgets. Describe what you make and the GM will tell you what resources you need."
+        orc:
+          name: "Orcish Fury"
+          description: "You are exceptionally strong and savage in combat. When you deal damage in melee, you deal +1d4 damage. You may choose to take -1 ongoing until you calm yourself to add your level to the damage dealt."
+        troll:
+          name: "Troll Regeneration"
+          description: "You regenerate quickly. At the start of each of your turns, if you have at least 1 HP, heal 1d4 HP. You are also massive in size."
+        goblin:
+          name: "Goblin Sneakiness"
+          description: "You are small and sneaky. When you attempt to hide or move silently, roll+DEX. On a 10+, you're completely undetected. On a 7-9, you're undetected but leave a clue or trace."
+        tauren:
+          name: "Tauren Strength"
+          description: "You are exceptionally strong with powerful hooves. When you deal damage in melee, you deal +1d4 damage. Your hooves are natural weapons dealing 1d6 damage."
+        tiefling:
+          name: "Infernal Heritage"
+          description: "You have resistance to fire (take half damage, rounded down) and you know one cantrip from the Wizard spell list. You have darkvision."
+        frog_folk:
+          name: "Frog Folk Agility"
+          description: "You are an excellent swimmer and can leap great distances. You can hold your breath for up to an hour and your jumps cover twice the normal distance."
+        turtle_folk:
+          name: "Turtle Folk Shell"
+          description: "You have a protective shell and are a natural swimmer. When you retreat into your shell, gain +2 armor but you cannot move or attack."
+        yar_human:
+          name: "Yar Human Resilience"
+          description: "You are tough, hardy, and skilled at wilderness survival. When you Make Camp, heal an additional 1d4 HP. When you Undertake a Perilous Journey, you may fill two roles."
+        yar_dog_folk:
+          name: "Yar Dog Folk Loyalty"
+          description: "You have a keen sense of smell and deep loyalty. When you Aid someone you have a bond with, take +1 to your roll. Take +1 when tracking by scent."
+        yar_elf:
+          name: "Yar Elf Forest Bond"
+          description: "You have a mystical connection to forests and keen senses. When in a forest, you always know which direction is north and cannot become lost. When you Discern Realities, take +1."
+      spells:
+        shadow:
+          name: "Shadow Magic"
+          description: "You know the cantrip Darkness (create magical darkness in a small area that even darkvision cannot penetrate)."

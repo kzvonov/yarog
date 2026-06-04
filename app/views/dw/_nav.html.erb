@@ -1,0 +1,18 @@
+<%
+  links = [
+    [:moves, dw_moves_path(character_param: character), "text-md", controller_path.starts_with?("dw/moves")],
+    [:spells, dw_spells_path(character_param: character), "text-md", controller_path.starts_with?("dw/spells")],
+    [:party, dw_party_index_path(character_param: character), "text-md", controller_path.starts_with?("dw/party")],
+    [:adventure, dw_adventure_index_path(character_param: character), "text-md", controller_path.starts_with?("dw/adventure")]
+  ]
+  links = links.map do |(name, path, class_str, active)|
+    class_str += " active" if active
+    [name, path, class_str]
+  end
+%>
+
+<nav>
+  <% links.each do |(name, path, class_str)| %>
+    <%= link_to name, path, class: class_str %>
+  <% end %>
+</nav>

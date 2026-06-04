@@ -1,0 +1,12 @@
+<% content_for :html_title, [@character.name, @character.klass, @character.origin].join(" · ") %>
+
+<h1><%= @character.name %></h1>
+<p class="subtitle"><%= @character.klass %> · <%= @character.origin %></p>
+
+<%= turbo_frame_tag :dw_content do %>
+  <%= render "dw/nav", character: @character %>
+
+  <div>
+    TODO: Spells go here
+  </div>
+<% end %>

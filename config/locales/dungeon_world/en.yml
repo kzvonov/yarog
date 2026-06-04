@@ -1,0 +1,1733 @@
+en:
+  dungeon_world:
+    origin:
+      human: "human"
+      elf: "elf"
+      dark_elf: "dark elf"
+      high_elf: "high elf"
+      dwarf: "dwarf"
+      gnome: "gnome"
+      orc: "orc"
+      troll: "troll"
+      goblin: "goblin"
+      tauren: "tauren"
+      tiefling: "tiefling"
+      frog_folk: "frog folk"
+      turtle_folk: "turtle folk"
+      # homebrew
+      yar_human: "human (yar)"
+      yar_dog_folk: "dog folk (yar)"
+      yar_elf: "elf (yar)"
+    klass:
+      bard: "bard"
+      cleric: "cleric"
+      druid: "druid"
+      fighter: "fighter"
+      paladin: "paladin"
+      ranger: "ranger"
+      thief: "thief"
+      wizard: "wizard"
+      # homebrew
+      yar_berserk: "berserker"
+      yar_path_master: "pathfinder"
+      yar_rune_master: "runari"
+      yar_evil_hunter: "evil hunter"
+
+    # =========================================================================
+    # LANGUAGES
+    # =========================================================================
+    lang:
+      common:
+        name: "Common"
+        description: "You can speak, read, and write Common, the trade tongue of civilized lands."
+      dwarf:
+        name: "Dwarvish"
+        description: "You can speak, read, and write Dwarvish, the ancient language of mountain halls and stone."
+      elf:
+        name: "Elvish"
+        description: "You can speak, read, and write Elvish, the flowing language of ancient forests and old magic."
+      undercommon:
+        name: "Undercommon"
+        description: "You can speak Undercommon, the rough trade tongue of the Underdark."
+      gnome:
+        name: "Gnomish"
+        description: "You can speak, read, and write Gnomish, full of technical jargon and layered riddles."
+      orc:
+        name: "Orcish"
+        description: "You can speak Orcish, the harsh tongue of war bands and tribes."
+      troll:
+        name: "Trollish"
+        description: "You can speak Trollish, the guttural tongue of the deep wilds."
+      goblin:
+        name: "Goblin"
+        description: "You can speak Goblin, the quick chittering language of goblinoids."
+      tauren:
+        name: "Taur"
+        description: "You can speak Taur, the deep and resonant language of the plains folk."
+      infernal:
+        name: "Infernal"
+        description: "You can speak Infernal, the twisted tongue of devils and dark contracts."
+      frog:
+        name: "Frog-tongue"
+        description: "You can speak the croaking language of the frog folk."
+      turtle:
+        name: "Turtle-speak"
+        description: "You can speak the slow, measured language of the turtle folk."
+      yar:
+        name: "Yar"
+        description: "You can speak Yar, the frontier tongue of the harsh northern lands."
+ 
+    # =========================================================================
+    # RACIAL TRAITS
+    # =========================================================================
+    racial:
+      human:
+        name: "Human Versatility"
+        description: "When you take a multiclass move, treat your level as one higher for choosing it."
+        level: 0
+        type: "passive"
+      dwarf:
+        name: "Dwarven Stonecunning"
+        description: "When you Discern Realities about stonework or underground passages, ask one extra question and take +1."
+        level: 0
+        type: "passive"
+      elf:
+        name: "Elven Grace"
+        description: "You have keen senses honed over centuries. When you Discern Realities, take +1."
+        level: 0
+        type: "passive"
+      dark_elf:
+        name: "Dark Elf Heritage"
+        description: "You have darkvision and know the cantrip Darkness — create magical shadow that blocks even darkvision."
+        level: 0
+        type: "passive"
+      high_elf:
+        name: "High Elf Arcana"
+        description: "When you Spout Lore about magic or Defy Danger with DEX, take +1."
+        level: 0
+        type: "passive"
+      gnome:
+        name: "Gnomish Tinkerer"
+        description: "Given time and materials you can build useful gadgets. Describe what you make; the GM tells you what it needs."
+        level: 0
+        type: "passive"
+      orc:
+        name: "Orcish Fury"
+        description: "When you deal melee damage, deal +1d4. You may take -1 ongoing to add your level to damage dealt."
+        level: 0
+        type: "passive"
+      troll:
+        name: "Troll Regeneration"
+        description: "At the start of your turn, if you have at least 1 HP, heal 1d4. Fire and acid prevent this until your next turn. You are massive."
+        level: 0
+        type: "passive"
+      goblin:
+        name: "Goblin Sneakiness"
+        description: "You are small and sneaky. Roll+DEX to hide or move silently. 10+: completely undetected. 7-9: undetected but you leave a trace."
+        level: 0
+        type: "roll:DEX"
+      tauren:
+        name: "Tauren Strength"
+        description: "When you deal melee damage, deal +1d4. Your hooves are natural weapons dealing 1d6 damage."
+        level: 0
+        type: "passive"
+      tiefling:
+        name: "Infernal Heritage"
+        description: "You take half damage from fire (rounded down) and know one Wizard cantrip. You have darkvision."
+        level: 0
+        type: "passive"
+      frog_folk:
+        name: "Frog Folk Agility"
+        description: "You are an excellent swimmer, can hold your breath for an hour, and jump twice the normal distance."
+        level: 0
+        type: "passive"
+      turtle_folk:
+        name: "Turtle Folk Shell"
+        description: "You have a protective shell and are a natural swimmer. Withdrawing into your shell grants +2 armor but you cannot move or attack."
+        level: 0
+        type: "passive"
+      yar_human:
+        name: "Yar Resilience"
+        description: "When you Make Camp, heal an extra 1d4 HP. When you Undertake a Perilous Journey, you may fill two roles."
+        level: 0
+        type: "passive"
+      yar_dog_folk:
+        name: "Yar Dog Folk Loyalty"
+        description: "When you Aid someone you share a Bond with, take +1 to the roll. Take +1 when tracking by scent."
+        level: 0
+        type: "passive"
+      yar_elf:
+        name: "Yar Elf Forest Bond"
+        description: "In a forest you always know which direction is north and cannot become lost. When you Discern Realities, take +1."
+        level: 0
+        type: "passive"
+ 
+    # =========================================================================
+    # SHARED MULTICLASS MOVES
+    # =========================================================================
+    move:
+      multiclass_dabbler:
+        name: "Multiclass Dabbler"
+        description: "Get one move from another class. Treat your level as one lower for choosing it."
+        level: 2
+        type: "passive"
+      multiclass_initiate:
+        name: "Multiclass Initiate"
+        description: "Get one move from another class. Treat your level as one lower for choosing it. Requires: Multiclass Dabbler."
+        level: 6
+        type: "passive"
+      multiclass_master:
+        name: "Multiclass Master"
+        description: "Get one move from another class. Treat your level as one lower for choosing it. Requires: Multiclass Initiate."
+        level: 6
+        type: "passive"
+ 
+      # =======================================================================
+      # BARD MOVES
+      # =======================================================================
+      arcane_art:
+        name: "Arcane Art"
+        description: "When you weave a performance into a spell, choose an ally and an effect: heal 1d8, +1d4 forward to damage, clear one enchantment, or next aid gives +2. Roll+CHA. 10+: ally gets the effect. 7-9: it works but you draw attention or it rebounds to other targets."
+        level: 1
+        type: "roll:CHA"
+      bardic_lore:
+        name: "Bardic Lore"
+        description: "Choose an area of expertise. When you first encounter an important creature, location, or item covered by your lore, ask the GM one question; they answer truthfully."
+        level: 1
+        type: "passive"
+      charming_and_open:
+        name: "Charming and Open"
+        description: "When you speak frankly with someone, ask their player one question from the list. They must answer truthfully, then may ask you one in return."
+        level: 1
+        type: "passive"
+      port_in_the_storm:
+        name: "A Port in the Storm"
+        description: "When you return to a civilized settlement you've visited before, tell the GM when you were last there. They'll tell you how it has changed."
+        level: 1
+        type: "passive"
+      healing_song:
+        name: "Healing Song"
+        description: "When you heal with Arcane Art, you heal +1d8 damage."
+        level: 2
+        type: "passive"
+      vicious_cacophony:
+        name: "Vicious Cacophony"
+        description: "When you grant bonus damage with Arcane Art, you grant an extra +1d4 damage."
+        level: 2
+        type: "passive"
+      it_goes_to_eleven:
+        name: "It Goes To Eleven"
+        description: "When you unleash a crazed performance, choose a target who can hear you and roll+CHA. 10+: they attack their nearest ally. 7-9: they attack their nearest ally but you also draw their ire."
+        level: 2
+        type: "roll:CHA"
+      metal_hurlant:
+        name: "Metal Hurlant"
+        description: "When you shout with great force or play a shattering note, choose a target and roll+CON. 10+: 1d10 damage and deafened for a few minutes. 7-9: still damages but the GM picks an additional nearby target."
+        level: 2
+        type: "roll:CON"
+      a_little_help_from_my_friends:
+        name: "A Little Help From My Friends"
+        description: "When you successfully Aid someone, you take +1 forward as well."
+        level: 2
+        type: "passive"
+      eldritch_tones:
+        name: "Eldritch Tones"
+        description: "Your Arcane Art is strong. When you use it, choose two effects instead of one."
+        level: 2
+        type: "passive"
+      duelist_parry:
+        name: "Duelist's Parry"
+        description: "When you Hack and Slash, you take +1 armor forward."
+        level: 2
+        type: "passive"
+      bamboozle:
+        name: "Bamboozle"
+        description: "When you Parley with someone, on a 7+ you also take +1 forward with them."
+        level: 2
+        type: "passive"
+      healing_chorus:
+        name: "Healing Chorus"
+        description: "Replaces Healing Song. When you heal with Arcane Art, you heal +2d8 damage."
+        level: 6
+        type: "passive"
+      vicious_blast:
+        name: "Vicious Blast"
+        description: "Replaces Vicious Cacophony. When you grant bonus damage with Arcane Art, you grant an extra +2d4 damage."
+        level: 6
+        type: "passive"
+      unforgettable_face:
+        name: "Unforgettable Face"
+        description: "When you meet someone you've met before after some time apart, take +1 forward against them."
+        level: 6
+        type: "passive"
+      reputation:
+        name: "Reputation"
+        description: "When you first meet someone who's heard songs about you, roll+CHA. 10+: tell the GM two things they've heard. 7-9: tell the GM one thing, and the GM tells you one."
+        level: 6
+        type: "roll:CHA"
+      eldritch_chord:
+        name: "Eldritch Chord"
+        description: "Replaces Eldritch Tones. When you use Arcane Art, choose two effects and double one of them."
+        level: 6
+        type: "passive"
+      an_ear_for_magic:
+        name: "An Ear For Magic"
+        description: "When you hear an enemy cast a spell, the GM tells you its name and effects. Take +1 forward when acting on the answers."
+        level: 6
+        type: "passive"
+      devious:
+        name: "Devious"
+        description: "When you use Charming and Open, you may also ask 'How are you vulnerable to me?' Your subject cannot ask this of you."
+        level: 6
+        type: "passive"
+      duelist_block:
+        name: "Duelist's Block"
+        description: "Replaces Duelist's Parry. When you Hack and Slash, you take +2 armor forward."
+        level: 6
+        type: "passive"
+      con:
+        name: "Con"
+        description: "Replaces Bamboozle. When you Parley with someone, on a 7+ take +1 forward with them and ask their player one question they must answer truthfully."
+        level: 6
+        type: "passive"
+ 
+      # =======================================================================
+      # CLERIC MOVES
+      # =======================================================================
+      deity:
+        name: "Deity"
+        description: "You serve a deity. Name your god and choose a domain and a precept. Your precept determines how you petition for Divine Guidance."
+        level: 1
+        type: "passive"
+      divine_guidance:
+        name: "Divine Guidance"
+        description: "When you petition your deity according to the precept of your religion, you are granted useful knowledge or a boon related to your deity's domain."
+        level: 1
+        type: "passive"
+      turn_undead:
+        name: "Turn Undead"
+        description: "When you hold your holy symbol aloft and call on your deity, roll+WIS. 7+: no undead may come within reach while you pray. 10+: also dazes intelligent undead and routs mindless ones."
+        level: 1
+        type: "roll:WIS"
+      commune:
+        name: "Commune"
+        description: "When you spend an hour in quiet communion, lose prepared spells and gain new ones whose total levels don't exceed your level+1. Prepare all rotes for free."
+        level: 1
+        type: "passive"
+      cast_a_spell:
+        name: "Cast a Spell"
+        description: "When you unleash a granted spell, roll+WIS. 10+: cast successfully; spell is not revoked. 7-9: cast but choose one — unwanted attention, -1 ongoing to cast spells, or spell is revoked until you commune."
+        level: 1
+        type: "roll:WIS"
+      chosen_one:
+        name: "Chosen One"
+        description: "Choose one spell. You are granted that spell as if it were one level lower."
+        level: 2
+        type: "passive"
+      invigorate:
+        name: "Invigorate"
+        description: "When you heal someone, they take +2 forward to damage."
+        level: 2
+        type: "passive"
+      scales_of_life_and_death:
+        name: "The Scales of Life and Death"
+        description: "When someone takes their last breath in your presence, they take +1 to the roll."
+        level: 2
+        type: "passive"
+      serenity:
+        name: "Serenity"
+        description: "When you cast a spell, you ignore the first -1 penalty from ongoing spells."
+        level: 2
+        type: "passive"
+      first_aid:
+        name: "First Aid"
+        description: "Cure Light Wounds is a rote for you and doesn't count against your limit of granted spells."
+        level: 2
+        type: "passive"
+      divine_intervention:
+        name: "Divine Intervention"
+        description: "When you commune, gain 1 hold. Spend it when you or an ally takes damage to call on your deity, who negates the damage with an appropriate manifestation."
+        level: 2
+        type: "passive"
+      penitent:
+        name: "Penitent"
+        description: "When you take damage and embrace the pain, you may take +1d4 damage (ignoring armor). If you do, take +1 forward to cast a spell."
+        level: 2
+        type: "passive"
+      empower:
+        name: "Empower"
+        description: "When you cast a spell on a 10+, you may choose from the 7-9 list and also choose one: double the effects or double the targets."
+        level: 2
+        type: "passive"
+      orison_for_guidance:
+        name: "Orison for Guidance"
+        description: "When you sacrifice something of value and pray for guidance, your deity tells you what it would have you do. If you do it, mark experience."
+        level: 2
+        type: "passive"
+      divine_protection:
+        name: "Divine Protection"
+        description: "When you wear no armor or shield, you have 2 armor."
+        level: 2
+        type: "passive"
+      devoted_healer:
+        name: "Devoted Healer"
+        description: "When you heal someone else of damage, add your level to the amount healed."
+        level: 2
+        type: "passive"
+      anointed:
+        name: "Anointed"
+        description: "Requires Chosen One. Choose one additional spell. You are granted it as if it were one level lower."
+        level: 6
+        type: "passive"
+      apotheosis:
+        name: "Apotheosis"
+        description: "The next time you emerge from prayer, choose a feature associated with your deity. You permanently gain that physical feature."
+        level: 6
+        type: "passive"
+      reaper:
+        name: "Reaper"
+        description: "When you take time after a conflict to dedicate your victory to your deity and deal with the dead, take +1 forward."
+        level: 6
+        type: "passive"
+      providence:
+        name: "Providence"
+        description: "Replaces Serenity. You ignore the -1 penalty from two spells you maintain."
+        level: 6
+        type: "passive"
+      greater_first_aid:
+        name: "Greater First Aid"
+        description: "Requires First Aid. Cure Moderate Wounds is a rote for you and doesn't count against your limit of granted spells."
+        level: 6
+        type: "passive"
+      divine_invincibility:
+        name: "Divine Invincibility"
+        description: "Replaces Divine Intervention. When you commune, gain 2 hold. Spend it to call on your deity to negate damage to you or an ally."
+        level: 6
+        type: "passive"
+      martyr:
+        name: "Martyr"
+        description: "Replaces Penitent. When you embrace pain (+1d4 damage ignoring armor), take +1 forward to cast a spell and add your level to any damage or healing from that spell."
+        level: 6
+        type: "passive"
+      divine_armor:
+        name: "Divine Armor"
+        description: "Replaces Divine Protection. When you wear no armor or shield, you have 3 armor."
+        level: 6
+        type: "passive"
+      greater_empower:
+        name: "Greater Empower"
+        description: "Replaces Empower. On a 10-11 choose from the 7-9 list and pick a bonus effect. On a 12+ get one bonus effect for free."
+        level: 6
+        type: "passive"
+ 
+      # =======================================================================
+      # DRUID MOVES
+      # =======================================================================
+      born_of_the_soil:
+        name: "Born of the Soil"
+        description: "Choose a land to which you are attuned. When shapeshifting you may take the form of any animal that might live there."
+        level: 1
+        type: "passive"
+      by_nature_sustained:
+        name: "By Nature Sustained"
+        description: "You don't need to eat or drink. When a move tells you to mark off a ration, ignore it."
+        level: 1
+        type: "passive"
+      spirit_tongue:
+        name: "Spirit Tongue"
+        description: "The calls and sounds of creatures of the wild are language to you. You understand any animal native to your land or akin to one you've studied."
+        level: 1
+        type: "passive"
+      shapeshifter:
+        name: "Shapeshifter"
+        description: "When you call on spirits to change your shape, roll+WIS. 10+: hold 3. 7-9: hold 2. Miss: hold 1. Take the form of any studied species; spend hold to make animal moves. Spend all hold to revert."
+        level: 1
+        type: "roll:WIS"
+      studied_essence:
+        name: "Studied Essence"
+        description: "When you spend time in contemplation of an animal spirit, add its species to those you can assume with Shapeshifter."
+        level: 1
+        type: "passive"
+      hunters_brother:
+        name: "Hunter's Brother"
+        description: "Choose one move from the Ranger class list."
+        level: 2
+        type: "passive"
+      red_of_tooth_and_claw:
+        name: "Red of Tooth and Claw"
+        description: "When you are in an appropriate dangerous animal form, increase your damage to d8."
+        level: 2
+        type: "passive"
+      communion_of_whispers:
+        name: "Communion of Whispers"
+        description: "When you spend time in a place reading its spirits, roll+WIS. 10+: a clear, helpful vision. 7-9: murky and unclear. Miss: upsetting or traumatizing. Take -1 forward."
+        level: 2
+        type: "roll:WIS"
+      barkskin:
+        name: "Barkskin"
+        description: "So long as your feet touch the ground, you have +1 armor."
+        level: 2
+        type: "passive"
+      eyes_of_the_tiger:
+        name: "Eyes of the Tiger"
+        description: "When you mark an animal with mud, dirt, or blood, you can see through its eyes at any distance. Only one animal may be marked at a time."
+        level: 2
+        type: "passive"
+      shed:
+        name: "Shed"
+        description: "When you take damage while shapeshifted, you may choose to revert to your natural form to negate the damage."
+        level: 2
+        type: "passive"
+      thing_talker:
+        name: "Thing-Talker"
+        description: "You see spirits in sand, sea, and stone. Apply your Spirit Tongue, Shapeshifter, and Studied Essence to inanimate natural objects and creatures made thereof."
+        level: 2
+        type: "passive"
+      formcrafter:
+        name: "Formcrafter"
+        description: "When you shapeshift, choose a stat to take +1 ongoing while shifted. The GM also chooses a stat; you take -1 ongoing for that stat while shifted."
+        level: 2
+        type: "passive"
+      elemental_mastery:
+        name: "Elemental Mastery"
+        description: "When you call on primal spirits of fire, water, earth, or air, roll+WIS. 10+: choose two. 7-9: choose one — the effect comes to pass, you avoid nature's price, or you retain control."
+        level: 2
+        type: "roll:WIS"
+      balance:
+        name: "Balance"
+        description: "When you deal damage, take 1 balance. When you touch someone and channel life spirits, spend balance — each point heals 1d4 HP."
+        level: 2
+        type: "passive"
+      embracing_no_form:
+        name: "Embracing No Form"
+        description: "When you shapeshift, roll 1d4 and add the result to your hold."
+        level: 6
+        type: "passive"
+      doppelgangers_dance:
+        name: "Doppelgänger's Dance"
+        description: "You can study the essence of specific individuals to take their exact form. Suppressing your tell is possible but costs -1 ongoing until you return to your own form."
+        level: 6
+        type: "passive"
+      blood_and_thunder:
+        name: "Blood and Thunder"
+        description: "Replaces Red of Tooth and Claw. When in a dangerous animal form, increase your damage to d10."
+        level: 6
+        type: "passive"
+      the_druid_sleep:
+        name: "The Druid Sleep"
+        description: "Once, when you have safety and time in an appropriate location, attune to a new land. The GM tells you the cost and time required. You are then Born of the Soil in both lands."
+        level: 6
+        type: "passive"
+      world_talker:
+        name: "World-Talker"
+        description: "Requires Thing-Talker. Apply your Spirit Tongue, Shapeshifter, and Studied Essence to pure elements — fire, water, air, and earth."
+        level: 6
+        type: "passive"
+      stalkers_sister:
+        name: "Stalker's Sister"
+        description: "Choose one move from the Ranger class list."
+        level: 6
+        type: "passive"
+      formshaper:
+        name: "Formshaper"
+        description: "Requires Formcrafter. While in animal form, increase your armor by 1 or deal +1d4 damage. Choose when you shapeshift."
+        level: 6
+        type: "passive"
+      chimera:
+        name: "Chimera"
+        description: "When you shapeshift, you may merge up to three different forms. Each feature grants a different animal move."
+        level: 6
+        type: "passive"
+      weather_weaver:
+        name: "Weather Weaver"
+        description: "When you are under open skies at sunrise, the GM asks you what the weather will be that day. Whatever you say, it comes to pass."
+        level: 6
+        type: "passive"
+ 
+      # =======================================================================
+      # FIGHTER MOVES
+      # =======================================================================
+      bend_bars_lift_gates:
+        name: "Bend Bars, Lift Gates"
+        description: "When you use pure strength to destroy an obstacle, roll+STR. 10+: choose 3. 7-9: choose 2 — it doesn't take long, nothing valuable breaks, it's quiet, or you can fix it afterward."
+        level: 1
+        type: "roll:STR"
+      armored:
+        name: "Armored"
+        description: "You ignore the clumsy tag on any armor you wear."
+        level: 1
+        type: "passive"
+      signature_weapon:
+        name: "Signature Weapon"
+        description: "This is your weapon. Choose a base type, a range, two enhancements, and a look. Your signature weapon will never permanently leave your possession."
+        level: 1
+        type: "passive"
+      merciless:
+        name: "Merciless"
+        description: "When you deal damage, deal +1d4 damage."
+        level: 2
+        type: "passive"
+      heirloom:
+        name: "Heirloom"
+        description: "When you consult the spirits within your signature weapon, roll+CHA. 10+: the GM gives good detail. 7-9: the GM gives an impression."
+        level: 2
+        type: "roll:CHA"
+      armor_mastery:
+        name: "Armor Mastery"
+        description: "When you make your armor take the brunt of damage, negate it but reduce your armor or shield value by 1. If reduced to 0, it is destroyed."
+        level: 2
+        type: "passive"
+      improved_weapon:
+        name: "Improved Weapon"
+        description: "Choose one extra enhancement for your signature weapon."
+        level: 2
+        type: "passive"
+      seeing_red:
+        name: "Seeing Red"
+        description: "When you Discern Realities during combat, take +1."
+        level: 2
+        type: "passive"
+      interrogator:
+        name: "Interrogator"
+        description: "When you Parley using threats of violence as leverage, you may use STR instead of CHA."
+        level: 2
+        type: "passive"
+      scent_of_blood:
+        name: "Scent of Blood"
+        description: "When you Hack and Slash an enemy, your next attack against that same foe deals +1d4 damage."
+        level: 2
+        type: "passive"
+      iron_hide:
+        name: "Iron Hide"
+        description: "You gain +1 armor."
+        level: 2
+        type: "passive"
+      blacksmith:
+        name: "Blacksmith"
+        description: "When you have access to a forge, you can graft the magical powers of a weapon onto your signature weapon. That weapon is destroyed in the process."
+        level: 2
+        type: "passive"
+      bloodthirsty:
+        name: "Bloodthirsty"
+        description: "Replaces Merciless. When you deal damage, deal +1d8 damage."
+        level: 6
+        type: "passive"
+      armored_perfection:
+        name: "Armored Perfection"
+        description: "Replaces Armor Mastery. When your armor takes the brunt, negate damage, take +1 forward against the attacker, and reduce armor value by 1."
+        level: 6
+        type: "passive"
+      evil_eye:
+        name: "Evil Eye"
+        description: "Requires Seeing Red. When you enter combat, roll+CHA. 10+: hold 2. 7-9: hold 1. Spend hold to make eye contact with an NPC who freezes until you break it."
+        level: 6
+        type: "roll:CHA"
+      taste_of_blood:
+        name: "Taste of Blood"
+        description: "Replaces Scent of Blood. When you Hack and Slash an enemy, your next attack against that foe deals +1d8 damage."
+        level: 6
+        type: "passive"
+      steel_hide:
+        name: "Steel Hide"
+        description: "Replaces Iron Hide. You gain +2 armor."
+        level: 6
+        type: "passive"
+      through_deaths_eyes:
+        name: "Through Death's Eyes"
+        description: "When you go into battle, roll+WIS. 10+: name one who will live and one who will die. 7-9: name one or the other. The GM makes your vision come true if possible. Miss: you see your own death; take -1 ongoing for the battle."
+        level: 6
+        type: "roll:WIS"
+      eye_for_weaponry:
+        name: "Eye for Weaponry"
+        description: "When you look over an enemy's weaponry, ask the GM how much damage they do."
+        level: 6
+        type: "passive"
+      superior_warrior:
+        name: "Superior Warrior"
+        description: "When you Hack and Slash on a 12+, you deal damage, avoid their attack, and impress, dismay, or frighten your enemy."
+        level: 6
+        type: "passive"
+ 
+      # =======================================================================
+      # PALADIN MOVES
+      # =======================================================================
+      lay_on_hands:
+        name: "Lay on Hands"
+        description: "When you touch someone skin-to-skin and pray for their wellbeing, roll+CHA. 10+: heal 1d8 damage or remove one disease. 7-9: they are healed but the damage or disease transfers to you."
+        level: 1
+        type: "roll:CHA"
+      i_am_the_law:
+        name: "I Am the Law"
+        description: "When you give an NPC an order based on your divine authority, roll+CHA. 7+: they choose to obey, flee, or attack. 10+: you also take +1 forward against them."
+        level: 1
+        type: "roll:CHA"
+      quest:
+        name: "Quest"
+        description: "When you dedicate yourself to a mission through prayer and ritual, state your goal and choose up to two boons. The GM tells you what vows are required to maintain your blessing."
+        level: 1
+        type: "passive"
+      divine_favor:
+        name: "Divine Favor"
+        description: "Dedicate yourself to a deity. Gain the Commune and Cast a Spell cleric moves, treating yourself as a cleric of level 1. Increase your effective cleric level each time you level up."
+        level: 2
+        type: "passive"
+      bloody_aegis:
+        name: "Bloody Aegis"
+        description: "When you take damage, you may grit your teeth and accept the blow — take no damage but suffer a debility of your choice."
+        level: 2
+        type: "passive"
+      smite:
+        name: "Smite"
+        description: "While on a quest, you deal +1d4 damage."
+        level: 2
+        type: "passive"
+      exterminatus:
+        name: "Exterminatus"
+        description: "When you speak your promise to defeat an enemy aloud, deal +2d4 against them and -4 against anyone else until they are defeated."
+        level: 2
+        type: "passive"
+      charge:
+        name: "Charge!"
+        description: "When you lead the charge into combat, those you lead take +1 forward."
+        level: 2
+        type: "passive"
+      staunch_defender:
+        name: "Staunch Defender"
+        description: "When you Defend, you always get +1 hold, even on a miss."
+        level: 2
+        type: "passive"
+      setup_strike:
+        name: "Setup Strike"
+        description: "When you Hack and Slash, choose an ally. Their next attack against your target does +1d4 damage."
+        level: 2
+        type: "passive"
+      holy_protection:
+        name: "Holy Protection"
+        description: "You get +1 armor while on a quest."
+        level: 2
+        type: "passive"
+      voice_of_authority:
+        name: "Voice of Authority"
+        description: "Take +1 to order hirelings."
+        level: 2
+        type: "passive"
+      hospitaller:
+        name: "Hospitaller"
+        description: "When you heal an ally, heal +1d8 damage."
+        level: 2
+        type: "passive"
+      evidence_of_faith:
+        name: "Evidence of Faith"
+        description: "Requires Divine Favor. When you see divine magic happen, ask the GM which deity granted it and what it does. Take +1 acting on the answers."
+        level: 6
+        type: "passive"
+      holy_smite:
+        name: "Holy Smite"
+        description: "Replaces Smite. While on a quest, you deal +1d8 damage."
+        level: 6
+        type: "passive"
+      ever_onward:
+        name: "Ever Onward"
+        description: "Replaces Charge! When you lead the charge, those you lead take +1 forward and +2 armor forward."
+        level: 6
+        type: "passive"
+      impervious_defender:
+        name: "Impervious Defender"
+        description: "Replaces Staunch Defender. Always get +1 hold on Defend even on a miss. On a 12+ the nearest attacker is stymied — the GM describes it."
+        level: 6
+        type: "passive"
+      tandem_strike:
+        name: "Tandem Strike"
+        description: "Replaces Setup Strike. When you Hack and Slash, choose an ally — their next attack does +1d4 damage and they take +1 forward against that target."
+        level: 6
+        type: "passive"
+      divine_protection_pal:
+        name: "Divine Protection"
+        description: "Replaces Holy Protection. You get +2 armor while on a quest."
+        level: 6
+        type: "passive"
+      divine_authority:
+        name: "Divine Authority"
+        description: "Replaces Voice of Authority. Take +1 to order hirelings. On a 12+ the hireling acts with particular effectiveness or efficiency."
+        level: 6
+        type: "passive"
+      perfect_hospitaller:
+        name: "Perfect Hospitaller"
+        description: "Replaces Hospitaller. When you heal an ally, heal +2d8 damage."
+        level: 6
+        type: "passive"
+      indomitable:
+        name: "Indomitable"
+        description: "When you suffer a debility (even through Bloody Aegis), take +1 forward against whatever caused it."
+        level: 6
+        type: "passive"
+      perfect_knight:
+        name: "Perfect Knight"
+        description: "When you quest, choose three boons instead of two."
+        level: 6
+        type: "passive"
+ 
+      # =======================================================================
+      # RANGER MOVES
+      # =======================================================================
+      hunt_and_track:
+        name: "Hunt and Track"
+        description: "When you follow a trail of clues left by passing creatures, roll+WIS. 7+: follow the trail until a significant change in direction or travel. 10+: also ask one about your quarry or what ended the trail."
+        level: 1
+        type: "roll:WIS"
+      called_shot:
+        name: "Called Shot"
+        description: "When you attack a defenseless or surprised enemy at range, deal damage or name a target and roll+DEX. Head, arms, or legs — each has a 10+ and 7-9 effect."
+        level: 1
+        type: "roll:DEX"
+      animal_companion:
+        name: "Animal Companion"
+        description: "You have a supernatural bond with a loyal named animal. Choose its species, base stats (ferocity, cunning, armor, instinct), strengths, trainings, and weaknesses."
+        level: 1
+        type: "passive"
+      command:
+        name: "Command"
+        description: "When you work with your animal companion on something it's trained in: add its ferocity to damage, cunning to track or discern, armor to your armor, or instinct to an interfering roll."
+        level: 1
+        type: "passive"
+      half_elven:
+        name: "Half-Elven"
+        description: "First advancement only. You gain the elf starting move if you took the human one at creation, or vice versa."
+        level: 2
+        type: "passive"
+      wild_empathy:
+        name: "Wild Empathy"
+        description: "You can speak with and understand animals."
+        level: 2
+        type: "passive"
+      familiar_prey:
+        name: "Familiar Prey"
+        description: "When you Spout Lore about a monster, use WIS instead of INT."
+        level: 2
+        type: "passive"
+      vipers_strike:
+        name: "Viper's Strike"
+        description: "When you strike an enemy with two weapons at once, add an extra 1d4 damage for your off-hand strike."
+        level: 2
+        type: "passive"
+      camouflage:
+        name: "Camouflage"
+        description: "When you keep still in natural surroundings, enemies never spot you until you make a movement."
+        level: 2
+        type: "passive"
+      mans_best_friend:
+        name: "Man's Best Friend"
+        description: "When you let your animal companion take a blow meant for you, the damage is negated and its ferocity becomes 0. Rest together to restore its ferocity."
+        level: 2
+        type: "passive"
+      blot_out_the_sun:
+        name: "Blot Out the Sun"
+        description: "When you Volley, spend extra ammo before rolling. For each point spent, choose an extra target. Roll once and apply damage to all."
+        level: 2
+        type: "passive"
+      well_trained:
+        name: "Well-Trained"
+        description: "Choose another training for your animal companion."
+        level: 2
+        type: "passive"
+      god_amidst_the_wastes:
+        name: "God Amidst the Wastes"
+        description: "Dedicate yourself to a deity. Gain the Commune and Cast a Spell cleric moves, treating yourself as a cleric of level 1. Increase your effective cleric level each time you level up."
+        level: 2
+        type: "passive"
+      follow_me:
+        name: "Follow Me"
+        description: "When you Undertake a Perilous Journey, you can take two roles. Make a separate roll for each."
+        level: 2
+        type: "passive"
+      a_safe_place:
+        name: "A Safe Place"
+        description: "When you set the watch for the night, everyone takes +1 to Take Watch."
+        level: 2
+        type: "passive"
+      wild_speech:
+        name: "Wild Speech"
+        description: "Replaces Wild Empathy. You can speak with and understand any non-magical, non-planar creature."
+        level: 6
+        type: "passive"
+      hunters_prey:
+        name: "Hunter's Prey"
+        description: "Replaces Familiar Prey. Spout Lore about monsters with WIS. On a 12+, also ask the GM any one question about the subject."
+        level: 6
+        type: "passive"
+      vipers_fangs:
+        name: "Viper's Fangs"
+        description: "Replaces Viper's Strike. When you strike with two weapons, add an extra 1d8 damage for your off-hand strike."
+        level: 6
+        type: "passive"
+      smaugs_belly:
+        name: "Smaug's Belly"
+        description: "When you know your target's weakest point, your arrows have 2 piercing."
+        level: 6
+        type: "passive"
+      strider:
+        name: "Strider"
+        description: "Replaces Follow Me. When you Undertake a Perilous Journey, take two roles. Roll twice and use the better result for both."
+        level: 6
+        type: "passive"
+      a_safer_place:
+        name: "A Safer Place"
+        description: "Replaces A Safe Place. Everyone takes +1 to Take Watch. After a night where you set the watch, everyone takes +1 forward."
+        level: 6
+        type: "passive"
+      observant:
+        name: "Observant"
+        description: "When you Hunt and Track on a hit, you may also ask one free question from the Discern Realities list about the creature you are tracking."
+        level: 6
+        type: "passive"
+      special_trick:
+        name: "Special Trick"
+        description: "Choose a move from another class. So long as you are working with your animal companion, you have access to that move."
+        level: 6
+        type: "passive"
+      unnatural_ally:
+        name: "Unnatural Ally"
+        description: "Your animal companion is a monster, not an animal. Describe it. Give it +2 ferocity and +1 instinct, plus a new training."
+        level: 6
+        type: "passive"
+ 
+      # =======================================================================
+      # THIEF MOVES
+      # =======================================================================
+      trap_expert:
+        name: "Trap Expert"
+        description: "When you survey a dangerous area, roll+DEX. 10+: hold 3. 7-9: hold 1. Spend hold as you move through to ask: Is there a trap? What activates it? What does it do? What else is hidden here?"
+        level: 1
+        type: "roll:DEX"
+      tricks_of_the_trade:
+        name: "Tricks of the Trade"
+        description: "When you pick locks or pockets or disable traps, roll+DEX. 10+: you do it cleanly. 7-9: you do it, but the GM offers two options from suspicion, danger, or cost."
+        level: 1
+        type: "roll:DEX"
+      backstab:
+        name: "Backstab"
+        description: "When you attack a surprised or defenseless enemy with a melee weapon, deal damage or roll+DEX. 10+: choose two. 7-9: choose one — avoid melee, deal damage+1d6, create an advantage, or reduce their armor by 1."
+        level: 1
+        type: "roll:DEX"
+      flexible_morals:
+        name: "Flexible Morals"
+        description: "When someone tries to detect your alignment, you can tell them any alignment you like."
+        level: 1
+        type: "passive"
+      poisoner:
+        name: "Poisoner"
+        description: "You've mastered one poison — it is no longer dangerous for you to use. Start with three uses. When you have time and a safe place to brew, you can make three more uses for free."
+        level: 1
+        type: "passive"
+      cheap_shot:
+        name: "Cheap Shot"
+        description: "When using a precise or hand weapon, your Backstab deals an extra +1d6 damage."
+        level: 2
+        type: "passive"
+      cautious:
+        name: "Cautious"
+        description: "When you use Trap Expert, you always get +1 hold, even on a miss."
+        level: 2
+        type: "passive"
+      wealth_and_taste:
+        name: "Wealth and Taste"
+        description: "When you flash around your most valuable possession, choose someone present. They will do anything to obtain your item or one like it."
+        level: 2
+        type: "passive"
+      shoot_first:
+        name: "Shoot First"
+        description: "You're never caught by surprise. When an enemy would get the drop on you, you act first instead."
+        level: 2
+        type: "passive"
+      poison_master:
+        name: "Poison Master"
+        description: "After you've used a poison once, it is no longer dangerous for you to use."
+        level: 2
+        type: "passive"
+      envenom:
+        name: "Envenom"
+        description: "You can apply complex poisons with a pinprick. When you apply a safe poison to your weapon, it becomes touch instead of applied."
+        level: 2
+        type: "passive"
+      brewer:
+        name: "Brewer"
+        description: "When you have time and a safe place to brew, you can create three doses of any poison you've used before."
+        level: 2
+        type: "passive"
+      underdog:
+        name: "Underdog"
+        description: "When you're outnumbered, you have +1 armor."
+        level: 2
+        type: "passive"
+      connections:
+        name: "Connections"
+        description: "When you put out word to the criminal underbelly about something you need, roll+CHA. 10+: someone has it for you. 7-9: it comes with strings attached or you settle for something close."
+        level: 2
+        type: "roll:CHA"
+      dirty_fighter:
+        name: "Dirty Fighter"
+        description: "Replaces Cheap Shot. Backstab deals an extra +1d8 damage and all other attacks deal +1d4 damage."
+        level: 6
+        type: "passive"
+      extremely_cautious:
+        name: "Extremely Cautious"
+        description: "Replaces Cautious. Always get +1 hold on Trap Expert even on a miss. On a 12+, get 3 hold and the GM immediately tells you what the trap does, who set it, and how to use it."
+        level: 6
+        type: "passive"
+      alchemist:
+        name: "Alchemist"
+        description: "Replaces Brewer. Create three doses of any poison you've used, or describe a new poison's effects and the GM gives it to you with one or more caveats."
+        level: 6
+        type: "passive"
+      serious_underdog:
+        name: "Serious Underdog"
+        description: "Replaces Underdog. You have +1 armor. When outnumbered, you have +2 armor instead."
+        level: 6
+        type: "passive"
+      evasion:
+        name: "Evasion"
+        description: "When you Defy Danger on a 12+, you transcend the danger entirely. The GM offers a better outcome, true beauty, or a moment of grace."
+        level: 6
+        type: "passive"
+      strong_arm_true_aim:
+        name: "Strong Arm, True Aim"
+        description: "You can throw any melee weapon, using it to Volley. A thrown melee weapon is gone — you can never choose to reduce ammo on a 7-9."
+        level: 6
+        type: "passive"
+      escape_route:
+        name: "Escape Route"
+        description: "When you need a way out, name your escape route and roll+DEX. 10+: you're gone. 7-9: you can stay or go, but going costs you — leave something behind or take something unwanted."
+        level: 6
+        type: "roll:DEX"
+      disguise:
+        name: "Disguise"
+        description: "When you have time and materials, create a disguise that fools anyone into thinking you're another creature of similar size and shape. Actions can give you away; appearance won't."
+        level: 6
+        type: "passive"
+      heist:
+        name: "Heist"
+        description: "When you plan to steal something, name the target and ask the GM: Who notices it missing? What's its strongest defense? Who will pursue? Who else wants it? You and allies take +1 forward acting on the answers."
+        level: 6
+        type: "passive"
+ 
+      # =======================================================================
+      # WIZARD MOVES
+      # =======================================================================
+      spellbook:
+        name: "Spellbook"
+        description: "You have mastered spells and inscribed them in your spellbook. Start with three first-level spells and all cantrips. Add a new spell of your level or lower each time you gain a level."
+        level: 1
+        type: "passive"
+      prepare_spells:
+        name: "Prepare Spells"
+        description: "When you spend an hour studying your spellbook, lose prepared spells, then prepare new ones whose total levels don't exceed your level+1. Prepare all cantrips for free."
+        level: 1
+        type: "passive"
+      spell_defense:
+        name: "Spell Defense"
+        description: "You may end any ongoing spell immediately and use its dissipating energy to deflect an attack. The spell ends and you subtract its level from the damage dealt to you."
+        level: 1
+        type: "passive"
+      ritual:
+        name: "Ritual"
+        description: "When you draw on a place of power to create a magical effect, tell the GM what you're trying to achieve. Ritual effects are always possible, but the GM gives you one to four conditions to fulfill."
+        level: 1
+        type: "passive"
+      prodigy:
+        name: "Prodigy"
+        description: "Choose a spell. You prepare that spell as if it were one level lower."
+        level: 2
+        type: "passive"
+      empowered_magic:
+        name: "Empowered Magic"
+        description: "When you cast a spell on a 10+, you may choose from the 7-9 list and also choose one bonus: the spell's effects are maximized, or the spell's targets are doubled."
+        level: 2
+        type: "passive"
+      fount_of_knowledge:
+        name: "Fount of Knowledge"
+        description: "When you Spout Lore about something no one else has any clue about, take +1."
+        level: 2
+        type: "passive"
+      know_it_all:
+        name: "Know-It-All"
+        description: "When another character comes to you for advice and follows it, they get +1 forward and you mark experience."
+        level: 2
+        type: "passive"
+      expanded_spellbook:
+        name: "Expanded Spellbook"
+        description: "Add a new spell from the spell list of any class to your spellbook."
+        level: 2
+        type: "passive"
+      enchanter:
+        name: "Enchanter"
+        description: "When you have time and safety with a magic item, ask the GM what it does. They answer truthfully."
+        level: 2
+        type: "passive"
+      logical:
+        name: "Logical"
+        description: "When you use strict deduction to analyze your surroundings, you can Discern Realities with INT instead of WIS."
+        level: 2
+        type: "passive"
+      arcane_ward:
+        name: "Arcane Ward"
+        description: "As long as you have at least one prepared spell of first level or higher, you have +2 armor."
+        level: 2
+        type: "passive"
+      counterspell:
+        name: "Counterspell"
+        description: "When you counter an arcane spell affecting you, stake a prepared spell and roll+INT. 10+: the spell is countered. 7-9: countered and you forget the staked spell. Protects only you."
+        level: 2
+        type: "roll:INT"
+      quick_study:
+        name: "Quick Study"
+        description: "When you see the effects of an arcane spell, ask the GM its name and effects. Take +1 forward acting on the answers."
+        level: 2
+        type: "passive"
+      master:
+        name: "Master"
+        description: "Requires Prodigy. Choose one additional spell. You prepare it as if it were one level lower."
+        level: 6
+        type: "passive"
+      greater_empowered_magic:
+        name: "Greater Empowered Magic"
+        description: "Replaces Empowered Magic. On a 10-11, choose from the 7-9 list and pick a bonus effect. On a 12+, choose one bonus effect for free."
+        level: 6
+        type: "passive"
+      enchanters_soul:
+        name: "Enchanter's Soul"
+        description: "Requires Enchanter. In a place of power with a magic item and time to spare, empower it so its next use is amplified. The GM tells you exactly how."
+        level: 6
+        type: "passive"
+      highly_logical:
+        name: "Highly Logical"
+        description: "Replaces Logical. Discern Realities with INT instead of WIS. On a 12+, ask the GM any three questions, not limited by the list."
+        level: 6
+        type: "passive"
+      spell_augmentation:
+        name: "Spell Augmentation"
+        description: "When you deal damage with a spell, you can substitute your damage dice with your ally's damage dice."
+        level: 6
+        type: "passive"
+      self_powered:
+        name: "Self-Powered"
+        description: "When you Prepare Spells, you get one extra spell slot of your highest level."
+        level: 6
+        type: "passive"
+ 
+      # =======================================================================
+      # YAR BERSERK MOVES
+      # =======================================================================
+      blood_price:
+        name: "Blood Price"
+        description: "When you spend your own blood to fuel your strikes, you may take up to your level in damage (ignoring armor) to deal that much extra damage on your next attack."
+        level: 1
+        type: "passive"
+      battle_rage:
+        name: "Battle Rage"
+        description: "When you enter a frenzy, roll+CON. 10+: hold 3. 7-9: hold 2. Spend hold to deal +1d6 damage, ignore a blow's damage, or move with terrifying speed. While raging, you cannot distinguish friend from foe."
+        level: 1
+        type: "roll:CON"
+      thick_hide:
+        name: "Thick Hide"
+        description: "Years of brutal northern life have toughened you. You have +1 armor at all times and the effects of debilities are halved."
+        level: 1
+        type: "passive"
+      last_to_fall:
+        name: "Last to Fall"
+        description: "When you would take your last breath, roll+CON. 10+: you keep fighting at 1 HP. 7-9: you keep fighting but are badly hurt — the GM names a permanent cost."
+        level: 1
+        type: "roll:CON"
+ 
+      # =======================================================================
+      # YAR PATH MASTER MOVES
+      # =======================================================================
+      safe_passage:
+        name: "Safe Passage"
+        description: "Your party cannot become lost while you lead the way. When you Undertake a Perilous Journey as scout, the roll is always treated as a 10+ for the navigation role."
+        level: 1
+        type: "passive"
+      read_the_wild:
+        name: "Read the Wild"
+        description: "When you stop and read your surroundings, roll+WIS. 10+: ask the GM three questions about incoming threats, weather, or creature movements. 7-9: ask one."
+        level: 1
+        type: "roll:WIS"
+      forest_step:
+        name: "Forest Step"
+        description: "When you move through wilderness, you leave no trail unless you choose to. You move in silence naturally — no roll required unless conditions are extreme."
+        level: 1
+        type: "passive"
+      waymarker:
+        name: "Waymarker"
+        description: "When you mark a path or cache for allies to follow, they find it without a roll and can follow your route safely even without you present."
+        level: 1
+        type: "passive"
+ 
+      # =======================================================================
+      # YAR RUNE MASTER MOVES
+      # =======================================================================
+      carve_rune:
+        name: "Carve Rune"
+        description: "When you inscribe a rune on a surface, name a trigger condition. When that condition is met, the rune activates. Roll+INT. 10+: hold 2 rune activations. 7-9: hold 1."
+        level: 1
+        type: "roll:INT"
+      runic_armor:
+        name: "Runic Armor"
+        description: "The runes carved into your armor absorb punishment. When you take damage, spend a rune charge to reduce it by 1d6. You can hold up to your level in rune charges."
+        level: 1
+        type: "passive"
+      trigger_word:
+        name: "Trigger Word"
+        description: "When you speak a rune's trigger word, it activates immediately regardless of whether its condition has been met. Spend the hold from Carve Rune."
+        level: 1
+        type: "passive"
+      living_stone:
+        name: "Living Stone"
+        description: "When you plant your feet and endure a blow through runic will, roll+CON. 10+: take no damage. 7-9: take half damage. The runes on you flare and crack — lose one rune charge."
+        level: 1
+        type: "roll:CON"
+ 
+      # =======================================================================
+      # YAR EVIL HUNTER MOVES
+      # =======================================================================
+      harvest_the_slain:
+        name: "Harvest the Slain"
+        description: "When you take time after defeating a creature to harvest its remains, roll+WIS. 10+: gather 3 useful components. 7-9: gather 1. The GM describes what you find and its potential uses."
+        level: 1
+        type: "roll:WIS"
+      brew_hunter_oil:
+        name: "Brew Hunter's Oil"
+        description: "When you spend components and herbs to brew an oil, name the creature type it targets. Applied to a weapon before combat, it deals +1d6 damage against that creature type for the rest of the fight."
+        level: 1
+        type: "passive"
+      study_the_prey:
+        name: "Study the Prey"
+        description: "When you observe a creature without engaging it, roll+WIS. 10+: learn its weakness, armor, and a special move. 7-9: learn one of those three."
+        level: 1
+        type: "roll:WIS"
+      prepared_mind:
+        name: "Prepared Mind"
+        description: "You cannot be surprised by any creature type you have previously hunted. When you fight a studied creature type, take +1 forward on the first roll of combat."
+        level: 1
+        type: "passive"
+ 
+    # =========================================================================
+    # EQUIPMENT
+    # =========================================================================
+    # Armor
+    obj:
+      leather_armor:
+        name: "Leather Armor"
+        description: "Tanned hides shaped into protective wear. [worn, armor_1](-){1}"
+      chainmail:
+        name: "Chainmail"
+        description: "Interlocked rings of metal. Heavy but reliable. [worn, armor_1, clumsy](-){1}"
+      scale_armor:
+        name: "Scale Armor"
+        description: "Overlapping metal scales riveted to a leather base. [worn, armor_2, clumsy](-){3}"
+      hide_armor:
+        name: "Hide Armor"
+        description: "Rough-cured animal hides. Crude but effective in the wilds. [worn, armor_1](-){1}"
+      shield:
+        name: "Shield"
+        description: "A sturdy shield of wood and iron. [held, armor_1](-){2}"
+      wooden_shield:
+        name: "Wooden Shield"
+        description: "A light wooden shield, quick to raise and easy to carry. [held, armor_1](-){1}"
+      # Melee weapons
+      dueling_rapier:
+        name: "Dueling Rapier"
+        description: "A slender blade favored by performers and duelists alike. [close, precise](-){2}"
+      short_sword:
+        name: "Short Sword"
+        description: "A reliable blade, light and fast. [close](-){1}"
+      longsword:
+        name: "Long Sword"
+        description: "A well-balanced sword with reach and power. [close, +1 damage](-){1}"
+      warhammer:
+        name: "Warhammer"
+        description: "A heavy hammer built to crack armor and bone. [close](-){1}"
+      mace:
+        name: "Mace"
+        description: "A flanged iron head on a wooden haft. Simple and brutal. [close](-){1}"
+      staff:
+        name: "Staff"
+        description: "A long wooden pole, balanced for striking or walking. [close, two_handed](-){1}"
+      shillelagh:
+        name: "Shillelagh"
+        description: "A stout hardwood club, seasoned and weighted. [close](-){2}"
+      spear:
+        name: "Spear"
+        description: "A long shaft tipped with iron, good for thrusting and throwing. [close, thrown, near](-){1}"
+      halberd:
+        name: "Halberd"
+        description: "An axe blade and spear point on a long pole. Fearsome reach. [reach, two_handed, +1 damage](-){2}"
+      dagger:
+        name: "Dagger"
+        description: "A short blade for close work. Fits anywhere, useful everywhere. [hand](-){1}"
+      hunting_knife:
+        name: "Hunting Knife"
+        description: "A sturdy blade worn at the hip. Tool and weapon both. [hand](-){1}"
+      great_axe:
+        name: "Great Axe"
+        description: "A massive two-handed axe that cleaves through armor and men alike. [reach, two_handed, messy](-){2}"
+      runic_warhammer:
+        name: "Runic Warhammer"
+        description: "A warhammer inscribed with trigger runes, humming with latent power. [close](-){1}"
+      signature_weapon:
+        name: "Signature Weapon"
+        description: "Your weapon. Choose base, range, two enhancements, and a look. [signature](-){2}"
+      # Ranged weapons
+      hunters_bow:
+        name: "Hunter's Bow"
+        description: "A well-crafted bow suited for the field and the hunt. [near, far](-){1}"
+      worn_bow:
+        name: "Worn Bow"
+        description: "A serviceable bow showing the marks of heavy use. [near](-){2}"
+      ragged_bow:
+        name: "Ragged Bow"
+        description: "A rough bow, barely holding together, but it shoots straight enough. [near](-){2}"
+      arrows:
+        name: "Bundle of Arrows"
+        description: "A sheaf of fletched arrows, enough for a skirmish. [ammo](3){1}"
+      throwing_daggers:
+        name: "Throwing Daggers"
+        description: "Balanced blades designed to be thrown with accuracy. [thrown, near](3){0}"
+      # Consumables
+      dungeon_rations:
+        name: "Dungeon Rations"
+        description: "Hard tack, dried meat, and whatever else survives the road. [consumed](5){1}"
+      dungeon_rations_extra:
+        name: "Dungeon Rations"
+        description: "Hard tack, dried meat, and whatever else survives the road. [consumed](5){1}"
+      healing_potion:
+        name: "Healing Potion"
+        description: "A small vial of restorative liquid. Heals 10 HP when drunk. [consumed](1){0}"
+      antitoxin:
+        name: "Antitoxin"
+        description: "Neutralizes one poison or venom when consumed. [consumed](1){0}"
+      bandages:
+        name: "Bandages"
+        description: "Strips of clean cloth for binding wounds in the field. [consumed](3){0}"
+      poultices_and_herbs:
+        name: "Poultices and Herbs"
+        description: "Prepared remedies for wounds and ailments. [consumed](2){1}"
+      herbs_and_poultices:
+        name: "Herbs and Poultices"
+        description: "Gathered medicinal plants and prepared remedies — the hunter's field kit. [consumed](3){1}"
+      halfling_pipeleaf:
+        name: "Halfling Pipeleaf"
+        description: "Fragrant leaf for a pipe. Calming. Sociable. Not without use. [consumed](-){0}"
+      monster_components:
+        name: "Monster Components"
+        description: "Harvested parts from slain creatures — claws, ichor, glands. Useful for brewing. [consumed, crafting](2){1}"
+      # Poisons
+      poison_oil_of_tagit:
+        name: "Oil of Tagit"
+        description: "Applied carefully, the target falls into a light sleep. [poison, applied](1){0}"
+      poison_bloodweed:
+        name: "Bloodweed"
+        description: "Touch poison. The target deals -1d4 damage ongoing until cured. [poison, touch](1){0}"
+      poison_goldenroot:
+        name: "Goldenroot"
+        description: "Applied poison. The target treats the next creature they see as a trusted ally, until proved otherwise. [poison, applied](1){0}"
+      poison_serpents_tears:
+        name: "Serpent's Tears"
+        description: "Touch poison. Anyone dealing damage to the target rolls twice and takes the better result. [poison, touch](1){0}"
+      poison_chosen:
+        name: "Chosen Poison"
+        description: "Your mastered poison — replace this key with the specific poison chosen at creation. [poison](3){0}"
+      # Gear & tools
+      adventuring_gear:
+        name: "Adventuring Gear"
+        description: "Rope, torches, chalk, pitons, and the other tools of the trade. [gear](-){1}"
+      spellbook:
+        name: "Spellbook"
+        description: "A leather-bound tome of spells and arcane notes. Irreplaceable. [gear, fragile](-){1}"
+      bag_of_books:
+        name: "Bag of Books"
+        description: "A satchel of reference texts, useful for research in the field. [gear](5){2}"
+      holy_symbol:
+        name: "Holy Symbol"
+        description: "A sacred icon of your deity, worn or carried as a focus for divine power. [gear, divine](-){0}"
+      mark_of_faith:
+        name: "Mark of Faith"
+        description: "A symbol, brand, or token marking you as an instrument of your god. [gear, divine](-){0}"
+      land_token:
+        name: "Land Token"
+        description: "A small object from your attuned land — a stone, a seed, a dried flower. Describe it. [gear](-){0}"
+      rune_chisels:
+        name: "Rune Chisels"
+        description: "Fine iron tools for carving precise runes into stone, wood, or metal. [gear, tools](-){0}"
+      rope:
+        name: "Rope"
+        description: "Sturdy hempen rope, 50 feet. Useful for climbing, binding, and marking paths. [gear](-){1}"
+      ostentatious_clothes:
+        name: "Ostentatious Clothes"
+        description: "Finery that announces your arrival before you speak a word. [worn](-){0}"
+
+    # =========================================================================
+    # SPELLS
+    # =========================================================================
+    spell:
+      cleric:
+        # Rotes (level 0 — always prepared, don't count against limit)
+        light:
+          name: "Light"
+          level: 0
+          tags: []
+          description: "An item you touch glows with divine light, about as bright as a torch. It gives off no heat or sound and requires no fuel but is otherwise like a mundane torch. You have complete control of the color of the flame. The spell lasts as long as it is in your presence."
+        sanctify:
+          name: "Sanctify"
+          level: 0
+          tags: []
+          description: "Food or water you hold in your hands while you cast this spell is consecrated by your deity. In addition to now being holy or unholy, the affected substance is purified of any mundane spoilage."
+        guidance:
+          name: "Guidance"
+          level: 0
+          tags: []
+          description: "The symbol of your deity appears before you and gestures towards the direction or course of action your deity would have you take then disappears. The message is through gesture only; your communication through this spell is severely limited."
+        # Level 1
+        bless:
+          name: "Bless"
+          level: 1
+          tags: ["ongoing"]
+          description: "Your deity smiles upon a combatant of your choice. They take +1 ongoing so long as battle continues and they stand and fight. While this spell is ongoing you take -1 to cast a spell."
+        cure_light_wounds:
+          name: "Cure Light Wounds"
+          level: 1
+          tags: []
+          description: "At your touch wounds scab and bones cease to ache. Heal an ally you touch of 1d8 damage."
+        detect_alignment:
+          name: "Detect Alignment"
+          level: 1
+          tags: []
+          description: "When you cast this spell choose an alignment: Good, Evil, Lawful, or Chaotic. One of your senses is briefly able to detect that alignment. The GM will tell you what here is of that alignment."
+        cause_fear:
+          name: "Cause Fear"
+          level: 1
+          tags: ["ongoing"]
+          description: "Choose a target you can see and a nearby object. The target is afraid of the object so long as you maintain the spell. Their reaction is up to them: flee, panic, beg, fight. While this spell is ongoing you take -1 to cast a spell. You cannot target entities with less than animal intelligence (magical constructs, undead, automatons, and the like)."
+        magic_weapon:
+          name: "Magic Weapon"
+          level: 1
+          tags: ["ongoing"]
+          description: "The weapon you hold while casting does +1d4 damage until you dismiss this spell. While this spell is ongoing you take -1 to cast a spell."
+        sanctuary:
+          name: "Sanctuary"
+          level: 1
+          tags: []
+          description: "As you cast this spell, you walk the perimeter of an area, consecrating it to your deity. As long as you stay within that area you are alerted whenever someone acts with malice within the sanctuary (including entering with harmful intent). Anyone who receives healing within a sanctuary heals +1d4 HP."
+        speak_with_dead:
+          name: "Speak With Dead"
+          level: 1
+          tags: []
+          description: "A corpse converses with you briefly. It will answer any three questions you pose to it to the best of the knowledge it had in life and the knowledge it gained in death."
+        # Level 3
+        animate_dead:
+          name: "Animate Dead"
+          level: 3
+          tags: ["ongoing"]
+          description: "You invoke a hungry spirit to possess a recently-dead body and serve you. This creates a zombie that follows your orders to the best of its limited abilities. Treat the zombie as a character, but with access to only the basic moves. It has a +1 modifier for all stats and 1 HP. The zombie also gets your choice of 1d4 of these traits: it's talented (give one stat a +2 modifier), it's durable (+2 HP for each level you have), it has a functioning brain and can complete complex tasks, or it does not appear obviously dead, at least for a day or two. The zombie lasts until it is destroyed or until you end the spell. While this spell is ongoing you take -1 to cast a spell."
+        cure_moderate_wounds:
+          name: "Cure Moderate Wounds"
+          level: 3
+          tags: []
+          description: "You staunch bleeding and set bones through magic. Heal an ally you touch of 2d8 damage."
+        darkness:
+          name: "Darkness"
+          level: 3
+          tags: ["ongoing"]
+          description: "Choose an area you can see: it's filled with supernatural darkness and shadow. While this spell is ongoing you take -1 to cast a spell."
+        resurrection:
+          name: "Resurrection"
+          level: 3
+          tags: []
+          description: "Tell the GM you would like to resurrect a corpse whose soul has not yet fully departed this world. Resurrection is always possible, but the GM will give you one or more conditions to fulfill: it's going to take days/weeks/months, you must get help from someone, it will require a lot of money, or you must sacrifice something to do it."
+        hold_person:
+          name: "Hold Person"
+          level: 3
+          tags: []
+          description: "Choose a person you can see. Until you cast a spell or leave their presence they cannot act except to speak. This effect ends immediately if the target takes damage from any source."
+        # Level 5
+        revelation:
+          name: "Revelation"
+          level: 5
+          tags: []
+          description: "Your deity answers your prayers with a moment of perfect understanding. The GM will shed light on the current situation. When acting on the information, you take +1 forward."
+        cure_critical_wounds:
+          name: "Cure Critical Wounds"
+          level: 5
+          tags: []
+          description: "Heal an ally you touch of 3d8 damage."
+        divination:
+          name: "Divination"
+          level: 5
+          tags: []
+          description: "Name a person, place, or thing you want to learn about. Your deity grants you visions of the target, as clear as if you were there."
+        contagion:
+          name: "Contagion"
+          level: 5
+          tags: ["ongoing"]
+          description: "Choose a creature you can see. Until you end this spell, the target suffers from a disease of your choice. While this spell is ongoing you take -1 to cast a spell."
+        words_of_the_unspeaking:
+          name: "Words of the Unspeaking"
+          level: 5
+          tags: []
+          description: "With a touch you speak to the spirits within things. The non-living object you touch answers three questions you pose, as best it can."
+        true_seeing:
+          name: "True Seeing"
+          level: 5
+          tags: ["ongoing"]
+          description: "Your vision is opened to the true nature of everything you lay your eyes on. You pierce illusions and see things that have been hidden. The GM will describe the area before you ignoring any illusions and falsehoods, magical or otherwise. While this spell is ongoing you take -1 to cast a spell."
+        trap_soul:
+          name: "Trap Soul"
+          level: 5
+          tags: []
+          description: "You trap the soul of a dying creature within a gem. The trapped creature is aware of its imprisonment but can still be manipulated through spells, parley, and other effects. All moves against the trapped creature are at +1. You can free the soul at any time but it can never be recaptured once freed."
+        # Level 7
+        word_of_recall:
+          name: "Word of Recall"
+          level: 7
+          tags: []
+          description: "Choose a word. The first time after casting this spell that you speak the chosen word, you and any allies touching you when you cast the spell are immediately returned to the exact spot where you cast the spell. You can only maintain a single location; casting Word of Recall again before speaking the word replaces the earlier spell."
+        heal:
+          name: "Heal"
+          level: 7
+          tags: []
+          description: "Touch an ally and you may heal their damage a number of points up to your maximum HP."
+        harm:
+          name: "Harm"
+          level: 7
+          tags: []
+          description: "Touch an enemy and strike them with divine wrath — deal 2d8 damage to them and 1d6 damage to yourself. This damage ignores armor."
+        sever:
+          name: "Sever"
+          level: 7
+          tags: ["ongoing"]
+          description: "Choose an appendage on the target such as an arm, tentacle, or wing. The appendage is magically severed from their body, causing no damage but considerable pain. Missing an appendage may keep a winged creature from flying, or a bull from goring you on its horns. While this spell is ongoing you take -1 to cast a spell."
+        mark_of_death:
+          name: "Mark of Death"
+          level: 7
+          tags: []
+          description: "Choose a creature whose true name you know. This spell creates permanent runes on a target surface that will kill that creature, should they read them."
+        control_weather:
+          name: "Control Weather"
+          level: 7
+          tags: []
+          description: "Pray for rain — or sun, wind, or snow. Within a day or so, your god will answer. The weather will change according to your will and last a handful of days."
+        # Level 9
+        storm_of_vengeance:
+          name: "Storm of Vengeance"
+          level: 9
+          tags: []
+          description: "Your deity brings the unnatural weather of your choice to pass. Rain of blood or acid, clouds of souls, wind that can carry away buildings, or any other weather you can imagine: ask and it shall come."
+        repair:
+          name: "Repair"
+          level: 9
+          tags: []
+          description: "Choose one event in the target's past. All effects of that event, including damage, poison, disease, and magical effects, are ended and repaired. HP and diseases are healed, poisons are neutralized, magical effects are ended."
+        divine_presence:
+          name: "Divine Presence"
+          level: 9
+          tags: ["ongoing"]
+          description: "Every creature must ask your leave to enter your presence, and you must give permission aloud for them to enter. Any creature without your leave takes an extra 1d10 damage whenever they take damage in your presence. While this spell is ongoing you take -1 to cast a spell."
+        consume_unlife:
+          name: "Consume Unlife"
+          level: 9
+          tags: []
+          description: "The mindless undead creature you touch is destroyed and you steal its death energy to heal yourself or the next ally you touch. The amount of damage healed is equal to the HP that the creature had remaining before you destroyed it."
+        plague:
+          name: "Plague"
+          level: 9
+          tags: ["ongoing"]
+          description: "Name a city, town, encampment, or other place where people live. As long as this spell is active that place is beset by a plague appropriate to your deity's domains. While this spell is ongoing you take -1 to cast a spell."
+
+      # =======================================================================
+      # WIZARD SPELLS
+      # =======================================================================
+      wizard:
+        # Cantrips (level 0 — always prepared, don't count against limit)
+        light:
+          name: "Light"
+          level: 0
+          tags: []
+          description: "An item you touch glows with arcane light, about as bright as a torch. It gives off no heat or sound and requires no fuel, but it is otherwise like a mundane torch. You have complete control of the color of the flame. The spell lasts as long as it is in your presence."
+
+        unseen_servant:
+          name: "Unseen Servant"
+          level: 0
+          tags: ["ongoing"]
+          description: "You conjure a simple invisible construct that can do nothing but carry items. It has Load 3 and carries anything you hand to it. It cannot pick up items on its own and can only carry those you give to it. Items carried by an unseen servant appear to float in the air a few paces behind you. An unseen servant that takes damage or leaves your presence is immediately dispelled, dropping any items it carried. Otherwise the unseen servant serves you until you end the spell."
+
+        prestidigitation:
+          name: "Prestidigitation"
+          level: 0
+          tags: []
+          description: "You perform minor tricks of true magic. If you touch an item as part of the casting you can make cosmetic changes to it: clean it, soil it, cool it, warm it, flavor it, or change its color. If you cast the spell without touching an item you can instead create minor illusions no bigger than yourself. Prestidigitation illusions are crude and clearly illusions — they won't fool anyone, but they might entertain them."
+
+        # Level 1
+        contact_spirits:
+          name: "Contact Spirits"
+          level: 1
+          tags: ["summoning"]
+          description: "Name the spirit you wish to contact (or leave it to the GM). You pull that creature through the planes, just close enough to speak to you. It is bound to answer any one question you ask to the best of its ability."
+
+        detect_magic:
+          name: "Detect Magic"
+          level: 1
+          tags: ["divination"]
+          description: "One of your senses is briefly attuned to magic. The GM will tell you what here is magical."
+
+        telepathy:
+          name: "Telepathy"
+          level: 1
+          tags: ["divination", "ongoing"]
+          description: "You form a telepathic bond with a single person you touch, enabling you to converse with that person through your thoughts. You can only have one telepathic bond at a time."
+
+        charm_person:
+          name: "Charm Person"
+          level: 1
+          tags: ["enchantment", "ongoing"]
+          description: "The person (not beast or monster) you touch while casting this spell counts you as a friend until they take damage or you prove otherwise."
+
+        invisibility:
+          name: "Invisibility"
+          level: 1
+          tags: ["illusion", "ongoing"]
+          description: "Touch an ally: nobody can see them. They're invisible! The spell persists until the target attacks or you dismiss the effect. While the spell is ongoing you can't cast a spell."
+
+        magic_missile:
+          name: "Magic Missile"
+          level: 1
+          tags: ["evocation"]
+          description: "Projectiles of pure magic spring from your fingers. Deal 2d4 damage to one target."
+
+        alarm:
+          name: "Alarm"
+          level: 1
+          tags: []
+          description: "Walk a wide circle as you cast this spell. Until you prepare spells again your magic will alert you if a creature crosses that circle. Even if you are asleep, the spell will shake you from your slumber."
+
+        # Level 3
+        dispel_magic:
+          name: "Dispel Magic"
+          level: 3
+          tags: []
+          description: "Choose a spell or magic effect in your presence: this spell rips it apart. Lesser spells are ended, powerful magic is just reduced or dampened so long as you are nearby."
+
+        visions_through_time:
+          name: "Visions Through Time"
+          level: 3
+          tags: ["divination"]
+          description: "Cast this spell and gaze into a reflective surface to see into the depths of time. The GM will reveal the details of a grim portent to you — a bleak event that will come to pass without your intervention. They'll tell you something useful about how you can interfere with the grim portent's dark outcomes."
+
+        fireball:
+          name: "Fireball"
+          level: 3
+          tags: ["evocation"]
+          description: "You evoke a mighty ball of flame that envelops your target and everyone nearby, inflicting 2d6 damage which ignores armor."
+
+        mimic:
+          name: "Mimic"
+          level: 3
+          tags: ["ongoing"]
+          description: "You take the form of someone you touch while casting this spell. Your physical characteristics match theirs exactly but your behavior may not. This change persists until you take damage or choose to return to your own form. While this spell is ongoing you lose access to all your wizard moves."
+
+        mirror_image:
+          name: "Mirror Image"
+          level: 3
+          tags: ["illusion"]
+          description: "You create an illusory image of yourself. When you are attacked, roll a d6. On a 4, 5, or 6 the attack hits the illusion instead, the image then dissipates and the spell ends."
+
+        sleep:
+          name: "Sleep"
+          level: 3
+          tags: ["enchantment"]
+          description: "1d4 enemies you can see of the GM's choice fall asleep. Only creatures capable of sleeping are affected. They awake as normal: loud noises, jolts, pain."
+
+        # Level 5
+        cage:
+          name: "Cage"
+          level: 5
+          tags: ["evocation", "ongoing"]
+          description: "The target is held in a cage of magical force. Nothing can get in or out of the cage. The cage remains until you cast another spell or dismiss it. While the spell is ongoing, the caged creature can hear your thoughts and you cannot leave sight of the cage."
+
+        contact_other_plane:
+          name: "Contact Other Plane"
+          level: 5
+          tags: ["divination"]
+          description: "You send a request to another plane. Specify who or what you'd like to contact by location, type of creature, name, or title. You open a two-way communication with that creature. Your communication can be cut off at any time by you or the creature you contacted."
+
+        polymorph:
+          name: "Polymorph"
+          level: 5
+          tags: ["enchantment"]
+          description: "Your touch reshapes a creature entirely, they stay in the form you craft until you cast a spell. Describe the new shape you craft, including any stat changes, significant adaptations, or major weaknesses. The GM will then tell you one or more of these: the form will be unstable and temporary, the creature's mind will be altered as well, or the form has an unintended benefit or weakness."
+
+        summon_monster:
+          name: "Summon Monster"
+          level: 5
+          tags: ["summoning", "ongoing"]
+          description: "A monster appears and aids you as best it can. Treat it as your character, but with access to only the basic moves. It has +1 modifier for all stats, 1 HP, and uses your damage dice. The monster also gets your choice of 1d6 traits: +2 instead of +1 to one stat, it's not reckless, it does 1d8 damage, its bond to your plane is strong (+2 HP for each level you have), or it has some useful adaptation. The GM will tell you the type of monster you get based on the traits you select. The creature remains on this plane until it dies or you dismiss it. While the spell is ongoing you take -1 to cast a spell."
+
+        # Level 7
+        dominate:
+          name: "Dominate"
+          level: 7
+          tags: ["enchantment", "ongoing"]
+          description: "Your touch pushes your mind into someone else's. You gain 1d4 hold. Spend one hold to make the target speak a few words of your choice, give you something they hold, make a concerted attack on a target of your choice, or truthfully answer one question. If you run out of hold the spell ends. If the target takes damage you lose 1 hold. While the spell is ongoing you cannot cast a spell."
+
+        true_seeing:
+          name: "True Seeing"
+          level: 7
+          tags: ["divination", "ongoing"]
+          description: "You see all things as they truly are. This effect persists until you tell a lie or dismiss the spell. While this spell is ongoing you take -1 to cast a spell."
+
+        shadow_walk:
+          name: "Shadow Walk"
+          level: 7
+          tags: ["illusion"]
+          description: "The shadows you target with this spell become a portal for you and your allies. Name a location, describing it with a number of words up to your level. Stepping through the portal deposits you and any allies present when you cast the spell at the location you described. The portal may only be used once by each ally."
+
+        contingency:
+          name: "Contingency"
+          level: 7
+          tags: ["evocation"]
+          description: "Choose a 5th level or lower spell you know. Describe a trigger condition using a number of words equal to your level. The chosen spell is held until you choose to unleash it or the trigger condition is met, whichever happens first. You don't have to roll for the held spell, it just takes effect. You may only have a single contingent spell held at a time; if you cast Contingency while you have a held spell, the new held spell replaces the old one."
+
+        cloudkill:
+          name: "Cloudkill"
+          level: 7
+          tags: ["summoning", "ongoing"]
+          description: "A cloud of fog drifts into this realm from beyond the Black Gates of Death, filling the immediate area. Whenever a creature in the area takes damage it takes an additional, separate 1d6 damage which ignores armor. This spell persists so long as you can see the affected area, or until you dismiss it."
+
+        # Level 9
+        antipathy:
+          name: "Antipathy"
+          level: 9
+          tags: ["enchantment", "ongoing"]
+          description: "Choose a target and describe a type of creature or an alignment. Creatures of the specified type or alignment cannot come within sight of the target. If a creature of the specified type does find itself within sight of the target, it immediately flees. This effect continues until you leave the target's presence or you dismiss the spell. While the spell is ongoing you take -1 to cast a spell."
+
+        alert:
+          name: "Alert"
+          level: 9
+          tags: ["divination"]
+          description: "Describe an event. The GM will tell you when that event occurs, no matter where you are or how far away the event is. If you choose, you can view the location of the event as though you were there in person. You can only have one Alert active at a time."
+
+        soul_gem:
+          name: "Soul Gem"
+          level: 9
+          tags: []
+          description: "You trap the soul of a dying creature within a gem. The trapped creature is aware of its imprisonment but can still be manipulated through spells, parley, and other effects. All moves against the trapped creature are at +1. You can free the soul at any time but it can never be recaptured once freed."
+
+        shelter:
+          name: "Shelter"
+          level: 9
+          tags: ["evocation", "ongoing"]
+          description: "You create a structure out of pure magical power. It can be as large as a castle or as small as a hut, but is impervious to all non-magical damage. The structure endures until you leave it or you end the spell."
+
+        perfect_summons:
+          name: "Perfect Summons"
+          level: 9
+          tags: ["summoning"]
+          description: "You teleport a creature to your presence. Name a creature or give a short description of a type of creature. If you named a creature, that creature appears before you. If you described a type of creature, a creature of that type appears before you."

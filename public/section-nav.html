@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="night">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Section Nav — Blood on Snow</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root{
+  --bg:#14181a;
+  --surface:#1e2528;
+  --ink:#f2f6f4;
+  --muted:#8b948f;
+  --blood:#cf1f2e;
+  --border-w:2px;
+}
+[data-theme="day"]{
+  --bg:#e8eef1;
+  --surface:#f5f3ee;
+  --ink:#0d1012;
+  --muted:#6c767c;
+  --blood:#cf1f2e;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Space Mono',monospace;
+  padding:48px 16px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:24px;
+  min-height:100vh;
+}
+
+/* ============================================================
+   section nav
+   ============================================================ */
+.sec-nav{
+  display:flex;
+  width:100%;
+  max-width:520px;
+  border:var(--border-w) solid var(--ink);
+}
+.sec-nav__tab{
+  flex:1;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  padding:22px 4px 9px;          /* extra top padding makes room for the orb */
+  background:var(--bg);
+  border-right:var(--border-w) solid var(--ink);
+  border-bottom:3px solid transparent;
+  color:var(--muted);
+  font-family:'Oswald',sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  font-size:10px;
+  font-weight:700;
+  cursor:pointer;
+  text-decoration:none;
+  user-select:none;
+}
+.sec-nav__tab:last-child{border-right:0;}
+
+/* ── the levitating sphere ── */
+.orb{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--muted);
+  /* sits above the icon */
+  margin-bottom:-2px;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1),
+             background-color .25s ease,
+             box-shadow .35s ease;
+}
+
+/* ── icon ── */
+.sec-nav__tab svg{
+  width:22px;height:22px;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:1.5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+
+/* ── hover: orb levitates & drifts, icon lifts slightly ── */
+.sec-nav__tab:hover{
+  color:var(--ink);
+}
+.sec-nav__tab:hover .orb{
+  background:var(--blood);
+  transform:translateY(-6px) translateX(3px);
+  box-shadow:0 6px 8px -4px var(--blood);
+}
+.sec-nav__tab:hover svg{
+  transform:translateY(-2px);
+}
+
+/* ── active tab ── */
+.sec-nav__tab.active{
+  background:var(--surface);
+  color:var(--blood);
+  border-bottom:3px solid var(--blood);
+}
+.sec-nav__tab.active .orb{
+  background:var(--blood);
+  /* gentle perpetual float on the active tab */
+  animation:levitate 2.4s ease-in-out infinite;
+}
+
+@keyframes levitate{
+  0%,100%{ transform:translateY(0); }
+  50%    { transform:translateY(-5px); }
+}
+
+/* respect reduced-motion */
+@media (prefers-reduced-motion:reduce){
+  .orb,.sec-nav__tab svg{transition:none;}
+  .sec-nav__tab.active .orb{animation:none;}
+}
+
+/* theme toggle */
+.toggle{
+  font-family:'Oswald';text-transform:uppercase;letter-spacing:.08em;
+  font-size:11px;font-weight:700;background:transparent;color:var(--ink);
+  border:var(--border-w) solid var(--ink);border-radius:0;
+  padding:.4rem .7rem;cursor:pointer;
+}
+.toggle:hover{background:var(--ink);color:var(--bg);}
+.hint{font-family:'Oswald';text-transform:uppercase;letter-spacing:.14em;font-size:10px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+  <p class="hint">hover a tab · the orb levitates</p>
+
+  <nav class="sec-nav" aria-label="Character sections">
+
+    <!-- Moves -->
+    <a href="#" class="sec-nav__tab active">
+      <span class="orb"></span>
+      <svg viewBox="0 0 20 20" aria-hidden="true">
+        <line x1="15" y1="5" x2="5" y2="15"/>
+        <line x1="7" y1="9" x2="5" y2="7"/>
+        <line x1="11" y1="13" x2="13" y2="15"/>
+        <line x1="15" y1="5" x2="17" y2="3"/>
+      </svg>
+      Moves
+    </a>
+
+    <!-- Spellbook -->
+    <a href="#" class="sec-nav__tab">
+      <span class="orb"></span>
+      <svg viewBox="0 0 20 20" aria-hidden="true">
+        <path d="M10 4 C7 4 3 5 3 6 L3 15 C3 14 7 13 10 14 C13 13 17 14 17 15 L17 6 C17 5 13 4 10 4 Z"/>
+        <line x1="10" y1="4" x2="10" y2="14"/>
+      </svg>
+      Spellbook
+    </a>
+
+    <!-- Party -->
+    <a href="#" class="sec-nav__tab">
+      <span class="orb"></span>
+      <svg viewBox="0 0 20 20" aria-hidden="true">
+        <circle cx="7" cy="6" r="2.5"/>
+        <path d="M2 16 Q2 11 7 11 Q12 11 12 16"/>
+        <circle cx="14" cy="7" r="2"/>
+        <path d="M11 16 Q11 12 14 12 Q17 12 17 16"/>
+      </svg>
+      Party
+    </a>
+
+    <!-- Adventure -->
+    <a href="#" class="sec-nav__tab">
+      <span class="orb"></span>
+      <svg viewBox="0 0 20 20" aria-hidden="true">
+        <path d="M5 17 L5 8 Q5 2 10 2 Q15 2 15 8 L15 17"/>
+        <path d="M5 8 Q5 2 10 2 Q15 2 15 8 L15 17 L10 17 L10 2"/>
+        <line x1="3" y1="17" x2="17" y2="17"/>
+        <line x1="10" y1="8" x2="8" y2="5"/>
+        <line x1="10" y1="8" x2="12" y2="5"/>
+        <line x1="10" y1="8" x2="10" y2="4"/>
+      </svg>
+      Adventure
+    </a>
+
+  </nav>
+
+  <button class="toggle" type="button" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'day' ? 'night' : 'day'">murk / snow</button>
+
+</body>
+</html>

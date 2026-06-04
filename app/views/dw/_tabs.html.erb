@@ -1,0 +1,64 @@
+<div
+  data-controller="tabs"
+  data-tabs-key="character-<%= character.id %>"
+>
+
+  <div class="tabs">
+    <button
+      class="tab tab--active"
+      data-tabs-target="tab"
+      data-tab="weapons"
+      data-action="tabs#show"
+    >
+      Weapons <span class="tab-count" data-tabs-target="count"></span>
+    </button>
+
+    <button
+      class="tab"
+      data-tabs-target="tab"
+      data-tab="gear"
+      data-action="tabs#show"
+    >
+      Gear <span class="tab-count" data-tabs-target="count"></span>
+    </button>
+
+    <button
+      class="tab"
+      data-tabs-target="tab"
+      data-tab="notes"
+      data-action="tabs#show"
+    >
+      Notes
+    </button>
+  </div>
+
+  <div
+    class="tab-panel"
+    data-tabs-target="panel"
+    data-panel="weapons"
+  >
+    <textarea
+      data-action="input->tabs#onInput"
+      data-tabs-target="textarea"
+      data-tab="weapons">1</textarea>
+  </div>
+  <div
+    hidden
+    class="tab-panel"
+    data-tabs-target="panel"
+    data-panel="gear"
+  >
+    <textarea
+      data-action="input->tabs#onInput"
+      data-tabs-target="textarea"
+      data-tab="gear">2</textarea>
+  </div>
+  <div
+    hidden
+    class="tab-panel"
+    data-tabs-target="panel"
+    data-panel="notes"
+  >
+    <textarea disabled>3</textarea>
+  </div>
+</div>

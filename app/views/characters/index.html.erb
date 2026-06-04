@@ -1,0 +1,28 @@
+<section>
+  <% if @characters.size < Account::MAX_CHARACTERS %>
+    <%= link_to new_character_path, class: "block-link" do %>
+      <div class="stat-row">
+        <span class="label"><%= @characters.size %>/<%= Account::MAX_CHARACTERS %> characters</span>
+        <span>create!</span>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="stat-row">
+      <span class="label"><%= @characters.size %>/<%= Account::MAX_CHARACTERS %> characters</span>
+      <span>max reached</span>
+    </div>
+  <% end %>
+</section>
+
+<% @characters.each do |character| %>
+  <section>
+    <%= link_to character_path(character), class: "block-link" do %>
+      <h4><%= character.name %></h4>
+      <small>
+        <%= character.type.demodulize %> ·
+        <%= character.klass.titleize %> ·
+        <%= character.origin.titleize %>
+      </small>
+    <% end %>
+  </section>
+<% end %>

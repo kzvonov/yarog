@@ -1,0 +1,581 @@
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&family=Oswald:wght@500;700&family=Space+Mono:wght@400;700&display=swap');
+
+/* ============================================================
+   BLOOD ON SNOW  —  tokens
+   ============================================================ */
+:root {
+  /* type roles */
+  --font-display: 'Pirata One', serif;
+  --font-label: 'Oswald', sans-serif;
+  --font-body: 'Space Mono', monospace;
+
+  /* layout */
+  --max-width: 1400px;
+  --pad: clamp(0.5rem, 4vw, 1rem);
+  --border-w: 1px;
+
+  /* MURK (dark) — default */
+  --bg: #14181a;
+  --surface: #f5f3ee;
+  --ink: #f2f6f4;
+  --muted: #8b948f;
+  --blood: #cf1f2e;
+  /* bad / negative / focus */
+  --blood-wash: rgba(207, 31, 46, .10);
+  --pine: #2f9e6b;
+  /* good / positive */
+  --field-bg: #d9ddda;
+  /* soft off-white input fill */
+  --field-text: #14181a;
+  /* dark text on the fill */
+
+  /* semantic aliases */
+  --link: var(--ink);
+  --pos: var(--pine);
+  --neg: var(--blood);
+  --focus: var(--blood);
+}
+
+[data-theme="day"] {
+  --bg: #e8eef1;
+  --surface: #f4f5f5;
+  --ink: #0d1012;
+  --muted: #6c767c;
+  --blood: #cf1f2e;
+  --blood-wash: rgba(207, 31, 46, .10);
+  --pine: #1c6e48;
+  --field-bg: #ffffff;
+  /* pure white field on the off-white page */
+  --field-text: #0d1012;
+}
+
+[data-theme="night"] {
+  --bg: #14181a;
+  --ink: #f2f6f4;
+  --muted: #8b948f;
+  --blood: #cf1f2e;
+  --blood-wash: rgba(207, 31, 46, .10);
+  --pine: #2f9e6b;
+  --field-bg: #d9ddda;
+  --field-text: #14181a;
+}
+
+/* ============================================================
+   reset
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 0 var(--pad);
+}
+
+/* ============================================================
+   layout — one column, centered, capped, full-width mobile
+   ============================================================ */
+header,
+main,
+footer {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding: var(--pad) 0;
+}
+
+header {
+  border-bottom: var(--border-w) solid var(--ink);
+}
+
+/* footer {
+  border-top: var(--border-w) solid var(--ink);
+  text-align: center;
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: .7rem;
+  color: var(--muted);
+} */
+
+/* ============================================================
+   type
+   ============================================================ */
+h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 9vw, 4rem);
+  line-height: .95;
+  margin: 0;
+}
+
+.subtitle {
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .8rem;
+  color: var(--muted);
+  margin: .25rem 0 0.75rem;
+}
+
+.separator {
+  margin: 0;
+  padding: 0.3rem 0;
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: .8rem;
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink);
+  display: block;
+}
+
+/* font utilities */
+.pirata-one {
+  font-family: var(--font-display);
+}
+
+.oswald {
+  font-family: var(--font-label);
+}
+
+.space-mono {
+  font-family: var(--font-body);
+}
+
+/* text-size scale */
+.text-sm {
+  font-size: .75rem;
+}
+
+.text-base {
+  font-size: 0.9rem;
+}
+
+.text-md {
+  font-size: 1.1rem;
+}
+
+.text-lg {
+  font-size: 1.6rem;
+}
+
+.text-xl {
+  font-size: 2rem;
+}
+
+/* ============================================================
+   links — ink, underline; never blood (blood means "bad")
+   ============================================================ */
+a {
+  color: var(--blood);
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+a.active,
+a:hover {
+  /* invert, not blood */
+  background: var(--blood);
+  color: var(--bg);
+  text-decoration: none;
+}
+
+a[aria-current] {
+  /* current page = ink fill */
+  background: var(--ink);
+  color: var(--bg);
+  text-decoration: none;
+  padding: 1px 6px;
+}
+
+/* ============================================================
+   brutalist grid — gap reveals ink as the gridlines
+   ============================================================ */
+.grid {
+  display: grid;
+  gap: var(--border-w);
+  background: var(--ink);
+  border: var(--border-w) solid var(--ink);
+  margin-bottom: .75rem;
+}
+
+.cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.cell {
+  background: var(--surface);
+  padding: .5rem .5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.cell:nth-child(3n) {
+  border-right: none;
+}
+
+.cell:nth-child(n + 4) {
+  border-bottom: none;
+}
+
+
+.label {
+  display: block;
+  width: 100%;
+  margin-bottom: .25rem;
+  font-family: var(--font-label);
+  font-size: .7rem;
+  text-transform: uppercase;
+  text-align: left;
+  letter-spacing: .08em;
+  color: var(--ink);
+}
+
+/* ============================================================
+   editable fields — square, blood focus (Option A: full box)
+   ============================================================ */
+.field {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  box-shadow: none;
+  width: 100%;
+  background: var(--field-bg);
+  border: var(--border-w) solid var(--bg);
+  /* full box at rest */
+  color: var(--field-text);
+  font-family: var(--font-body);
+  font-weight: 700;
+  text-align: center;
+  padding: .4rem;
+  outline: 0;
+  caret-color: var(--blood);
+}
+
+.field::-webkit-inner-spin-button,
+.field::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.field:focus {
+  border-color: var(--blood);
+}
+
+.field--score {
+  max-width: 60px;
+}
+
+.field:disabled,
+textarea:disabled {
+  background: var(--bg);
+  border-color: var(--bg);
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.subvalue {
+  font-family: var(--font-body);
+  font-size: .7rem;
+  color: var(--muted);
+  margin-top: .3rem;
+}
+
+/* ability modifier (derived, display-only) */
+.mod {
+  font-family: var(--font-label);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: .3rem;
+}
+
+.mod.pos {
+  color: var(--pos);
+}
+
+.mod.neg {
+  color: var(--neg);
+}
+
+/* ============================================================
+   buttons — ink = action, blood = destructive only
+   ============================================================ */
+.btn {
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 700;
+  font-size: .8rem;
+  border: var(--border-w) solid var(--ink);
+  border-radius: 0;
+  padding: .6rem 1.1rem;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.btn--primary {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* loud fill */
+.btn--primary:hover {
+  background: transparent;
+  color: var(--ink);
+}
+
+/* invert to outline */
+.btn--secondary:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* fill on hover */
+.btn--danger {
+  color: var(--blood);
+  border-color: var(--blood);
+}
+
+/* destructive */
+.btn--danger:hover {
+  background: var(--blood);
+  color: #fff;
+  border-color: var(--blood);
+}
+
+.actions {
+  display: flex;
+  gap: .6rem;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+
+.danger-zone {
+  margin-top: 2rem;
+}
+
+/* steppers — monochrome utility squares */
+.stepper {
+  display: flex;
+  align-items: stretch;
+  gap: .4rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.stepper .field {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  max-width: 90px;
+}
+
+.step {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1;
+  width: 32px;
+  border: var(--border-w) solid var(--ink);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.step:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* theme toggle */
+.toggle {
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: 11px;
+  font-weight: 700;
+  background: transparent;
+  color: var(--ink);
+  border: var(--border-w) solid var(--ink);
+  border-radius: 0;
+  padding: .35rem .6rem;
+  cursor: pointer;
+}
+
+.toggle:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.grid-main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.grid-base {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: none;
+}
+
+@media (min-width:48rem) {
+  .grid-main {
+    grid-template-columns: 420px minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+  }
+}
+
+/* --- Tabs --- */
+.tabs {
+  display: flex;
+  align-items: flex-end;
+
+  margin-top: 1rem;
+}
+
+.tab {
+  position: relative;
+
+  margin: 0;
+  margin-right: 1px;
+  padding: .65rem 1rem;
+
+  border: var(--border-w) solid var(--bg);
+  border-bottom-color: var(--ink);
+
+  background: var(--surface);
+  color: var(--muted);
+
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .72rem;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+}
+
+.tab:hover {
+  color: var(--ink);
+}
+
+.tab--active {
+  color: var(--ink);
+  border: var(--border-w) solid var(--ink);
+  border-bottom-color: var(--surface);
+
+  z-index: 2;
+}
+
+.tab-count {
+  opacity: .4;
+}
+
+.tab--active .tab-count {
+  opacity: 1;
+  color: var(--blood);
+}
+
+.tab-panel {
+  border: var(--border-w) solid var(--ink);
+
+  margin-top: calc(-1 * var(--border-w));
+  padding: 0.3rem;
+
+  background: var(--surface);
+}
+
+.tab-panel textarea {
+  width: 100%;
+  min-height: 220px;
+
+  display: block;
+  box-sizing: border-box;
+
+  border: none;
+  outline: none;
+
+  margin: 0;
+  padding: .75rem;
+  border: 1px solid var(--field-bg);
+
+  resize: vertical;
+
+  background: var(--field-bg);
+  color: var(--field-text);
+
+  font-family: var(--font-body);
+  font-size: .9rem;
+  line-height: 1.5;
+}
+
+.tab-panel textarea:focus {
+  border: 1px solid var(--blood);
+}
+
+.tab-panel textarea:disabled {
+  background: var(--bg);
+  border-color: var(--bg);
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+/* --- Game Content --- */
+
+.game-content {
+  padding: 0.5rem;
+  border-left: var(--border-w) solid var(--ink);
+  background-color: var(--surface);
+}
+
+/* --- Navigation --- */
+nav {
+  display: block;
+  padding: 0.3rem 0;
+  border-bottom: 2px solid var(--ink);
+}
+
+/* --- Helpers --- */
+.mt-05 {
+  margin-top: 0.5rem;
+}
+
+/* ───────── Font utilities (modular, override defaults) ───────── */
+.pirata-one {
+  font-family: var(--font-display);
+}
+
+.oswald {
+  font-family: var(--font-label);
+}
+
+.space-mono {
+  font-family: var(--font-body);
+}

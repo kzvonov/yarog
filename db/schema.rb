@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_04_071131) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_09_142733) do
   create_table "accounts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "handle", null: false
@@ -18,6 +18,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_04_071131) do
     t.string "theme", default: "auto", null: false
     t.datetime "updated_at", null: false
     t.index ["handle"], name: "index_accounts_on_handle", unique: true
+  end
+
+  create_table "characters", force: :cascade do |t|
+    t.text "abilities", null: false
+    t.integer "account_id", null: false
+    t.string "avatar_url"
+    t.datetime "created_at", null: false
+    t.text "inventory", null: false
+    t.string "klass", null: false
+    t.integer "level", default: 1, null: false
+    t.string "name", null: false
+    t.string "origin", null: false
+    t.text "story", null: false
+    t.string "type", null: false
+    t.datetime "updated_at", null: false
+    t.text "vitals", null: false
+    t.integer "xp", default: 0, null: false
+    t.index ["account_id"], name: "index_characters_on_account_id"
   end
 
   create_table "game_heroes", force: :cascade do |t|

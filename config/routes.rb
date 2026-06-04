@@ -43,13 +43,23 @@ Rails.application.routes.draw do
     end
   end
 
+  # Heroes & Adeventures app
+  resources :sessions, only: [:new, :create, :destroy]
   namespace :tg do
     root to: "home#index"
     post "auth", to: "home#auth"
     get "account", to: "account#index"
     put "account", to: "account#update"
   end
+  resources :characters, only: [ :index, :show, :new, :create ]
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  namespace :dw, path: "characters/:character_param/dw" do
+    resources :moves, only: [:index]
+    resources :spells, only: [:index]
+    resources :party, only: [:index]
+    resources :adventure, only: [:index]
+  end
+
+
+  root "session#new"
 end

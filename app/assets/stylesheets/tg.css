@@ -17,6 +17,7 @@
 :root {
   --bg: #F4F0E8;
   --bg-raised: #EEE9DF;
+  --bg-input: #E8E4DC;
   --ink: #1A1610;
   --ink-mid: #42382C;
   --ink-mute: #888880;
@@ -69,6 +70,7 @@
 [data-theme="night"] {
   --bg: #1A1814;
   --bg-raised: #242018;
+  --bg-input: #242018;
   --ink: #C8C0B0;
   --ink-mid: #A89880;
   --ink-mute: #908070;
@@ -174,6 +176,12 @@ main {
   }
 }
 
+header,
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
 /* --- TOP BAR ----------------------------------------------- */
 header {
   position: sticky;
@@ -185,7 +193,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1rem;
 }
 
 header span {
@@ -391,6 +398,12 @@ a {
   transition: background 0.1s;
 }
 
+a.block-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
 .content a:hover,
 .col-layout a:hover {
   background: var(--ink);
@@ -449,36 +462,20 @@ dd {
 /* --- TABLE -------------------------------------------------- */
 table {
   width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 1rem;
-  font-size: 0.88rem;
+  border-collapse: separate;
+  border-spacing: 0.1rem;
   font-family: var(--font-mono);
 }
 
 th {
   background: var(--ink);
   color: var(--bg);
-  text-align: left;
-  padding: 0.45rem 0.6rem;
-  font-family: var(--font-heading);
-  font-weight: 900;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  padding: 0.2rem;
 }
 
 td {
-  padding: 0.4rem 0.6rem;
-  border-bottom: var(--rule-mute);
-  vertical-align: top;
-}
-
-tr:last-child td {
-  border-bottom: var(--rule-thin);
-}
-
-tr:hover td {
-  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  border: var(--rule-thin);
+  vertical-align: middle;
 }
 
 /* --- SECTION & DETAILS (stacked block pattern) ------------- */
@@ -604,31 +601,45 @@ label {
   color: var(--ink-mute);
 }
 
-input[type="text"],
-input[type="number"],
-input[type="email"],
-input[type="search"],
-textarea {
+/* Table inputs - clean bordered boxes */
+td>input[type="text"],
+td>input[type="number"],
+td>input[type="email"],
+td>input[type="search"] {
   display: block;
   width: 100%;
-  background: var(--bg);
-  color: var(--ink);
-  border: var(--rule);
-  padding: 0.55rem 0.75rem;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  border-radius: var(--radius);
-  margin-bottom: 0.75rem;
-  appearance: none;
+  margin: 0;
+  padding: 0.8rem;
   outline: none;
-  transition: border-color 0.12s;
+  text-align: center;
+  border: none;
+  outline: none;
+  background: var(--bg-input);
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink);
+  transition: all 0.12s;
 }
 
-input:focus,
-textarea:focus {
-  border-color: var(--ink-focus);
-  border-width: 2px;
+td>input[type="text"]:focus,
+td>input[type="number"]:focus,
+td>input[type="email"]:focus,
+td>input[type="search"]:focus {
   outline: none;
+  border: none;
+}
+
+/* Remove number input spinners */
+td>input[type="number"]::-webkit-outer-spin-button,
+td>input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+td>input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .select-wrap {
@@ -1360,4 +1371,12 @@ hr {
 .number {
   font-family: 'MedievalSharp', serif;
   font-variant-numeric: lining-nums;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }

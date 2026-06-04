@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="<%= theme %>">
+  <head>
+    <title><%= content_for?(:html_title) ? yield(:html_title) : "Heroes & Adevntures" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <%# It triggers a full realod instead of Turbo <meta name="turbo-visit-control" content="reload"> %>
+    <meta name="turbo-refresh-method" content="morph">
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "had", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  </head>
+  <body>
+    <header>
+      <% if Current.session %>
+        <div>
+          <%= link_to "account", tg_account_path, class: "topbar-btn" %>
+          <%= link_to "characters", characters_path, class: "topbar-btn" %>
+        </div>
+      <% end %>
+    </header>
+
+    <main>
+      <%= yield %>
+    </main>
+
+    <%= yield :bottom_nav %>
+  </body>
+</html>
