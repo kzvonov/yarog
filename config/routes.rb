@@ -61,5 +61,5 @@ Rails.application.routes.draw do
   end
 
 
-  root "session#new"
+  root "sessions#new"
 end
