@@ -11,6 +11,7 @@ module Tg
         # TODO: support errors
         render :index
       else
+        flash[:success] = "settings are saved"
         redirect_to tg_account_path
       end
     end

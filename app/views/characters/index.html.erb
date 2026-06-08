@@ -1,28 +1,22 @@
-<section>
-  <% if @characters.size < Account::MAX_CHARACTERS %>
-    <%= link_to new_character_path, class: "block-link" do %>
-      <div class="stat-row">
-        <span class="label"><%= @characters.size %>/<%= Account::MAX_CHARACTERS %> characters</span>
-        <span>create!</span>
-      </div>
-    <% end %>
-  <% else %>
-    <div class="stat-row">
-      <span class="label"><%= @characters.size %>/<%= Account::MAX_CHARACTERS %> characters</span>
-      <span>max reached</span>
-    </div>
-  <% end %>
-</section>
+<h3 class="capitalize">characters</h3>
 
-<% @characters.each do |character| %>
-  <section>
-    <%= link_to character_path(character), class: "block-link" do %>
-      <h4><%= character.name %></h4>
-      <small>
-        <%= character.type.demodulize %> ·
-        <%= character.klass.titleize %> ·
-        <%= character.origin.titleize %>
-      </small>
+
+<p><%= @characters.size %>/<%= Account::MAX_CHARACTERS %> characters</p>
+
+<ul>
+  <% @characters.each do |character| %>
+    <li>
+      <%= link_to character_path(character), class: "block-link" do %>
+        <%= [character.name, character.type.demodulize, character.klass.titleize, character.origin.titleize].join(" · ") %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<% if @characters.size < Account::MAX_CHARACTERS %>
+  <div>
+    <%= link_to new_character_path, class: "btn" do %>
+      create
     <% end %>
-  </section>
+  </div>
 <% end %>

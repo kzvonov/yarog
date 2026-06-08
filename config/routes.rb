@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   end
 
   # Heroes & Adeventures app
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :sessions, only: [ :new, :create, :destroy ]
   namespace :tg do
     root to: "home#index"
     post "auth", to: "home#auth"
@@ -54,10 +54,10 @@ Rails.application.routes.draw do
   resources :characters, only: [ :index, :show, :new, :create ]
 
   namespace :dw, path: "characters/:character_param/dw" do
-    resources :moves, only: [:index]
-    resources :spells, only: [:index]
-    resources :party, only: [:index]
-    resources :adventure, only: [:index]
+    resources :moves, only: [ :index ]
+    resources :spells, only: [ :index ]
+    resources :party, only: [ :index ]
+    resources :adventure, only: [ :index ]
   end
 
 

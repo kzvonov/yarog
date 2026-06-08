@@ -37,14 +37,14 @@
 }
 
 [data-theme="day"] {
-  --bg: #e8eef1;
+  --bg: #f5f3ee;
   --surface: #f4f5f5;
   --ink: #0d1012;
   --muted: #6c767c;
   --blood: #cf1f2e;
   --blood-wash: rgba(207, 31, 46, .10);
   --pine: #1c6e48;
-  --field-bg: #ffffff;
+  --field-bg: #fdfcf9;
   /* pure white field on the off-white page */
   --field-text: #0d1012;
 }
@@ -56,7 +56,7 @@
   --blood: #cf1f2e;
   --blood-wash: rgba(207, 31, 46, .10);
   --pine: #2f9e6b;
-  --field-bg: #d9ddda;
+  --field-bg: #fefefe;
   --field-text: #14181a;
 }
 
@@ -87,11 +87,7 @@ main,
 footer {
   max-width: var(--max-width);
   margin-inline: auto;
-  padding: var(--pad) 0;
-}
-
-header {
-  border-bottom: var(--border-w) solid var(--ink);
+  padding: 0;
 }
 
 /* footer {
@@ -110,9 +106,29 @@ header {
 h1 {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(2.5rem, 9vw, 4rem);
+  font-size: clamp(2.5rem, 6vw, 4rem);
   line-height: .95;
   margin: 0;
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  line-height: 1.05;
+  margin: 0;
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
+  line-height: 1.15;
+  margin: 0;
+}
+
+hr {
+  margin: 1.5rem 0;
 }
 
 .subtitle {
@@ -170,10 +186,15 @@ h1 {
   font-size: 2rem;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 /* ============================================================
    links — ink, underline; never blood (blood means "bad")
    ============================================================ */
 a {
+  padding: 0.1rem;
   color: var(--blood);
   font-family: var(--font-label);
   text-transform: uppercase;
@@ -567,6 +588,31 @@ nav {
   margin-top: 0.5rem;
 }
 
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.mv-1 {
+  margin: 1rem 0;
+}
+
+.mv-1_5 {
+  margin: 1.5rem 0;
+}
+
+.copy-handler {
+  cursor: copy;
+  user-select: none;
+}
+
 /* ───────── Font utilities (modular, override defaults) ───────── */
 .pirata-one {
   font-family: var(--font-display);
@@ -578,4 +624,118 @@ nav {
 
 .space-mono {
   font-family: var(--font-body);
+}
+
+/* --- Basic forms --- */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-label);
+  font-size: .7rem;
+  text-transform: uppercase;
+  text-align: left;
+  letter-spacing: .08em;
+  color: var(--ink);
+}
+
+.form-input {
+  min-width: 15rem;
+  display: block;
+  padding: 0.5rem;
+  border: 1px solid var(--ink);
+  background-color: var(--field-bg);
+}
+
+.form-input:disabled {
+  color: var(--ink);
+  background-color: var(--bg);
+  cursor: not-allowed;
+}
+
+select.form-input:focus {
+  outline: none;
+}
+
+/*--- Flash ---*/
+.flash-container {
+  position: fixed;
+  top: 1rem;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  z-index: 9999;
+}
+
+.flash {
+  position: relative;
+  border: 2px solid var(--c);
+  padding: 0.5rem 2rem 0.5rem 0.5rem;
+  margin-bottom: 0.5rem;
+  background: var(--bg);
+  font-family: var(--font-body);
+  cursor: arrow;
+}
+
+.flash-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .10em;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+  font-family: var(--font-label);
+  color: var(--c);
+}
+
+.flash>button {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.2rem;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .10em;
+  /* matches the flash's accent */
+  cursor: pointer;
+
+  -webkit-appearance: none;
+  appearance: none;
+  text-transform: uppercase;
+}
+
+.flash-detail {
+  font-size: 0.8rem;
+  color: var(--muted);
+  display: block;
+  margin: 0;
+}
+
+.flash-detail ul {
+  padding-left: 1.1rem;
+  margin: 0;
+}
+
+.flash.success {
+  --c: var(--pine);
+  --bg: rgba(47, 158, 107, .3);
+}
+
+.flash.alert {
+  --c: var(--blood);
+  --bg: var(--blood-wash);
+}
+
+.flash.notice {
+  --c: var(--muted);
+  --bg: rgba(139, 148, 143, .3);
 }

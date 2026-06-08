@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="<%= theme %>">
+<html>
   <head>
     <title><%= content_for?(:html_title) ? yield(:html_title) : "Heroes & Adevntures" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -25,12 +25,16 @@
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
   </head>
-  <body>
+  <body data-theme="<%= theme %>">
+    <% unless content_for?(:hide_flashes) %>
+      <%= render "shared/flashes" %>
+    <% end %>
+
     <header>
       <% if Current.session %>
-        <div>
-          <%= link_to "account", tg_account_path, class: "topbar-btn" %>
-          <%= link_to "characters", characters_path, class: "topbar-btn" %>
+        <div class="mv-1">
+          <%= link_to "account", tg_account_path, class: "topbar-btn " + (controller_path.starts_with?("tg/account") ? "active" : "") %>
+          <%= link_to "characters", characters_path, class: "topbar-btn " + (controller_path.starts_with?("characters") ? "active" : "") %>
         </div>
       <% end %>
     </header>

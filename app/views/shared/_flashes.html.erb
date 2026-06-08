@@ -1,0 +1,29 @@
+<% flash.each do |type, messages| %>
+  <%
+    html_class = if type == "alert" || type == "success"
+                   type
+                 else
+                  "notice"
+                 end
+  %>
+
+  <div class="flash-container">
+    <div class="flash <%= html_class %>" data-controller="remove" data-action="click->remove#run">
+      <button>x</button>
+      <div class="flash-title">
+        <span><%= type %></span>
+      </div>
+      <div class="flash-detail">
+        <% if messages.is_a?(Array) %>
+          <ul>
+            <% Array(messages).each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <span><%= messages %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
