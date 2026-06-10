@@ -76,6 +76,10 @@ module DungeonWorld
       end
     end
 
+    def system_name
+      "Dungeon World+"
+    end
+
     def show_view
       "/dw/show"
     end

@@ -1,22 +1,19 @@
-<h3 class="capitalize">characters</h3>
+<p class="roster-count">characters · <b><%= @characters.size %></b> of 10</p>
 
-
-<p><%= @characters.size %>/<%= Account::MAX_CHARACTERS %> characters</p>
-
-<ul>
+<div class="roster">
   <% @characters.each do |character| %>
-    <li>
-      <%= link_to character_path(character), class: "block-link" do %>
-        <%= [character.name, character.type.demodulize, character.klass.titleize, character.origin.titleize].join(" · ") %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
-
-<% if @characters.size < Account::MAX_CHARACTERS %>
-  <div>
-    <%= link_to new_character_path, class: "btn" do %>
-      create
+    <%= link_to character_path(character), class: "char-card" do %>
+      <span class="char-card__system"><%= character.system_name %></span>
+      <span class="char-card__name"><%= character.name %></span>
+      <span class="char-card__meta"><%= character.card_description %></span>
+      <%# <span class="char-card__desc"><%= character.card_description </span> %>
     <% end %>
-  </div>
-<% end %>
+  <% end %>
+
+  <% if @characters.size < 10 %>
+    <%= link_to new_character_path, class: "char-create" do %>
+      <span class="char-create__plus">+</span>
+      <span class="char-create__label">create</span>
+    <% end %>
+  <% end %>
+</div>

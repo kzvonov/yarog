@@ -34,6 +34,10 @@ class Character < ApplicationRecord
     raise "not implemented"
   end
 
+  def card_description
+    [ self.klass, self.origin ].join(" · ")
+  end
+
   private
 
   def set_defaults
