@@ -10,7 +10,7 @@ module DungeonWorld
         armor:       1,
         damage:      "d6",
         xp:          0,
-        
+
         load_base:   9,
         str:         9,
         dex:         13,
@@ -75,7 +75,7 @@ module DungeonWorld
         notes:     ""
       }
     }.freeze
- 
+
     # -------------------------------------------------------------------------
     # CLERIC
     # HP: 8+CON  |  Damage: d6  |  Load: 10+STR
@@ -86,7 +86,7 @@ module DungeonWorld
         armor:       1,
         damage:      "d6",
         xp:          0,
-        
+
         load_base:   10,
         str:         13,
         dex:         9,
@@ -154,7 +154,7 @@ module DungeonWorld
         notes:     ""
       }
     }.freeze
- 
+
     # -------------------------------------------------------------------------
     # DRUID
     # HP: 6+CON  |  Damage: d6  |  Load: 6+STR
@@ -165,7 +165,7 @@ module DungeonWorld
         armor:       1,
         damage:      "d6",
         xp:          0,
-        
+
         load_base:   6,
         str:         9,
         dex:         13,
@@ -229,7 +229,7 @@ module DungeonWorld
         notes:     ""
       }
     }.freeze
- 
+
     # -------------------------------------------------------------------------
     # FIGHTER
     # HP: 10+CON  |  Damage: d10  |  Load: 12+STR
@@ -240,7 +240,7 @@ module DungeonWorld
         armor:       1,
         damage:      "d10",
         xp:          0,
-        
+
         load_base:   12,
         str:         16,
         dex:         13,
@@ -302,7 +302,7 @@ module DungeonWorld
         notes:     ""
       }
     }.freeze
- 
+
     # -------------------------------------------------------------------------
     # PALADIN
     # HP: 10+CON  |  Damage: d10  |  Load: 12+STR
@@ -378,7 +378,7 @@ module DungeonWorld
         notes:     ""
       }
     }.freeze
- 
+
     # -------------------------------------------------------------------------
     # RANGER
     # HP: 8+CON  |  Damage: d8  |  Load: 11+STR
@@ -455,7 +455,7 @@ module DungeonWorld
         notes:     ""
       }
     }.freeze
- 
+
     # -------------------------------------------------------------------------
     # THIEF
     # HP: 6+CON  |  Damage: d8  |  Load: 9+STR
@@ -466,7 +466,7 @@ module DungeonWorld
         armor:       1,
         damage:      "d8",
         xp:          0,
-        
+
         load_base:   9,
         str:         9,
         dex:         16,
@@ -532,7 +532,7 @@ module DungeonWorld
         notes:     ""
       }
     }.freeze
- 
+
     # -------------------------------------------------------------------------
     # WIZARD
     # HP: 4+CON  |  Damage: d4  |  Load: 7+STR
@@ -607,13 +607,13 @@ module DungeonWorld
         notes:     ""
       }
     }.freeze
- 
+
     # =========================================================================
     # YAR CLASSES — Northern frontier homebrew
     # Merged with a YAR race block (yar_human, yar_dog_folk, yar_elf).
     # Advanced moves are placeholders — fill in as you design the class.
     # =========================================================================
- 
+
     # -------------------------------------------------------------------------
     # YAR BERSERK
     # Spends own HP as a resource to deal devastating damage.
@@ -622,7 +622,7 @@ module DungeonWorld
     # YAR_BERSERK = {
     #   vitals: {
     #     hp_base:     10,
-    #     
+    #
     #     load_base:   12
     #   },
     #   abilities: [
@@ -662,7 +662,7 @@ module DungeonWorld
     #     notes:     ""
     #   }
     # }.freeze
- 
+
     # -------------------------------------------------------------------------
     # YAR PATH MASTER
     # Wilderness guide of the northern wilds. Party never gets lost.
@@ -671,7 +671,7 @@ module DungeonWorld
     # YAR_PATH_MASTER = {
     #   vitals: {
     #     hp_base:     8,
-    #     
+    #
     #     load_base:   10
     #   },
     #   abilities: [
@@ -714,7 +714,7 @@ module DungeonWorld
     #     notes:     ""
     #   }
     # }.freeze
- 
+
     # -------------------------------------------------------------------------
     # YAR RUNE MASTER
     # Melee tank. Carves trigger runes on weapons, armor, and terrain.
@@ -723,7 +723,7 @@ module DungeonWorld
     # YAR_RUNE_MASTER = {
     #   vitals: {
     #     hp_base:     10,
-    #     
+    #
     #     load_base:   11
     #   },
     #   abilities: [
@@ -764,7 +764,7 @@ module DungeonWorld
     #     notes:     ""
     #   }
     # }.freeze
- 
+
     # -------------------------------------------------------------------------
     # YAR EVIL HUNTER
     # Harvests creature components. Brews oils and uses herbs as a resource.
@@ -774,7 +774,7 @@ module DungeonWorld
     # YAR_EVIL_HUNTER = {
     #   vitals: {
     #     hp_base:     8,
-    #     
+    #
     #     load_base:   10
     #   },
     #   abilities: [
@@ -825,7 +825,7 @@ module DungeonWorld
     end
 
     def enum
-      list.to_h { [it, it] }
+      list.to_h { [ it, it ] }
     end
 
     def for_select

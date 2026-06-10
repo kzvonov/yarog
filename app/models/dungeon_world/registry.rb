@@ -17,7 +17,7 @@ module DungeonWorld
       "lang:frog"        => { text: "" },
       "lang:turtle"      => { text: "" },
       "lang:yar"         => { text: "" },
-  
+
       # =========================================================================
       # RACIAL TRAITS
       # =========================================================================
@@ -37,14 +37,14 @@ module DungeonWorld
       "racial:yar_human"    => { text: "" },
       "racial:yar_dog_folk" => { text: "" },
       "racial:yar_elf"      => { text: "" },
-  
+
       # =========================================================================
       # SHARED MULTICLASS MOVES
       # =========================================================================
       "move:multiclass_dabbler"  => { text: "" },
       "move:multiclass_initiate" => { text: "", requires: "move:multiclass_dabbler" },
       "move:multiclass_master"   => { text: "", requires: "move:multiclass_initiate" },
-  
+
       # =========================================================================
       # BARD MOVES
       # =========================================================================
@@ -69,7 +69,7 @@ module DungeonWorld
       "move:devious"                       => { text: "" },
       "move:duelist_block"                 => { text: "", replaces: "move:duelist_parry" },
       "move:con"                           => { text: "", replaces: "move:bamboozle" },
-  
+
       # =========================================================================
       # PRIEST MOVES
       # =========================================================================
@@ -98,7 +98,7 @@ module DungeonWorld
       "move:martyr"                   => { text: "", replaces: "move:penitent" },
       "move:divine_armor"             => { text: "", replaces: "move:divine_protection" },
       "move:greater_empower"          => { text: "", replaces: "move:empower" },
-  
+
       # =========================================================================
       # DRUID MOVES
       # =========================================================================
@@ -126,7 +126,7 @@ module DungeonWorld
       "move:formshaper"            => { text: "", requires: "move:formcrafter" },
       "move:chimera"               => { text: "" },
       "move:weather_weaver"        => { text: "" },
-  
+
       # =========================================================================
       # FIGHTER MOVES
       # =========================================================================
@@ -150,7 +150,7 @@ module DungeonWorld
       "move:through_deaths_eyes"  => { text: "" },
       "move:eye_for_weaponry"     => { text: "" },
       "move:superior_warrior"     => { text: "" },
-  
+
       # =========================================================================
       # PALADIN MOVES
       # =========================================================================
@@ -177,7 +177,7 @@ module DungeonWorld
       "move:perfect_hospitaller"   => { text: "", replaces: "move:hospitaller" },
       "move:indomitable"           => { text: "" },
       "move:perfect_knight"        => { text: "" },
-  
+
       # =========================================================================
       # RANGER MOVES
       # =========================================================================
@@ -205,7 +205,7 @@ module DungeonWorld
       "move:observant"             => { text: "" },
       "move:special_trick"         => { text: "" },
       "move:unnatural_ally"        => { text: "" },
-  
+
       # =========================================================================
       # THIEF MOVES
       # =========================================================================
@@ -232,7 +232,7 @@ module DungeonWorld
       "move:escape_route"         => { text: "" },
       "move:disguise"             => { text: "" },
       "move:heist"                => { text: "" },
-  
+
       # =========================================================================
       # WIZARD MOVES
       # =========================================================================
@@ -256,7 +256,7 @@ module DungeonWorld
       "move:highly_logical"          => { text: "", replaces: "move:logical" },
       "move:spell_augmentation"      => { text: "" },
       "move:self_powered"            => { text: "" },
-  
+
       # =========================================================================
       # YAR BERSERK MOVES
       # =========================================================================
@@ -264,7 +264,7 @@ module DungeonWorld
       "move:battle_rage"  => { text: "" },
       "move:thick_hide"   => { text: "" },
       "move:last_to_fall" => { text: "" },
-  
+
       # =========================================================================
       # YAR PATH MASTER MOVES
       # =========================================================================
@@ -272,7 +272,7 @@ module DungeonWorld
       "move:read_the_wild"=> { text: "" },
       "move:forest_step"  => { text: "" },
       "move:waymarker"    => { text: "" },
-  
+
       # =========================================================================
       # YAR RUNE MASTER MOVES
       # =========================================================================
@@ -280,7 +280,7 @@ module DungeonWorld
       "move:runic_armor"  => { text: "" },
       "move:trigger_word" => { text: "" },
       "move:living_stone" => { text: "" },
-  
+
       # =========================================================================
       # YAR EVIL HUNTER MOVES
       # =========================================================================
@@ -288,78 +288,78 @@ module DungeonWorld
       "move:brew_hunter_oil"   => { text: "" },
       "move:study_the_prey"    => { text: "" },
       "move:prepared_mind"     => { text: "" },
-  
+
       # =========================================================================
       # EQUIPMENT — ARMOR
       # =========================================================================
-      "obj:leather_armor"    => { text: "leather armor",   tags: [:worn, :armor_1],                     weight: 1, uses: nil },
-      "obj:chainmail"        => { text: "chainmail",        tags: [:worn, :armor_1, :clumsy],           weight: 1, uses: nil },
-      "obj:scale_armor"      => { text: "scale armor",      tags: [:worn, :armor_2, :clumsy],           weight: 3, uses: nil },
-      "obj:hide_armor"       => { text: "hide armor",       tags: [:worn, :armor_1],                    weight: 1, uses: nil },
-      "obj:shield"           => { text: "shield",           tags: [:held, :armor_1],                    weight: 2, uses: nil },
-      "obj:wooden_shield"    => { text: "wooden shield",    tags: [:held, :armor_1],                    weight: 1, uses: nil },
-  
+      "obj:leather_armor"    => { text: "leather armor",   tags: [ :worn, :armor_1 ],                     weight: 1, uses: nil },
+      "obj:chainmail"        => { text: "chainmail",        tags: [ :worn, :armor_1, :clumsy ],           weight: 1, uses: nil },
+      "obj:scale_armor"      => { text: "scale armor",      tags: [ :worn, :armor_2, :clumsy ],           weight: 3, uses: nil },
+      "obj:hide_armor"       => { text: "hide armor",       tags: [ :worn, :armor_1 ],                    weight: 1, uses: nil },
+      "obj:shield"           => { text: "shield",           tags: [ :held, :armor_1 ],                    weight: 2, uses: nil },
+      "obj:wooden_shield"    => { text: "wooden shield",    tags: [ :held, :armor_1 ],                    weight: 1, uses: nil },
+
       # =========================================================================
       # EQUIPMENT — WEAPONS (melee)
       # =========================================================================
-      "obj:dueling_rapier"   => { text: "dueling rapier",   tags: [:close, :precise],                   weight: 2, uses: nil },
-      "obj:short_sword"      => { text: "short sword",      tags: [:close],                             weight: 1, uses: nil },
-      "obj:longsword"        => { text: "long sword",       tags: [:close, :bonus_damage_1],            weight: 1, uses: nil },
-      "obj:warhammer"        => { text: "warhammer",        tags: [:close],                             weight: 1, uses: nil },
-      "obj:mace"             => { text: "mace",             tags: [:close],                             weight: 1, uses: nil },
-      "obj:staff"            => { text: "staff",            tags: [:close, :two_handed],                weight: 1, uses: nil },
-      "obj:shillelagh"       => { text: "shillelagh",       tags: [:close],                             weight: 2, uses: nil },
-      "obj:spear"            => { text: "spear",            tags: [:close, :thrown, :near],             weight: 1, uses: nil },
-      "obj:halberd"          => { text: "halberd",          tags: [:reach, :two_handed, :bonus_damage_1], weight: 2, uses: nil },
-      "obj:dagger"           => { text: "dagger",           tags: [:hand],                              weight: 1, uses: nil },
-      "obj:hunting_knife"    => { text: "hunting knife",    tags: [:hand],                              weight: 1, uses: nil },
-      "obj:great_axe"        => { text: "great axe",        tags: [:reach, :two_handed, :messy],        weight: 2, uses: nil },
-      "obj:runic_warhammer"  => { text: "runic warhammer",  tags: [:close],                             weight: 1, uses: nil },
-      "obj:signature_weapon" => { text: "signature weapon", tags: [:signature],                         weight: 2, uses: nil },
-  
+      "obj:dueling_rapier"   => { text: "dueling rapier",   tags: [ :close, :precise ],                   weight: 2, uses: nil },
+      "obj:short_sword"      => { text: "short sword",      tags: [ :close ],                             weight: 1, uses: nil },
+      "obj:longsword"        => { text: "long sword",       tags: [ :close, :bonus_damage_1 ],            weight: 1, uses: nil },
+      "obj:warhammer"        => { text: "warhammer",        tags: [ :close ],                             weight: 1, uses: nil },
+      "obj:mace"             => { text: "mace",             tags: [ :close ],                             weight: 1, uses: nil },
+      "obj:staff"            => { text: "staff",            tags: [ :close, :two_handed ],                weight: 1, uses: nil },
+      "obj:shillelagh"       => { text: "shillelagh",       tags: [ :close ],                             weight: 2, uses: nil },
+      "obj:spear"            => { text: "spear",            tags: [ :close, :thrown, :near ],             weight: 1, uses: nil },
+      "obj:halberd"          => { text: "halberd",          tags: [ :reach, :two_handed, :bonus_damage_1 ], weight: 2, uses: nil },
+      "obj:dagger"           => { text: "dagger",           tags: [ :hand ],                              weight: 1, uses: nil },
+      "obj:hunting_knife"    => { text: "hunting knife",    tags: [ :hand ],                              weight: 1, uses: nil },
+      "obj:great_axe"        => { text: "great axe",        tags: [ :reach, :two_handed, :messy ],        weight: 2, uses: nil },
+      "obj:runic_warhammer"  => { text: "runic warhammer",  tags: [ :close ],                             weight: 1, uses: nil },
+      "obj:signature_weapon" => { text: "signature weapon", tags: [ :signature ],                         weight: 2, uses: nil },
+
       # =========================================================================
       # EQUIPMENT — WEAPONS (ranged)
       # =========================================================================
-      "obj:hunters_bow"      => { text: "hunter's bow",    tags: [:near, :far],                        weight: 1, uses: nil },
-      "obj:worn_bow"         => { text: "worn bow",         tags: [:near],                              weight: 2, uses: nil },
-      "obj:ragged_bow"       => { text: "ragged bow",       tags: [:near],                              weight: 2, uses: nil },
-      "obj:arrows"           => { text: "bundle of arrows", tags: [:ammo],                              weight: 1, uses: 3   },
-      "obj:throwing_daggers" => { text: "throwing daggers", tags: [:thrown, :near],                     weight: 0, uses: 3   },
-  
+      "obj:hunters_bow"      => { text: "hunter's bow",    tags: [ :near, :far ],                        weight: 1, uses: nil },
+      "obj:worn_bow"         => { text: "worn bow",         tags: [ :near ],                              weight: 2, uses: nil },
+      "obj:ragged_bow"       => { text: "ragged bow",       tags: [ :near ],                              weight: 2, uses: nil },
+      "obj:arrows"           => { text: "bundle of arrows", tags: [ :ammo ],                              weight: 1, uses: 3   },
+      "obj:throwing_daggers" => { text: "throwing daggers", tags: [ :thrown, :near ],                     weight: 0, uses: 3   },
+
       # =========================================================================
       # EQUIPMENT — CONSUMABLES
       # =========================================================================
-      "obj:dungeon_rations"       => { text: "dungeon rations",     tags: [:consumed],           weight: 1, uses: 5 },
-      "obj:dungeon_rations_extra" => { text: "dungeon rations",     tags: [:consumed],           weight: 1, uses: 5 },
-      "obj:healing_potion"        => { text: "healing potion",      tags: [:consumed],           weight: 0, uses: 1 },
-      "obj:antitoxin"             => { text: "antitoxin",           tags: [:consumed],           weight: 0, uses: 1 },
-      "obj:bandages"              => { text: "bandages",            tags: [:consumed],           weight: 0, uses: 3 },
-      "obj:poultices_and_herbs"   => { text: "poultices and herbs", tags: [:consumed],           weight: 1, uses: 2 },
-      "obj:herbs_and_poultices"   => { text: "herbs and poultices", tags: [:consumed],           weight: 1, uses: 3 },
-      "obj:halfling_pipeleaf"     => { text: "halfling pipeleaf",   tags: [:consumed],           weight: 0, uses: nil },
-      "obj:monster_components"    => { text: "monster components",  tags: [:consumed, :crafting],weight: 1, uses: 2   },
-  
+      "obj:dungeon_rations"       => { text: "dungeon rations",     tags: [ :consumed ],           weight: 1, uses: 5 },
+      "obj:dungeon_rations_extra" => { text: "dungeon rations",     tags: [ :consumed ],           weight: 1, uses: 5 },
+      "obj:healing_potion"        => { text: "healing potion",      tags: [ :consumed ],           weight: 0, uses: 1 },
+      "obj:antitoxin"             => { text: "antitoxin",           tags: [ :consumed ],           weight: 0, uses: 1 },
+      "obj:bandages"              => { text: "bandages",            tags: [ :consumed ],           weight: 0, uses: 3 },
+      "obj:poultices_and_herbs"   => { text: "poultices and herbs", tags: [ :consumed ],           weight: 1, uses: 2 },
+      "obj:herbs_and_poultices"   => { text: "herbs and poultices", tags: [ :consumed ],           weight: 1, uses: 3 },
+      "obj:halfling_pipeleaf"     => { text: "halfling pipeleaf",   tags: [ :consumed ],           weight: 0, uses: nil },
+      "obj:monster_components"    => { text: "monster components",  tags: [ :consumed, :crafting ], weight: 1, uses: 2   },
+
       # =========================================================================
       # EQUIPMENT — POISONS
       # =========================================================================
-      "obj:poison_oil_of_tagit"   => { text: "oil of tagit",      tags: [:poison, :applied],   weight: 0, uses: 1 },
-      "obj:poison_bloodweed"      => { text: "bloodweed",         tags: [:poison, :touch],     weight: 0, uses: 1 },
-      "obj:poison_goldenroot"     => { text: "goldenroot",        tags: [:poison, :applied],   weight: 0, uses: 1 },
-      "obj:poison_serpents_tears" => { text: "serpent's tears",   tags: [:poison, :touch],     weight: 0, uses: 1 },
-      "obj:poison_chosen"         => { text: "chosen poison",     tags: [:poison],             weight: 0, uses: 3 },
-  
+      "obj:poison_oil_of_tagit"   => { text: "oil of tagit",      tags: [ :poison, :applied ],   weight: 0, uses: 1 },
+      "obj:poison_bloodweed"      => { text: "bloodweed",         tags: [ :poison, :touch ],     weight: 0, uses: 1 },
+      "obj:poison_goldenroot"     => { text: "goldenroot",        tags: [ :poison, :applied ],   weight: 0, uses: 1 },
+      "obj:poison_serpents_tears" => { text: "serpent's tears",   tags: [ :poison, :touch ],     weight: 0, uses: 1 },
+      "obj:poison_chosen"         => { text: "chosen poison",     tags: [ :poison ],             weight: 0, uses: 3 },
+
       # =========================================================================
       # EQUIPMENT — GEAR & TOOLS
       # =========================================================================
-      "obj:adventuring_gear"     => { text: "adventuring gear",    tags: [:gear],               weight: 1, uses: nil },
-      "obj:spellbook"            => { text: "spellbook",           tags: [:gear, :fragile],     weight: 1, uses: nil },
-      "obj:bag_of_books"         => { text: "bag of books",        tags: [:gear],               weight: 2, uses: 5   },
-      "obj:holy_symbol"          => { text: "holy symbol",         tags: [:gear, :divine],      weight: 0, uses: nil },
-      "obj:mark_of_faith"        => { text: "mark of faith",       tags: [:gear, :divine],      weight: 0, uses: nil },
-      "obj:land_token"           => { text: "land token",          tags: [:gear],               weight: 0, uses: nil },
-      "obj:rune_chisels"         => { text: "rune chisels",        tags: [:gear, :tools],       weight: 0, uses: nil },
-      "obj:rope"                 => { text: "rope",                tags: [:gear],               weight: 1, uses: nil },
-      "obj:ostentatious_clothes" => { text: "ostentatious clothes",tags: [:worn],               weight: 0, uses: nil }
+      "obj:adventuring_gear"     => { text: "adventuring gear",    tags: [ :gear ],               weight: 1, uses: nil },
+      "obj:spellbook"            => { text: "spellbook",           tags: [ :gear, :fragile ],     weight: 1, uses: nil },
+      "obj:bag_of_books"         => { text: "bag of books",        tags: [ :gear ],               weight: 2, uses: 5   },
+      "obj:holy_symbol"          => { text: "holy symbol",         tags: [ :gear, :divine ],      weight: 0, uses: nil },
+      "obj:mark_of_faith"        => { text: "mark of faith",       tags: [ :gear, :divine ],      weight: 0, uses: nil },
+      "obj:land_token"           => { text: "land token",          tags: [ :gear ],               weight: 0, uses: nil },
+      "obj:rune_chisels"         => { text: "rune chisels",        tags: [ :gear, :tools ],       weight: 0, uses: nil },
+      "obj:rope"                 => { text: "rope",                tags: [ :gear ],               weight: 1, uses: nil },
+      "obj:ostentatious_clothes" => { text: "ostentatious clothes", tags: [ :worn ],               weight: 0, uses: nil }
     }.freeze
 
     module_function

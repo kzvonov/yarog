@@ -10,7 +10,7 @@ module DungeonWorld
       ],
       inventory: {
         weapons: [],
-        equipment: ["adventuring_gear"]
+        equipment: [ "adventuring_gear" ]
       },
       story: {
         bonds: "",
@@ -31,7 +31,7 @@ module DungeonWorld
       ],
       inventory: {
         weapons: [],
-        equipment: ["mining_tools"]
+        equipment: [ "mining_tools" ]
       },
       story: {
         bonds: "",
@@ -52,7 +52,7 @@ module DungeonWorld
       ],
       inventory: {
         weapons: [],
-        equipment: ["elven_cloak"]
+        equipment: [ "elven_cloak" ]
       },
       story: {
         bonds: "",
@@ -73,7 +73,7 @@ module DungeonWorld
       ],
       inventory: {
         weapons: [],
-        equipment: ["shadow_cloak"]
+        equipment: [ "shadow_cloak" ]
       },
       story: {
         bonds: "",
@@ -94,7 +94,7 @@ module DungeonWorld
       ],
       inventory: {
         weapons: [],
-        equipment: ["elven_book"]
+        equipment: [ "elven_book" ]
       },
       story: {
         bonds: "",
@@ -115,7 +115,7 @@ module DungeonWorld
       ],
       inventory: {
         weapons: [],
-        equipment: ["tinker_tools"]
+        equipment: [ "tinker_tools" ]
       },
       story: {
         bonds: "",
@@ -135,7 +135,7 @@ module DungeonWorld
       ],
       inventory: {
         weapons: [],
-        equipment: ["tribal_trophy"]
+        equipment: [ "tribal_trophy" ]
       },
       story: {
         bonds: "",
@@ -155,7 +155,7 @@ module DungeonWorld
       ],
       inventory: {
         weapons: [],
-        equipment: ["bone_club"]
+        equipment: [ "bone_club" ]
       },
       story: {
         bonds: "",
@@ -176,7 +176,7 @@ module DungeonWorld
       ],
       inventory: {
         weapons: [],
-        equipment: ["stolen_trinket"]
+        equipment: [ "stolen_trinket" ]
       },
       story: {
         bonds: "",
@@ -197,7 +197,7 @@ module DungeonWorld
       ],
       inventory: {
         weapons: [],
-        equipment: ["tribal_totem"]
+        equipment: [ "tribal_totem" ]
       },
       story: {
         bonds: "",
@@ -218,7 +218,7 @@ module DungeonWorld
       ],
       inventory: {
         weapons: [],
-        equipment: ["infernal_charm"]
+        equipment: [ "infernal_charm" ]
       },
       story: {
         bonds: "",
@@ -238,7 +238,7 @@ module DungeonWorld
       ],
       inventory: {
         weapons: [],
-        equipment: ["fishing_net"]
+        equipment: [ "fishing_net" ]
       },
       story: {
         bonds: "",
@@ -258,7 +258,7 @@ module DungeonWorld
       ],
       inventory: {
         weapons: [],
-        equipment: ["shell_polish"]
+        equipment: [ "shell_polish" ]
       },
       story: {
         bonds: "",
@@ -338,7 +338,7 @@ module DungeonWorld
     end
 
     def enum
-      list.to_h { [it, it] }
+      list.to_h { [ it, it ] }
     end
 
     def for_select

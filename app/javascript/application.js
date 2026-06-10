@@ -12,10 +12,10 @@ function initCopyHandlers() {
       if (!textToCopy) return;
 
       navigator.clipboard.writeText(textToCopy).then(() => {
-        this.innerHTML = 'Copied...';
+        this.innerHTML = 'copied...';
         setTimeout(() => {
           this.innerHTML = originalContent;
-        }, 200);
+        }, 300);
       }).catch(err => {
         console.error('Failed to copy:', err);
       });

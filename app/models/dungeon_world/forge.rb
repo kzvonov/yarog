@@ -1,9 +1,6 @@
 module DungeonWorld
   module Forge
-
-    BLOCKS = {
-
-  }.freeze
+    BLOCKS = {}.freeze
 
     module_function
 
