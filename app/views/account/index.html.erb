@@ -1,28 +1,32 @@
-<div>
-  <h3 class="capitalize mb-1">basics</h3>
-  <%= form_with model: @account, url: account_path, method: :put do |f| %>
-    <div class="form-group">
-      <%= f.label "Handle (click to copy)", class: "form-label copy-handler", data: { "copy-value": @account.handle } %>
-      <%= f.text_field :handle, value: @account.handle, class: "form-input", disabled: true %>
-    </div>
+<div class="grid-2">
+  <div>
+    <h3 class="capitalize mb-2">basics</h3>
+    <%= form_with model: @account, url: account_path, method: :put do |f| %>
+      <div class="form-group">
+        <%= f.label "Handle (click to copy)", class: "form-label copy-handler", data: { "copy-value": @account.handle } %>
+        <%= f.text_field :handle, value: @account.handle, class: "form-input", disabled: true %>
+      </div>
 
-    <div class="form-group">
-      <%= f.label :locale, class: "form-label" %>
-      <%= f.select :locale, [:en], {}, { class: "form-input" } %>
-    </div>
+      <div class="form-group">
+        <%= f.label :locale, class: "form-label" %>
+        <%= f.select :locale, [:en], {}, { class: "form-input" } %>
+      </div>
 
-    <div class="form-group">
-      <%= f.label :theme, class: "form-label" %>
-      <%= f.select :theme, [:auto, :day, :night], {}, { class: "form-input" } %>
-    </div>
-    
-  <%= f.button "save", class: "btn btn--primary" %>
-  <% end %>
-
-  <h3 class="capitalize mt-2">identies</h3>
-  <ul>
-    <% @account.identities.each do |identity| %>
-      <li><%= identity.provider %>: <%= identity.summary %> </li>
+      <div class="form-group">
+        <%= f.label :theme, class: "form-label" %>
+        <%= f.select :theme, [:auto, :day, :night], {}, { class: "form-input" } %>
+      </div>
+      
+    <%= f.button "save", class: "btn btn--primary" %>
     <% end %>
-  </ul>
+  </div>
+
+  <div>
+    <h3 class="capitalize">identies</h3>
+    <ul>
+      <% @account.identities.each do |identity| %>
+        <li><%= identity.provider %>: <%= identity.summary %> </li>
+      <% end %>
+    </ul>
+  </div>
 </div>

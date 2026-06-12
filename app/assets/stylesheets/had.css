@@ -90,6 +90,12 @@ footer {
   padding: 0;
 }
 
+header {
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--muted);
+}
+
 /* footer {
   border-top: var(--border-w) solid var(--ink);
   text-align: center;
@@ -657,4 +663,21 @@ nav {
 
 select.form-input:focus {
   outline: none;
+}
+
+/* --- GRIDS --- */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  /* mobile: single column → 2 rows */
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .grid-2 {
+    grid-template-columns: repeat(2, max-content);
+    /* or auto / minmax(...) */
+    /* justify-content: end; */
+    /* pushes the whole grid track group to the right */
+  }
 }
