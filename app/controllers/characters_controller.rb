@@ -1,4 +1,4 @@
-class CharactersController < Tg::BaseController
+class CharactersController < ApplicationController
   def index
     @characters = Current.account.characters.select(:id, :type, :origin, :klass, :name).order(id: :desc)
   end

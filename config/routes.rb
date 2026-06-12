@@ -48,9 +48,9 @@ Rails.application.routes.draw do
   namespace :tg do
     root to: "home#index"
     post "auth", to: "home#auth"
-    get "account", to: "account#index"
-    put "account", to: "account#update"
   end
+  get "account", to: "account#index"
+  put "account", to: "account#update"
   resources :characters, only: [ :index, :show, :new, :create ]
 
   namespace :dw, path: "characters/:character_param/dw" do

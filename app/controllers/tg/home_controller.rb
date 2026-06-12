@@ -22,7 +22,7 @@ module Tg
       identity = Identity.find_or_create_from_auth!("telegram", @result.user_data["id"], @result.user_data)
       # TODO: i think we should start the new session based on identity
       start_new_session_for(identity.account)
-      redirect_to tg_account_path
+      redirect_to account_path
     end
 
     def logout
@@ -33,7 +33,7 @@ module Tg
     private
 
     def skip_if_authenticated
-      redirect_to tg_account_path if authenticated?
+      redirect_to account_path if authenticated?
     end
   end
 end

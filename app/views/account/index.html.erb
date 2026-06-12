@@ -1,6 +1,6 @@
 <div>
   <h3 class="capitalize mb-1">basics</h3>
-  <%= form_with model: @account, url: tg_account_path, method: :put do |f| %>
+  <%= form_with model: @account, url: account_path, method: :put do |f| %>
     <div class="form-group">
       <%= f.label "Handle (click to copy)", class: "form-label copy-handler", data: { "copy-value": @account.handle } %>
       <%= f.text_field :handle, value: @account.handle, class: "form-input", disabled: true %>

@@ -33,7 +33,7 @@
     <header>
       <% if Current.session %>
         <div class="mv-1">
-          <%= link_to "account", tg_account_path, class: "topbar-btn " + (controller_path.starts_with?("tg/account") ? "active" : "") %>
+          <%= link_to "account", account_path, class: "topbar-btn " + (controller_path.starts_with?("tg/account") ? "active" : "") %>
           <%= link_to "characters", characters_path, class: "topbar-btn " + (controller_path.starts_with?("characters") ? "active" : "") %>
         </div>
       <% end %>
