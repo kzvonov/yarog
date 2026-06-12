@@ -1,0 +1,81 @@
+.flash-container {
+  position: fixed;
+  top: 1rem;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 0 auto;
+  max-width: 30%;
+  z-index: 9999;
+}
+
+.flash {
+  position: relative;
+  border: 2px solid var(--c);
+  padding: 0.5rem 2rem 0.5rem 0.5rem;
+  margin-bottom: 0.5rem;
+  background: var(--bg);
+  font-family: var(--font-body);
+  cursor: arrow;
+}
+
+.flash-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .10em;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+  font-family: var(--font-label);
+  color: var(--c);
+}
+
+.flash>button {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.2rem;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .10em;
+  /* matches the flash's accent */
+  cursor: pointer;
+
+  -webkit-appearance: none;
+  appearance: none;
+  text-transform: uppercase;
+}
+
+.flash-detail {
+  font-size: 0.8rem;
+  color: var(--muted);
+  display: block;
+  margin: 0;
+}
+
+.flash-detail ul {
+  padding-left: 1.1rem;
+  margin: 0;
+}
+
+.flash.success {
+  --c: var(--pine);
+  --bg: rgba(47, 158, 107, .3);
+}
+
+.flash.alert {
+  --c: var(--blood);
+  --bg: var(--blood-wash);
+}
+
+.flash.notice {
+  --c: var(--muted);
+  --bg: rgba(139, 148, 143, .3);
+}
