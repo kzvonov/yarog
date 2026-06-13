@@ -1,37 +1,24 @@
-<%= form_with url: new_character_path, method: :get do |f| %>
-  <%= f.label :system, "Pick a TTRPG" %>
-  <%= f.select :system, options_for_select(GameSystems::LIST, params[:system]), { prompt: "..." }, { onchange: "this.form.submit()" } %>
+<%= form_with url: new_character_path, method: :get, data: { turbo_action: "replace" } do |f| %>
+  <%= f.group(:system, "Pick a TTRPG") do %>
+    <%= f.select :system,
+        GameSystems::LIST,
+        { selected: params[:system], include_blank: "..." },
+        { onchange: "this.form.requestSubmit()" } %>
+  <% end %>
 <% end %>
 
 <% if @character.type.present? && @character.class.enabled? %>
-  <%= form_with model: @character.becomes(Character), url: tg_characters_path, method: :post do |f| %>
+  <%= form_with model: @character.becomes(Character), url: characters_path, method: :post do |f| %>
     <%= f.hidden_field :type %>
 
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.group(:name) { f.text_field :name, autofocus: true } %>
+    <%= f.group(:klass) { f.select :klass, @character.class.module_parent::Klass.for_select } %>
+    <%= f.group(:origin) { f.select :origin, @character.class.module_parent::Origin.for_select } %>
 
-    <%= f.label :klass %>
-    <%= f.select :klass, @character.class.module_parent::Klass.for_select %>
-
-    <%= f.label :origin %>
-    <%= f.select :origin, @character.class.module_parent::Origin.for_select %>
-
-    <style>
-    .character {
-      width: 200px;
-      height: 200px;
-      background-image: url('/dw_origins_male.png');
-      background-repeat: no-repeat;
-      background-size: 800px 800px; /* or specific size if you want to scale */
-      background-position: -200px -204px;
-      border-radius: 100px;
-      border: 3px solid grey;
-    }
-    </style>
-    <div class="character">
-    </div>
-
-    <%= f.button :create %>
+    <%= f.group("") do %>
+      <%= f.submit "create" %>
+    <% end %>
+    
   <% end %>
 <% elsif @character.type.present? %>
   <p>not supported yet...</p>

@@ -42,6 +42,7 @@
   --ink: #0d1012;
   --muted: #6c767c;
   --blood: #cf1f2e;
+  --accent: #cf1f2e;
   --blood-wash: rgba(207, 31, 46, .10);
   --pine: #1c6e48;
   --field-bg: #fdfcf9;
@@ -54,6 +55,7 @@
   --ink: #f2f6f4;
   --muted: #8b948f;
   --blood: #cf1f2e;
+  --accent: #cf1f2e;
   --blood-wash: rgba(207, 31, 46, .10);
   --pine: #2f9e6b;
   --field-bg: #fefefe;
@@ -630,39 +632,6 @@ nav {
 
 .space-mono {
   font-family: var(--font-body);
-}
-
-/* --- Basic forms --- */
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.form-label {
-  display: block;
-  font-family: var(--font-label);
-  font-size: .7rem;
-  text-transform: uppercase;
-  text-align: left;
-  letter-spacing: .08em;
-  color: var(--ink);
-}
-
-.form-input {
-  min-width: 15rem;
-  display: block;
-  padding: 0.5rem;
-  border: 1px solid var(--ink);
-  background-color: var(--field-bg);
-}
-
-.form-input:disabled {
-  color: var(--ink);
-  background-color: var(--bg);
-  cursor: not-allowed;
-}
-
-select.form-input:focus {
-  outline: none;
 }
 
 /* --- GRIDS --- */
