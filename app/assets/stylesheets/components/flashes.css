@@ -67,15 +67,15 @@
 
 .flash.success {
   --c: var(--pine);
-  --bg: rgba(47, 158, 107, .3);
+  --bg: rgba(47, 158, 107, .9);
 }
 
 .flash.alert {
-  --c: var(--blood);
-  --bg: var(--blood-wash);
+  --c: var(--accent);
+  --bg: var(--surface);
 }
 
 .flash.notice {
   --c: var(--muted);
-  --bg: rgba(139, 148, 143, .3);
+  --bg: rgba(139, 148, 143, .4);
 }

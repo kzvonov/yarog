@@ -1,65 +1,84 @@
 @import url('https://fonts.googleapis.com/css2?family=Pirata+One&family=Oswald:wght@500;700&family=Space+Mono:wght@400;700&display=swap');
 
-/* ============================================================
-   BLOOD ON SNOW  —  tokens
-   ============================================================ */
 :root {
-  /* type roles */
+  /* ── type ─────────────────────────── */
   --font-display: 'Pirata One', serif;
+  /* character names only */
   --font-label: 'Oswald', sans-serif;
+  /* labels / headings / nav */
   --font-body: 'Space Mono', monospace;
+  /* data / numbers / body */
 
-  /* layout */
+  /* ── layout ───────────────────────── */
   --max-width: 1400px;
   --pad: clamp(0.5rem, 4vw, 1rem);
-  --border-w: 1px;
+  --border-w: 2px;
 
-  /* MURK (dark) — default */
-  --bg: #14181a;
-  --surface: #f5f3ee;
-  --ink: #f2f6f4;
-  --muted: #8b948f;
-  --blood: #cf1f2e;
-  /* bad / negative / focus */
-  --blood-wash: rgba(207, 31, 46, .10);
-  --pine: #2f9e6b;
-  /* good / positive */
-  --field-bg: #d9ddda;
-  /* soft off-white input fill */
-  --field-text: #14181a;
-  /* dark text on the fill */
+  /* ════════════════════════════════════
+     DAY — Cinnabar  (also the default)
+     ════════════════════════════════════ */
+  --bg: #eceae2;
+  /* page  — cool-white, the floor          */
+  --surface: #f7f5ef;
+  /* panel — lifted card                    */
+  --field-bg: #ffffff;
+  /* input — brightest, the active slot     */
+  --field-text: #1a1814;
 
-  /* semantic aliases */
-  --link: var(--ink);
-  --pos: var(--pine);
-  --neg: var(--blood);
-  --focus: var(--blood);
+  --ink: #1a1814;
+  /* text / borders                         */
+  --muted: #837d70;
+  /* labels, secondary, field borders       */
+
+  --accent: #d23a26;
+  /* vermillion — interactive / headers / focus */
+  --pos: #4f7a4a;
+  /* positive modifier / success            */
+  --neg: #d23a26;
+  /* negative modifier / danger (hero red)  */
+
+  /* tags — passive metadata, never interactive */
+  --tag: #1a1814;
+  /* default "ink stamp"                 */
+  --tag-text: #f7f5ef;
+  --tag-cool: #3f6076;
+  /* steel blue — neutral / info         */
+  --tag-cool-text: #f7f5ef;
 }
 
 [data-theme="day"] {
   --bg: #f5f3ee;
-  --surface: #f4f5f5;
-  --ink: #0d1012;
-  --muted: #6c767c;
-  --blood: #cf1f2e;
-  --accent: #cf1f2e;
-  --blood-wash: rgba(207, 31, 46, .10);
-  --pine: #1c6e48;
-  --field-bg: #fdfcf9;
-  /* pure white field on the off-white page */
-  --field-text: #0d1012;
+  --surface: #ece8df;
+  --field-bg: #ffffff;
+  --field-text: #1a1814;
+  --ink: #1a1814;
+  --muted: #837d70;
+  --accent: #d23a26;
+  --pos: #4f7a4a;
+  --neg: #d23a26;
+  --tag: #1a1814;
+  --tag-text: #f7f5ef;
+  --tag-cool: #3f6076;
+  --tag-cool-text: #f7f5ef;
 }
 
 [data-theme="night"] {
   --bg: #14181a;
-  --ink: #f2f6f4;
-  --muted: #8b948f;
-  --blood: #cf1f2e;
-  --accent: #cf1f2e;
-  --blood-wash: rgba(207, 31, 46, .10);
-  --pine: #2f9e6b;
+  --surface: #1e2528;
   --field-bg: #fefefe;
   --field-text: #14181a;
+
+  --ink: #f2f6f4;
+  --muted: #8b948f;
+
+  --accent: #cf1f2e;
+  --pos: #2f9e6b;
+  --neg: #cf1f2e;
+
+  --tag: #f2f6f4;
+  --tag-text: #14181a;
+  --tag-cool: #4f7a98;
+  --tag-cool-text: #f2f6f4;
 }
 
 /* ============================================================
@@ -203,7 +222,7 @@ hr {
    ============================================================ */
 a {
   padding: 0.1rem;
-  color: var(--blood);
+  color: var(--accent);
   font-family: var(--font-label);
   text-transform: uppercase;
   letter-spacing: .05em;
@@ -215,7 +234,7 @@ a {
 a.active,
 a:hover {
   /* invert, not blood */
-  background: var(--blood);
+  background: var(--accent);
   color: var(--bg);
   text-decoration: none;
 }
@@ -294,7 +313,7 @@ a[aria-current] {
   text-align: center;
   padding: .4rem;
   outline: 0;
-  caret-color: var(--blood);
+  caret-color: var(--accent);
 }
 
 .field::-webkit-inner-spin-button,
@@ -304,7 +323,7 @@ a[aria-current] {
 }
 
 .field:focus {
-  border-color: var(--blood);
+  border-color: var(--accent);
 }
 
 .field--score {
@@ -380,15 +399,15 @@ textarea:disabled {
 
 /* fill on hover */
 .btn--danger {
-  color: var(--blood);
-  border-color: var(--blood);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 /* destructive */
 .btn--danger:hover {
-  background: var(--blood);
+  background: var(--accent);
   color: #fff;
-  border-color: var(--blood);
+  border-color: var(--accent);
 }
 
 .actions {
@@ -529,7 +548,7 @@ textarea:disabled {
 
 .tab--active .tab-count {
   opacity: 1;
-  color: var(--blood);
+  color: var(--accent);
 }
 
 .tab-panel {
@@ -566,7 +585,7 @@ textarea:disabled {
 }
 
 .tab-panel textarea:focus {
-  border: 1px solid var(--blood);
+  border: 1px solid var(--accent);
 }
 
 .tab-panel textarea:disabled {
