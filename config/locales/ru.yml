@@ -271,6 +271,23 @@ ru:
 
   # In game content
   dungeon_world:
+    text:
+      of: "из"
+      base:
+        level: "уровень"
+        xp: "опыты"
+        coins: "монеты"
+        hp_current: "здоровье"
+        armor: "броня"
+        damage: "урон"
+      stats:
+        str: "сил"
+        dex: "лов"
+        con: "тел"
+        int: "инт"
+        wis: "муд"
+        cha: "хар"
+
     origin:
       human: "человек"
       elf: "эльф"

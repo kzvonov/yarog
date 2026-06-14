@@ -1,0 +1,59 @@
+<%
+  fields_configs = [
+    {
+      type: :number_field,
+      field: :str,
+      value: character.str,
+      modifier: character.stat_modifier(:str)
+    },
+    {
+      type: :number_field,
+      field: :dex,
+      value: character.dex,
+      modifier: character.stat_modifier(:dex)
+    },
+    {
+      type: :number_field,
+      field: :con,
+      value: character.con,
+      modifier: character.stat_modifier(:con)
+    },
+    {
+      type: :number_field,
+      field: :int,
+      value: character.int,
+      modifier: character.stat_modifier(:int)
+    },
+    {
+      type: :number_field,
+      field: :wis,
+      value: character.wis,
+      modifier: character.stat_modifier(:wis)
+    },
+    {
+      type: :number_field,
+      field: :cha,
+      value: character.cha,
+      modifier: character.stat_modifier(:cha)
+    }
+  ]
+
+  fields_configs.map do |config|
+    config[:modifier_class] = "mod-pos" if config[:modifier].to_i > 0
+    config[:modifier_class] = "mod-neg" if config[:modifier].to_i < 0
+    config[:modifier] = "+#{config[:modifier]}" if config[:modifier] > 0
+  end
+%>
+
+<%= form_with url: "", builder: ActionView::Helpers::FormBuilder, class: "dw-base-grid" do |f| %>
+  <% fields_configs.each do |config| %>
+    <div class="attr-cell" data-controller="field" data-action="click->field#focus">
+      <div class="attr-lbl-container">
+        <label class="attr-lbl"><%= I18n.t("dungeon_world.text.stats.#{config[:field]}") %></label>
+        <span class="attr-modifier <%= config[:modifier_class] %>"><%= config[:modifier] %></span>
+      </div>
+
+      <%= f.public_send(config[:type], config[:field], value: config[:value], class: "stat", data: { field_target: "input" }) %>
+    </div>
+  <% end %>
+<% end %>

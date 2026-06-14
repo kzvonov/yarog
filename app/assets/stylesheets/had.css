@@ -52,7 +52,7 @@
   --field-bg: #ffffff;
   --field-text: #1a1814;
   --ink: #1a1814;
-  --muted: #837d70;
+  --muted: #746D63;
   --accent: #d23a26;
   --pos: #4f7a4a;
   --neg: #d23a26;
@@ -346,18 +346,11 @@ textarea:disabled {
 }
 
 /* ability modifier (derived, display-only) */
-.mod {
-  font-family: var(--font-label);
-  font-weight: 700;
-  line-height: 1;
-  margin-bottom: .3rem;
-}
-
-.mod.pos {
+.mod-pos {
   color: var(--pos);
 }
 
-.mod.neg {
+.mod-neg {
   color: var(--neg);
 }
 
@@ -657,7 +650,7 @@ nav {
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr;
-  /* mobile: single column → 2 rows */
+  align-items: end;
   gap: 2rem;
 }
 
@@ -667,5 +660,11 @@ nav {
     /* or auto / minmax(...) */
     /* justify-content: end; */
     /* pushes the whole grid track group to the right */
+  }
+}
+
+@media (max-width: 780px) {
+  .grid-2 {
+    gap: 0;
   }
 }

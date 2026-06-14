@@ -32,6 +32,23 @@ en:
 
   # In game content
   dungeon_world:
+    text:
+      of: "of"
+      base:
+        level: "lvl"
+        xp: "XP"
+        coins: "coins"
+        hp_current: "hp"
+        armor: "armor"
+        damage: "damage"
+      stats:
+        str: "str"
+        dex: "dex"
+        con: "con"
+        int: "int"
+        wis: "wis"
+        cha: "cha"
+
     origin:
       human: "human"
       elf: "elf"

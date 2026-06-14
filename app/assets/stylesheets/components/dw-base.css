@@ -1,0 +1,116 @@
+.dw-base-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+@media (max-width: 600px) {
+  .dw-base-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  form.dw-base-grid {
+    margin-bottom: 1rem;
+  }
+
+
+  .attr-cell:nth-of-type(4) {
+    border-left: 0;
+  }
+}
+
+.attr-cell {
+  background: var(--surface);
+  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  border-bottom: 1px solid var(--ink);
+  border-left: 1px solid var(--ink);
+}
+
+.attr-cell:first-of-type {
+  border-left: 0;
+}
+
+.attr-cell:focus-within {
+  background: var(--field-bg);
+  border-bottom-color: var(--accent);
+}
+
+.attr-cell:focus-within .attr-lbl {
+  color: var(--accent);
+}
+
+.attr-lbl-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* align-items: center; */
+}
+
+.attr-lbl {
+  font-family: var(--fonr-label);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.15rem;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.attr-modifier {
+  width: 2.5rem;
+  margin-left: 0.5rem;
+  border: 1px dashed var(--muted);
+  border-radius: 1.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-family: var(--font-display);
+}
+
+.attr-cell input {
+  font-family: 'Space Mono', monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  width: 8ch;
+  max-width: 100%;
+}
+
+.attr-cell input.stat {
+  margin-top: -0.5rem;
+}
+
+/* disabled looks identical — no grey-out */
+.attr-cell input:disabled {
+  color: var(--ink);
+  opacity: 1;
+  cursor: default;
+}
+
+/* kill number spinners */
+.attr-cell input[type="number"]::-webkit-inner-spin-button,
+.attr-cell input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.attr-cell input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.attr-sub {
+  font-weight: 400;
+  letter-spacing: initial;
+  font-family: var(--font-bg);
+  font-size: 0.7rem;
+  color: var(--muted);
+}
